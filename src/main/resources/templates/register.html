@@ -1,122 +1,86 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{base::layout(~{::section})}">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Đăng ký tài khoản</title>
 </head>
 <body>
 	<section>
 		<div class="container mt-5 p-5">
-			<div class="row">
-				<div class="col-md-5 p-5">
-					<img alt="" src="img/ecom.png" width="100%" height="400px">
-				</div>
-				<div class="col-md-7 p-2">
-					<div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
+			<div class="row justify-content-center">
+				<div class="col-md-8 p-2">
+					<div class="card auth-card" style="max-width: 800px;">
 						<div class="card-header text-center">
-							<p class="fs-4 text-center">Register</p>
-							<th:block th:if="${session.succMsg}">
-								<p class="text-success fw-bold">[[${session.succMsg}]]</p>
-								<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
-							</th:block>
-
-							<th:block th:if="${session.errorMsg}">
-								<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
-								<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
-							</th:block>
+							<p class="fs-4 text-center mb-0">Đăng ký tài khoản</p>
 						</div>
-						<div class="card-body">
-							<form action="/saveUser" enctype="multipart/form-data" id="userRegister" novalidate
-								method="post">
-								<div class="row">
-									<div class="col">
-										<label class="form-label">Full Name</label> <input required
-											class="form-control" name="name" type="text">
+						<div class="card-body p-4">
+							<form action="/saveUser" enctype="multipart/form-data" id="userRegister" novalidate method="post">
+								<div class="row mb-3">
+									<div class="col-md-6">
+										<label class="form-label fw-bold">Họ và tên</label> 
+										<input required class="form-control" name="name" type="text" placeholder="Nhập họ và tên">
 									</div>
 
-									<div class="col">
-										<label class="form-label">Mobile Number</label> <input
-											required class="form-control" name="mobileNumber"
-											type="number">
+									<div class="col-md-6">
+										<label class="form-label fw-bold">Số điện thoại</label> 
+										<input required class="form-control" name="mobileNumber" type="text" placeholder="Nhập số điện thoại">
 									</div>
-
 								</div>
 
 								<div class="mb-3">
-									<label class="form-label">Email</label> <input required
-										class="form-control" name="email" type="email">
+									<label class="form-label fw-bold">Email</label> 
+									<input required class="form-control" name="email" type="email" placeholder="Nhập email">
 								</div>
 
-
-								<div class="row">
-									<div class="col">
-										<label class="form-label">Address</label> <input required
-											class="form-control" name="address" type="text">
+								<div class="row mb-3">
+									<div class="col-md-12 mb-3">
+										<label class="form-label fw-bold">Địa chỉ</label> 
+										<input required class="form-control" name="address" type="text" placeholder="Số nhà, Tên đường">
 									</div>
 
-									<div class="col">
-										<label class="form-label">City</label> <input required
-											class="form-control" name="city" type="text">
+									<div class="col-md-4">
+										<label class="form-label fw-bold">Tỉnh/Thành phố</label> 
+										<input required class="form-control" name="city" type="text">
 									</div>
-
+									<div class="col-md-4">
+										<label class="form-label fw-bold">Phường/Xã</label> 
+										<input required class="form-control" name="state" type="text">
+									</div>
+									<div class="col-md-4">
+										<label class="form-label fw-bold">Mã bưu chính</label> 
+										<input required class="form-control" name="pincode" type="number">
+									</div>
 								</div>
 
-								<div class="row">
-									<div class="col">
-										<label class="form-label">State</label> <input required
-											class="form-control" name="state" type="text">
+								<div class="row mb-3">
+									<div class="col-md-6">
+										<label class="form-label fw-bold">Mật khẩu</label> 
+										<input required class="form-control" name="password" type="password" id="pass" placeholder="Nhập mật khẩu">
 									</div>
 
-									<div class="col">
-										<label class="form-label">Pincode</label> <input required
-											class="form-control" name="pincode" type="number">
+									<div class="col-md-6">
+										<label class="form-label fw-bold">Xác nhận mật khẩu</label> 
+										<input required class="form-control" name="confirmpassword" type="password" placeholder="Nhập lại mật khẩu">
 									</div>
-
 								</div>
 
-
-								<div class="row">
-									<div class="col">
-										<label class="form-label">Password</label> <input required
-											class="form-control" name="password" type="password" id="pass">
-									</div>
-
-									<div class="col">
-										<label class="form-label">Confirm Password</label> <input
-											required class="form-control" name="confirmpassword"
-											type="password">
-									</div>
-
+								<div class="mb-4">
+									<label class="form-label fw-bold">Ảnh đại diện</label> 
+									<input class="form-control" name="img" type="file" accept="image/*">
 								</div>
 
-
-
-								<div class="mb-3">
-									<label class="form-label">Profile Image</label> <input
-										class="form-control" name="img" type="file">
-								</div>
-
-
-
-
-
-
-								<button type="submit"
-									class="btn bg-primary text-white col-md-12">Register</button>
+								<button type="submit" class="btn btn-primary w-100 py-2 fs-5">Đăng ký</button>
 							</form>
 						</div>
 
-						<div class="card-footer text-center">
-
-							have an account ? <a href="/login" class="text-decoration-none">Login
-							</a>
+						<div class="card-footer text-center bg-white py-3">
+							Đã có tài khoản? <a href="/signin" class="text-decoration-none fw-bold text-primary">Đăng nhập</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
 	</section>
 </body>
 </html>

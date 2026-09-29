@@ -21,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		UserDtls user = userRepository.findByEmail(username);
 
 		if (user == null) {
-			throw new UsernameNotFoundException("user not found");
+			throw new UsernameNotFoundException("Không tìm thấy người dùng");
 		}
 		return new CustomUser(user);
 	}

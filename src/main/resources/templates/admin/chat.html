@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Trung tâm Hỗ trợ Khách hàng (1-on-1 CSKH)</title>
+</head>
+<body>
+	<section class="mt-4 pt-3">
+		<div class="container-fluid px-4 mb-5">
+			<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+				<!-- Header Bar -->
+				<div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+					<div class="d-flex align-items-center gap-3">
+						<a href="/admin/" class="btn btn-outline-secondary btn-sm rounded-pill">
+							<i class="fa-solid fa-arrow-left me-1"></i>Bảng điều khiển
+						</a>
+						<h5 class="mb-0 fw-bold text-primary">
+							<i class="fa-solid fa-headset me-2"></i>Trung tâm CSKH Trực tuyến (1-on-1)
+						</h5>
+					</div>
+					<div class="d-flex align-items-center gap-2">
+						<span id="admin-chat-status" class="badge bg-success rounded-pill px-3 py-2">
+							<i class="fa-solid fa-circle me-1" style="font-size: 0.6rem;"></i>Đang kết nối...
+						</span>
+						<button class="btn btn-sm btn-outline-primary rounded-pill px-3" onclick="loadConversationsList()">
+							<i class="fa-solid fa-arrows-rotate me-1"></i>Làm mới
+						</button>
+					</div>
+				</div>
+
+				<!-- Main Console Body -->
+				<div class="card-body p-0">
+					<div class="row g-0" style="height: 620px;">
+						<!-- Left Sidebar: Customer Conversations List -->
+						<div class="col-md-4 col-lg-3 border-end bg-light d-flex flex-column h-100">
+							<!-- Search & Stats Header -->
+							<div class="p-3 border-bottom bg-white">
+								<div class="d-flex justify-content-between align-items-center mb-2">
+									<span class="fw-bold text-secondary small text-uppercase">Khách hàng</span>
+									<span id="conversation-count-badge" class="badge bg-primary-subtle text-primary rounded-pill">0 cuộc trò chuyện</span>
+								</div>
+								<div class="input-group input-group-sm">
+									<span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+									<input type="text" id="search-customer-input" class="form-control bg-light border-start-0" placeholder="Tìm theo tên hoặc email..." oninput="filterConversations()">
+								</div>
+							</div>
+
+							<!-- Conversations Scrollable List -->
+							<div class="flex-grow-1 overflow-auto" id="conversations-list-container">
+								<div class="text-center text-muted p-4 small">
+									<div class="spinner-border spinner-border-sm text-primary mb-2" role="status"></div>
+									<div>Đang tải danh sách hội thoại...</div>
+								</div>
+							</div>
+
+							<!-- Admin Profile Badge -->
+							<div class="p-3 border-top bg-white mt-auto">
+								<div class="d-flex align-items-center gap-2">
+									<div class="rounded-circle bg-danger text-white d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+										<i class="fa-solid fa-user-shield"></i>
+									</div>
+									<div class="overflow-hidden">
+										<span class="fw-bold text-dark d-block text-truncate small">[[${user != null ? user.name : 'Quản trị viên'}]]</span>
+										<small class="text-muted d-block text-truncate" style="font-size: 0.75rem;">[[${user != null ? user.email : 'admin@gmail.com'}]]</small>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Right Pane: 1-on-1 Chat Conversation -->
+						<div class="col-md-8 col-lg-9 d-flex flex-column h-100 bg-white">
+							<!-- Chat Room Header -->
+							<div class="p-3 border-bottom bg-white d-flex justify-content-between align-items-center" id="chat-header">
+								<div class="d-flex align-items-center gap-3" id="active-customer-info">
+									<div class="rounded-circle bg-primary-subtle text-primary d-flex align-items-center justify-content-center fw-bold fs-5" style="width: 44px; height: 44px;" id="header-avatar">
+										<i class="fa-solid fa-user"></i>
+									</div>
+									<div>
+										<h6 class="mb-0 fw-bold text-dark" id="header-customer-name">Vui lòng chọn khách hàng</h6>
+										<small class="text-muted" id="header-customer-id">Chọn từ danh sách bên trái để phản hồi riêng</small>
+									</div>
+								</div>
+								<div id="header-actions" class="d-none">
+									<button class="btn btn-sm btn-outline-secondary rounded-pill" onclick="refreshActiveConversation()" title="Tải lại tin nhắn">
+										<i class="fa-solid fa-rotate-right me-1"></i>Tải lại
+									</button>
+								</div>
+							</div>
+
+							<!-- Chat Messages Window -->
+							<div class="flex-grow-1 p-4 overflow-auto" id="admin-chat-messages" style="background-color: #f7f9fa;">
+								<div class="h-100 d-flex flex-column align-items-center justify-content-center text-muted" id="chat-placeholder">
+									<i class="fa-regular fa-comments fs-1 mb-3 text-secondary opacity-50"></i>
+									<h6 class="fw-bold">Chưa chọn cuộc trò chuyện</h6>
+									<p class="small text-center mb-0" style="max-width: 320px;">
+										Nhấp vào một khách hàng ở cột bên trái để xem lịch sử trò chuyện và phản hồi riêng tư với khách hàng đó.
+									</p>
+								</div>
+							</div>
+
+							<!-- Chat Input Form -->
+							<div class="p-3 border-top bg-white">
+								<form id="admin-chat-form" onsubmit="sendAdminReply(event)" class="d-flex gap-2">
+									<input type="text" id="admin-chat-input" class="form-control rounded-pill px-4" placeholder="Nhập câu trả lời riêng cho khách hàng này..." autocomplete="off" disabled required>
+									<button type="submit" id="admin-chat-submit" class="btn btn-primary rounded-pill px-4 fw-bold" style="background: #1e3c72;" disabled>
+										<i class="fa-solid fa-paper-plane me-1"></i>Gửi
+									</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- STOMP & SockJS Scripts -->
+		<script th:inline="javascript">
+			var adminName = /*[[${user != null ? user.name : 'Quản trị viên'}]]*/ 'Quản trị viên';
+			var adminStomp = null;
+			var currentCustomerId = null;
+			var currentCustomerName = null;
+			var allConversations = [];
+
+			// 1. Initialize WebSocket Connection
+			function connectAdminChat() {
+				var socket = new SockJS('/ws');
+				adminStomp = Stomp.over(socket);
+				adminStomp.debug = null; // disable noisy stomp logs
+				adminStomp.connect({}, function (frame) {
+					var statusBadge = document.getElementById('admin-chat-status');
+					statusBadge.className = 'badge bg-success rounded-pill px-3 py-2';
+					statusBadge.innerHTML = '<i class="fa-solid fa-circle me-1" style="font-size: 0.6rem;"></i>Đã kết nối trực tiếp';
+
+					// Subscribe to Admin channel to receive notifications from ALL customers
+					adminStomp.subscribe('/topic/admin', function (message) {
+						var msg = JSON.parse(message.body);
+						handleIncomingMessage(msg);
+					});
+				}, function(error) {
+					var statusBadge = document.getElementById('admin-chat-status');
+					statusBadge.className = 'badge bg-danger rounded-pill px-3 py-2';
+					statusBadge.innerHTML = 'Mất kết nối';
+					console.error("WebSocket connection error:", error);
+				});
+			}
+
+			// 2. Fetch conversations list from REST API
+			function loadConversationsList() {
+				fetch('/api/chat/conversations')
+					.then(function(res) { return res.json(); })
+					.then(function(data) {
+						allConversations = data || [];
+						renderConversations(allConversations);
+						
+						// Auto select first customer if none selected yet
+						if (!currentCustomerId && allConversations.length > 0) {
+							selectCustomer(allConversations[0].customerId, allConversations[0].customerName);
+						}
+					})
+					.catch(function(err) {
+						console.error("Failed to fetch conversations:", err);
+						document.getElementById('conversations-list-container').innerHTML = 
+							'<div class="p-3 text-danger small text-center">Không thể tải danh sách khách hàng.</div>';
+					});
+			}
+
+			// 3. Render Conversations in left sidebar
+			function renderConversations(list) {
+				var container = document.getElementById('conversations-list-container');
+				document.getElementById('conversation-count-badge').innerText = list.length + ' cuộc trò chuyện';
+
+				if (list.length === 0) {
+					container.innerHTML = '<div class="p-4 text-center text-muted small"><i class="fa-regular fa-comment-dots fs-3 mb-2 d-block opacity-50"></i>Chưa có khách hàng nào gửi tin nhắn.</div>';
+					return;
+				}
+
+				var html = '<div class="list-group list-group-flush">';
+				list.forEach(function(c) {
+					var isActive = (c.customerId === currentCustomerId);
+					var initial = (c.customerName || 'K').charAt(0).toUpperCase();
+					var unreadBadge = (c.unreadCount > 0) 
+						? '<span class="badge bg-danger rounded-pill px-2 py-1 small">' + c.unreadCount + ' mới</span>'
+						: '';
+
+					html += '<button type="button" onclick="selectCustomer(\'' + escapeHtml(c.customerId) + '\', \'' + escapeHtml(c.customerName) + '\')" '
+						+ 'class="list-group-item list-group-item-action p-3 border-bottom ' + (isActive ? 'bg-primary-subtle text-primary fw-bold' : '') + '">'
+						+ '<div class="d-flex align-items-center gap-2">'
+						+ '  <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold flex-shrink-0" '
+						+ '       style="width: 38px; height: 38px; background: ' + stringToColor(c.customerId) + ';">' + initial + '</div>'
+						+ '  <div class="flex-grow-1 overflow-hidden">'
+						+ '    <div class="d-flex justify-content-between align-items-center mb-1">'
+						+ '      <span class="text-truncate d-inline-block" style="max-width: 140px;">' + escapeHtml(c.customerName) + '</span>'
+						+ '      <small class="text-muted" style="font-size: 0.72rem;">' + (c.lastMessageTime || '') + '</small>'
+						+ '    </div>'
+						+ '    <div class="d-flex justify-content-between align-items-center">'
+						+ '      <small class="text-secondary text-truncate d-inline-block" style="max-width: 130px; font-size: 0.75rem;">' + escapeHtml(c.customerId) + '</small>'
+						+ '      ' + unreadBadge
+						+ '    </div>'
+						+ '  </div>'
+						+ '</div>'
+						+ '</button>';
+				});
+				html += '</div>';
+				container.innerHTML = html;
+			}
+
+			// Filter conversations via search bar
+			function filterConversations() {
+				var query = document.getElementById('search-customer-input').value.toLowerCase().trim();
+				if (!query) {
+					renderConversations(allConversations);
+					return;
+				}
+				var filtered = allConversations.filter(function(c) {
+					return (c.customerName && c.customerName.toLowerCase().includes(query)) ||
+					       (c.customerId && c.customerId.toLowerCase().includes(query));
+				});
+				renderConversations(filtered);
+			}
+
+			// 4. Select a customer to open 1-on-1 private chat
+			function selectCustomer(customerId, customerName) {
+				currentCustomerId = customerId;
+				currentCustomerName = customerName;
+
+				// Update header UI
+				document.getElementById('header-avatar').innerHTML = (customerName || 'K').charAt(0).toUpperCase();
+				document.getElementById('header-avatar').style.background = stringToColor(customerId);
+				document.getElementById('header-avatar').className = 'rounded-circle text-white d-flex align-items-center justify-content-center fw-bold fs-5';
+				document.getElementById('header-customer-name').innerText = customerName;
+				document.getElementById('header-customer-id').innerHTML = '<i class="fa-solid fa-id-badge me-1"></i>' + customerId;
+				document.getElementById('header-actions').classList.remove('d-none');
+
+				// Enable input and submit button
+				var input = document.getElementById('admin-chat-input');
+				input.disabled = false;
+				input.placeholder = 'Nhập tin nhắn gửi riêng cho ' + customerName + '...';
+				document.getElementById('admin-chat-submit').disabled = false;
+				input.focus();
+
+				// Re-render sidebar to highlight active item & clear unread badge in memory
+				allConversations.forEach(function(c) {
+					if (c.customerId === customerId) {
+						c.unreadCount = 0;
+					}
+				});
+				renderConversations(allConversations);
+
+				// Mark read on server
+				fetch('/api/chat/mark-read?customerId=' + encodeURIComponent(customerId), { method: 'POST' });
+
+				// Load message history with this customer
+				loadConversationHistory(customerId);
+			}
+
+			function refreshActiveConversation() {
+				if (currentCustomerId) {
+					loadConversationHistory(currentCustomerId);
+				}
+			}
+
+			// 5. Load message history of selected customer
+			function loadConversationHistory(customerId) {
+				var container = document.getElementById('admin-chat-messages');
+				container.innerHTML = '<div class="text-center text-muted p-4 small"><div class="spinner-border spinner-border-sm text-primary mb-2"></div><div>Đang tải tin nhắn...</div></div>';
+
+				fetch('/api/chat/history?customerId=' + encodeURIComponent(customerId))
+					.then(function(res) { return res.json(); })
+					.then(function(messages) {
+						container.innerHTML = '';
+						if (!messages || messages.length === 0) {
+							container.innerHTML = '<div class="text-center text-muted small my-3">Chưa có tin nhắn nào trong hội thoại này.</div>';
+							return;
+						}
+						messages.forEach(function(m) {
+							renderMessageBubble(m.role === 'ROLE_ADMIN', m.sender, m.role, m.content, m.formattedTime);
+						});
+						container.scrollTop = container.scrollHeight;
+					})
+					.catch(function(err) {
+						console.error("Failed to load history:", err);
+						container.innerHTML = '<div class="text-center text-danger small my-3">Lỗi tải lịch sử tin nhắn.</div>';
+					});
+			}
+
+			// 6. Handle real-time incoming message from WebSocket
+			function handleIncomingMessage(msg) {
+				// If message belongs to currently active conversation, render it directly
+				if (msg.customerId === currentCustomerId) {
+					renderMessageBubble(msg.role === 'ROLE_ADMIN', msg.sender, msg.role, msg.content, msg.timestamp);
+					// Mark as read
+					if (msg.role === 'USER') {
+						fetch('/api/chat/mark-read?customerId=' + encodeURIComponent(currentCustomerId), { method: 'POST' });
+					}
+				}
+
+				// Update or re-fetch conversations list
+				var found = false;
+				for (var i = 0; i < allConversations.length; i++) {
+					if (allConversations[i].customerId === msg.customerId) {
+						found = true;
+						allConversations[i].lastMessageTime = msg.timestamp || 'Vừa xong';
+						if (msg.customerId !== currentCustomerId && msg.role === 'USER') {
+							allConversations[i].unreadCount = (allConversations[i].unreadCount || 0) + 1;
+						}
+						// Move this conversation to the top
+						var item = allConversations.splice(i, 1)[0];
+						allConversations.unshift(item);
+						break;
+					}
+				}
+
+				if (!found) {
+					// Brand new conversation started by a customer
+					allConversations.unshift({
+						customerId: msg.customerId,
+						customerName: msg.customerName || msg.customerId,
+						lastMessageTime: msg.timestamp || 'Vừa xong',
+						unreadCount: (msg.customerId !== currentCustomerId && msg.role === 'USER') ? 1 : 0
+					});
+				}
+
+				renderConversations(allConversations);
+			}
+
+			// 7. Send Admin Reply to Customer
+			function sendAdminReply(event) {
+				event.preventDefault();
+				if (!currentCustomerId) return;
+
+				var input = document.getElementById('admin-chat-input');
+				var text = input.value.trim();
+				if (text && adminStomp) {
+					var payload = {
+						customerId: currentCustomerId,
+						customerName: currentCustomerName,
+						sender: adminName,
+						content: text,
+						type: 'CHAT',
+						role: 'ROLE_ADMIN'
+					};
+					adminStomp.send("/app/chat.replyCustomer", {}, JSON.stringify(payload));
+					input.value = '';
+				}
+			}
+
+			// 8. Helper to render bubble in chat window
+			function renderMessageBubble(isAdmin, sender, role, content, time) {
+				var container = document.getElementById('admin-chat-messages');
+				var wrapper = document.createElement('div');
+				wrapper.className = 'd-flex mb-3 ' + (isAdmin ? 'justify-content-end' : 'justify-content-start');
+
+				var bubble = document.createElement('div');
+				bubble.className = 'p-3 rounded-4 shadow-sm ' + (isAdmin ? 'bg-primary text-white' : 'bg-white border text-dark');
+				bubble.style.maxWidth = '75%';
+
+				var headerDiv = document.createElement('div');
+				headerDiv.className = 'd-flex justify-content-between align-items-center mb-1 gap-3';
+
+				var nameTag = document.createElement('span');
+				nameTag.className = 'fw-bold small ' + (isAdmin ? 'text-white-50' : 'text-primary');
+				nameTag.innerText = isAdmin ? 'Bạn (Quản trị viên)' : (sender || 'Khách hàng');
+
+				var timeTag = document.createElement('small');
+				timeTag.className = isAdmin ? 'text-white-50' : 'text-muted';
+				timeTag.style.fontSize = '0.72rem';
+				timeTag.innerText = time || '';
+
+				headerDiv.appendChild(nameTag);
+				headerDiv.appendChild(timeTag);
+
+				var bodyDiv = document.createElement('div');
+				bodyDiv.className = 'text-break';
+				bodyDiv.innerText = content;
+
+				bubble.appendChild(headerDiv);
+				bubble.appendChild(bodyDiv);
+				wrapper.appendChild(bubble);
+				container.appendChild(wrapper);
+				container.scrollTop = container.scrollHeight;
+			}
+
+			function escapeHtml(text) {
+				if (!text) return '';
+				return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+			}
+
+			function stringToColor(str) {
+				if (!str) return '#1e3c72';
+				var hash = 0;
+				for (var i = 0; i < str.length; i++) {
+					hash = str.charCodeAt(i) + ((hash << 5) - hash);
+				}
+				var colors = ['#1e3c72', '#2a5298', '#11998e', '#38ef7d', '#ee0979', '#ff6a00', '#8e2de2', '#4a00e0', '#00b09b', '#96c93d'];
+				return colors[Math.abs(hash) % colors.length];
+			}
+
+			document.addEventListener("DOMContentLoaded", function() {
+				connectAdminChat();
+				loadConversationsList();
+			});
+		</script>
+	</section>
+</body>
+</html>

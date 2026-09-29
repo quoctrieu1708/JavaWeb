@@ -25,6 +25,7 @@ public class AuthFailureHandlerImpl extends SimpleUrlAuthenticationFailureHandle
 	private UserRepository userRepository;
 
 	@Autowired
+	@org.springframework.context.annotation.Lazy
 	private UserService userService;
 
 	@Override
@@ -41,26 +42,27 @@ public class AuthFailureHandlerImpl extends SimpleUrlAuthenticationFailureHandle
 
 				if (userDtls.getAccountNonLocked()) {
 
-					if (userDtls.getFailedAttempt() < AppConstant.ATTEMPT_TIME) {
+					if (userDtls.getFailedAttempt() < AppConstant.ATTEMPT_TIME - 1) {
 						userService.increaseFailedAttempt(userDtls);
 					} else {
+						userService.increaseFailedAttempt(userDtls);
 						userService.userAccountLock(userDtls);
-						exception = new LockedException("Your account is locked !! failed attempt 3");
+						exception = new LockedException("Tài khoản đã bị khóa do nhập sai 3 lần liên tiếp!");
 					}
 				} else {
 
 					if (userService.unlockAccountTimeExpired(userDtls)) {
-						exception = new LockedException("Your account is unlocked !! Please try to login");
+						exception = new LockedException("Tài khoản đã được mở khóa! Vui lòng đăng nhập lại.");
 					} else {
-						exception = new LockedException("your account is Locked !! Please try after sometimes");
+						exception = new LockedException("Tài khoản đang bị khóa! Vui lòng thử lại sau.");
 					}
 				}
 
 			} else {
-				exception = new LockedException("your account is inactive");
+				exception = new LockedException("Tài khoản của bạn đã bị vô hiệu hóa.");
 			}
 		} else {
-			exception = new LockedException("Email & password invalid");
+			exception = new LockedException("Email hoặc mật khẩu không chính xác.");
 		}
 
 		super.setDefaultFailureUrl("/signin?error");

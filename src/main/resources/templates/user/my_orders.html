@@ -1,59 +1,90 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{base::layout(~{::section})}">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Đơn hàng của tôi</title>
 </head>
 <body>
-	<section>
-		<div class="container mt-5 p-5">
-			<div class="row">
-				<p class="text-center fs-3">My Orders</p>
-				<th:block th:if="${session.succMsg}">
-					<p class="text-success fw-bold text-center">[[${session.succMsg}]]</p>
-					<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
-				</th:block>
+	<section class="mt-4 pt-3">
+		<div class="container-fluid px-4 mb-5">
+			<div class="card border-0 shadow-sm rounded-4">
+				<div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+					<h5 class="mb-0 fw-bold text-primary">
+						<i class="fa-solid fa-box-archive me-2"></i>Đơn hàng của tôi
+					</h5>
+					<a href="/products" class="btn btn-sm btn-outline-primary rounded-pill">
+						<i class="fa-solid fa-cart-shopping me-1"></i>Tiếp tục mua hàng
+					</a>
+				</div>
+				<div class="card-body p-4">
+					<div th:if="${orders == null or orders.isEmpty()}" class="text-center py-5">
+						<i class="fa-solid fa-cart-flatbed fs-1 text-muted mb-3 d-block"></i>
+						<h6 class="text-secondary">Bạn chưa có đơn hàng nào</h6>
+						<p class="text-muted small">Hãy khám phá các sản phẩm hot và đặt hàng ngay hôm nay.</p>
+						<a href="/products" class="btn btn-primary rounded-pill px-4 btn-sm">Khám phá sản phẩm</a>
+					</div>
 
-				<th:block th:if="${session.errorMsg}">
-					<p class="text-danger fw-bold text-center">[[${session.errorMsg}]]</p>
-					<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
-				</th:block>
-				<div class="col-md-12 ">
+					<div th:unless="${orders == null or orders.isEmpty()}" class="table-responsive">
+						<table class="table table-bordered table-hover align-middle text-center mb-0">
+							<thead class="table-light">
+								<tr>
+									<th scope="col">Mã đơn</th>
+									<th scope="col">Ngày đặt</th>
+									<th scope="col">Sản phẩm</th>
+									<th scope="col">Số lượng</th>
+									<th scope="col">Đơn giá</th>
+									<th scope="col">Thành tiền</th>
+									<th scope="col">Trạng thái</th>
+									<th scope="col">Thao tác</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="o:${orders}">
+									<th scope="row" class="fw-bold text-primary small">
+										#[[${o.orderId.substring(0, 8)}]]
+										<div th:if="${o.voucherCode != null}" class="mt-1">
+											<span class="badge bg-success-subtle text-success border small">[[${o.voucherCode}]]</span>
+										</div>
+									</th>
+									<td class="small">[[${o.orderDate}]]</td>
+									<td class="fw-bold text-start ps-3">
+										<a th:href="@{'/product/'+${o.product.id}}" class="text-decoration-none text-dark">
+											[[${o.product.title}]]
+										</a>
+									</td>
+									<td class="fw-bold">[[${o.quantity}]]</td>
+									<td>[[${#numbers.formatDecimal(o.price, 0, 'POINT', 0, 'COMMA')}]]đ</td>
+									<td class="fw-bold text-danger">[[${#numbers.formatDecimal(o.price * o.quantity, 0, 'POINT', 0, 'COMMA')}]]đ</td>
+									<td>
+										<span th:if="${o.status == 'Đã hủy' || o.status == 'Cancelled'}" class="badge bg-danger rounded-pill px-3 py-1">[[${o.status}]]</span>
+										<span th:if="${o.status == 'Đã giao hàng' || o.status == 'Delivered'}" class="badge bg-success rounded-pill px-3 py-1">[[${o.status}]]</span>
+										<span th:unless="${o.status == 'Đã hủy' || o.status == 'Cancelled' || o.status == 'Đã giao hàng' || o.status == 'Delivered'}" class="badge bg-primary rounded-pill px-3 py-1">[[${o.status}]]</span>
+									</td>
+									<td>
+										<div class="d-flex justify-content-center gap-1">
+											<!-- PDF Invoice Download -->
+											<a th:href="@{'/user/order/invoice/' + ${o.orderId}}" class="btn btn-sm btn-outline-danger px-2 py-1 rounded-pill" title="Tải hóa đơn PDF">
+												<i class="fa-solid fa-file-pdf me-1"></i>Hóa đơn
+											</a>
 
-					<table class="table table-bordered card-sh">
-						<thead >
-							<tr >
-								<th scope="col">Order Id</th>
-								<th scope="col">Date</th>
-								<th scope="col">Product Details</th>
-								<th scope="col">Price</th>
-								<th scope="col">Status</th>
-								<th scope="col">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="o:${orders}">
-								<th scope="row">[[${o.orderId}]]</th>
-								<td>[[${o.orderDate}]]</td>
-								<td>[[${o.product.title}]]</td>
-								<td>Quantity : [[${o.quantity}]] <br>Price :
-									[[${o.price}]] <br>Total Price :[[${o.quantity *
-									o.price}]]
-								</td>
-								<td>[[${o.status}]]</td>
-								<td><th:block th:if="${o.status!='Cancelled'}">
-										<a th:href="@{'/user/update-status?id='+${o.id}+'&st=6' }"
-											class="btn btn-sm btn-danger">Cancel</a>
-									</th:block> <th:block th:unless="${o.status!='Cancelled'}">
-										<a href="#" class="btn btn-sm btn-danger disabled" >Cancel</a>
-									</th:block></td>
-							</tr>
-						</tbody>
-					</table>
+											<!-- Cancel button -->
+											<th:block th:if="${o.status!='Đã hủy' && o.status!='Cancelled' && o.status!='Đã giao hàng' && o.status!='Delivered'}">
+												<a th:href="@{'/user/update-status?id='+${o.id}+'&st=6' }" class="btn btn-sm btn-outline-secondary px-2 py-1 rounded-pill" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này?');">
+													Hủy
+												</a>
+											</th:block> 
+											<th:block th:unless="${o.status!='Đã hủy' && o.status!='Cancelled' && o.status!='Đã giao hàng' && o.status!='Delivered'}">
+												<button class="btn btn-sm btn-light px-2 py-1 rounded-pill text-muted disabled">Hủy</button>
+											</th:block>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
-
 		</div>
 	</section>
 </body>

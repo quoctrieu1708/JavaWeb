@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 public class SecurityConfig {
 
 	@Autowired
+	@Lazy
 	private AuthenticationSuccessHandler authenticationSuccessHandler;
 	
 	@Autowired
@@ -34,8 +35,7 @@ public class SecurityConfig {
 
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
-		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-		authenticationProvider.setUserDetailsService(userDetailsService());
+		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider(userDetailsService());
 		authenticationProvider.setPasswordEncoder(passwordEncoder());
 		return authenticationProvider;
 	}
@@ -43,10 +43,10 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
 	{
-		http.csrf(csrf->csrf.disable()).cors(cors->cors.disable())
-				.authorizeHttpRequests(req->req.requestMatchers("/user/**").hasRole("USER")
+		http.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable())
+				.authorizeHttpRequests(req->req.requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
 				.requestMatchers("/admin/**").hasRole("ADMIN")
-				.requestMatchers("/**").permitAll())
+				.requestMatchers("/uploads/**", "/api-docs/**", "/swagger-ui/**", "/**").permitAll())
 				.formLogin(form->form.loginPage("/signin")
 						.loginProcessingUrl("/login")
 //						.defaultSuccessUrl("/")

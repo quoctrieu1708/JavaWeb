@@ -1,121 +1,181 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{base::layout(~{::section})}">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Sản phẩm</title>
 </head>
 <body>
-	<section>
-	
-		<div class="container-fluid bg-primary p-4 mt-5 ">
+	<section class="mt-4 pt-2">
+		<!-- Search Hero Banner -->
+		<div class="container-fluid p-4" style="background: linear-gradient(135deg, #1e3c72, #2a5298);">
 			<div class="row">
 				<div class="col-md-8 offset-md-2">
 					<form action="/products" method="get">
-						<div class="input-group">
-							<input type="text" class="form-control" name="ch">
-							<button class="btn btn-light text-dark ms-3 col-md-2">
-								<i class="fa-solid fa-magnifying-glass"></i> Search
+						<input type="hidden" name="category" th:value="${paramValue}">
+						<input type="hidden" name="sortBy" th:value="${sortBy}">
+						<div class="input-group shadow-sm">
+							<input type="text" class="form-control form-control-lg border-0" name="ch" th:value="${ch}" placeholder="Tìm kiếm sản phẩm theo tên...">
+							<button class="btn btn-warning text-dark px-4 fw-bold" type="submit">
+								<i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm
 							</button>
 						</div>
 					</form>
 				</div>
 			</div>
-
 		</div>
 
-
-		<div class="container-fluid mt-1">
+		<div class="container-fluid mt-4">
 			<div class="row">
+				<!-- Filter Sidebar -->
+				<div class="col-lg-3 col-md-4 mb-4">
+					<!-- Categories -->
+					<div class="card shadow-sm border-0 rounded-4 mb-3">
+						<div class="card-header bg-white py-3 border-bottom">
+							<h6 class="mb-0 fw-bold text-primary"><i class="fa-solid fa-list me-2"></i>Danh mục</h6>
+						</div>
+						<div class="list-group list-group-flush rounded-bottom-4">
+							<a th:href="@{/products(ch=${ch}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy=${sortBy})}"
+							   th:classappend="${paramValue=='' or paramValue==null} ? 'active bg-primary text-white':''"
+							   class="list-group-item list-group-item-action py-2">Tất cả sản phẩm</a>
+							<a th:each="c:${categories}"
+							   th:href="@{'/products?category=' + ${c.encodedName} + (${ch != null and ch != ''} ? '&ch=' + ${ch} : '') + (${minPrice != null} ? '&minPrice=' + ${minPrice} : '') + (${maxPrice != null} ? '&maxPrice=' + ${maxPrice} : '') + (${sortBy != null} ? '&sortBy=' + ${sortBy} : '')}"
+							   th:classappend="${paramValue == c.name} ? 'active bg-primary text-white':''"
+							   class="list-group-item list-group-item-action py-2">[[${c.name}]]</a>
+						</div>
+					</div>
 
-				<div class="col-md-2 p-0">
+					<!-- Price & Sort Filter Form -->
+					<div class="card shadow-sm border-0 rounded-4">
+						<div class="card-header bg-white py-3 border-bottom">
+							<h6 class="mb-0 fw-bold text-primary"><i class="fa-solid fa-filter me-2"></i>Bộ lọc nâng cao</h6>
+						</div>
+						<div class="card-body p-3">
+							<form action="/products" method="get">
+								<input type="hidden" name="category" th:value="${paramValue}">
+								<input type="hidden" name="ch" th:value="${ch}">
 
-					<div class="card shadow-sm p-0 mb-5 bg-body-tertiary rounded">
-						<div class="card-body">
-							<div class="list-group">
-								<p class="fs-5">Category</p>
-								<a href="/products"
-									th:classappend="${paramValue==''} ? 'active':''"
-									class="list-group-item list-group-item-action"
-									aria-current="true"> All </a> <a th:each="c:${categories}"
-									th:href="@{'/products?category='+${c.name}}"
-									th:classappend="${paramValue == c.name} ? 'active':''"
-									class="list-group-item list-group-item-action">[[${c.name}]]</a>
-							</div>
+								<div class="mb-3">
+									<label class="form-label fw-bold small text-secondary">Sắp xếp theo</label>
+									<select name="sortBy" class="form-select form-select-sm">
+										<option value="latest" th:selected="${sortBy == 'latest' or sortBy == null}">Mới nhất</option>
+										<option value="price_asc" th:selected="${sortBy == 'price_asc'}">Giá: Thấp đến Cao</option>
+										<option value="price_desc" th:selected="${sortBy == 'price_desc'}">Giá: Cao đến Thấp</option>
+										<option value="rating" th:selected="${sortBy == 'rating'}">Đánh giá cao</option>
+									</select>
+								</div>
+
+								<div class="mb-3">
+									<label class="form-label fw-bold small text-secondary">Khoảng giá (VNĐ)</label>
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text">Từ</span>
+										<input type="number" name="minPrice" th:value="${minPrice}" class="form-control" placeholder="0" min="0" step="50000">
+									</div>
+									<div class="input-group input-group-sm">
+										<span class="input-group-text">Đến</span>
+										<input type="number" name="maxPrice" th:value="${maxPrice}" class="form-control" placeholder="Tối đa" min="0" step="50000">
+									</div>
+								</div>
+
+								<div class="d-grid gap-2">
+									<button type="submit" class="btn btn-primary btn-sm rounded-pill fw-bold">
+										<i class="fa-solid fa-check me-1"></i>Áp dụng lọc
+									</button>
+									<a th:href="@{'/products?category=' + ${encodedParamValue}}" class="btn btn-outline-secondary btn-sm rounded-pill">
+										<i class="fa-solid fa-rotate-left me-1"></i>Đặt lại
+									</a>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-10">
-					<div class="card">
-						<div class="card-body">
-							<p class="fs-3 text-center">Products</p>
-							<div class="row">
 
-								<th:block th:if="${productsSize >0}">
-									<div class="col-md-3 mt-2" th:each="p:${products}">
-										<div class="card card-sh">
-											<div class="card-body text-center">
-												<img alt="" th:src="@{'/img/product_img/'+${p.image}}"
-													width="150px" height="150px">
-												<p class="fs-5 text-center">[[${p.title}]]</p>
-												<div class="row text-center">
-													<p class="fs-6 fw-bold ">
-														<span>&#8377; [[${p.discountPrice}]]</span> <br> <span
-															class="text-decoration-line-through text-secondary">&#8377;
-															[[${p.price}]]</span> <span class="fs-6 text-success">[[${p.discount}]]%
-															off </span>
-													</p>
-													<a th:href="@{'/product/'+${p.id}}"
-														class="btn btn-primary col-md-6 offset-md-3">View
-														Details</a>
-												</div>
+				<!-- Products List Grid -->
+				<div class="col-lg-9 col-md-8">
+					<div class="d-flex justify-content-between align-items-center mb-3">
+						<h5 class="fw-bold mb-0 text-dark">
+							<span th:if="${paramValue != '' and paramValue != null}">Danh mục: [[${paramValue}]]</span>
+							<span th:unless="${paramValue != '' and paramValue != null}">Tất cả sản phẩm</span>
+							<small class="text-muted fs-6 fw-normal">([[${totalElements}]] kết quả)</small>
+						</h5>
+					</div>
+
+					<div class="row g-3">
+						<th:block th:if="${productsSize > 0}">
+							<div class="col-xl-3 col-lg-4 col-sm-6" th:each="p:${products}">
+								<div class="card product-card h-100 position-relative border-0 shadow-sm rounded-4 overflow-hidden">
+									<!-- Discount Badge -->
+									<span th:if="${p.discount > 0}" class="discount-badge">Giảm [[${p.discount}]]%</span>
+
+									<div class="card-body text-center d-flex flex-column p-3">
+										<div class="position-relative overflow-hidden mb-2" style="height: 180px;">
+											<img alt="" th:src="@{'/img/product_img/'+${p.image}}" class="w-100 h-100 object-fit-contain">
+											<!-- Stock Overlay if Out of stock -->
+											<div th:if="${p.stock <= 0}" class="position-absolute top-50 start-50 translate-middle badge bg-dark bg-opacity-75 text-white px-3 py-2 fs-6">
+												HẾT HÀNG
 											</div>
 										</div>
+
+										<p class="fw-bold mb-1 text-truncate" th:title="${p.title}">[[${p.title}]]</p>
+
+										<!-- Rating stars -->
+										<div class="text-warning small mb-2">
+											<i class="fa-solid fa-star"></i>
+											<span class="text-dark fw-bold">[[${p.rating}]]</span>
+											<span class="text-muted">([[${p.reviewCount}]])</span>
+											<!-- Low Stock Notice -->
+											<span th:if="${p.stock > 0 and p.stock < 10}" class="badge bg-warning-subtle text-warning border ms-1">Còn [[${p.stock}]]</span>
+										</div>
+
+										<!-- Price -->
+										<div class="text-center mb-3 mt-auto">
+											<span class="price-discount me-2 fs-6">[[${#numbers.formatDecimal(p.discountPrice, 0, 'POINT', 0, 'COMMA')}]]đ</span>
+											<span th:if="${p.discount > 0}" class="price-original small">[[${#numbers.formatDecimal(p.price, 0, 'POINT', 0, 'COMMA')}]]đ</span>
+										</div>
+
+										<a th:href="@{'/product/'+${p.id}}" class="btn btn-outline-primary btn-sm rounded-pill w-100 fw-bold">
+											Xem chi tiết
+										</a>
 									</div>
-								</th:block>
-								<th:block th:unless="${productsSize>0}">
-									<p class="fs-4 text-center mt-4 text-danger">Product not
-										available</p>
-								</th:block>
+								</div>
 							</div>
+						</th:block>
 
-						</div>
-					</div>
-					<!-- Start Pagination -->
-					<div class="row">
-						<div class="col-md-4">Total Products : [[${totalElements}]]</div>
-						<div class="col-md-6">
-							<th:block th:if="${productsSize>0}">
-								<nav aria-label="Page navigation example">
-									<ul class="pagination">
-										<li class="page-item"
-											th:classappend="${isFirst} ? 'disabled':''"><a
-											class="page-link"
-											th:href="@{'/products?pageNo='+${pageNo-1}}"
-											aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-										</a></li>
-
-										<li th:each="i:${#numbers.sequence(1,totalPages)}"
-											class="page-item" th:classappend="${pageNo+1==i}?'active':''"
-											]]><a class="page-link"
-											th:href="@{'/products?pageNo='+${i-1}}">[[${i}]]</a></li>
-
-										<li class="page-item"
-											th:classappend="${isLast} ? 'disabled':''"><a
-											class="page-link"
-											th:href="@{'/products?pageNo='+${pageNo+1}}"
-											aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-										</a></li>
-									</ul>
-								</nav>
-						</div>
+						<th:block th:unless="${productsSize > 0}">
+							<div class="col-12 py-5 text-center">
+								<i class="fa-solid fa-box-open fs-1 text-muted mb-3 d-block"></i>
+								<h6 class="text-secondary">Không tìm thấy sản phẩm nào phù hợp</h6>
+								<p class="text-muted small">Hãy thử tìm kiếm với từ khóa khác hoặc điều chỉnh khoảng giá lọc.</p>
+								<a href="/products" class="btn btn-primary rounded-pill btn-sm">Xem tất cả sản phẩm</a>
+							</div>
 						</th:block>
 					</div>
 
+					<!-- Pagination -->
+					<div class="row align-items-center mt-4 mb-5" th:if="${totalPages > 1}">
+						<div class="col-12">
+							<nav aria-label="Page navigation">
+								<ul class="pagination justify-content-center mb-0">
+									<li class="page-item" th:classappend="${isFirst} ? 'disabled':''">
+										<a class="page-link rounded-start-pill" th:href="@{/products(category=${paramValue}, ch=${ch}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy=${sortBy}, pageNo=${pageNo-1})}">
+											&laquo; Trước
+										</a>
+									</li>
+									<li th:each="i:${#numbers.sequence(1,totalPages)}" class="page-item" th:classappend="${pageNo+1==i}?'active':''">
+										<a class="page-link" th:href="@{/products(category=${paramValue}, ch=${ch}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy=${sortBy}, pageNo=${i-1})}">[[${i}]]</a>
+									</li>
+									<li class="page-item" th:classappend="${isLast} ? 'disabled':''">
+										<a class="page-link rounded-end-pill" th:href="@{/products(category=${paramValue}, ch=${ch}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy=${sortBy}, pageNo=${pageNo+1})}">
+											Tiếp &raquo;
+										</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-
 	</section>
 </body>
 </html>

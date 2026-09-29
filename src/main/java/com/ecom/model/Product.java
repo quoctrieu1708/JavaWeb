@@ -41,6 +41,26 @@ public class Product {
 	
 	private Boolean isActive;
 
+	private Double rating = 5.0;
+
+	private Integer reviewCount = 0;
+
+	public Double getRating() {
+		return rating;
+	}
+
+	public void setRating(Double rating) {
+		this.rating = rating;
+	}
+
+	public Integer getReviewCount() {
+		return reviewCount;
+	}
+
+	public void setReviewCount(Integer reviewCount) {
+		this.reviewCount = reviewCount;
+	}
+
 	public Integer getId() {
 		return id;
 	}

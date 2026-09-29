@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,6 +51,20 @@ public class UserController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@Autowired
+	private com.ecom.service.ReviewService reviewService;
+
+	@Autowired
+	private com.ecom.service.VoucherService voucherService;
+
+	@Autowired
+	private com.ecom.service.NotificationService notificationService;
+
+	@Autowired
+	private com.ecom.service.PdfInvoiceService pdfInvoiceService;
+
+	@Autowired
+	private com.ecom.repository.ProductOrderRepository productOrderRepository;
 
 	@GetMapping("/")
 	public String home() {
@@ -64,6 +79,8 @@ public class UserController {
 			m.addAttribute("user", userDtls);
 			Integer countCart = cartService.getCountCart(userDtls.getId());
 			m.addAttribute("countCart", countCart);
+			Long countNotification = notificationService.getUnreadCount(userDtls.getId());
+			m.addAttribute("countNotification", countNotification != null ? countNotification : 0L);
 		}
 
 		List<Category> allActiveCategory = categoryService.getAllActiveCategory();
@@ -71,13 +88,15 @@ public class UserController {
 	}
 
 	@GetMapping("/addCart")
-	public String addToCart(@RequestParam Integer pid, @RequestParam Integer uid, HttpSession session) {
+	public String addToCart(@RequestParam Integer pid, Principal p, HttpSession session) {
+		UserDtls loggedInUser = getLoggedInUserDetails(p);
+		Integer uid = loggedInUser.getId();
 		Cart saveCart = cartService.saveCart(pid, uid);
 
 		if (ObjectUtils.isEmpty(saveCart)) {
-			session.setAttribute("errorMsg", "Product add to cart failed");
+			session.setAttribute("errorMsg", "Thêm sản phẩm vào giỏ hàng thất bại");
 		} else {
-			session.setAttribute("succMsg", "Product added to cart");
+			session.setAttribute("succMsg", "Đã thêm sản phẩm vào giỏ hàng");
 		}
 		return "redirect:/product/" + pid;
 	}
@@ -114,8 +133,12 @@ public class UserController {
 		m.addAttribute("carts", carts);
 		if (carts.size() > 0) {
 			Double orderPrice = carts.get(carts.size() - 1).getTotalOrderPrice();
-			Double totalOrderPrice = carts.get(carts.size() - 1).getTotalOrderPrice() + 250 + 100;
+			Double shippingFee = 30000.0;
+			Double tax = 10000.0;
+			Double totalOrderPrice = orderPrice + shippingFee + tax;
 			m.addAttribute("orderPrice", orderPrice);
+			m.addAttribute("shippingFee", shippingFee);
+			m.addAttribute("tax", tax);
 			m.addAttribute("totalOrderPrice", totalOrderPrice);
 		}
 		return "/user/order";
@@ -164,9 +187,9 @@ public class UserController {
 		}
 
 		if (!ObjectUtils.isEmpty(updateOrder)) {
-			session.setAttribute("succMsg", "Status Updated");
+			session.setAttribute("succMsg", "Cập nhật trạng thái thành công");
 		} else {
-			session.setAttribute("errorMsg", "status not updated");
+			session.setAttribute("errorMsg", "Không thể cập nhật trạng thái");
 		}
 		return "redirect:/user/user-orders";
 	}
@@ -180,9 +203,9 @@ public class UserController {
 	public String updateProfile(@ModelAttribute UserDtls user, @RequestParam MultipartFile img, HttpSession session) {
 		UserDtls updateUserProfile = userService.updateUserProfile(user, img);
 		if (ObjectUtils.isEmpty(updateUserProfile)) {
-			session.setAttribute("errorMsg", "Profile not updated");
+			session.setAttribute("errorMsg", "Cập nhật hồ sơ thất bại");
 		} else {
-			session.setAttribute("succMsg", "Profile Updated");
+			session.setAttribute("succMsg", "Cập nhật hồ sơ thành công");
 		}
 		return "redirect:/user/profile";
 	}
@@ -199,15 +222,97 @@ public class UserController {
 			loggedInUserDetails.setPassword(encodePassword);
 			UserDtls updateUser = userService.updateUser(loggedInUserDetails);
 			if (ObjectUtils.isEmpty(updateUser)) {
-				session.setAttribute("errorMsg", "Password not updated !! Error in server");
+				session.setAttribute("errorMsg", "Đổi mật khẩu thất bại! Lỗi máy chủ");
 			} else {
-				session.setAttribute("succMsg", "Password Updated sucessfully");
+				session.setAttribute("succMsg", "Đổi mật khẩu thành công");
 			}
 		} else {
-			session.setAttribute("errorMsg", "Current Password incorrect");
+			session.setAttribute("errorMsg", "Mật khẩu hiện tại không chính xác");
 		}
 
 		return "redirect:/user/profile";
+	}
+
+	@PostMapping("/addReview")
+	public String addReview(@RequestParam Integer productId, @RequestParam Integer rating,
+			@RequestParam String comment, Principal p, HttpSession session) {
+		UserDtls user = getLoggedInUserDetails(p);
+		com.ecom.model.Review review = reviewService.saveReview(productId, user.getId(), rating, comment);
+		if (review != null) {
+			session.setAttribute("succMsg", "Cảm ơn bạn đã gửi đánh giá sản phẩm!");
+		} else {
+			session.setAttribute("errorMsg", "Gửi đánh giá thất bại.");
+		}
+		return "redirect:/product/" + productId;
+	}
+
+	@GetMapping(value = "/validate-voucher", produces = org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
+	@org.springframework.web.bind.annotation.ResponseBody
+	public org.springframework.http.ResponseEntity<String> validateVoucher(@RequestParam String code, @RequestParam Double total) {
+		com.ecom.model.Voucher voucher = voucherService.validateAndGetVoucher(code, total);
+		if (voucher == null) {
+			String json = "{\"valid\":false,\"message\":\"Mã giảm giá không hợp lệ, chưa tới hạn hoặc đã hết lượt dùng!\"}";
+			return org.springframework.http.ResponseEntity.ok()
+					.contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+					.body(json);
+		}
+		Double discount = voucherService.calculateDiscount(voucher, total);
+		String desc = voucher.getDescription() != null ? voucher.getDescription().replace("\"", "\\\"") : "";
+		String json = String.format(java.util.Locale.US,
+				"{\"valid\":true,\"code\":\"%s\",\"discount\":%.0f,\"description\":\"%s\",\"message\":\"Áp dụng mã giảm giá thành công!\"}",
+				voucher.getCode(), discount, desc);
+		return org.springframework.http.ResponseEntity.ok()
+				.contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+				.body(json);
+	}
+
+	@GetMapping("/notifications")
+	public String notifications(Principal p, Model m) {
+		UserDtls user = getLoggedInUserDetails(p);
+		List<com.ecom.model.Notification> list = notificationService.getUserNotifications(user.getId());
+		m.addAttribute("notifications", list);
+		return "/user/notifications";
+	}
+
+	@GetMapping("/notification-read")
+	public String markNotificationRead(@RequestParam Integer id, @RequestParam(required = false) String redirectUrl) {
+		notificationService.markAsRead(id);
+		if (redirectUrl != null && !redirectUrl.isEmpty()) {
+			return "redirect:" + redirectUrl;
+		}
+		return "redirect:/user/notifications";
+	}
+
+	@GetMapping("/notifications-read-all")
+	public String markAllNotificationsRead(Principal p) {
+		UserDtls user = getLoggedInUserDetails(p);
+		notificationService.markAllAsRead(user.getId());
+		return "redirect:/user/notifications";
+	}
+
+	@GetMapping("/order/invoice/{orderId}")
+	public org.springframework.http.ResponseEntity<byte[]> downloadInvoice(@PathVariable String orderId, Principal p) {
+		UserDtls user = getLoggedInUserDetails(p);
+		List<ProductOrder> orders = productOrderRepository.findAllByOrderId(orderId);
+		if (orders.isEmpty()) {
+			// Try finding by single orderId
+			ProductOrder single = productOrderRepository.findByOrderId(orderId);
+			if (single != null) {
+				orders = java.util.Collections.singletonList(single);
+			}
+		}
+		if (orders.isEmpty() || !orders.get(0).getUser().getId().equals(user.getId())) {
+			return org.springframework.http.ResponseEntity.status(403).build();
+		}
+		try {
+			byte[] pdf = pdfInvoiceService.generateInvoicePdf(orders);
+			return org.springframework.http.ResponseEntity.ok()
+					.header(org.springframework.http.HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=invoice_" + orderId.substring(0, Math.min(8, orderId.length())) + ".pdf")
+					.contentType(org.springframework.http.MediaType.APPLICATION_PDF)
+					.body(pdf);
+		} catch (Exception e) {
+			return org.springframework.http.ResponseEntity.internalServerError().build();
+		}
 	}
 
 }

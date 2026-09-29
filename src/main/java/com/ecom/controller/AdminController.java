@@ -63,6 +63,21 @@ public class AdminController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@Autowired
+	private com.ecom.repository.ProductOrderRepository productOrderRepository;
+
+	@Autowired
+	private com.ecom.repository.ProductRepository productRepository;
+
+	@Autowired
+	private com.ecom.repository.UserRepository userRepository;
+
+	@Autowired
+	private com.ecom.service.VoucherService voucherService;
+
+	@Autowired
+	private com.ecom.service.PdfInvoiceService pdfInvoiceService;
+
 	@ModelAttribute
 	public void getUserDetails(Principal p, Model m) {
 		if (p != null) {
@@ -78,7 +93,59 @@ public class AdminController {
 	}
 
 	@GetMapping("/")
-	public String index() {
+	public String index(Model m) {
+		Double totalRevenue = productOrderRepository.getTotalRevenue();
+		Long totalOrders = productOrderRepository.count();
+		Long pendingOrders = productOrderRepository.countByStatus(OrderStatus.IN_PROGRESS.getName());
+		Long totalProducts = productRepository.count();
+		Long lowStockCount = productService.countLowStock(10);
+		Long totalUsers = userRepository.countByRole("ROLE_USER");
+
+		m.addAttribute("totalRevenue", totalRevenue != null ? totalRevenue : 0.0);
+		m.addAttribute("totalOrders", totalOrders != null ? totalOrders : 0L);
+		m.addAttribute("pendingOrders", pendingOrders != null ? pendingOrders : 0L);
+		m.addAttribute("totalProducts", totalProducts != null ? totalProducts : 0L);
+		m.addAttribute("lowStockCount", lowStockCount != null ? lowStockCount : 0L);
+		m.addAttribute("totalUsers", totalUsers != null ? totalUsers : 0L);
+
+		// Revenue chart data (date vs sum)
+		List<Object[]> revenueByDate = productOrderRepository.getRevenueByDate();
+		java.util.List<String> chartDates = new java.util.ArrayList<>();
+		java.util.List<Double> chartRevenues = new java.util.ArrayList<>();
+		if (revenueByDate != null) {
+			for (Object[] row : revenueByDate) {
+				chartDates.add(row[0] != null ? row[0].toString() : "");
+				chartRevenues.add(row[1] != null ? ((Number) row[1]).doubleValue() : 0.0);
+			}
+		}
+		m.addAttribute("chartDates", chartDates);
+		m.addAttribute("chartRevenues", chartRevenues);
+
+		// Order status counts for Doughnut chart
+		List<Object[]> statusCounts = productOrderRepository.getOrderStatusCounts();
+		java.util.List<String> statusLabels = new java.util.ArrayList<>();
+		java.util.List<Long> statusData = new java.util.ArrayList<>();
+		if (statusCounts != null) {
+			for (Object[] row : statusCounts) {
+				statusLabels.add(row[0] != null ? row[0].toString() : "Khác");
+				statusData.add(row[1] != null ? ((Number) row[1]).longValue() : 0L);
+			}
+		}
+		m.addAttribute("statusLabels", statusLabels);
+		m.addAttribute("statusData", statusData);
+
+		// Recent orders
+		List<ProductOrder> allOrders = orderService.getAllOrders();
+		List<ProductOrder> recentOrders = allOrders.stream()
+				.sorted((o1, o2) -> o2.getId().compareTo(o1.getId()))
+				.limit(5)
+				.toList();
+		m.addAttribute("recentOrders", recentOrders);
+
+		// Top selling products
+		List<Object[]> topProducts = productOrderRepository.getTopSellingProducts(org.springframework.data.domain.PageRequest.of(0, 5));
+		m.addAttribute("topProducts", topProducts);
+
 		return "admin/index";
 	}
 
@@ -117,13 +184,13 @@ public class AdminController {
 		Boolean existCategory = categoryService.existCategory(category.getName());
 
 		if (existCategory) {
-			session.setAttribute("errorMsg", "Category Name already exists");
+			session.setAttribute("errorMsg", "Tên danh mục đã tồn tại");
 		} else {
 
 			Category saveCategory = categoryService.saveCategory(category);
 
 			if (ObjectUtils.isEmpty(saveCategory)) {
-				session.setAttribute("errorMsg", "Not saved ! internal server error");
+				session.setAttribute("errorMsg", "Lưu thất bại! Lỗi máy chủ");
 			} else {
 
 				File saveFile = new ClassPathResource("static/img").getFile();
@@ -134,7 +201,7 @@ public class AdminController {
 				// System.out.println(path);
 				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
-				session.setAttribute("succMsg", "Saved successfully");
+				session.setAttribute("succMsg", "Lưu thành công");
 			}
 		}
 
@@ -146,9 +213,9 @@ public class AdminController {
 		Boolean deleteCategory = categoryService.deleteCategory(id);
 
 		if (deleteCategory) {
-			session.setAttribute("succMsg", "category delete success");
+			session.setAttribute("succMsg", "Xóa danh mục thành công");
 		} else {
-			session.setAttribute("errorMsg", "something wrong on server");
+			session.setAttribute("errorMsg", "Đã xảy ra lỗi trên máy chủ");
 		}
 
 		return "redirect:/admin/category";
@@ -188,9 +255,9 @@ public class AdminController {
 				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 			}
 
-			session.setAttribute("succMsg", "Category update success");
+			session.setAttribute("succMsg", "Cập nhật danh mục thành công");
 		} else {
-			session.setAttribute("errorMsg", "something wrong on server");
+			session.setAttribute("errorMsg", "Đã xảy ra lỗi trên máy chủ");
 		}
 
 		return "redirect:/admin/loadEditCategory/" + category.getId();
@@ -217,9 +284,9 @@ public class AdminController {
 			// System.out.println(path);
 			Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
-			session.setAttribute("succMsg", "Product Saved Success");
+			session.setAttribute("succMsg", "Thêm sản phẩm thành công");
 		} else {
-			session.setAttribute("errorMsg", "something wrong on server");
+			session.setAttribute("errorMsg", "Đã xảy ra lỗi trên máy chủ");
 		}
 
 		return "redirect:/admin/loadAddProduct";
@@ -245,6 +312,8 @@ public class AdminController {
 			page = productService.getAllProductsPagination(pageNo, pageSize);
 		}
 		m.addAttribute("products", page.getContent());
+		m.addAttribute("lowStockCount", productService.countLowStock(10));
+		m.addAttribute("outOfStockCount", productService.countOutOfStock());
 
 		m.addAttribute("pageNo", page.getNumber());
 		m.addAttribute("pageSize", pageSize);
@@ -260,9 +329,9 @@ public class AdminController {
 	public String deleteProduct(@PathVariable int id, HttpSession session) {
 		Boolean deleteProduct = productService.deleteProduct(id);
 		if (deleteProduct) {
-			session.setAttribute("succMsg", "Product delete success");
+			session.setAttribute("succMsg", "Xóa sản phẩm thành công");
 		} else {
-			session.setAttribute("errorMsg", "Something wrong on server");
+			session.setAttribute("errorMsg", "Đã xảy ra lỗi trên máy chủ");
 		}
 		return "redirect:/admin/products";
 	}
@@ -279,13 +348,13 @@ public class AdminController {
 			HttpSession session, Model m) {
 
 		if (product.getDiscount() < 0 || product.getDiscount() > 100) {
-			session.setAttribute("errorMsg", "invalid Discount");
+			session.setAttribute("errorMsg", "Mức giảm giá không hợp lệ (0-100%)");
 		} else {
 			Product updateProduct = productService.updateProduct(product, image);
 			if (!ObjectUtils.isEmpty(updateProduct)) {
-				session.setAttribute("succMsg", "Product update success");
+				session.setAttribute("succMsg", "Cập nhật sản phẩm thành công");
 			} else {
-				session.setAttribute("errorMsg", "Something wrong on server");
+				session.setAttribute("errorMsg", "Đã xảy ra lỗi trên máy chủ");
 			}
 		}
 		return "redirect:/admin/editProduct/" + product.getId();
@@ -308,9 +377,9 @@ public class AdminController {
 	public String updateUserAccountStatus(@RequestParam Boolean status, @RequestParam Integer id,@RequestParam Integer type, HttpSession session) {
 		Boolean f = userService.updateAccountStatus(id, status);
 		if (f) {
-			session.setAttribute("succMsg", "Account Status Updated");
+			session.setAttribute("succMsg", "Đã cập nhật trạng thái tài khoản");
 		} else {
-			session.setAttribute("errorMsg", "Something wrong on server");
+			session.setAttribute("errorMsg", "Đã xảy ra lỗi trên máy chủ");
 		}
 		return "redirect:/admin/users?type="+type;
 	}
@@ -357,9 +426,9 @@ public class AdminController {
 		}
 
 		if (!ObjectUtils.isEmpty(updateOrder)) {
-			session.setAttribute("succMsg", "Status Updated");
+			session.setAttribute("succMsg", "Cập nhật trạng thái thành công");
 		} else {
-			session.setAttribute("errorMsg", "status not updated");
+			session.setAttribute("errorMsg", "Không thể cập nhật trạng thái");
 		}
 		return "redirect:/admin/orders";
 	}
@@ -374,7 +443,7 @@ public class AdminController {
 			ProductOrder order = orderService.getOrdersByOrderId(orderId.trim());
 
 			if (ObjectUtils.isEmpty(order)) {
-				session.setAttribute("errorMsg", "Incorrect orderId");
+				session.setAttribute("errorMsg", "Mã đơn hàng không chính xác");
 				m.addAttribute("orderDtls", null);
 			} else {
 				m.addAttribute("orderDtls", order);
@@ -425,9 +494,9 @@ public class AdminController {
 //				System.out.println(path);
 				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 			}
-			session.setAttribute("succMsg", "Register successfully");
+			session.setAttribute("succMsg", "Đăng ký tài khoản thành công");
 		} else {
-			session.setAttribute("errorMsg", "something wrong on server");
+			session.setAttribute("errorMsg", "Đã xảy ra lỗi trên máy chủ");
 		}
 
 		return "redirect:/admin/add-admin";
@@ -442,9 +511,9 @@ public class AdminController {
 	public String updateProfile(@ModelAttribute UserDtls user, @RequestParam MultipartFile img, HttpSession session) {
 		UserDtls updateUserProfile = userService.updateUserProfile(user, img);
 		if (ObjectUtils.isEmpty(updateUserProfile)) {
-			session.setAttribute("errorMsg", "Profile not updated");
+			session.setAttribute("errorMsg", "Cập nhật hồ sơ thất bại");
 		} else {
-			session.setAttribute("succMsg", "Profile Updated");
+			session.setAttribute("succMsg", "Hồ sơ đã được cập nhật thành công");
 		}
 		return "redirect:/admin/profile";
 	}
@@ -461,15 +530,72 @@ public class AdminController {
 			loggedInUserDetails.setPassword(encodePassword);
 			UserDtls updateUser = userService.updateUser(loggedInUserDetails);
 			if (ObjectUtils.isEmpty(updateUser)) {
-				session.setAttribute("errorMsg", "Password not updated !! Error in server");
+				session.setAttribute("errorMsg", "Đổi mật khẩu thất bại! Lỗi máy chủ");
 			} else {
-				session.setAttribute("succMsg", "Password Updated sucessfully");
+				session.setAttribute("succMsg", "Đổi mật khẩu thành công");
 			}
 		} else {
-			session.setAttribute("errorMsg", "Current Password incorrect");
+			session.setAttribute("errorMsg", "Mật khẩu hiện tại không chính xác");
 		}
 
 		return "redirect:/admin/profile";
+	}
+
+	@GetMapping("/vouchers")
+	public String vouchers(Model m) {
+		m.addAttribute("vouchers", voucherService.getAllVouchers());
+		m.addAttribute("voucher", new com.ecom.model.Voucher());
+		return "admin/vouchers";
+	}
+
+	@PostMapping("/save-voucher")
+	public String saveVoucher(@ModelAttribute com.ecom.model.Voucher voucher, HttpSession session) {
+		try {
+			voucherService.saveVoucher(voucher);
+			session.setAttribute("succMsg", "Lưu mã giảm giá thành công");
+		} catch (Exception e) {
+			session.setAttribute("errorMsg", "Không thể lưu mã giảm giá: " + e.getMessage());
+		}
+		return "redirect:/admin/vouchers";
+	}
+
+	@GetMapping("/delete-voucher/{id}")
+	public String deleteVoucher(@PathVariable Integer id, HttpSession session) {
+		Boolean deleted = voucherService.deleteVoucher(id);
+		if (deleted) {
+			session.setAttribute("succMsg", "Xóa mã giảm giá thành công");
+		} else {
+			session.setAttribute("errorMsg", "Không thể xóa mã giảm giá");
+		}
+		return "redirect:/admin/vouchers";
+	}
+
+	@GetMapping("/order/invoice/{orderId}")
+	public org.springframework.http.ResponseEntity<byte[]> adminDownloadInvoice(@PathVariable String orderId) {
+		List<ProductOrder> orders = productOrderRepository.findAllByOrderId(orderId);
+		if (orders.isEmpty()) {
+			ProductOrder single = productOrderRepository.findByOrderId(orderId);
+			if (single != null) {
+				orders = java.util.Collections.singletonList(single);
+			}
+		}
+		if (orders.isEmpty()) {
+			return org.springframework.http.ResponseEntity.notFound().build();
+		}
+		try {
+			byte[] pdf = pdfInvoiceService.generateInvoicePdf(orders);
+			return org.springframework.http.ResponseEntity.ok()
+					.header(org.springframework.http.HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=invoice_" + orderId.substring(0, Math.min(8, orderId.length())) + ".pdf")
+					.contentType(org.springframework.http.MediaType.APPLICATION_PDF)
+					.body(pdf);
+		} catch (Exception e) {
+			return org.springframework.http.ResponseEntity.internalServerError().build();
+		}
+	}
+
+	@GetMapping("/chat")
+	public String adminChat() {
+		return "admin/chat";
 	}
 
 }

@@ -58,6 +58,8 @@ public class Category {
 		this.isActive = isActive;
 	}
 
-	
-	
+	public String getEncodedName() {
+		if (name == null) return "";
+		return java.net.URLEncoder.encode(name, java.nio.charset.StandardCharsets.UTF_8);
+	}
 }

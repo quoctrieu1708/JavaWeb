@@ -1,13 +1,217 @@
-@charset "ISO-8859-1";
+@charset "UTF-8";
 
+:root {
+    --primary: #1e3c72;
+    --primary-light: #2a5298;
+    --primary-gradient: linear-gradient(135deg, #1e3c72, #2a5298);
+    --accent: #4fc3f7;
+    --success: #2ecc71;
+    --danger: #e74c3c;
+    --warning: #f39c12;
+    --bg-light: #f8f9fa;
+    --shadow: 0 4px 15px rgba(0,0,0,0.1);
+    --shadow-hover: 0 12px 30px rgba(0,0,0,0.15);
+    --radius: 12px;
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 70px;
+}
+
+/* Navbar */
+.navbar {
+    background: var(--primary-gradient) !important;
+    box-shadow: var(--shadow);
+}
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+
+/* Product Cards */
+.product-card {
+    transition: var(--transition);
+    border: none;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+}
+.product-card img {
+    transition: var(--transition);
+    object-fit: cover;
+}
+.product-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Category Cards */
+.category-card {
+    transition: var(--transition);
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+}
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Discount Badge */
+.discount-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--danger);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 1;
+}
+
+/* Price Styling */
+.price-original {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 0.9rem;
+}
+.price-discount {
+    color: var(--danger);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Buttons */
+.btn-primary {
+    background: var(--primary-gradient);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 20px;
+    transition: var(--transition);
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(30, 60, 114, 0.4);
+}
+
+/* Cards General */
 .card-sh {
-	box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow);
+    border: none;
+    border-radius: var(--radius);
 }
 
-.cat-div {
-	box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+/* Dashboard Cards */
+.dashboard-card {
+    transition: var(--transition);
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+.dashboard-card .card-body {
+    padding: 1.5rem;
+}
+.dashboard-card i {
+    font-size: 2rem;
+    color: var(--primary);
 }
 
+/* Form Styling */
+.form-control:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 0.2rem rgba(42, 82, 152, 0.25);
+}
+
+/* Footer */
+footer {
+    background: #1a1a2e !important;
+}
+footer h5 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+footer a {
+    transition: var(--transition);
+}
+footer a:hover {
+    color: var(--accent) !important;
+}
+
+/* Toast */
+.toast-success {
+    border-left: 4px solid var(--success);
+}
+.toast-error {
+    border-left: 4px solid var(--danger);
+}
+
+/* Cart Quantity Buttons */
+.qty-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+    background: white;
+    color: var(--primary);
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: var(--transition);
+}
+.qty-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* Status Badges */
+.badge-status {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+/* Auth Pages */
+.auth-card {
+    max-width: 500px;
+    margin: 2rem auto;
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+.auth-card .card-header {
+    background: var(--primary-gradient);
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: var(--radius) var(--radius) 0 0;
+}
+
+/* Validation Error */
 .error {
-	color: red;
+    color: var(--danger);
+    font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .product-card {
+        margin-bottom: 1rem;
+    }
+    body {
+        padding-top: 60px;
+    }
 }

@@ -31,4 +31,10 @@ public interface ProductService {
 
 	public Page<Product> searchActiveProductPagination(Integer pageNo, Integer pageSize, String category, String ch);
 
+	public Page<Product> filterProducts(String category, String keyword, Double minPrice, Double maxPrice, String sortBy, Integer pageNo, Integer pageSize);
+
+	public Long countLowStock(int threshold);
+
+	public Long countOutOfStock();
+
 }

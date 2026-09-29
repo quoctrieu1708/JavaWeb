@@ -32,18 +32,51 @@ public class OrderServiceImpl implements OrderService {
 	private CartRepository cartRepository;
 
 	@Autowired
+	private com.ecom.repository.ProductRepository productRepository;
+
+	@Autowired
+	private com.ecom.service.VoucherService voucherService;
+
+	@Autowired
+	private com.ecom.service.NotificationService notificationService;
+
+	@Autowired
 	private CommonUtil commonUtil;
 
 	@Override
 	public void saveOrder(Integer userid, OrderRequest orderRequest) throws Exception {
 
 		List<Cart> carts = cartRepository.findByUserId(userid);
+		if (carts.isEmpty()) {
+			return;
+		}
 
-		for (Cart cart : carts) {
+		// Calculate total order amount for voucher check
+		double cartTotal = carts.stream()
+				.mapToDouble(c -> c.getProduct().getDiscountPrice() * c.getQuantity())
+				.sum();
+
+		String vCode = null;
+		Double totalDiscount = 0.0;
+		if (orderRequest.getVoucherCode() != null && !orderRequest.getVoucherCode().trim().isEmpty()) {
+			com.ecom.model.Voucher voucher = voucherService.validateAndGetVoucher(orderRequest.getVoucherCode().trim(), cartTotal);
+			if (voucher != null) {
+				vCode = voucher.getCode();
+				totalDiscount = voucherService.calculateDiscount(voucher, cartTotal);
+				voucherService.incrementUsedCount(vCode);
+			}
+		}
+
+		String sharedOrderId = UUID.randomUUID().toString();
+		com.ecom.model.UserDtls user = null;
+
+		for (int i = 0; i < carts.size(); i++) {
+			Cart cart = carts.get(i);
+			user = cart.getUser();
 
 			ProductOrder order = new ProductOrder();
 
-			order.setOrderId(UUID.randomUUID().toString());
+			order.setOrderId(sharedOrderId);
 			order.setOrderDate(LocalDate.now());
 
 			order.setProduct(cart.getProduct());
@@ -55,26 +88,57 @@ public class OrderServiceImpl implements OrderService {
 			order.setStatus(OrderStatus.IN_PROGRESS.getName());
 			order.setPaymentType(orderRequest.getPaymentType());
 
+			if (vCode != null) {
+				order.setVoucherCode(vCode);
+				// Phân bổ giảm giá cho item (hoặc lưu toàn bộ vào item đầu tiên)
+				if (i == 0) {
+					order.setDiscountAmount(totalDiscount);
+				} else {
+					order.setDiscountAmount(0.0);
+				}
+			}
+
 			OrderAddress address = new OrderAddress();
-			address.setFirstName(orderRequest.getFirstName());
-			address.setLastName(orderRequest.getLastName());
+			address.setFullName(orderRequest.getFullName());
 			address.setEmail(orderRequest.getEmail());
-			address.setMobileNo(orderRequest.getMobileNo());
-			address.setAddress(orderRequest.getAddress());
-			address.setCity(orderRequest.getCity());
-			address.setState(orderRequest.getState());
-			address.setPincode(orderRequest.getPincode());
+			address.setPhone(orderRequest.getPhone());
+			address.setProvince(orderRequest.getProvince());
+			address.setWard(orderRequest.getWard());
+			address.setDetailAddress(orderRequest.getDetailAddress());
 
 			order.setOrderAddress(address);
 
 			ProductOrder saveOrder = orderRepository.save(order);
-			commonUtil.sendMailForProductOrder(saveOrder, "success");
+
+			// Deduct stock
+			com.ecom.model.Product product = cart.getProduct();
+			product.setStock(product.getStock() - cart.getQuantity());
+			productRepository.save(product);
+
+			try {
+				commonUtil.sendMailForProductOrder(saveOrder, "success");
+			} catch (Exception e) {
+				System.err.println("Gửi email thông báo đơn hàng thất bại: " + e.getMessage());
+			}
+		}
+		// Clear cart
+		cartRepository.deleteAll(carts);
+
+		// Send system notification to user
+		if (user != null) {
+			notificationService.createNotification(
+					user,
+					"Đặt hàng thành công",
+					"Đơn hàng #" + sharedOrderId.substring(0, 8) + " đã được đặt thành công. Chúng tôi sẽ sớm giao đến bạn!",
+					"ORDER",
+					"/user/user-orders"
+			);
 		}
 	}
 
 	@Override
 	public List<ProductOrder> getOrdersByUser(Integer userId) {
-		List<ProductOrder> orders = orderRepository.findByUserId(userId);
+		List<ProductOrder> orders = orderRepository.findByUserIdOrderByIdDesc(userId);
 		return orders;
 	}
 
@@ -85,6 +149,18 @@ public class OrderServiceImpl implements OrderService {
 			ProductOrder productOrder = findById.get();
 			productOrder.setStatus(status);
 			ProductOrder updateOrder = orderRepository.save(productOrder);
+
+			// Send notification to customer
+			if (updateOrder.getUser() != null) {
+				notificationService.createNotification(
+						updateOrder.getUser(),
+						"Cập nhật đơn hàng #" + updateOrder.getOrderId().substring(0, Math.min(8, updateOrder.getOrderId().length())),
+						"Trạng thái đơn hàng của bạn đã được cập nhật thành: " + status,
+						"ORDER",
+						"/user/user-orders"
+				);
+			}
+
 			return updateOrder;
 		}
 		return null;

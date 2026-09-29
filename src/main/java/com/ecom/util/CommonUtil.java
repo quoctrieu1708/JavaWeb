@@ -30,16 +30,21 @@ public class CommonUtil {
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
 
-		helper.setFrom("daspabitra55@gmail.com", "Shooping Cart");
+		helper.setFrom("daspabitra55@gmail.com", "Ecom Store");
 		helper.setTo(reciepentEmail);
 
-		String content = "<p>Hello,</p>" + "<p>You have requested to reset your password.</p>"
-				+ "<p>Click the link below to change your password:</p>" + "<p><a href=\"" + url
-				+ "\">Change my password</a></p>";
-		helper.setSubject("Password Reset");
+		String content = "<p>Xin chào,</p>" + "<p>Bạn đã yêu cầu đặt lại mật khẩu.</p>"
+				+ "<p>Nhấn vào liên kết dưới đây để thay đổi mật khẩu:</p>" + "<p><a href=\"" + url
+				+ "\">Đổi mật khẩu</a></p>";
+		helper.setSubject("Đặt lại mật khẩu - Ecom Store");
 		helper.setText(content, true);
-		mailSender.send(message);
-		return true;
+		try {
+			mailSender.send(message);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Gửi email đặt lại mật khẩu thất bại (SMTP chưa cấu hình): " + e.getMessage());
+			return false;
+		}
 	}
 
 	public static String generateUrl(HttpServletRequest request) {
@@ -50,27 +55,25 @@ public class CommonUtil {
 		return siteUrl.replace(request.getServletPath(), "");
 	}
 	
-	String msg=null;;
-	
 	public Boolean sendMailForProductOrder(ProductOrder order,String status) throws Exception
 	{
 		
-		msg="<p>Hello [[name]],</p>"
-				+ "<p>Thank you order <b>[[orderStatus]]</b>.</p>"
-				+ "<p><b>Product Details:</b></p>"
-				+ "<p>Name : [[productName]]</p>"
-				+ "<p>Category : [[category]]</p>"
-				+ "<p>Quantity : [[quantity]]</p>"
-				+ "<p>Price : [[price]]</p>"
-				+ "<p>Payment Type : [[paymentType]]</p>";
+		String msg="<p>Xin chào [[name]],</p>"
+				+ "<p>Cảm ơn bạn. Đơn hàng của bạn hiện <b>[[orderStatus]]</b>.</p>"
+				+ "<p><b>Chi tiết sản phẩm:</b></p>"
+				+ "<p>Tên : [[productName]]</p>"
+				+ "<p>Danh mục : [[category]]</p>"
+				+ "<p>Số lượng : [[quantity]]</p>"
+				+ "<p>Giá : [[price]]</p>"
+				+ "<p>Hình thức thanh toán : [[paymentType]]</p>";
 		
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
 
-		helper.setFrom("daspabitra55@gmail.com", "Shooping Cart");
+		helper.setFrom("daspabitra55@gmail.com", "Ecom Store");
 		helper.setTo(order.getOrderAddress().getEmail());
 
-		msg=msg.replace("[[name]]",order.getOrderAddress().getFirstName());
+		msg=msg.replace("[[name]]",order.getOrderAddress().getFullName());
 		msg=msg.replace("[[orderStatus]]",status);
 		msg=msg.replace("[[productName]]", order.getProduct().getTitle());
 		msg=msg.replace("[[category]]", order.getProduct().getCategory());
@@ -78,10 +81,15 @@ public class CommonUtil {
 		msg=msg.replace("[[price]]", order.getPrice().toString());
 		msg=msg.replace("[[paymentType]]", order.getPaymentType());
 		
-		helper.setSubject("Product Order Status");
+		helper.setSubject("Cập nhật trạng thái đơn hàng - Ecom Store");
 		helper.setText(msg, true);
-		mailSender.send(message);
-		return true;
+		try {
+			mailSender.send(message);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Gửi email cập nhật đơn hàng thất bại (SMTP chưa cấu hình): " + e.getMessage());
+			return false;
+		}
 	}
 	
 	public UserDtls getLoggedInUserDetails(Principal p) {

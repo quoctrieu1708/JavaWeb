@@ -47,6 +47,26 @@ public class ProductOrder {
 	@OneToOne(cascade = CascadeType.ALL)
 	private OrderAddress orderAddress;
 
+	private String voucherCode;
+
+	private Double discountAmount;
+
+	public String getVoucherCode() {
+		return voucherCode;
+	}
+
+	public void setVoucherCode(String voucherCode) {
+		this.voucherCode = voucherCode;
+	}
+
+	public Double getDiscountAmount() {
+		return discountAmount;
+	}
+
+	public void setDiscountAmount(Double discountAmount) {
+		this.discountAmount = discountAmount;
+	}
+
 	public Integer getId() {
 		return id;
 	}

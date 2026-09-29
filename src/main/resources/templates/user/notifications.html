@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Thông báo của bạn</title>
+</head>
+<body>
+	<section class="mt-5 pt-4">
+		<div class="container mt-4 mb-5">
+			<div class="row justify-content-center">
+				<div class="col-md-9 col-lg-8">
+					<div class="card shadow-sm border-0 rounded-4">
+						<div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+							<h5 class="mb-0 fw-bold text-primary">
+								<i class="fa-solid fa-bell me-2"></i>Thông báo của bạn
+							</h5>
+							<a th:if="${notifications != null and !notifications.isEmpty()}"
+							   href="/user/notifications-read-all"
+							   class="btn btn-sm btn-outline-secondary rounded-pill">
+								<i class="fa-solid fa-check-double me-1"></i>Đánh dấu tất cả đã đọc
+							</a>
+						</div>
+						<div class="card-body p-0">
+							<div th:if="${notifications == null or notifications.isEmpty()}" class="text-center py-5">
+								<i class="fa-regular fa-bell-slash fs-1 text-muted mb-3 d-block"></i>
+								<h6 class="text-muted">Bạn chưa có thông báo nào</h6>
+								<p class="text-muted small">Các cập nhật về đơn hàng và chương trình khuyến mãi sẽ hiển thị tại đây.</p>
+							</div>
+
+							<div th:unless="${notifications == null or notifications.isEmpty()}" class="list-group list-group-flush rounded-bottom-4">
+								<a th:each="n : ${notifications}"
+								   th:href="@{'/user/notification-read?id=' + ${n.id} + (${n.targetUrl != null} ? '&redirectUrl=' + ${n.targetUrl} : '')}"
+								   class="list-group-item list-group-item-action p-3 border-bottom d-flex align-items-start gap-3"
+								   th:classappend="${!n.isRead} ? 'bg-light fw-medium' : ''">
+									<div class="rounded-circle p-2 d-flex align-items-center justify-content-center mt-1"
+										 th:classappend="${n.type == 'ORDER'} ? 'bg-primary-subtle text-primary' : 'bg-warning-subtle text-warning'"
+										 style="width: 40px; height: 40px; min-width: 40px;">
+										<i th:if="${n.type == 'ORDER'}" class="fa-solid fa-bag-shopping"></i>
+										<i th:unless="${n.type == 'ORDER'}" class="fa-solid fa-gift"></i>
+									</div>
+									<div class="flex-grow-1">
+										<div class="d-flex justify-content-between align-items-center mb-1">
+											<h6 class="mb-0" th:classappend="${!n.isRead} ? 'fw-bold text-dark' : 'text-secondary'" th:text="${n.title}">Tiêu đề thông báo</h6>
+											<small class="text-muted" th:text="${#temporals.format(n.createdAt, 'dd/MM/yyyy HH:mm')}">Thời gian</small>
+										</div>
+										<p class="mb-0 text-secondary small" th:text="${n.message}">Nội dung thông báo</p>
+									</div>
+									<div th:if="${!n.isRead}" class="mt-2">
+										<span class="badge bg-primary rounded-pill p-1" title="Chưa đọc" style="width: 8px; height: 8px;"></span>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

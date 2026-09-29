@@ -1,71 +1,79 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{base::layout(~{::section})}">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Giỏ hàng của bạn</title>
 </head>
 <body>
 	<section>
 		<div class="container-fluid mt-5 p-5">
-
-			<div class="card card-sh">
-				<div class="card-header text-center">
-					<p class="fs-4">Cart Page</p>
+			<div class="card card-sh border-0 shadow-sm">
+				<div class="card-header bg-primary text-white text-center py-3">
+					<p class="fs-4 fw-bold mb-0">Giỏ hàng của bạn</p>
+				</div>
+				<div class="card-body p-4">
 					<th:block th:if="${session.succMsg}">
-						<p class="text-success fw-bold">[[${session.succMsg}]]</p>
+						<div class="alert alert-success text-center">[[${session.succMsg}]]</div>
 						<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
 					</th:block>
 
 					<th:block th:if="${session.errorMsg}">
-						<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+						<div class="alert alert-danger text-center">[[${session.errorMsg}]]</div>
 						<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
 					</th:block>
-				</div>
-				<div class="card-body">
-					<table class="table">
-						<thead>
-							<tr>
-								<th scope="col">Sl No</th>
-								<th scope="col">Image</th>
-								<th scope="col">Product Name</th>
-								<th scope="col">Price</th>
-								<th scope="col" class="text-center">Quantity</th>
-								<th scope="col">Total Price</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="cart,c:${carts}">
-								<th scope="row">[[${c.count}]]</th>
-								<td><img
-									th:src="@{'/img/product_img/'+${cart.product.image}}"
-									width="70px" height="70px"></td>
-								<td>[[${cart.product.title}]]</td>
-								<td>[[${cart.product.discountPrice}]]</td>
-								<td class="text-center"><a
-									th:href="@{'/user/cartQuantityUpdate?sy=de&cid='+${cart.id}}">
-										<i class="fa-solid fa-minus"></i>
-								</a> [ [[${cart.quantity}]] ] <a
-									th:href="@{'/user/cartQuantityUpdate?sy=in&cid='+${cart.id}}">
-										<i class="fa-solid fa-plus"></i>
-								</a></td>
-								<td>[[${cart.totalPrice}]]</td>
-							</tr>
-							<tr>
-								<td colspan="4"></td>
-								<td class="fw-bold">Total Price</td>
-								<td class="fw-bold">&#8377; [[${totalOrderPrice}]]</td>
-							</tr>
-
-						</tbody>
-					</table>
-					<div class="text-center">
-						<a href="/user/orders" class="btn btn-warning"> Proceed Payment</a>
-					</div>
+					
+					<th:block th:if="${carts.size() > 0}">
+						<div class="table-responsive">
+							<table class="table table-bordered table-hover align-middle">
+								<thead class="table-light text-center">
+									<tr>
+										<th scope="col">STT</th>
+										<th scope="col">Hình ảnh</th>
+										<th scope="col">Tên sản phẩm</th>
+										<th scope="col">Đơn giá</th>
+										<th scope="col" class="text-center">Số lượng</th>
+										<th scope="col">Thành tiền</th>
+									</tr>
+								</thead>
+								<tbody class="text-center">
+									<tr th:each="cart,c:${carts}">
+										<th scope="row">[[${c.count}]]</th>
+										<td><img th:src="@{'/img/product_img/'+${cart.product.image}}" width="70px" height="70px" class="rounded shadow-sm" style="object-fit: cover;"></td>
+										<td class="fw-bold text-start ps-3">[[${cart.product.title}]]</td>
+										<td>[[${#numbers.formatDecimal(cart.product.discountPrice, 0, 'POINT', 0, 'COMMA')}]]đ</td>
+										<td class="text-center">
+											<div class="d-flex justify-content-center align-items-center gap-2">
+												<a th:href="@{'/user/cartQuantityUpdate?sy=de&cid='+${cart.id}}" class="qty-btn bg-light text-dark border"><i class="fa-solid fa-minus"></i></a> 
+												<span class="fs-5 fw-bold px-2">[[${cart.quantity}]]</span> 
+												<a th:href="@{'/user/cartQuantityUpdate?sy=in&cid='+${cart.id}}" class="qty-btn bg-light text-dark border"><i class="fa-solid fa-plus"></i></a>
+											</div>
+										</td>
+										<td class="fw-bold text-danger">[[${#numbers.formatDecimal(cart.totalPrice, 0, 'POINT', 0, 'COMMA')}]]đ</td>
+									</tr>
+									<tr class="table-light">
+										<td colspan="4"></td>
+										<td class="fw-bold text-end fs-5">Tổng thanh toán:</td>
+										<td class="fw-bold text-danger fs-4">[[${#numbers.formatDecimal(totalOrderPrice, 0, 'POINT', 0, 'COMMA')}]]đ</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="text-end mt-4">
+							<a href="/user/orders" class="btn btn-warning px-5 py-3 fs-5 fw-bold rounded-pill text-dark"><i class="fa-solid fa-credit-card me-2"></i>Tiến hành đặt hàng</a>
+						</div>
+					</th:block>
+					
+					<th:block th:unless="${carts.size() > 0}">
+						<div class="text-center py-5">
+							<i class="fa-solid fa-cart-arrow-down fa-5x text-secondary mb-3"></i>
+							<p class="fs-3 fw-bold text-secondary">Giỏ hàng trống</p>
+							<a href="/products" class="btn btn-primary px-4 py-2 mt-3 rounded-pill">Tiếp tục mua sắm</a>
+						</div>
+					</th:block>
 				</div>
 			</div>
 		</div>
-
 	</section>
 </body>
 </html>

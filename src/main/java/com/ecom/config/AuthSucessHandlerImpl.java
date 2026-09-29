@@ -14,8 +14,16 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import com.ecom.service.UserService;
+import com.ecom.model.UserDtls;
+
 @Service
 public class AuthSucessHandlerImpl implements AuthenticationSuccessHandler {
+
+	@Autowired
+	@org.springframework.context.annotation.Lazy
+	private UserService userService;
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -24,6 +32,16 @@ public class AuthSucessHandlerImpl implements AuthenticationSuccessHandler {
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		
 		Set<String> roles = AuthorityUtils.authorityListToSet(authorities);
+		
+		if(authentication.getPrincipal() instanceof CustomUser) {
+			CustomUser customUser = (CustomUser) authentication.getPrincipal();
+			UserDtls user = customUser.getUser();
+			if (user != null) {
+				userService.resetAttempt(user.getId());
+			}
+		} else if(authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.User) {
+            // In case a different UserDetails is used
+        }
 		
 		if(roles.contains("ROLE_ADMIN"))
 		{

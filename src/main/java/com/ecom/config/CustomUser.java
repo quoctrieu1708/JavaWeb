@@ -18,6 +18,10 @@ public class CustomUser implements UserDetails {
 		this.user = user;
 	}
 
+	public UserDtls getUser() {
+		return this.user;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());

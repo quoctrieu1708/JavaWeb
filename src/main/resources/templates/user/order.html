@@ -1,126 +1,164 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{base::layout(~{::section})}">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Địa chỉ nhận hàng</title>
 </head>
 <body>
 	<section>
-
-		<div class="container mt-5 p-5">
+		<div class="container mt-5 p-4">
 			<form action="/user/save-order" method="post" id="orders" novalidate>
 				<div class="row">
-
-					<div class="col-md-6">
-
-
-						<div class="mb-3 row">
-							<p class="text-center fs-4">Billing Address</p>
-							<hr>
-							<div class="col p-1">
-								<label>First Name</label> <input type="text" name="firstName" required
-									class="form-control mt-1">
+					<div class="col-md-7 mb-4">
+						<div class="card shadow-sm border-0 h-100 rounded-4">
+							<div class="card-header bg-primary text-white py-3 rounded-top-4" style="background: linear-gradient(135deg, #1e3c72, #2a5298) !important;">
+								<p class="text-center fs-5 fw-bold mb-0"><i class="fa-solid fa-map-location-dot me-2"></i>Địa chỉ nhận hàng</p>
 							</div>
-							<div class="col p-1">
-								<label>Last Name</label> <input type="text" name="lastName" required
-									class="form-control mt-1">
-							</div>
-						</div>
-
-						<div class="mb-3 row">
-							<div class="col p-1">
-								<label>Email</label> <input type="email" name="email" required
-									class="form-control col">
-							</div>
-							<div class="col p-1">
-								<label>Mobile Number</label> <input type="text" name="mobileNo" required
-									class="form-control col ms-2">
-							</div>
-						</div>
-
-						<div class="mb-3 row">
-							<div class="col p-1">
-								<label>Address</label> <input type="text" name="address" required
-									class="form-control col">
-							</div>
-							<div class="col p-1">
-								<label>City</label> <input type="text" name="city" required
-									class="form-control col ms-2">
-							</div>
-						</div>
-						<div class="mb-3 row">
-							<div class="col p-1">
-								<label>State</label> <input type="text" name="state" required
-									class="form-control col">
-							</div>
-							<div class="col p-1">
-								<label>Pincode</label> <input type="number" name="pincode" required
-									class="form-control col ms-2">
-							</div>
-						</div>
-						<!-- </form> -->
-
-					</div>
-					<div class="col-md-6">
-						<p class="text-center fs-4">Payment Type</p>
-						<hr>
-						<div class="card">
-							<div class="card-body">
-								<table class="table table-borderless">
-									<tbody>
-										<tr>
-											<td>Total price</td>
-											<td>:</td>
-											<td>&#8377; [[${orderPrice}]]</td>
-										</tr>
-										<tr>
-											<td>Delivery Fee</td>
-											<td>:</td>
-											<td>&#8377; 250</td>
-										</tr>
-
-										<tr>
-											<td>Tax</td>
-											<td>:</td>
-											<td>&#8377; 100</td>
-										</tr>
-
-										<tr class="border-top">
-											<td>Total Price</td>
-											<td>:</td>
-											<td>&#8377; [[${totalOrderPrice}]]</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-
-						<div class="card shadow p-3 mb-5 mt-2 bg-body-tertiary rounded">
-
-							<div class="card-body">
-								<!-- <form action="/login" method="post"> -->
-								<div class="mb-3">
-									<label class="form-label">Select Payment Type</label> <select required
-										name="paymentType" class="form-control">
-										<option value="">--select--</option>
-										<option value="COD">Cash On Delivery</option>
-										<option value="ONLINE">Online Payment</option>
-									</select>
-
+							<div class="card-body p-4">
+								<div class="row mb-3">
+									<div class="col-md-6 mb-3 mb-md-0">
+										<label class="fw-bold form-label">Họ và tên</label> 
+										<input type="text" name="fullName" required class="form-control" placeholder="Nhập họ và tên" th:value="${user != null ? user.name : ''}">
+									</div>
+									<div class="col-md-6">
+										<label class="fw-bold form-label">Số điện thoại</label> 
+										<input type="text" name="phone" required class="form-control" placeholder="Nhập số điện thoại" th:value="${user != null ? user.mobileNumber : ''}">
+									</div>
 								</div>
 
-								<button class="btn bg-primary text-white col-md-12">Place
-									Order</button>
+								<div class="mb-3">
+									<label class="fw-bold form-label">Email</label> 
+									<input type="email" name="email" required class="form-control" placeholder="Nhập email" th:value="${user != null ? user.email : ''}">
+								</div>
 
+								<div class="row mb-3">
+									<div class="col-md-6 mb-3 mb-md-0">
+										<label class="fw-bold form-label">Tỉnh / Thành phố</label> 
+										<input type="text" name="province" required class="form-control" placeholder="Ví dụ: Hà Nội, TP.HCM..." th:value="${user != null ? user.city : ''}">
+									</div>
+									<div class="col-md-6">
+										<label class="fw-bold form-label">Phường / Xã</label> 
+										<input type="text" name="ward" required class="form-control" placeholder="Ví dụ: Phường Dịch Vọng Hậu..." th:value="${user != null ? user.state : ''}">
+									</div>
+								</div>
+								
+								<div class="mb-3">
+									<label class="fw-bold form-label">Địa chỉ chi tiết</label> 
+									<input type="text" name="detailAddress" required class="form-control" placeholder="Số nhà, tên đường, toà nhà..." th:value="${user != null ? user.address : ''}">
+								</div>
 							</div>
 						</div>
 					</div>
+					
+					<div class="col-md-5 mb-4">
+						<div class="card shadow-sm border-0 h-100 rounded-4">
+							<div class="card-header bg-primary text-white py-3 rounded-top-4" style="background: linear-gradient(135deg, #1e3c72, #2a5298) !important;">
+								<p class="text-center fs-5 fw-bold mb-0"><i class="fa-solid fa-credit-card me-2"></i>Thanh toán & Đặt hàng</p>
+							</div>
+							<div class="card-body p-4 d-flex flex-column">
+								<!-- Summary Box -->
+								<div class="bg-light p-3 rounded-4 mb-3 border">
+									<table class="table table-borderless mb-0">
+										<tbody>
+											<tr>
+												<td class="fw-bold text-secondary">Tổng tiền hàng:</td>
+												<td class="text-end fw-bold">[[${#numbers.formatDecimal(orderPrice, 0, 'POINT', 0, 'COMMA')}]]đ</td>
+											</tr>
+											<tr id="voucherRow" class="d-none text-success">
+												<td class="fw-bold"><i class="fa-solid fa-tag me-1"></i>Voucher giảm:</td>
+												<td class="text-end fw-bold" id="voucherDiscountText">-0đ</td>
+											</tr>
+											<tr>
+												<td class="fw-bold text-secondary">Phí giao hàng:</td>
+												<td class="text-end fw-bold">[[${#numbers.formatDecimal(shippingFee, 0, 'POINT', 0, 'COMMA')}]]đ</td>
+											</tr>
+											<tr>
+												<td class="fw-bold text-secondary">Thuế VAT:</td>
+												<td class="text-end fw-bold">[[${#numbers.formatDecimal(tax, 0, 'POINT', 0, 'COMMA')}]]đ</td>
+											</tr>
+											<tr class="border-top border-secondary">
+												<td class="fw-bold fs-5 pt-3">Tổng thanh toán:</td>
+												<td class="text-end fw-bold text-danger fs-4 pt-3" id="finalTotalText">[[${#numbers.formatDecimal(totalOrderPrice, 0, 'POINT', 0, 'COMMA')}]]đ</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
 
+								<!-- Voucher Code Section -->
+								<div class="mb-3">
+									<label class="fw-bold form-label small text-secondary">
+										<i class="fa-solid fa-ticket text-warning me-1"></i>Mã giảm giá / Voucher
+									</label>
+									<div class="input-group">
+										<input type="text" id="voucherInput" name="voucherCode" class="form-control text-uppercase" placeholder="Nhập mã (VD: GIAM20K)">
+										<button type="button" class="btn btn-outline-primary fw-bold" onclick="applyVoucher()">Áp dụng</button>
+									</div>
+									<div id="voucherMsg" class="small mt-1 d-none"></div>
+								</div>
+
+								<!-- Payment Method -->
+								<div class="mb-4">
+									<label class="fw-bold form-label fs-6 mb-2">Hình thức thanh toán</label> 
+									<select required name="paymentType" class="form-select form-select-lg">
+										<option value="">--Chọn hình thức thanh toán--</option>
+										<option value="COD" selected>Thanh toán khi nhận hàng (COD)</option>
+										<option value="VNPAY">Thanh toán qua VNPay (Demo)</option>
+										<option value="MOMO">Thanh toán qua Momo (Demo)</option>
+									</select>
+								</div>
+
+								<button type="submit" class="btn btn-primary w-100 py-3 fs-5 fw-bold rounded-pill shadow mt-auto" style="background: linear-gradient(135deg, #1e3c72, #2a5298); border: none;">
+									<i class="fa-solid fa-bag-shopping me-2"></i>Đặt hàng ngay
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</form>
 		</div>
 
+		<script th:inline="javascript">
+			var originalTotal = /*[[${totalOrderPrice}]]*/ 0;
+			var orderBasePrice = /*[[${orderPrice}]]*/ 0;
+			var currentDiscount = 0;
+
+			function applyVoucher() {
+				var code = document.getElementById('voucherInput').value.trim();
+				var msgEl = document.getElementById('voucherMsg');
+				if (!code) {
+					msgEl.className = 'small mt-1 text-danger';
+					msgEl.innerText = 'Vui lòng nhập mã giảm giá!';
+					msgEl.classList.remove('d-none');
+					return;
+				}
+				fetch('/user/validate-voucher?code=' + encodeURIComponent(code) + '&total=' + orderBasePrice)
+					.then(res => res.json())
+					.then(data => {
+						msgEl.classList.remove('d-none');
+						if (data.valid) {
+							msgEl.className = 'small mt-1 text-success fw-bold';
+							msgEl.innerText = data.message + (data.description ? ' (' + data.description + ')' : '');
+							currentDiscount = data.discount;
+							document.getElementById('voucherRow').classList.remove('d-none');
+							document.getElementById('voucherDiscountText').innerText = '-' + Number(currentDiscount).toLocaleString('vi-VN') + 'đ';
+							var newTotal = Math.max(0, originalTotal - currentDiscount);
+							document.getElementById('finalTotalText').innerText = Number(newTotal).toLocaleString('vi-VN') + 'đ';
+						} else {
+							msgEl.className = 'small mt-1 text-danger';
+							msgEl.innerText = data.message;
+							currentDiscount = 0;
+							document.getElementById('voucherRow').classList.add('d-none');
+							document.getElementById('finalTotalText').innerText = Number(originalTotal).toLocaleString('vi-VN') + 'đ';
+						}
+					})
+					.catch(err => {
+						msgEl.className = 'small mt-1 text-danger';
+						msgEl.innerText = 'Lỗi kết nối khi kiểm tra voucher.';
+						msgEl.classList.remove('d-none');
+					});
+			}
+		</script>
 	</section>
 </body>
 </html>

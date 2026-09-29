@@ -1,6 +1,6 @@
 package com.ecom.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -48,7 +48,7 @@ public class UserDtls {
 
 	private Integer failedAttempt;
 
-	private Date lockTime;
+	private LocalDateTime lockTime;
 	
 	private String resetToken;
 
@@ -164,11 +164,11 @@ public class UserDtls {
 		this.failedAttempt = failedAttempt;
 	}
 
-	public Date getLockTime() {
+	public LocalDateTime getLockTime() {
 		return lockTime;
 	}
 
-	public void setLockTime(Date lockTime) {
+	public void setLockTime(LocalDateTime lockTime) {
 		this.lockTime = lockTime;
 	}
 

@@ -156,4 +156,34 @@ public class ProductServiceImpl implements ProductService {
 		return pageProduct;
 	}
 
+	@Override
+	public Page<Product> filterProducts(String category, String keyword, Double minPrice, Double maxPrice, String sortBy, Integer pageNo, Integer pageSize) {
+		org.springframework.data.domain.Sort sort = org.springframework.data.domain.Sort.by("id").descending();
+		if ("price_asc".equalsIgnoreCase(sortBy)) {
+			sort = org.springframework.data.domain.Sort.by("discountPrice").ascending();
+		} else if ("price_desc".equalsIgnoreCase(sortBy)) {
+			sort = org.springframework.data.domain.Sort.by("discountPrice").descending();
+		} else if ("rating".equalsIgnoreCase(sortBy)) {
+			sort = org.springframework.data.domain.Sort.by("rating").descending();
+		} else if ("latest".equalsIgnoreCase(sortBy)) {
+			sort = org.springframework.data.domain.Sort.by("id").descending();
+		}
+
+		Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+		String cat = (category != null && !category.trim().isEmpty() && !"all".equalsIgnoreCase(category.trim())) ? category.trim() : null;
+		String kw = (keyword != null && !keyword.trim().isEmpty()) ? keyword.trim() : null;
+
+		return productRepository.searchAndFilterProducts(cat, kw, minPrice, maxPrice, pageable);
+	}
+
+	@Override
+	public Long countLowStock(int threshold) {
+		return productRepository.countByStockLessThan(threshold);
+	}
+
+	@Override
+	public Long countOutOfStock() {
+		return productRepository.countByStockEquals(0);
+	}
+
 }

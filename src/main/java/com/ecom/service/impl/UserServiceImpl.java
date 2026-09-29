@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Date;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -78,19 +78,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void userAccountLock(UserDtls user) {
 		user.setAccountNonLocked(false);
-		user.setLockTime(new Date());
+		user.setLockTime(java.time.LocalDateTime.now());
 		userRepository.save(user);
 	}
 
 	@Override
 	public boolean unlockAccountTimeExpired(UserDtls user) {
 
-		long lockTime = user.getLockTime().getTime();
-		long unLockTime = lockTime + AppConstant.UNLOCK_DURATION_TIME;
-
-		long currentTime = System.currentTimeMillis();
-
-		if (unLockTime < currentTime) {
+		if (java.time.Duration.between(user.getLockTime(), java.time.LocalDateTime.now()).toMillis() >= AppConstant.UNLOCK_DURATION_TIME) {
 			user.setAccountNonLocked(true);
 			user.setFailedAttempt(0);
 			user.setLockTime(null);
@@ -103,7 +98,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void resetAttempt(int userId) {
-
+		UserDtls user = userRepository.findById(userId).orElse(null);
+		if (user != null) {
+			user.setFailedAttempt(0);
+			user.setAccountNonLocked(true);
+			user.setLockTime(null);
+			userRepository.save(user);
+		}
 	}
 
 	@Override

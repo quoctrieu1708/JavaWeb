@@ -62,6 +62,12 @@ public class HomeController {
 	@Autowired
 	private CartService cartService;
 
+	@Autowired
+	private com.ecom.service.ReviewService reviewService;
+
+	@Autowired
+	private com.ecom.service.NotificationService notificationService;
+
 	@ModelAttribute
 	public void getUserDetails(Principal p, Model m) {
 		if (p != null) {
@@ -70,6 +76,8 @@ public class HomeController {
 			m.addAttribute("user", userDtls);
 			Integer countCart = cartService.getCountCart(userDtls.getId());
 			m.addAttribute("countCart", countCart);
+			Long countNotification = notificationService.getUnreadCount(userDtls.getId());
+			m.addAttribute("countNotification", countNotification != null ? countNotification : 0L);
 		}
 
 		List<Category> allActiveCategory = categoryService.getAllActiveCategory();
@@ -99,27 +107,42 @@ public class HomeController {
 	}
 
 	@GetMapping("/products")
-	public String products(Model m, @RequestParam(value = "category", defaultValue = "") String category,
+	public String products(Model m,
+			@RequestParam(value = "category", defaultValue = "") String category,
 			@RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo,
 			@RequestParam(name = "pageSize", defaultValue = "12") Integer pageSize,
-			@RequestParam(defaultValue = "") String ch) {
+			@RequestParam(defaultValue = "") String ch,
+			@RequestParam(name = "minPrice", required = false) Double minPrice,
+			@RequestParam(name = "maxPrice", required = false) Double maxPrice,
+			@RequestParam(name = "sortBy", defaultValue = "latest") String sortBy,
+			jakarta.servlet.http.HttpServletRequest request) {
+
+		if ("Điện thoại".equals(category.trim()) && request.getParameter("Tablet") != null) {
+			category = "Điện thoại & Tablet";
+		} else if ("Laptop".equals(category.trim()) && request.getParameter("Máy tính") != null) {
+			category = "Laptop & Máy tính";
+		}
 
 		List<Category> categories = categoryService.getAllActiveCategory();
 		m.addAttribute("paramValue", category);
+		String encodedCategory = "";
+		try {
+			encodedCategory = java.net.URLEncoder.encode(category, java.nio.charset.StandardCharsets.UTF_8.toString());
+		} catch (Exception e) {}
+		m.addAttribute("encodedParamValue", encodedCategory);
 		m.addAttribute("categories", categories);
 
-//		List<Product> products = productService.getAllActiveProducts(category);
-//		m.addAttribute("products", products);
-		Page<Product> page = null;
-		if (StringUtils.isEmpty(ch)) {
-			page = productService.getAllActiveProductPagination(pageNo, pageSize, category);
-		} else {
-			page = productService.searchActiveProductPagination(pageNo, pageSize, category, ch);
-		}
+		// Advanced Filter & Search
+		Page<Product> page = productService.filterProducts(category, ch, minPrice, maxPrice, sortBy, pageNo, pageSize);
 
 		List<Product> products = page.getContent();
 		m.addAttribute("products", products);
 		m.addAttribute("productsSize", products.size());
+
+		m.addAttribute("ch", ch);
+		m.addAttribute("minPrice", minPrice);
+		m.addAttribute("maxPrice", maxPrice);
+		m.addAttribute("sortBy", sortBy);
 
 		m.addAttribute("pageNo", page.getNumber());
 		m.addAttribute("pageSize", pageSize);
@@ -132,9 +155,36 @@ public class HomeController {
 	}
 
 	@GetMapping("/product/{id}")
-	public String product(@PathVariable int id, Model m) {
+	public String product(@PathVariable int id, Model m, Principal p) {
 		Product productById = productService.getProductById(id);
 		m.addAttribute("product", productById);
+
+		// Reviews & Ratings
+		List<com.ecom.model.Review> reviews = reviewService.getReviewsByProduct(id);
+		Double avgRating = reviewService.getAverageRatingByProduct(id);
+		Long reviewCount = reviewService.getReviewCountByProduct(id);
+		m.addAttribute("reviews", reviews);
+		m.addAttribute("avgRating", avgRating != null ? avgRating : 5.0);
+		m.addAttribute("reviewCount", reviewCount != null ? reviewCount : 0L);
+
+		// Check if user already reviewed
+		if (p != null) {
+			UserDtls u = userService.getUserByEmail(p.getName());
+			if (u != null) {
+				reviewService.getUserReviewForProduct(u.getId(), id)
+						.ifPresent(r -> m.addAttribute("userReview", r));
+			}
+		}
+
+		// Related products (same category, excluding current product)
+		if (productById != null && productById.getCategory() != null) {
+			List<Product> relatedProducts = productService.getAllActiveProducts(productById.getCategory()).stream()
+					.filter(prod -> !prod.getId().equals(id))
+					.limit(4)
+					.toList();
+			m.addAttribute("relatedProducts", relatedProducts);
+		}
+
 		return "view_product";
 	}
 
@@ -145,7 +195,7 @@ public class HomeController {
 		Boolean existsEmail = userService.existsEmail(user.getEmail());
 
 		if (existsEmail) {
-			session.setAttribute("errorMsg", "Email already exist");
+			session.setAttribute("errorMsg", "Email này đã được đăng ký");
 		} else {
 			String imageName = file.isEmpty() ? "default.jpg" : file.getOriginalFilename();
 			user.setProfileImage(imageName);
@@ -161,9 +211,9 @@ public class HomeController {
 //					System.out.println(path);
 					Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 				}
-				session.setAttribute("succMsg", "Register successfully");
+				session.setAttribute("succMsg", "Đăng ký tài khoản thành công");
 			} else {
-				session.setAttribute("errorMsg", "something wrong on server");
+				session.setAttribute("errorMsg", "Đã xảy ra lỗi trên máy chủ");
 			}
 		}
 
@@ -184,7 +234,7 @@ public class HomeController {
 		UserDtls userByEmail = userService.getUserByEmail(email);
 
 		if (ObjectUtils.isEmpty(userByEmail)) {
-			session.setAttribute("errorMsg", "Invalid email");
+			session.setAttribute("errorMsg", "Email không tồn tại trong hệ thống");
 		} else {
 
 			String resetToken = UUID.randomUUID().toString();
@@ -198,9 +248,9 @@ public class HomeController {
 			Boolean sendMail = commonUtil.sendMail(url, email);
 
 			if (sendMail) {
-				session.setAttribute("succMsg", "Please check your email..Password Reset link sent");
+				session.setAttribute("succMsg", "Vui lòng kiểm tra email. Liên kết đặt lại mật khẩu đã được gửi");
 			} else {
-				session.setAttribute("errorMsg", "Somethong wrong on server ! Email not send");
+				session.setAttribute("errorMsg", "Lỗi máy chủ! Không thể gửi email");
 			}
 		}
 
@@ -213,7 +263,7 @@ public class HomeController {
 		UserDtls userByToken = userService.getUserByToken(token);
 
 		if (userByToken == null) {
-			m.addAttribute("msg", "Your link is invalid or expired !!");
+			m.addAttribute("msg", "Liên kết không hợp lệ hoặc đã hết hạn!");
 			return "message";
 		}
 		m.addAttribute("token", token);
@@ -226,14 +276,14 @@ public class HomeController {
 
 		UserDtls userByToken = userService.getUserByToken(token);
 		if (userByToken == null) {
-			m.addAttribute("errorMsg", "Your link is invalid or expired !!");
+			m.addAttribute("errorMsg", "Liên kết không hợp lệ hoặc đã hết hạn!");
 			return "message";
 		} else {
 			userByToken.setPassword(passwordEncoder.encode(password));
 			userByToken.setResetToken(null);
 			userService.updateUser(userByToken);
 			// session.setAttribute("succMsg", "Password change successfully");
-			m.addAttribute("msg", "Password change successfully");
+			m.addAttribute("msg", "Đổi mật khẩu thành công");
 
 			return "message";
 		}

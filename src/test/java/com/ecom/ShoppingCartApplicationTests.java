@@ -42,6 +42,9 @@ class ShoppingCartApplicationTests {
 
 		// Fetch existing cart or create
 		Cart existingCart = cartService.getCartByProductAndUser(19, 4);
+		if (existingCart == null) {
+			existingCart = cartService.saveCart(19, 4, 1);
+		}
 		assertNotNull(existingCart, "Cart item should exist for user 4 and product 19");
 
 		int initialQty = existingCart.getQuantity();

@@ -52,7 +52,17 @@ public class SecurityConfig {
 //						.defaultSuccessUrl("/")
 						.failureHandler(authenticationFailureHandler)
 						.successHandler(authenticationSuccessHandler))
-				.logout(logout->logout.permitAll());
+				.logout(logout->logout.permitAll())
+				.headers(headers -> headers
+						.contentSecurityPolicy(csp -> csp
+								.policyDirectives("default-src 'self' 'unsafe-inline' 'unsafe-eval' https: http: data: blob:; " +
+										"script-src 'self' 'unsafe-inline' 'unsafe-eval' https: http:; " +
+										"style-src 'self' 'unsafe-inline' https: http:; " +
+										"img-src 'self' data: https: http: blob:; " +
+										"font-src 'self' data: https: http:; " +
+										"connect-src 'self' ws: wss: https: http:; " +
+										"frame-ancestors 'self';"))
+				);
 		
 		return http.build();
 	}

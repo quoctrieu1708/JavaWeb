@@ -63,12 +63,10 @@
 														<a th:href="@{'/user/cartQuantityUpdate?sy=de&cid='+${cart.id}}" class="qty-btn" title="Giảm số lượng">
 															<i class="fa-solid fa-minus" style="font-size: 0.7rem;"></i>
 														</a> 
-														<input type="number" class="form-control form-control-sm text-center fw-bold px-1" 
+														<input type="number" class="form-control form-control-sm text-center fw-bold px-1 cart-qty-input" 
 															   style="width: 58px; height: 32px;"
 															   th:value="${cart.quantity}" min="1" th:max="${cart.product.stock}"
-															   th:oninput="'validateCartQtyInput(this, ' + ${cart.product.stock} + ')'"
-															   th:onchange="'commitCartQtyChange(' + ${cart.id} + ', this, ' + ${cart.product.stock} + ')'"
-															   th:onkeydown="'if(event.key===\'Enter\'){event.preventDefault(); commitCartQtyChange(' + ${cart.id} + ', this, ' + ${cart.product.stock} + ');}'">
+															   th:data-cart-id="${cart.id}" th:data-max-stock="${cart.product.stock}">
 														<a th:href="@{'/user/cartQuantityUpdate?sy=in&cid='+${cart.id}}" class="qty-btn" title="Tăng số lượng">
 															<i class="fa-solid fa-plus" style="font-size: 0.7rem;"></i>
 														</a>
@@ -150,27 +148,40 @@
 
 		<!-- Script for Cart Quantity Management with Stock Constraints -->
 		<script>
-			function validateCartQtyInput(input, maxStock) {
-				var val = parseInt(input.value);
-				if (isNaN(val) || val < 1) {
-					return;
-				}
-				if (val > maxStock) {
-					input.value = maxStock;
-					alert('Số lượng không thể vượt quá ' + maxStock + ' sản phẩm hiện còn trong kho!');
-				}
-			}
+			document.addEventListener('DOMContentLoaded', function() {
+				document.querySelectorAll('.cart-qty-input').forEach(function(input) {
+					var maxStock = parseInt(input.getAttribute('data-max-stock')) || 999999;
+					var cartId = input.getAttribute('data-cart-id');
 
-			function commitCartQtyChange(cartId, input, maxStock) {
-				var val = parseInt(input.value);
-				if (isNaN(val) || val < 1) val = 1;
-				if (val > maxStock) {
-					val = maxStock;
-					alert('Đã điều chỉnh về số lượng tối đa trong kho: ' + maxStock + ' sản phẩm');
-				}
-				input.value = val;
-				window.location.href = '/user/cart/update-quantity-direct?cid=' + cartId + '&quantity=' + val;
-			}
+					function commitChange() {
+						var val = parseInt(input.value);
+						if (isNaN(val) || val < 1) val = 1;
+						if (val > maxStock) {
+							val = maxStock;
+							alert('Đã điều chỉnh về số lượng tối đa trong kho: ' + maxStock + ' sản phẩm');
+						}
+						input.value = val;
+						window.location.href = '/user/cart/update-quantity-direct?cid=' + cartId + '&quantity=' + val;
+					}
+
+					input.addEventListener('input', function() {
+						var val = parseInt(input.value);
+						if (val > maxStock) {
+							input.value = maxStock;
+							alert('Số lượng không thể vượt quá ' + maxStock + ' sản phẩm hiện còn trong kho!');
+						}
+					});
+
+					input.addEventListener('change', commitChange);
+
+					input.addEventListener('keydown', function(e) {
+						if (e.key === 'Enter') {
+							e.preventDefault();
+							commitChange();
+						}
+					});
+				});
+			});
 		</script>
 	</section>
 </body>

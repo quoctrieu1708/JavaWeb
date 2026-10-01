@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ecom.model.Cart;
 import com.ecom.model.Category;
 import com.ecom.model.Product;
 import com.ecom.model.UserDtls;
@@ -167,12 +168,14 @@ public class HomeController {
 		m.addAttribute("avgRating", avgRating != null ? avgRating : 5.0);
 		m.addAttribute("reviewCount", reviewCount != null ? reviewCount : 0L);
 
-		// Check if user already reviewed
+		// Check if user already reviewed or has item in cart
 		if (p != null) {
 			UserDtls u = userService.getUserByEmail(p.getName());
 			if (u != null) {
 				reviewService.getUserReviewForProduct(u.getId(), id)
 						.ifPresent(r -> m.addAttribute("userReview", r));
+				Cart cartItem = cartService.getCartByProductAndUser(id, u.getId());
+				m.addAttribute("cartItem", cartItem);
 			}
 		}
 

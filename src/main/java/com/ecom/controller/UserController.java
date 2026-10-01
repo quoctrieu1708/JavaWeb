@@ -107,18 +107,36 @@ public class UserController {
 			quantity = 1;
 		}
 
-		if (quantity > product.getStock()) {
-			quantity = product.getStock();
-			session.setAttribute("errorMsg", "Số lượng yêu cầu vượt quá tồn kho. Đã tự động điều chỉnh về tối đa " + product.getStock() + " sản phẩm!");
+		Cart existingCart = cartService.getCartByProductAndUser(pid, uid);
+		int currentInCart = (existingCart != null && existingCart.getQuantity() != null) ? existingCart.getQuantity() : 0;
+		int availableStock = product.getStock();
+
+		if (currentInCart >= availableStock) {
+			session.setAttribute("errorMsg", "Sản phẩm này đã đạt số lượng tối đa trong giỏ hàng (tồn kho hiện có: " + availableStock + ")!");
+			return "redirect:/product/" + pid;
 		}
 
-		Cart saveCart = cartService.saveCart(pid, uid, quantity);
+		int allowedAdd = availableStock - currentInCart;
+		int actualAdd = Math.min(quantity, allowedAdd);
+
+		Cart saveCart = cartService.saveCart(pid, uid, actualAdd);
 
 		if (ObjectUtils.isEmpty(saveCart)) {
 			session.setAttribute("errorMsg", "Thêm sản phẩm vào giỏ hàng thất bại.");
 		} else {
-			if (session.getAttribute("errorMsg") == null) {
-				session.setAttribute("succMsg", "Đã thêm " + quantity + " sản phẩm vào giỏ hàng thành công!");
+			int newTotalInCart = saveCart.getQuantity();
+			if (existingCart != null) {
+				if (actualAdd < quantity) {
+					session.setAttribute("succMsg", "Sản phẩm đã có trong giỏ hàng. Đã thêm " + actualAdd + " sản phẩm (tổng cộng " + newTotalInCart + " sản phẩm, đã đạt tối đa tồn kho)!");
+				} else {
+					session.setAttribute("succMsg", "Sản phẩm đã có trong giỏ hàng. Đã cập nhật tăng " + actualAdd + " sản phẩm (tổng cộng " + newTotalInCart + " sản phẩm trong giỏ)!");
+				}
+			} else {
+				if (actualAdd < quantity) {
+					session.setAttribute("succMsg", "Đã thêm " + actualAdd + " sản phẩm vào giỏ hàng (đạt giới hạn kho " + availableStock + ")!");
+				} else {
+					session.setAttribute("succMsg", "Đã thêm " + actualAdd + " sản phẩm vào giỏ hàng thành công!");
+				}
 			}
 		}
 		return "redirect:/product/" + pid;

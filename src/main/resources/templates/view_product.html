@@ -100,9 +100,14 @@
 
 					<!-- Quantity Selector with Strict Stock Constraint (User Request) -->
 					<div class="mb-4" th:if="${product.stock > 0}">
-						<label class="form-label fw-bold text-dark small d-flex justify-content-between">
+						<label class="form-label fw-bold text-dark small d-flex justify-content-between align-items-center flex-wrap gap-2">
 							<span>Số lượng mua:</span>
-							<span class="text-secondary fw-normal">Tồn kho hiện có: <strong class="text-dark">[[${product.stock}]]</strong></span>
+							<div>
+								<span th:if="${cartItem != null and cartItem.quantity > 0}" class="badge bg-warning-subtle text-dark border border-warning-subtle me-2">
+									<i class="fa-solid fa-cart-shopping me-1 text-warning"></i>Trong giỏ: <strong>[[${cartItem.quantity}]]</strong>
+								</span>
+								<span class="text-secondary fw-normal">Tồn kho hiện có: <strong class="text-dark">[[${product.stock}]]</strong></span>
+							</div>
 						</label>
 						<div class="d-flex align-items-center gap-3 flex-wrap">
 							<div class="quantity-selector-box shadow-sm">
@@ -124,7 +129,8 @@
 								<i class="fa-solid fa-right-to-bracket me-2"></i>Đăng nhập để đặt mua
 							</a>
 							<button th:unless="${user == null}" type="button" onclick="submitAddToCartWithQty([[${product.id}]])" class="btn btn-gold py-3 fs-5 fw-bold shadow">
-								<i class="fa-solid fa-bag-shopping me-2"></i>Thêm vào giỏ hàng ngay
+								<i th:class="${cartItem != null ? 'fa-solid fa-cart-plus me-2' : 'fa-solid fa-bag-shopping me-2'}"></i>
+								<span th:text="${cartItem != null ? 'Cập nhật thêm vào giỏ hàng' : 'Thêm vào giỏ hàng ngay'}">Thêm vào giỏ hàng ngay</span>
 							</button>
 						</th:block>
 						<th:block th:unless="${product.stock > 0}">
@@ -239,6 +245,7 @@
 		<!-- Script for Quantity Management and Stock Validation -->
 		<script th:inline="javascript">
 			var productMaxStock = /*[[${product.stock != null ? product.stock : 0}]]*/ 0;
+			var alreadyInCart = /*[[${cartItem != null && cartItem.quantity != null ? cartItem.quantity : 0}]]*/ 0;
 
 			function adjustProductQty(delta) {
 				var input = document.getElementById('productQuantityInput');
@@ -248,7 +255,7 @@
 				if (next < 1) next = 1;
 				if (next > productMaxStock) {
 					next = productMaxStock;
-					showStockWarning();
+					showStockWarning("Chỉ còn tối đa " + productMaxStock + " sản phẩm trong kho!");
 				}
 				input.value = next;
 			}
@@ -263,16 +270,16 @@
 				}
 				if (val > productMaxStock) {
 					input.value = productMaxStock;
-					showStockWarning();
+					showStockWarning("Chỉ còn tối đa " + productMaxStock + " sản phẩm trong kho!");
 				} else {
 					if (errorEl) errorEl.classList.add('d-none');
 				}
 			}
 
-			function showStockWarning() {
+			function showStockWarning(msg) {
 				var errorEl = document.getElementById('stock-error-msg');
 				if (errorEl) {
-					errorEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation me-1"></i>Chỉ còn tối đa ' + productMaxStock + ' sản phẩm trong kho!';
+					errorEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation me-1"></i>' + (msg || ('Chỉ còn tối đa ' + productMaxStock + ' sản phẩm trong kho!'));
 					errorEl.classList.remove('d-none');
 					setTimeout(function() {
 						errorEl.classList.add('d-none');
@@ -285,6 +292,10 @@
 				var qty = input ? (parseInt(input.value) || 1) : 1;
 				if (qty > productMaxStock) {
 					qty = productMaxStock;
+				}
+				if (alreadyInCart >= productMaxStock) {
+					showStockWarning("Bạn đã có " + alreadyInCart + "/" + productMaxStock + " sản phẩm trong giỏ (đạt mức tối đa trong kho)!");
+					return;
 				}
 				window.location.href = '/user/addCart?pid=' + productId + '&quantity=' + qty;
 			}

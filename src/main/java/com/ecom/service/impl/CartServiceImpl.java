@@ -28,6 +28,28 @@ public class CartServiceImpl implements CartService {
 	private ProductRepository productRepository;
 
 	@Override
+	public Cart getCartByProductAndUser(Integer productId, Integer userId) {
+		List<Cart> carts = cartRepository.findCartsByProductIdAndUserId(productId, userId);
+		if (carts == null || carts.isEmpty()) {
+			return null;
+		}
+		if (carts.size() > 1) {
+			// Merge duplicate rows and clean up database
+			Cart primary = carts.get(0);
+			int totalQty = (primary.getQuantity() != null) ? primary.getQuantity() : 0;
+			for (int i = 1; i < carts.size(); i++) {
+				if (carts.get(i).getQuantity() != null) {
+					totalQty += carts.get(i).getQuantity();
+				}
+			}
+			cartRepository.deleteAll(carts.subList(1, carts.size()));
+			primary.setQuantity(totalQty);
+			return cartRepository.save(primary);
+		}
+		return carts.get(0);
+	}
+
+	@Override
 	public Cart saveCart(Integer productId, Integer userId) {
 		return saveCart(productId, userId, 1);
 	}
@@ -50,10 +72,9 @@ public class CartServiceImpl implements CartService {
 			return null; // out of stock
 		}
 
-		Cart cartStatus = cartRepository.findByProductIdAndUserId(productId, userId);
-		Cart cart = null;
+		Cart cart = getCartByProductAndUser(productId, userId);
 
-		if (ObjectUtils.isEmpty(cartStatus)) {
+		if (ObjectUtils.isEmpty(cart)) {
 			int addQty = Math.min(quantity, availableStock);
 			cart = new Cart();
 			cart.setProduct(product);
@@ -61,8 +82,8 @@ public class CartServiceImpl implements CartService {
 			cart.setQuantity(addQty);
 			cart.setTotalPrice(addQty * product.getDiscountPrice());
 		} else {
-			cart = cartStatus;
-			int newQty = cart.getQuantity() + quantity;
+			int currentQty = (cart.getQuantity() != null) ? cart.getQuantity() : 0;
+			int newQty = currentQty + quantity;
 			if (newQty > availableStock) {
 				newQty = availableStock; // Strict warehouse stock ceiling
 			}

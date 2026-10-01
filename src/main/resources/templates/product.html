@@ -3,7 +3,7 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>Sản phẩm — Ecom Store</title>
+<title>Sản phẩm — E-COMMERCE</title>
 </head>
 <body>
 	<section class="pb-5">
@@ -14,15 +14,16 @@
 					<div class="col-lg-8 mx-auto text-center">
 						<span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill mb-2 text-uppercase small">Hệ thống phân phối</span>
 						<h2 class="fw-bold text-white mb-3">TẤT CẢ <span class="brand-gold-text">SẢN PHẨM</span></h2>
-						<form action="/products" method="get">
+						<form action="/products" method="get" class="position-relative nav-search-bar mx-auto" style="max-width: 640px;">
 							<input type="hidden" name="category" th:value="${paramValue}">
 							<input type="hidden" name="sortBy" th:value="${sortBy}">
 							<div class="input-group shadow-lg">
-								<input type="text" class="form-control form-control-lg border-0 px-4" name="ch" th:value="${ch}" placeholder="Tìm kiếm sản phẩm, phụ kiện công nghệ..." autocomplete="off">
+								<input type="text" class="form-control form-control-lg border-0 px-4" name="ch" th:value="${ch}" placeholder="Tìm kiếm sản phẩm, phụ kiện công nghệ..." autocomplete="off" oninput="handleLiveSearch(this, 'productPageSearchDropdown')">
 								<button class="btn btn-gold px-4 fw-bold" type="submit">
 									<i class="fa-solid fa-magnifying-glass me-1"></i> Tìm kiếm
 								</button>
 							</div>
+							<div id="productPageSearchDropdown" class="search-autocomplete-dropdown d-none text-start"></div>
 						</form>
 					</div>
 				</div>

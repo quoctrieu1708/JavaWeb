@@ -29,28 +29,47 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public Cart saveCart(Integer productId, Integer userId) {
+		return saveCart(productId, userId, 1);
+	}
 
-		UserDtls userDtls = userRepository.findById(userId).get();
-		Product product = productRepository.findById(productId).get();
+	@Override
+	public Cart saveCart(Integer productId, Integer userId, Integer quantity) {
+		if (quantity == null || quantity <= 0) {
+			quantity = 1;
+		}
+
+		UserDtls userDtls = userRepository.findById(userId).orElse(null);
+		Product product = productRepository.findById(productId).orElse(null);
+
+		if (userDtls == null || product == null) {
+			return null;
+		}
+
+		int availableStock = product.getStock();
+		if (availableStock <= 0) {
+			return null; // out of stock
+		}
 
 		Cart cartStatus = cartRepository.findByProductIdAndUserId(productId, userId);
-
 		Cart cart = null;
 
 		if (ObjectUtils.isEmpty(cartStatus)) {
+			int addQty = Math.min(quantity, availableStock);
 			cart = new Cart();
 			cart.setProduct(product);
 			cart.setUser(userDtls);
-			cart.setQuantity(1);
-			cart.setTotalPrice(1 * product.getDiscountPrice());
+			cart.setQuantity(addQty);
+			cart.setTotalPrice(addQty * product.getDiscountPrice());
 		} else {
 			cart = cartStatus;
-			cart.setQuantity(cart.getQuantity() + 1);
+			int newQty = cart.getQuantity() + quantity;
+			if (newQty > availableStock) {
+				newQty = availableStock; // Strict warehouse stock ceiling
+			}
+			cart.setQuantity(newQty);
 			cart.setTotalPrice(cart.getQuantity() * cart.getProduct().getDiscountPrice());
 		}
-		Cart saveCart = cartRepository.save(cart);
-
-		return saveCart;
+		return cartRepository.save(cart);
 	}
 
 	@Override
@@ -78,8 +97,11 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public void updateQuantity(String sy, Integer cid) {
+		Cart cart = cartRepository.findById(cid).orElse(null);
+		if (cart == null) return;
 
-		Cart cart = cartRepository.findById(cid).get();
+		int availableStock = (cart.getProduct() != null) 
+				? cart.getProduct().getStock() : 999999;
 		int updateQuantity;
 
 		if (sy.equalsIgnoreCase("de")) {
@@ -91,13 +113,35 @@ public class CartServiceImpl implements CartService {
 				cart.setQuantity(updateQuantity);
 				cartRepository.save(cart);
 			}
-
 		} else {
 			updateQuantity = cart.getQuantity() + 1;
+			if (updateQuantity > availableStock) {
+				updateQuantity = availableStock; // Stock ceiling
+			}
 			cart.setQuantity(updateQuantity);
 			cartRepository.save(cart);
 		}
+	}
 
+	@Override
+	public void updateQuantityDirect(Integer cid, Integer quantity) {
+		Cart cart = cartRepository.findById(cid).orElse(null);
+		if (cart == null) return;
+
+		int availableStock = (cart.getProduct() != null) 
+				? cart.getProduct().getStock() : 999999;
+
+		if (quantity == null || quantity <= 0) {
+			cartRepository.delete(cart);
+			return;
+		}
+
+		if (quantity > availableStock) {
+			quantity = availableStock; // Clamp to available warehouse stock
+		}
+
+		cart.setQuantity(quantity);
+		cartRepository.save(cart);
 	}
 
 }

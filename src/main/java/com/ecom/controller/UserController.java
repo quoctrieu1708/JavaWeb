@@ -64,6 +64,9 @@ public class UserController {
 	private com.ecom.service.PdfInvoiceService pdfInvoiceService;
 
 	@Autowired
+	private com.ecom.service.ProductService productService;
+
+	@Autowired
 	private com.ecom.repository.ProductOrderRepository productOrderRepository;
 
 	@GetMapping("/")
@@ -88,15 +91,35 @@ public class UserController {
 	}
 
 	@GetMapping("/addCart")
-	public String addToCart(@RequestParam Integer pid, Principal p, HttpSession session) {
+	public String addToCart(@RequestParam Integer pid, 
+			@RequestParam(name = "quantity", defaultValue = "1") Integer quantity, 
+			Principal p, HttpSession session) {
 		UserDtls loggedInUser = getLoggedInUserDetails(p);
 		Integer uid = loggedInUser.getId();
-		Cart saveCart = cartService.saveCart(pid, uid);
+
+		com.ecom.model.Product product = productService.getProductById(pid);
+		if (product == null || product.getStock() <= 0) {
+			session.setAttribute("errorMsg", "Sản phẩm tạm thời hết hàng trong kho!");
+			return "redirect:/product/" + pid;
+		}
+
+		if (quantity == null || quantity <= 0) {
+			quantity = 1;
+		}
+
+		if (quantity > product.getStock()) {
+			quantity = product.getStock();
+			session.setAttribute("errorMsg", "Số lượng yêu cầu vượt quá tồn kho. Đã tự động điều chỉnh về tối đa " + product.getStock() + " sản phẩm!");
+		}
+
+		Cart saveCart = cartService.saveCart(pid, uid, quantity);
 
 		if (ObjectUtils.isEmpty(saveCart)) {
-			session.setAttribute("errorMsg", "Thêm sản phẩm vào giỏ hàng thất bại");
+			session.setAttribute("errorMsg", "Thêm sản phẩm vào giỏ hàng thất bại.");
 		} else {
-			session.setAttribute("succMsg", "Đã thêm sản phẩm vào giỏ hàng");
+			if (session.getAttribute("errorMsg") == null) {
+				session.setAttribute("succMsg", "Đã thêm " + quantity + " sản phẩm vào giỏ hàng thành công!");
+			}
 		}
 		return "redirect:/product/" + pid;
 	}
@@ -115,8 +138,15 @@ public class UserController {
 	}
 
 	@GetMapping("/cartQuantityUpdate")
-	public String updateCartQuantity(@RequestParam String sy, @RequestParam Integer cid) {
+	public String updateCartQuantity(@RequestParam String sy, @RequestParam Integer cid, HttpSession session) {
 		cartService.updateQuantity(sy, cid);
+		return "redirect:/user/cart";
+	}
+
+	@GetMapping("/cart/update-quantity-direct")
+	public String updateCartQuantityDirect(@RequestParam Integer cid, @RequestParam Integer quantity, HttpSession session) {
+		cartService.updateQuantityDirect(cid, quantity);
+		session.setAttribute("succMsg", "Đã cập nhật số lượng sản phẩm trong giỏ hàng.");
 		return "redirect:/user/cart";
 	}
 

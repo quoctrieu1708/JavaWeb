@@ -3,7 +3,7 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>Giỏ hàng của bạn — Ecom Store</title>
+<title>Giỏ hàng của bạn — E-COMMERCE</title>
 </head>
 <body>
 	<section class="mt-4 pt-2 pb-5">
@@ -58,16 +58,22 @@
 												<td class="text-center font-monospace fw-medium">
 													[[${#numbers.formatDecimal(cart.product.discountPrice, 0, 'POINT', 0, 'COMMA')}]]đ
 												</td>
-												<td class="text-center">
-													<div class="d-flex justify-content-center align-items-center gap-2">
+												<td class="text-center" style="min-width: 170px;">
+													<div class="d-flex justify-content-center align-items-center gap-1">
 														<a th:href="@{'/user/cartQuantityUpdate?sy=de&cid='+${cart.id}}" class="qty-btn" title="Giảm số lượng">
-															<i class="fa-solid fa-minus" style="font-size: 0.75rem;"></i>
+															<i class="fa-solid fa-minus" style="font-size: 0.7rem;"></i>
 														</a> 
-														<span class="fs-6 fw-bold px-2">[[${cart.quantity}]]</span> 
+														<input type="number" class="form-control form-control-sm text-center fw-bold px-1" 
+															   style="width: 58px; height: 32px;"
+															   th:value="${cart.quantity}" min="1" th:max="${cart.product.stock}"
+															   th:oninput="'validateCartQtyInput(this, ' + ${cart.product.stock} + ')'"
+															   th:onchange="'commitCartQtyChange(' + ${cart.id} + ', this, ' + ${cart.product.stock} + ')'"
+															   th:onkeydown="'if(event.key===\'Enter\'){event.preventDefault(); commitCartQtyChange(' + ${cart.id} + ', this, ' + ${cart.product.stock} + ');}'">
 														<a th:href="@{'/user/cartQuantityUpdate?sy=in&cid='+${cart.id}}" class="qty-btn" title="Tăng số lượng">
-															<i class="fa-solid fa-plus" style="font-size: 0.75rem;"></i>
+															<i class="fa-solid fa-plus" style="font-size: 0.7rem;"></i>
 														</a>
 													</div>
+													<small class="text-muted d-block mt-1" style="font-size: 0.72rem;">Kho còn: <strong>[[${cart.product.stock}]]</strong></small>
 												</td>
 												<td class="text-end pe-4 fw-bold text-danger fs-6 font-monospace">
 													[[${#numbers.formatDecimal(cart.totalPrice, 0, 'POINT', 0, 'COMMA')}]]đ
@@ -141,6 +147,31 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Script for Cart Quantity Management with Stock Constraints -->
+		<script>
+			function validateCartQtyInput(input, maxStock) {
+				var val = parseInt(input.value);
+				if (isNaN(val) || val < 1) {
+					return;
+				}
+				if (val > maxStock) {
+					input.value = maxStock;
+					alert('Số lượng không thể vượt quá ' + maxStock + ' sản phẩm hiện còn trong kho!');
+				}
+			}
+
+			function commitCartQtyChange(cartId, input, maxStock) {
+				var val = parseInt(input.value);
+				if (isNaN(val) || val < 1) val = 1;
+				if (val > maxStock) {
+					val = maxStock;
+					alert('Đã điều chỉnh về số lượng tối đa trong kho: ' + maxStock + ' sản phẩm');
+				}
+				input.value = val;
+				window.location.href = '/user/cart/update-quantity-direct?cid=' + cartId + '&quantity=' + val;
+			}
+		</script>
 	</section>
 </body>
 </html>

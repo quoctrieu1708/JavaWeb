@@ -3,7 +3,7 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>[[${product.title}]] — Chi tiết sản phẩm</title>
+<title>[[${product.title}]] — E-COMMERCE</title>
 </head>
 <body>
 	<section class="mt-4 pt-2 pb-5">
@@ -98,15 +98,34 @@
 						</div>
 					</div>
 
+					<!-- Quantity Selector with Strict Stock Constraint (User Request) -->
+					<div class="mb-4" th:if="${product.stock > 0}">
+						<label class="form-label fw-bold text-dark small d-flex justify-content-between">
+							<span>Số lượng mua:</span>
+							<span class="text-secondary fw-normal">Tồn kho hiện có: <strong class="text-dark">[[${product.stock}]]</strong></span>
+						</label>
+						<div class="d-flex align-items-center gap-3 flex-wrap">
+							<div class="quantity-selector-box shadow-sm">
+								<button type="button" onclick="adjustProductQty(-1)" title="Giảm"><i class="fa-solid fa-minus"></i></button>
+								<input type="number" id="productQuantityInput" name="quantity" value="1" min="1" th:max="${product.stock}"
+									   oninput="validateProductQuantity(this)" onchange="validateProductQuantity(this)">
+								<button type="button" onclick="adjustProductQty(1)" title="Tăng"><i class="fa-solid fa-plus"></i></button>
+							</div>
+							<span id="stock-error-msg" class="badge bg-danger-subtle text-danger border border-danger-subtle py-2 px-3 small d-none">
+								<i class="fa-solid fa-triangle-exclamation me-1"></i>Số lượng vượt quá tồn kho!
+							</span>
+						</div>
+					</div>
+
 					<!-- Add to Cart CTA (Gold Button - Questionnaire A5) -->
 					<div class="d-grid gap-2">
 						<th:block th:if="${product.stock > 0}">
 							<a th:if="${user == null}" href="/signin" class="btn btn-gold py-3 fs-5 fw-bold shadow">
 								<i class="fa-solid fa-right-to-bracket me-2"></i>Đăng nhập để đặt mua
 							</a>
-							<a th:unless="${user == null}" th:href="@{'/user/addCart?pid='+${product.id}}" class="btn btn-gold py-3 fs-5 fw-bold shadow">
+							<button th:unless="${user == null}" type="button" onclick="submitAddToCartWithQty([[${product.id}]])" class="btn btn-gold py-3 fs-5 fw-bold shadow">
 								<i class="fa-solid fa-bag-shopping me-2"></i>Thêm vào giỏ hàng ngay
-							</a>
+							</button>
 						</th:block>
 						<th:block th:unless="${product.stock > 0}">
 							<button disabled class="btn btn-secondary py-3 fs-5 fw-bold rounded-pill">
@@ -216,6 +235,60 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Script for Quantity Management and Stock Validation -->
+		<script th:inline="javascript">
+			var productMaxStock = /*[[${product.stock != null ? product.stock : 0}]]*/ 0;
+
+			function adjustProductQty(delta) {
+				var input = document.getElementById('productQuantityInput');
+				if (!input) return;
+				var current = parseInt(input.value) || 1;
+				var next = current + delta;
+				if (next < 1) next = 1;
+				if (next > productMaxStock) {
+					next = productMaxStock;
+					showStockWarning();
+				}
+				input.value = next;
+			}
+
+			function validateProductQuantity(input) {
+				var val = parseInt(input.value);
+				var errorEl = document.getElementById('stock-error-msg');
+				if (isNaN(val) || val < 1) {
+					input.value = 1;
+					if (errorEl) errorEl.classList.add('d-none');
+					return;
+				}
+				if (val > productMaxStock) {
+					input.value = productMaxStock;
+					showStockWarning();
+				} else {
+					if (errorEl) errorEl.classList.add('d-none');
+				}
+			}
+
+			function showStockWarning() {
+				var errorEl = document.getElementById('stock-error-msg');
+				if (errorEl) {
+					errorEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation me-1"></i>Chỉ còn tối đa ' + productMaxStock + ' sản phẩm trong kho!';
+					errorEl.classList.remove('d-none');
+					setTimeout(function() {
+						errorEl.classList.add('d-none');
+					}, 3500);
+				}
+			}
+
+			function submitAddToCartWithQty(productId) {
+				var input = document.getElementById('productQuantityInput');
+				var qty = input ? (parseInt(input.value) || 1) : 1;
+				if (qty > productMaxStock) {
+					qty = productMaxStock;
+				}
+				window.location.href = '/user/addCart?pid=' + productId + '&quantity=' + qty;
+			}
+		</script>
 	</section>
 </body>
 </html>

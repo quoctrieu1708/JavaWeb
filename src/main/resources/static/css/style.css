@@ -179,6 +179,159 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.85rem;
 }
 
+/* Autocomplete live search dropdown (Questionnaire & Feature request) */
+.search-autocomplete-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    min-width: 360px;
+    max-height: 320px; /* limits to ~5 items, scrollable for more */
+    overflow-y: auto;
+    background: #FFFFFF;
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    border-radius: var(--radius-md);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    padding: 0.4rem 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold-primary) #F1F1F1;
+}
+
+.search-autocomplete-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+.search-autocomplete-dropdown::-webkit-scrollbar-thumb {
+    background-color: var(--gold-primary);
+    border-radius: 4px;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.9rem;
+    text-decoration: none;
+    color: var(--text-main);
+    border-bottom: 1px solid #F4F4F5;
+    transition: var(--transition);
+}
+
+.search-result-item:hover, .search-result-item.active {
+    background: #FFFDF5;
+    color: #111111;
+}
+
+.search-result-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background: #FAFAFA;
+    border: 1px solid #EEEEEE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.search-result-thumb img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.search-result-info {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.search-result-title {
+    font-size: 0.86rem;
+    font-weight: 700;
+    margin-bottom: 0.15rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-main);
+}
+
+.search-result-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.76rem;
+}
+
+.search-result-price {
+    font-weight: 800;
+    color: var(--price-color);
+}
+
+.search-result-footer {
+    display: block;
+    text-align: center;
+    padding: 0.6rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--gold-dark);
+    text-decoration: none;
+    background: #F9FAFB;
+    border-top: 1px solid #E5E7EB;
+    transition: var(--transition);
+}
+
+.search-result-footer:hover {
+    background: var(--gold-gradient);
+    color: #111111;
+}
+
+/* Quantity input styling */
+.quantity-selector-box {
+    display: inline-flex;
+    align-items: center;
+    background: #FFFFFF;
+    border: 1.5px solid #E4E4E7;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.quantity-selector-box:focus-within {
+    border-color: var(--gold-primary);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+.quantity-selector-box button {
+    background: transparent;
+    border: none;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-main);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.quantity-selector-box button:hover {
+    background: #F4F4F5;
+    color: var(--gold-dark);
+}
+
+.quantity-selector-box input {
+    width: 60px;
+    height: 38px;
+    border: none;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1rem;
+    outline: none;
+    color: var(--text-main);
+}
+
 /* Nav Cart & Notif Pills */
 .nav-badge-pill {
     background: var(--gold-gradient) !important;

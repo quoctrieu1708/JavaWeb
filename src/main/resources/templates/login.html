@@ -3,45 +3,64 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>Đăng nhập</title>
+<title>Đăng nhập — Ecom Store</title>
 </head>
 <body>
-	<section>
-		<div class="container mt-5 p-5">
+	<section class="mt-4 pt-2 pb-5">
+		<div class="container px-3">
 			<div class="row justify-content-center">
-				<div class="col-md-6 mt-3">
-					<div class="card auth-card">
+				<div class="col-md-7 col-lg-5">
+					<div class="card auth-card shadow-lg">
+						<!-- Header -->
 						<div class="card-header">
-							<p class="fs-4 text-center mb-0">Đăng nhập</p>
+							<div class="brand-icon-box mx-auto mb-2" style="width: 44px; height: 44px; font-size: 1.25rem;">
+								<i class="fa-solid fa-crown"></i>
+							</div>
+							<p>ĐĂNG NHẬP HỆ THỐNG</p>
+							<small>Truy cập tài khoản mua sắm và quản lý đơn hàng</small>
 						</div>
-						<div class="card-body p-4">
-							<div th:if="${param.error}" class="alert alert-danger text-center">
+
+						<!-- Body -->
+						<div class="card-body p-4 p-md-5">
+							<div th:if="${param.error}" class="alert alert-danger rounded-3 text-center small mb-4">
 								<th:block th:if="${session.SPRING_SECURITY_LAST_EXCEPTION!=null}">
 									[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
 								</th:block>
 							</div>
 
-							<div th:if="${param.logout}" class="alert alert-success text-center">
-								Đăng xuất thành công.
+							<div th:if="${param.logout}" class="alert alert-success rounded-3 text-center small mb-4">
+								<i class="fa-solid fa-check-circle me-1"></i>Bạn đã đăng xuất tài khoản thành công.
 							</div>
 
 							<form action="/login" method="post">
 								<div class="mb-3">
-									<label class="form-label fw-bold">Email</label> 
-									<input required class="form-control" name="username" type="email" placeholder="Nhập email">
+									<label class="form-label fw-bold small text-secondary">Địa chỉ Email</label> 
+									<div class="input-group">
+										<span class="input-group-text bg-light text-muted"><i class="fa-solid fa-envelope"></i></span>
+										<input required class="form-control" name="username" type="email" placeholder="example@gmail.com" autocomplete="email">
+									</div>
 								</div>
 
 								<div class="mb-4">
-									<label class="form-label fw-bold">Mật khẩu</label> 
-									<input required class="form-control" name="password" type="password" placeholder="Nhập mật khẩu">
+									<div class="d-flex justify-content-between align-items-center mb-1">
+										<label class="form-label fw-bold small text-secondary mb-0">Mật khẩu</label>
+										<a href="/forgot-password" class="text-decoration-none small text-warning fw-medium">Quên mật khẩu?</a>
+									</div>
+									<div class="input-group">
+										<span class="input-group-text bg-light text-muted"><i class="fa-solid fa-lock"></i></span>
+										<input required class="form-control" name="password" type="password" placeholder="Nhập mật khẩu..." autocomplete="current-password">
+									</div>
 								</div>
-								<button type="submit" class="btn btn-primary w-100 py-2 fs-5">Đăng nhập</button>
+
+								<button type="submit" class="btn btn-gold w-100 py-3 fs-5 fw-bold shadow">
+									<i class="fa-solid fa-right-to-bracket me-2"></i>Đăng nhập
+								</button>
 							</form>
 						</div>
 
-						<div class="card-footer text-center bg-white py-3">
-							<a href="/forgot-password" class="text-decoration-none text-secondary">Quên mật khẩu?</a><br><br>
-							Chưa có tài khoản? <a href="/register" class="text-decoration-none text-primary fw-bold">Đăng ký ngay</a>
+						<!-- Footer -->
+						<div class="card-footer text-center bg-light py-3 border-top small">
+							Chưa có tài khoản? <a href="/register" class="text-decoration-none fw-bold text-dark">Đăng ký thành viên ngay</a>
 						</div>
 					</div>
 				</div>

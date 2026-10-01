@@ -3,79 +3,89 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>Đăng ký tài khoản</title>
+<title>Đăng ký tài khoản — Ecom Store</title>
 </head>
 <body>
-	<section>
-		<div class="container mt-5 p-5">
+	<section class="mt-4 pt-2 pb-5">
+		<div class="container px-3">
 			<div class="row justify-content-center">
-				<div class="col-md-8 p-2">
-					<div class="card auth-card" style="max-width: 800px;">
+				<div class="col-lg-8">
+					<div class="card auth-card shadow-lg" style="max-width: 780px;">
+						<!-- Header -->
 						<div class="card-header text-center">
-							<p class="fs-4 text-center mb-0">Đăng ký tài khoản</p>
+							<div class="brand-icon-box mx-auto mb-2" style="width: 44px; height: 44px; font-size: 1.25rem;">
+								<i class="fa-solid fa-crown"></i>
+							</div>
+							<p>ĐĂNG KÝ TÀI KHOẢN MỚI</p>
+							<small>Trở thành hội viên để nhận ngay hàng ngàn ưu đãi hấp dẫn</small>
 						</div>
-						<div class="card-body p-4">
+
+						<!-- Body -->
+						<div class="card-body p-4 p-md-5">
 							<form action="/saveUser" enctype="multipart/form-data" id="userRegister" novalidate method="post">
 								<div class="row mb-3">
-									<div class="col-md-6">
-										<label class="form-label fw-bold">Họ và tên</label> 
-										<input required class="form-control" name="name" type="text" placeholder="Nhập họ và tên">
+									<div class="col-md-6 mb-3 mb-md-0">
+										<label class="form-label fw-bold small text-secondary">Họ và tên</label> 
+										<input required class="form-control" name="name" type="text" placeholder="Nguyễn Văn A">
 									</div>
 
 									<div class="col-md-6">
-										<label class="form-label fw-bold">Số điện thoại</label> 
-										<input required class="form-control" name="mobileNumber" type="text" placeholder="Nhập số điện thoại">
+										<label class="form-label fw-bold small text-secondary">Số điện thoại</label> 
+										<input required class="form-control" name="mobileNumber" type="text" placeholder="0987654321">
 									</div>
 								</div>
 
 								<div class="mb-3">
-									<label class="form-label fw-bold">Email</label> 
-									<input required class="form-control" name="email" type="email" placeholder="Nhập email">
+									<label class="form-label fw-bold small text-secondary">Địa chỉ Email</label> 
+									<input required class="form-control" name="email" type="email" placeholder="example@gmail.com">
 								</div>
 
 								<div class="row mb-3">
 									<div class="col-md-12 mb-3">
-										<label class="form-label fw-bold">Địa chỉ</label> 
-										<input required class="form-control" name="address" type="text" placeholder="Số nhà, Tên đường">
+										<label class="form-label fw-bold small text-secondary">Địa chỉ chi tiết</label> 
+										<input required class="form-control" name="address" type="text" placeholder="Số nhà, tên đường, khu dân cư...">
 									</div>
 
-									<div class="col-md-4">
-										<label class="form-label fw-bold">Tỉnh/Thành phố</label> 
-										<input required class="form-control" name="city" type="text">
+									<div class="col-md-4 mb-2 mb-md-0">
+										<label class="form-label fw-bold small text-secondary">Tỉnh/Thành phố</label> 
+										<input required class="form-control" name="city" type="text" placeholder="Hà Nội">
+									</div>
+									<div class="col-md-4 mb-2 mb-md-0">
+										<label class="form-label fw-bold small text-secondary">Quận/Huyện</label> 
+										<input required class="form-control" name="state" type="text" placeholder="Cầu Giấy">
 									</div>
 									<div class="col-md-4">
-										<label class="form-label fw-bold">Phường/Xã</label> 
-										<input required class="form-control" name="state" type="text">
-									</div>
-									<div class="col-md-4">
-										<label class="form-label fw-bold">Mã bưu chính</label> 
-										<input required class="form-control" name="pincode" type="number">
+										<label class="form-label fw-bold small text-secondary">Mã bưu chính</label> 
+										<input required class="form-control" name="pincode" type="number" placeholder="100000">
 									</div>
 								</div>
 
 								<div class="row mb-3">
-									<div class="col-md-6">
-										<label class="form-label fw-bold">Mật khẩu</label> 
-										<input required class="form-control" name="password" type="password" id="pass" placeholder="Nhập mật khẩu">
+									<div class="col-md-6 mb-3 mb-md-0">
+										<label class="form-label fw-bold small text-secondary">Mật khẩu</label> 
+										<input required class="form-control" name="password" type="password" id="pass" placeholder="Tối thiểu 6 ký tự">
 									</div>
 
 									<div class="col-md-6">
-										<label class="form-label fw-bold">Xác nhận mật khẩu</label> 
+										<label class="form-label fw-bold small text-secondary">Xác nhận mật khẩu</label> 
 										<input required class="form-control" name="confirmpassword" type="password" placeholder="Nhập lại mật khẩu">
 									</div>
 								</div>
 
 								<div class="mb-4">
-									<label class="form-label fw-bold">Ảnh đại diện</label> 
+									<label class="form-label fw-bold small text-secondary">Ảnh đại diện (Tùy chọn)</label> 
 									<input class="form-control" name="img" type="file" accept="image/*">
 								</div>
 
-								<button type="submit" class="btn btn-primary w-100 py-2 fs-5">Đăng ký</button>
+								<button type="submit" class="btn btn-gold w-100 py-3 fs-5 fw-bold shadow">
+									<i class="fa-solid fa-user-plus me-2"></i>Đăng ký thành viên
+								</button>
 							</form>
 						</div>
 
-						<div class="card-footer text-center bg-white py-3">
-							Đã có tài khoản? <a href="/signin" class="text-decoration-none fw-bold text-primary">Đăng nhập</a>
+						<!-- Footer -->
+						<div class="card-footer text-center bg-light py-3 border-top small">
+							Đã có tài khoản? <a href="/signin" class="text-decoration-none fw-bold text-dark">Đăng nhập ngay</a>
 						</div>
 					</div>
 				</div>

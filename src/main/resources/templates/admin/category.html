@@ -9,10 +9,10 @@
 	<section>
 		<div class="container-fluid p-5 mt-5">
 			<div class="row">
-				<div class="col-md-4">
-					<div class="card card-sh">
-						<div class="card-header text-center bg-primary text-white">
-							<p class="fs-4 mb-0 fw-bold">Thêm danh mục</p>
+				<div class="col-md-4 mb-4">
+					<div class="card card-sh border-0 shadow-sm rounded-4 overflow-hidden bg-white">
+						<div class="card-header text-center text-white py-3" style="background: var(--dark-gradient); border-bottom: 2px solid var(--gold-primary);">
+							<p class="fs-5 mb-0 fw-bold"><i class="fa-solid fa-plus me-1 text-warning"></i>Thêm danh mục mới</p>
 						</div>
 						<div class="card-body p-4">
 							<th:block th:if="${session.succMsg}">
@@ -27,48 +27,52 @@
 
 							<form action="/admin/saveCategory" method="post" enctype="multipart/form-data">
 								<div class="mb-3">
-									<label class="fw-bold form-label">Tên danh mục</label> 
+									<label class="fw-bold form-label small text-secondary">Tên danh mục</label> 
 									<input type="text" name="name" class="form-control" required placeholder="Nhập tên danh mục">
 								</div>
 
 								<div class="mb-3">
-									<label class="fw-bold form-label">Trạng thái</label>
+									<label class="fw-bold form-label small text-secondary">Trạng thái</label>
 									<div class="d-flex gap-3 mt-2">
 										<div class="form-check">
 											<input class="form-check-input" type="radio" checked value="true" name="isActive" id="flexRadioDefault1">
-											<label class="form-check-label" for="flexRadioDefault1">Hoạt động</label>
+											<label class="form-check-label small fw-bold" for="flexRadioDefault1">Hoạt động</label>
 										</div>
 										<div class="form-check">
 											<input class="form-check-input" type="radio" name="isActive" value="false" id="flexRadioDefault2"> 
-											<label class="form-check-label" for="flexRadioDefault2">Ẩn</label>
+											<label class="form-check-label small fw-bold" for="flexRadioDefault2">Ẩn</label>
 										</div>
 									</div>
 								</div>
 
 								<div class="mb-4">
-									<label class="fw-bold form-label">Hình ảnh</label> 
+									<label class="fw-bold form-label small text-secondary">Hình ảnh đại diện</label> 
 									<input type="file" name="file" class="form-control" accept="image/*">
 								</div>
 								
-								<button class="btn btn-primary w-100 py-2 fs-5">Lưu danh mục</button>
+								<button class="btn btn-gold w-100 py-2 fs-5 fw-bold shadow">
+									<i class="fa-solid fa-floppy-disk me-1"></i>Lưu danh mục
+								</button>
 							</form>
 						</div>
 					</div>
 				</div>
 
 				<div class="col-md-8">
-					<div class="card card-sh">
-						<div class="card-header text-center fs-4 fw-bold bg-light">Danh sách danh mục</div>
+					<div class="card card-sh border-0 shadow-sm rounded-4 overflow-hidden bg-white">
+						<div class="card-header text-center fs-5 fw-bold text-white py-3" style="background: var(--dark-gradient); border-bottom: 2px solid var(--gold-primary);">
+							<i class="fa-solid fa-layer-group text-warning me-2"></i>Danh sách danh mục hệ thống
+						</div>
 						<div class="card-body p-4">
 							<div class="table-responsive">
 								<table class="table table-hover table-bordered align-middle text-center">
-									<thead class="table-primary">
+									<thead class="bg-light text-secondary text-uppercase small">
 										<tr>
-											<th scope="col">STT</th>
-											<th scope="col">Tên danh mục</th>
-											<th scope="col">Trạng thái</th>
-											<th scope="col">Hình ảnh</th>
-											<th scope="col">Thao tác</th>
+											<th scope="col" class="py-3">STT</th>
+											<th scope="col" class="py-3">Tên danh mục</th>
+											<th scope="col" class="py-3">Trạng thái</th>
+											<th scope="col" class="py-3">Hình ảnh</th>
+											<th scope="col" class="py-3">Thao tác</th>
 										</tr>
 									</thead>
 									<tbody>

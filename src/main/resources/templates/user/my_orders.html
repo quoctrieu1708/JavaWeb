@@ -3,79 +3,92 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>Đơn hàng của tôi</title>
+<title>Đơn hàng của tôi — Ecom Store</title>
 </head>
 <body>
-	<section class="mt-4 pt-3">
-		<div class="container-fluid px-4 mb-5">
-			<div class="card border-0 shadow-sm rounded-4">
-				<div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
-					<h5 class="mb-0 fw-bold text-primary">
-						<i class="fa-solid fa-box-archive me-2"></i>Đơn hàng của tôi
-					</h5>
-					<a href="/products" class="btn btn-sm btn-outline-primary rounded-pill">
+	<section class="mt-4 pt-2 pb-5">
+		<div class="container px-lg-4">
+			<div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white mb-5">
+				<!-- Header -->
+				<div class="card-header py-4 text-white d-flex justify-content-between align-items-center" style="background: var(--dark-gradient); border-bottom: 2px solid var(--gold-primary);">
+					<div class="d-flex align-items-center gap-2">
+						<div class="brand-icon-box" style="width: 36px; height: 36px; font-size: 1rem;">
+							<i class="fa-solid fa-box-open"></i>
+						</div>
+						<div>
+							<h5 class="mb-0 fw-bold text-white">ĐƠN HÀNG CỦA TÔI</h5>
+							<small class="text-white-50">Lịch sử và tiến độ giao vận các đơn hàng bạn đã đặt</small>
+						</div>
+					</div>
+					<a href="/products" class="btn btn-gold btn-sm px-3 d-none d-sm-inline-flex">
 						<i class="fa-solid fa-cart-shopping me-1"></i>Tiếp tục mua hàng
 					</a>
 				</div>
-				<div class="card-body p-4">
+
+				<div class="card-body p-4 p-md-5">
+					<!-- Empty State -->
 					<div th:if="${orders == null or orders.isEmpty()}" class="text-center py-5">
-						<i class="fa-solid fa-cart-flatbed fs-1 text-muted mb-3 d-block"></i>
-						<h6 class="text-secondary">Bạn chưa có đơn hàng nào</h6>
-						<p class="text-muted small">Hãy khám phá các sản phẩm hot và đặt hàng ngay hôm nay.</p>
-						<a href="/products" class="btn btn-primary rounded-pill px-4 btn-sm">Khám phá sản phẩm</a>
+						<i class="fa-solid fa-box-open fs-1 text-warning mb-3 d-block opacity-75"></i>
+						<h5 class="fw-bold text-dark">Bạn chưa có đơn hàng nào</h5>
+						<p class="text-muted small mb-4">Hãy khám phá các sản phẩm công nghệ và đặt hàng ngay hôm nay.</p>
+						<a href="/products" class="btn btn-gold btn-sm px-4">
+							<i class="fa-solid fa-magnifying-glass me-1"></i>Khám phá sản phẩm
+						</a>
 					</div>
 
-					<div th:unless="${orders == null or orders.isEmpty()}" class="table-responsive">
-						<table class="table table-bordered table-hover align-middle text-center mb-0">
-							<thead class="table-light">
+					<!-- Orders Table -->
+					<div th:unless="${orders == null or orders.isEmpty()}" class="table-responsive rounded-4 border overflow-hidden">
+						<table class="table table-hover align-middle text-center mb-0">
+							<thead class="bg-light text-secondary text-uppercase small">
 								<tr>
-									<th scope="col">Mã đơn</th>
-									<th scope="col">Ngày đặt</th>
-									<th scope="col">Sản phẩm</th>
-									<th scope="col">Số lượng</th>
-									<th scope="col">Đơn giá</th>
-									<th scope="col">Thành tiền</th>
-									<th scope="col">Trạng thái</th>
-									<th scope="col">Thao tác</th>
+									<th scope="col" class="py-3">Mã đơn</th>
+									<th scope="col" class="py-3">Ngày đặt</th>
+									<th scope="col" class="py-3 text-start ps-4">Sản phẩm</th>
+									<th scope="col" class="py-3">Số lượng</th>
+									<th scope="col" class="py-3">Đơn giá</th>
+									<th scope="col" class="py-3">Thành tiền</th>
+									<th scope="col" class="py-3">Trạng thái</th>
+									<th scope="col" class="py-3">Hành động</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:each="o:${orders}">
-									<th scope="row" class="fw-bold text-primary small">
+									<td class="font-monospace fw-bold text-dark small py-3">
 										#[[${o.orderId.substring(0, 8)}]]
 										<div th:if="${o.voucherCode != null}" class="mt-1">
-											<span class="badge bg-success-subtle text-success border small">[[${o.voucherCode}]]</span>
+											<span class="badge bg-warning-subtle text-dark border small">[[${o.voucherCode}]]</span>
 										</div>
-									</th>
-									<td class="small">[[${o.orderDate}]]</td>
-									<td class="fw-bold text-start ps-3">
-										<a th:href="@{'/product/'+${o.product.id}}" class="text-decoration-none text-dark">
+									</td>
+									<td class="small text-muted">[[${o.orderDate}]]</td>
+									<td class="text-start ps-4">
+										<a th:href="@{'/product/'+${o.product.id}}" class="text-decoration-none fw-bold text-dark d-block">
 											[[${o.product.title}]]
 										</a>
+										<small class="text-muted">Danh mục: [[${o.product.category}]]</small>
 									</td>
 									<td class="fw-bold">[[${o.quantity}]]</td>
-									<td>[[${#numbers.formatDecimal(o.price, 0, 'POINT', 0, 'COMMA')}]]đ</td>
-									<td class="fw-bold text-danger">[[${#numbers.formatDecimal(o.price * o.quantity, 0, 'POINT', 0, 'COMMA')}]]đ</td>
+									<td class="font-monospace">[[${#numbers.formatDecimal(o.price, 0, 'POINT', 0, 'COMMA')}]]đ</td>
+									<td class="font-monospace fw-bold text-danger">[[${#numbers.formatDecimal(o.price * o.quantity, 0, 'POINT', 0, 'COMMA')}]]đ</td>
 									<td>
 										<span th:if="${o.status == 'Đã hủy' || o.status == 'Cancelled'}" class="badge bg-danger rounded-pill px-3 py-1">[[${o.status}]]</span>
 										<span th:if="${o.status == 'Đã giao hàng' || o.status == 'Delivered'}" class="badge bg-success rounded-pill px-3 py-1">[[${o.status}]]</span>
-										<span th:unless="${o.status == 'Đã hủy' || o.status == 'Cancelled' || o.status == 'Đã giao hàng' || o.status == 'Delivered'}" class="badge bg-primary rounded-pill px-3 py-1">[[${o.status}]]</span>
+										<span th:unless="${o.status == 'Đã hủy' || o.status == 'Cancelled' || o.status == 'Đã giao hàng' || o.status == 'Delivered'}" class="badge bg-warning text-dark fw-bold rounded-pill px-3 py-1">[[${o.status}]]</span>
 									</td>
 									<td>
 										<div class="d-flex justify-content-center gap-1">
-											<!-- PDF Invoice Download -->
-											<a th:href="@{'/user/order/invoice/' + ${o.orderId}}" class="btn btn-sm btn-outline-danger px-2 py-1 rounded-pill" title="Tải hóa đơn PDF">
+											<!-- Download PDF Invoice -->
+											<a th:href="@{'/user/order/invoice/' + ${o.orderId}}" class="btn btn-sm btn-outline-danger px-3 py-1 rounded-pill" title="Tải hóa đơn VAT">
 												<i class="fa-solid fa-file-pdf me-1"></i>Hóa đơn
 											</a>
 
-											<!-- Cancel button -->
+											<!-- Cancel order if allowed -->
 											<th:block th:if="${o.status!='Đã hủy' && o.status!='Cancelled' && o.status!='Đã giao hàng' && o.status!='Delivered'}">
-												<a th:href="@{'/user/update-status?id='+${o.id}+'&st=6' }" class="btn btn-sm btn-outline-secondary px-2 py-1 rounded-pill" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này?');">
+												<a th:href="@{'/user/update-status?id='+${o.id}+'&st=6' }" class="btn btn-sm btn-outline-secondary px-3 py-1 rounded-pill" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?');">
 													Hủy
 												</a>
 											</th:block> 
 											<th:block th:unless="${o.status!='Đã hủy' && o.status!='Cancelled' && o.status!='Đã giao hàng' && o.status!='Delivered'}">
-												<button class="btn btn-sm btn-light px-2 py-1 rounded-pill text-muted disabled">Hủy</button>
+												<button class="btn btn-sm btn-light px-3 py-1 rounded-pill text-muted disabled">Hủy</button>
 											</th:block>
 										</div>
 									</td>

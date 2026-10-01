@@ -9,12 +9,12 @@
 	<section class="mt-4 pt-3">
 		<div class="container-fluid px-4 mb-5">
 			<div class="card border-0 shadow-sm rounded-4">
-				<div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+				<div class="card-header py-3 text-white d-flex justify-content-between align-items-center" style="background: var(--dark-gradient); border-bottom: 2px solid var(--gold-primary);">
 					<div class="d-flex align-items-center gap-3">
-						<a href="/admin/" class="btn btn-outline-secondary btn-sm rounded-pill"><i class="fa-solid fa-arrow-left me-1"></i>Bảng điều khiển</a>
-						<h5 class="mb-0 fw-bold text-primary"><i class="fa-solid fa-boxes-stacked me-2"></i>Danh sách sản phẩm</h5>
+						<a href="/admin/" class="btn btn-outline-light btn-sm rounded-pill"><i class="fa-solid fa-arrow-left me-1"></i>Bảng điều khiển</a>
+						<h5 class="mb-0 fw-bold text-white"><i class="fa-solid fa-boxes-stacked text-warning me-2"></i>DANH SÁCH SẢN PHẨM</h5>
 					</div>
-					<a href="/admin/loadAddProduct" class="btn btn-primary rounded-pill btn-sm px-3 fw-bold">
+					<a href="/admin/loadAddProduct" class="btn btn-gold rounded-pill btn-sm px-3 fw-bold">
 						<i class="fa-solid fa-plus me-1"></i>Thêm sản phẩm mới
 					</a>
 				</div>
@@ -56,7 +56,7 @@
 							<form action="/admin/products" method="get">
 								<div class="input-group">
 									<input type="text" class="form-control" name="ch" th:value="${ch}" placeholder="Tìm kiếm theo tên sản phẩm...">
-									<button class="btn btn-primary px-4"><i class="fa-solid fa-magnifying-glass me-1"></i>Tìm kiếm</button>
+									<button class="btn btn-gold px-4"><i class="fa-solid fa-magnifying-glass me-1"></i>Tìm kiếm</button>
 								</div>
 							</form>
 						</div>

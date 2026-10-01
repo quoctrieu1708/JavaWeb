@@ -1,217 +1,937 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-    --primary: #1e3c72;
-    --primary-light: #2a5298;
-    --primary-gradient: linear-gradient(135deg, #1e3c72, #2a5298);
-    --accent: #4fc3f7;
-    --success: #2ecc71;
-    --danger: #e74c3c;
-    --warning: #f39c12;
-    --bg-light: #f8f9fa;
-    --shadow: 0 4px 15px rgba(0,0,0,0.1);
-    --shadow-hover: 0 12px 30px rgba(0,0,0,0.15);
-    --radius: 12px;
-    --transition: all 0.3s ease;
+    /* Brand Colors - Black & Gold Luxury Corporate */
+    --gold-primary: #D4AF37;
+    --gold-light: #F5D77F;
+    --gold-dark: #996515;
+    --gold-gradient: linear-gradient(135deg, #F3C644 0%, #D4AF37 50%, #B8860B 100%);
+    --gold-gradient-hover: linear-gradient(135deg, #FFD700 0%, #E5C158 50%, #C69500 100%);
+    
+    --bg-dark: #111111;
+    --bg-dark-surface: #1A1A1A;
+    --bg-dark-card: #222222;
+    --dark-gradient: linear-gradient(145deg, #1C1C1C 0%, #0E0E0E 100%);
+    
+    /* Background Canvas */
+    --bg-canvas: #FAFAFA;
+    --bg-surface: #FFFFFF;
+    --bg-subtle: #F3F4F6;
+    
+    /* Text Colors */
+    --text-main: #18181B;
+    --text-muted: #71717A;
+    --text-light: #A1A1AA;
+    
+    /* Accents */
+    --price-color: #DC2626;
+    --success: #10B981;
+    --danger: #EF4444;
+    --warning: #F59E0B;
+    --info: #0284C7;
+    
+    /* Border Radii (Large & Rounded per user preference) */
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 18px;
+    --radius-xl: 24px;
+    --radius-pill: 9999px;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.02);
+    --shadow-hover: 0 20px 35px -8px rgba(212, 175, 55, 0.22), 0 8px 16px rgba(0, 0, 0, 0.06);
+    --shadow-dark: 0 20px 40px rgba(0, 0, 0, 0.4);
+    
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+/* Base resets & Typography */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding-top: 70px;
+    font-family: 'Plus Jakarta Sans', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-canvas);
+    color: var(--text-main);
+    padding-top: 78px;
+    overflow-x: hidden;
+    line-height: 1.6;
 }
 
-/* Navbar */
-.navbar {
-    background: var(--primary-gradient) !important;
-    box-shadow: var(--shadow);
-}
-.navbar-brand {
+h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
-    font-size: 1.4rem;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
 }
 
-/* Product Cards */
-.product-card {
+/* ==========================================================================
+   Navigation Bar (Transparent to Solid Glassmorphism, Black & Gold)
+   ========================================================================== */
+.luxury-navbar {
+    background: rgba(17, 17, 17, 0.94) !important;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.28);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     transition: var(--transition);
-    border: none;
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--shadow);
+    padding: 0.75rem 0;
 }
-.product-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-hover);
+
+.luxury-navbar .navbar-brand {
+    font-weight: 800;
+    font-size: 1.55rem;
+    letter-spacing: -0.03em;
+    color: #FFFFFF !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
 }
-.product-card img {
+
+.luxury-navbar .brand-icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    background: var(--gold-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #111111;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.45);
+    font-size: 1.15rem;
+}
+
+.luxury-navbar .brand-gold-text {
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+.luxury-navbar .nav-link {
+    color: #E4E4E7 !important;
+    font-weight: 500;
+    font-size: 0.94rem;
+    padding: 0.5rem 0.95rem !important;
+    border-radius: var(--radius-pill);
     transition: var(--transition);
-    object-fit: cover;
-}
-.product-card:hover img {
-    transform: scale(1.05);
 }
 
-/* Category Cards */
-.category-card {
-    transition: var(--transition);
-    border: none;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    cursor: pointer;
-}
-.category-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-hover);
+.luxury-navbar .nav-link:hover,
+.luxury-navbar .nav-link.active {
+    color: var(--gold-light) !important;
+    background: rgba(212, 175, 55, 0.12);
 }
 
-/* Discount Badge */
-.discount-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: var(--danger);
-    color: white;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    z-index: 1;
+.luxury-navbar .dropdown-menu {
+    background: #181818;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: var(--radius-md);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+    padding: 0.6rem;
+    margin-top: 0.75rem;
 }
 
-/* Price Styling */
-.price-original {
-    text-decoration: line-through;
-    color: #999;
+.luxury-navbar .dropdown-item {
+    color: #E4E4E7;
     font-size: 0.9rem;
-}
-.price-discount {
-    color: var(--danger);
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-
-/* Buttons */
-.btn-primary {
-    background: var(--primary-gradient);
-    border: none;
-    border-radius: 8px;
-    padding: 8px 20px;
+    border-radius: var(--radius-sm);
+    padding: 0.55rem 1rem;
     transition: var(--transition);
 }
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(30, 60, 114, 0.4);
-}
 
-/* Cards General */
-.card-sh {
-    box-shadow: var(--shadow);
-    border: none;
-    border-radius: var(--radius);
-}
-
-/* Dashboard Cards */
-.dashboard-card {
-    transition: var(--transition);
-    border: none;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-}
-.dashboard-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-hover);
-}
-.dashboard-card .card-body {
-    padding: 1.5rem;
-}
-.dashboard-card i {
-    font-size: 2rem;
-    color: var(--primary);
-}
-
-/* Form Styling */
-.form-control:focus {
-    border-color: var(--primary-light);
-    box-shadow: 0 0 0 0.2rem rgba(42, 82, 152, 0.25);
-}
-
-/* Footer */
-footer {
-    background: #1a1a2e !important;
-}
-footer h5 {
+.luxury-navbar .dropdown-item:hover {
+    background: var(--gold-gradient);
+    color: #111111 !important;
     font-weight: 600;
+}
+
+.luxury-navbar .dropdown-divider {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Search input in navbar */
+.nav-search-bar {
+    position: relative;
+    max-width: 320px;
+}
+.nav-search-bar input {
+    background: #222222;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    color: #FFFFFF;
+    border-radius: var(--radius-pill);
+    padding-left: 2.2rem;
+    padding-right: 1rem;
+    font-size: 0.88rem;
+    height: 38px;
+    transition: var(--transition);
+}
+.nav-search-bar input:focus {
+    background: #1A1A1A;
+    border-color: var(--gold-primary);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+    color: #FFFFFF;
+}
+.nav-search-bar .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold-primary);
+    font-size: 0.85rem;
+}
+
+/* Nav Cart & Notif Pills */
+.nav-badge-pill {
+    background: var(--gold-gradient) !important;
+    color: #111111 !important;
+    font-weight: 700;
+    font-size: 0.68rem;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+}
+
+/* ==========================================================================
+   Hero & Slider Section
+   ========================================================================== */
+.hero-slider {
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-dark);
+    position: relative;
+}
+
+.hero-slider .carousel-item {
+    height: 420px;
+    background: #0D0D0D;
+}
+
+.hero-slider .carousel-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    filter: brightness(0.92);
+}
+
+.hero-overlay-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(13,13,13,0.85) 0%, rgba(13,13,13,0.4) 60%, rgba(13,13,13,0.1) 100%);
+    display: flex;
+    align-items: center;
+    padding-left: 4rem;
+    color: white;
+}
+
+.hero-badge {
+    background: var(--gold-gradient);
+    color: #111111;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.35rem 1rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.78rem;
+    display: inline-block;
     margin-bottom: 1rem;
 }
-footer a {
+
+.hero-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    color: #FFFFFF;
+}
+
+.hero-title span {
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================================================
+   Trust & Value Highlights Bar (Thế Giới Di Động corporate style)
+   ========================================================================== */
+.trust-bar {
+    background: #FFFFFF;
+    border-radius: var(--radius-xl);
+    padding: 1.6rem 2rem;
+    box-shadow: var(--shadow-card);
+    border: 1px solid rgba(212, 175, 55, 0.18);
+    margin-top: -30px;
+    position: relative;
+    z-index: 10;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+}
+
+.trust-icon-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, #1F1F1F, #111111);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    color: var(--gold-light);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    flex-shrink: 0;
+}
+
+.trust-title {
+    font-size: 0.96rem;
+    font-weight: 700;
+    margin-bottom: 0.15rem;
+    color: var(--text-main);
+}
+
+.trust-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* ==========================================================================
+   Flash Sale Banner with Countdown Timer
+   ========================================================================== */
+.flash-sale-box {
+    background: var(--dark-gradient);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem 2rem;
+    color: #FFFFFF;
+    box-shadow: var(--shadow-dark);
+}
+
+.flash-sale-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.flash-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.flash-title i {
+    color: var(--gold-light);
+    animation: pulseGlow 1.8s infinite;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px #F3C644); }
+    50% { transform: scale(1.15); filter: drop-shadow(0 0 10px #FFD700); }
+}
+
+.countdown-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.countdown-box {
+    background: #2A2A2A;
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    color: var(--gold-light);
+    font-weight: 800;
+    font-size: 1.15rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-md);
+    min-width: 44px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.countdown-sep {
+    font-weight: 800;
+    color: var(--gold-light);
+    font-size: 1.15rem;
+}
+
+/* ==========================================================================
+   Shopee-Style Vertical Ribbon Discount Badge (Questionnaire A4)
+   ========================================================================== */
+.ribbon-discount {
+    position: absolute;
+    top: 0;
+    left: 14px;
+    width: 36px;
+    height: 48px;
+    background: var(--gold-gradient);
+    color: #111111;
+    font-weight: 800;
+    font-size: 0.68rem;
+    text-align: center;
+    line-height: 1.1;
+    padding-top: 6px;
+    z-index: 5;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.35);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 84%, 0% 100%);
+    text-transform: uppercase;
+}
+
+.ribbon-discount small {
+    display: block;
+    font-size: 0.55rem;
+    font-weight: 700;
+    opacity: 0.85;
+}
+
+/* ==========================================================================
+   Product Cards (Grid & List Views, Large Rounded Corners 18px-24px)
+   ========================================================================== */
+.product-card {
+    background: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: var(--shadow-card);
+    transition: var(--transition);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(212, 175, 55, 0.5);
+    box-shadow: var(--shadow-hover);
+}
+
+.product-thumb-wrap {
+    background: #FFFFFF;
+    position: relative;
+    height: 200px;
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.product-thumb-wrap img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-thumb-wrap img {
+    transform: scale(1.08);
+}
+
+.product-card .card-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.product-card .product-title {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--text-main);
+    line-height: 1.4;
+    margin-bottom: 0.4rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-decoration: none;
     transition: var(--transition);
 }
-footer a:hover {
-    color: var(--accent) !important;
+
+.product-card .product-title:hover {
+    color: var(--gold-dark);
 }
 
-/* Toast */
-.toast-success {
-    border-left: 4px solid var(--success);
-}
-.toast-error {
-    border-left: 4px solid var(--danger);
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.82rem;
+    color: #F59E0B;
+    margin-bottom: 0.6rem;
 }
 
-/* Cart Quantity Buttons */
-.qty-btn {
-    width: 30px;
-    height: 30px;
+.product-rating .score {
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.product-rating .reviews-count {
+    color: var(--text-muted);
+    font-size: 0.76rem;
+}
+
+.price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-top: auto;
+    margin-bottom: 0.9rem;
+}
+
+.price-current {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--price-color);
+}
+
+.price-old {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-decoration: line-through;
+}
+
+/* List-view for Product Cards (Questionnaire A6) */
+.product-card-list {
+    flex-direction: row;
+    align-items: center;
+}
+
+.product-card-list .product-thumb-wrap {
+    width: 220px;
+    height: 180px;
+    flex-shrink: 0;
+}
+
+.product-card-list .card-body {
+    padding: 1.5rem;
+}
+
+/* ==========================================================================
+   Buttons & CTA (Gold Accent on Dark Base - Questionnaire A5)
+   ========================================================================== */
+.btn-gold {
+    background: var(--gold-gradient);
+    color: #111111 !important;
+    font-weight: 700;
+    border: none;
+    border-radius: var(--radius-pill);
+    padding: 0.6rem 1.4rem;
+    transition: var(--transition);
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-gold:hover {
+    background: var(--gold-gradient-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.48);
+    color: #000000 !important;
+}
+
+.btn-dark-gold {
+    background: #111111;
+    color: var(--gold-light) !important;
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    font-weight: 700;
+    border-radius: var(--radius-pill);
+    padding: 0.6rem 1.4rem;
+    transition: var(--transition);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.btn-dark-gold:hover {
+    background: var(--gold-gradient);
+    color: #111111 !important;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(212, 175, 55, 0.4);
+}
+
+.btn-outline-gold {
+    background: transparent;
+    color: var(--gold-dark);
+    border: 1.5px solid var(--gold-primary);
+    font-weight: 700;
+    border-radius: var(--radius-pill);
+    padding: 0.55rem 1.25rem;
+    transition: var(--transition);
+}
+
+.btn-outline-gold:hover {
+    background: var(--gold-gradient);
+    color: #111111 !important;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(212, 175, 55, 0.35);
+}
+
+/* Override standard btn-primary to use gold theme across legacy classes */
+.btn-primary {
+    background: var(--gold-gradient) !important;
+    color: #111111 !important;
+    border: none !important;
+    font-weight: 700;
+    border-radius: var(--radius-pill);
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.32);
+    transition: var(--transition);
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background: var(--gold-gradient-hover) !important;
+    color: #000000 !important;
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.45);
+    transform: translateY(-2px);
+}
+
+.btn-outline-primary {
+    color: var(--text-main) !important;
+    border: 1.5px solid #111111 !important;
+    background: transparent;
+    font-weight: 600;
+    border-radius: var(--radius-pill);
+    transition: var(--transition);
+}
+
+.btn-outline-primary:hover {
+    background: #111111 !important;
+    color: var(--gold-light) !important;
+    border-color: #111111 !important;
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Category Cards
+   ========================================================================== */
+.category-card-modern {
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: var(--radius-xl);
+    padding: 1.4rem 1rem;
+    text-align: center;
+    transition: var(--transition);
+    box-shadow: var(--shadow-card);
+    text-decoration: none;
+    display: block;
+}
+
+.category-card-modern:hover {
+    transform: translateY(-6px);
+    border-color: rgba(212, 175, 55, 0.45);
+    box-shadow: var(--shadow-hover);
+}
+
+.category-img-box {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-subtle);
     border-radius: 50%;
-    border: 2px solid var(--primary);
+    padding: 0.6rem;
+    transition: var(--transition);
+}
+
+.category-card-modern:hover .category-img-box {
+    background: rgba(212, 175, 55, 0.15);
+    transform: scale(1.08);
+}
+
+.category-img-box img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.category-name {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--text-main);
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Promotional Mid-Page Banner (Luxury Dark & Gold)
+   ========================================================================== */
+.promo-banner-section {
+    background: var(--dark-gradient);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: var(--radius-xl);
+    padding: 3.5rem 3rem;
+    color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-dark);
+}
+
+.promo-banner-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(0,0,0,0) 70%);
+    pointer-events: none;
+}
+
+.promo-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #FFFFFF;
+}
+
+.promo-title span {
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================================================
+   Footer (4 Columns, Deep Dark #111111 with Gold Accents - Questionnaire A3)
+   ========================================================================== */
+.luxury-footer {
+    background: #0E0E0E;
+    color: #D4D4D8;
+    border-top: 2px solid var(--gold-primary);
+    padding-top: 4.5rem;
+    padding-bottom: 2rem;
+    font-size: 0.92rem;
+}
+
+.luxury-footer .footer-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.4rem;
+    position: relative;
+    display: inline-block;
+}
+
+.luxury-footer .footer-title::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 32px;
+    height: 2px;
+    background: var(--gold-primary);
+    border-radius: 2px;
+}
+
+.luxury-footer a {
+    color: #A1A1AA;
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-block;
+    margin-bottom: 0.6rem;
+}
+
+.luxury-footer a:hover {
+    color: var(--gold-light) !important;
+    transform: translateX(4px);
+}
+
+.footer-social-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #1C1C1C;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-light);
+    margin-right: 0.5rem;
+    transition: var(--transition);
+}
+
+.footer-social-btn:hover {
+    background: var(--gold-gradient);
+    color: #111111 !important;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(212, 175, 55, 0.35);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 1.5rem;
+    margin-top: 3.5rem;
+    color: #71717A;
+    font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   Cards General & Containers
+   ========================================================================== */
+.card-sh, .card-modern {
+    background: var(--bg-surface);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+}
+
+/* Auth Cards */
+.auth-card {
+    max-width: 480px;
+    margin: 3rem auto;
+    border: none;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    background: #FFFFFF;
+}
+
+.auth-card .card-header {
+    background: var(--dark-gradient);
+    border-bottom: 2px solid var(--gold-primary);
+    color: #FFFFFF;
+    text-align: center;
+    padding: 2rem 1.5rem;
+}
+
+.auth-card .card-header p {
+    font-size: 1.45rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.auth-card .card-header small {
+    color: var(--gold-light);
+}
+
+/* Form Controls */
+.form-control, .form-select {
+    border-radius: var(--radius-md);
+    border: 1.5px solid #E4E4E7;
+    padding: 0.65rem 1rem;
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--gold-primary);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+/* Quantity Button */
+.qty-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid var(--gold-primary);
     background: white;
-    color: var(--primary);
-    font-weight: bold;
+    color: #111111;
+    font-weight: 700;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
     transition: var(--transition);
 }
+
 .qty-btn:hover {
-    background: var(--primary);
-    color: white;
+    background: var(--gold-gradient);
+    color: #111111;
+    transform: scale(1.1);
 }
 
-/* Status Badges */
-.badge-status {
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
+/* Floating Chat Trigger Button (Gold & Black) */
+#chat-toggle-btn {
+    width: 60px;
+    height: 60px;
+    background: var(--dark-gradient) !important;
+    border: 2px solid var(--gold-primary) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35), 0 0 15px rgba(212, 175, 55, 0.35) !important;
+    transition: var(--transition);
 }
 
-/* Auth Pages */
-.auth-card {
-    max-width: 500px;
-    margin: 2rem auto;
-    border: none;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-}
-.auth-card .card-header {
-    background: var(--primary-gradient);
-    color: white;
-    text-align: center;
-    padding: 1.5rem;
-    border-radius: var(--radius) var(--radius) 0 0;
+#chat-toggle-btn:hover {
+    transform: scale(1.08) rotate(5deg);
+    background: var(--gold-gradient) !important;
+    border-color: #FFFFFF !important;
 }
 
-/* Validation Error */
-.error {
-    color: var(--danger);
-    font-size: 0.85rem;
+#chat-toggle-btn:hover i {
+    color: #111111 !important;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .product-card {
-        margin-bottom: 1rem;
-    }
+#chat-box .card-header {
+    background: var(--dark-gradient) !important;
+    border-bottom: 2px solid var(--gold-primary);
+}
+
+/* Pagination */
+.pagination .page-link {
+    color: var(--text-main);
+    border-color: #E4E4E7;
+    padding: 0.6rem 1rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.pagination .page-item.active .page-link {
+    background: var(--dark-gradient);
+    border-color: var(--gold-primary);
+    color: var(--gold-light);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.pagination .page-link:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: var(--gold-primary);
+    color: var(--gold-dark);
+}
+
+/* View Mode Toggler (Grid / List) */
+.view-mode-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    border: 1px solid #E4E4E7;
+    background: #FFFFFF;
+    color: var(--text-muted);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.view-mode-btn.active, .view-mode-btn:hover {
+    background: var(--dark-gradient);
+    color: var(--gold-light);
+    border-color: #111111;
+}
+
+/* Responsive tweaks */
+@media (max-width: 991px) {
     body {
-        padding-top: 60px;
+        padding-top: 70px;
+    }
+    .hero-slider .carousel-item {
+        height: 280px;
+    }
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    .hero-overlay-content {
+        padding-left: 1.5rem;
+    }
+    .trust-bar {
+        margin-top: 1rem;
     }
 }

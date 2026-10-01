@@ -3,29 +3,38 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>Quản lý Mã giảm giá (Vouchers)</title>
+<title>Quản lý Mã giảm giá (Vouchers) — Quản trị</title>
 </head>
 <body>
-	<section class="mt-4 pt-3">
-		<div class="container-fluid px-4 mb-5">
-			<div class="row">
+	<section class="mt-4 pt-2 pb-5">
+		<div class="container-fluid px-lg-4 mb-5">
+			<div class="d-flex justify-content-between align-items-center mb-4">
+				<div class="d-flex align-items-center gap-3">
+					<a href="/admin/" class="btn btn-outline-dark btn-sm rounded-pill px-3">
+						<i class="fa-solid fa-arrow-left me-1"></i>Quay lại
+					</a>
+					<h4 class="mb-0 fw-bold text-dark">
+						<i class="fa-solid fa-ticket text-warning me-2"></i>QUẢN LÝ MÃ GIẢM GIÁ (VOUCHERS)
+					</h4>
+				</div>
+			</div>
+
+			<div class="row g-4">
 				<!-- Form Add Voucher -->
-				<div class="col-lg-4 mb-4">
-					<div class="card border-0 shadow-sm rounded-4">
-						<div class="card-header bg-white py-3 border-bottom">
-							<h6 class="mb-0 fw-bold text-primary">
-								<i class="fa-solid fa-ticket me-2"></i>Thêm mã giảm giá mới
-							</h6>
+				<div class="col-lg-4">
+					<div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
+						<div class="card-header py-3 text-white" style="background: var(--dark-gradient); border-bottom: 2px solid var(--gold-primary);">
+							<h6 class="mb-0 fw-bold"><i class="fa-solid fa-plus me-1 text-warning"></i>Thêm mã giảm giá mới</h6>
 						</div>
 						<div class="card-body p-4">
 							<form action="/admin/save-voucher" method="post" th:object="${voucher}">
 								<div class="mb-3">
 									<label class="form-label fw-bold small text-secondary">Mã Voucher (*)</label>
-									<input type="text" th:field="*{code}" class="form-control text-uppercase" placeholder="Ví dụ: GIAM20K, SALE10" required>
+									<input type="text" th:field="*{code}" class="form-control text-uppercase" placeholder="Ví dụ: GIAM20K, VIP10" required>
 								</div>
 
 								<div class="mb-3">
-									<label class="form-label fw-bold small text-secondary">Mô tả</label>
+									<label class="form-label fw-bold small text-secondary">Mô tả hiển thị</label>
 									<input type="text" th:field="*{description}" class="form-control" placeholder="Ví dụ: Giảm 20k cho đơn từ 200k">
 								</div>
 
@@ -36,9 +45,9 @@
 									</div>
 									<div class="col-6">
 										<label class="form-label fw-bold small text-secondary">Giảm cố định (đ)</label>
-										<input type="number" th:field="*{discountAmount}" class="form-control" placeholder="50000 (đ)" min="0" step="1000">
+										<input type="number" th:field="*{discountAmount}" class="form-control" placeholder="50000" min="0" step="1000">
 									</div>
-									<small class="text-muted" style="font-size: 0.75rem;">Ưu tiên giảm theo % nếu điền cả hai.</small>
+									<small class="text-muted" style="font-size: 0.72rem;">Hệ thống ưu tiên giảm theo % nếu nhập cả hai.</small>
 								</div>
 
 								<div class="row g-2 mb-3">
@@ -68,8 +77,8 @@
 									<label class="form-check-label fw-bold small" for="activeSwitch">Kích hoạt sử dụng ngay</label>
 								</div>
 
-								<button type="submit" class="btn btn-primary w-100 rounded-pill py-2 fw-bold" style="background: #1e3c72;">
-									<i class="fa-solid fa-save me-1"></i>Lưu mã giảm giá
+								<button type="submit" class="btn btn-gold w-100 py-2 fw-bold shadow">
+									<i class="fa-solid fa-floppy-disk me-1"></i>Lưu mã khuyến mãi
 								</button>
 							</form>
 						</div>
@@ -78,60 +87,52 @@
 
 				<!-- Vouchers List Table -->
 				<div class="col-lg-8">
-					<div class="card border-0 shadow-sm rounded-4">
-						<div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
-							<div class="d-flex align-items-center gap-3">
-								<a href="/admin/" class="btn btn-outline-secondary btn-sm rounded-pill"><i class="fa-solid fa-arrow-left me-1"></i>Bảng điều khiển</a>
-								<h5 class="mb-0 fw-bold text-dark"><i class="fa-solid fa-ticket-simple text-warning me-2"></i>Danh sách mã giảm giá</h5>
-							</div>
+					<div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
+						<div class="card-header py-3 text-white" style="background: var(--dark-gradient); border-bottom: 2px solid var(--gold-primary);">
+							<h6 class="mb-0 fw-bold"><i class="fa-solid fa-list-check me-2 text-warning"></i>Danh sách mã giảm giá trong hệ thống</h6>
 						</div>
 						<div class="card-body p-0">
 							<div class="table-responsive">
 								<table class="table table-hover align-middle mb-0 text-center">
-									<thead class="table-light small">
+									<thead class="bg-light small text-secondary">
 										<tr>
-											<th>Mã</th>
-											<th>Mô tả</th>
-											<th>Mức giảm</th>
-											<th>Đơn tối thiểu</th>
-											<th>Đã dùng / Giới hạn</th>
-											<th>Hạn dùng</th>
-											<th>Trạng thái</th>
-											<th>Thao tác</th>
+											<th class="py-3">Mã code</th>
+											<th class="py-3 text-start ps-3">Mô tả</th>
+											<th class="py-3">Mức giảm</th>
+											<th class="py-3">Đơn tối thiểu</th>
+											<th class="py-3">Lượt dùng</th>
+											<th class="py-3">Hạn dùng</th>
+											<th class="py-3">Trạng thái</th>
+											<th class="py-3">Thao tác</th>
 										</tr>
 									</thead>
 									<tbody class="small">
 										<tr th:each="v : ${vouchers}">
-											<td class="fw-bold text-primary">[[${v.code}]]</td>
-											<td class="text-start">[[${v.description}]]</td>
+											<td class="font-monospace fw-bold text-dark py-3">
+												<span class="badge bg-dark text-warning border border-warning px-2 py-1">[[${v.code}]]</span>
+											</td>
+											<td class="text-start ps-3">[[${v.description}]]</td>
 											<td class="fw-bold text-danger">
-												<span th:if="${v.discountPercent != null and v.discountPercent > 0}">Giảm [[${v.discountPercent}]]%</span>
-												<span th:if="${v.discountAmount != null and v.discountAmount > 0 and (v.discountPercent == null or v.discountPercent <= 0)}">[[${#numbers.formatDecimal(v.discountAmount, 0, 'POINT', 0, 'COMMA')}]]đ</span>
+												<span th:if="${v.discountPercent != null and v.discountPercent > 0}">-[[${v.discountPercent}]]%</span>
+												<span th:if="${v.discountAmount != null and v.discountAmount > 0 and (v.discountPercent == null or v.discountPercent == 0)}">-[[${#numbers.formatDecimal(v.discountAmount, 0, 'POINT', 0, 'COMMA')}]]đ</span>
+											</td>
+											<td class="font-monospace">[[${#numbers.formatDecimal(v.minOrderValue != null ? v.minOrderValue : 0, 0, 'POINT', 0, 'COMMA')}]]đ</td>
+											<td>[[${v.usedCount != null ? v.usedCount : 0}]] / [[${v.usageLimit != null ? v.usageLimit : '∞'}]]</td>
+											<td class="small text-muted">
+												<span th:text="${v.endDate != null ? #temporals.format(v.endDate, 'dd/MM/yyyy') : 'Vô thời hạn'}"></span>
 											</td>
 											<td>
-												<span th:if="${v.minOrderValue != null and v.minOrderValue > 0}">[[${#numbers.formatDecimal(v.minOrderValue, 0, 'POINT', 0, 'COMMA')}]]đ</span>
-												<span th:unless="${v.minOrderValue != null and v.minOrderValue > 0}" class="text-muted">0đ</span>
+												<span th:if="${v.isActive}" class="badge bg-success rounded-pill px-2 py-1">Hoạt động</span>
+												<span th:unless="${v.isActive}" class="badge bg-secondary rounded-pill px-2 py-1">Tạm khóa</span>
 											</td>
 											<td>
-												<span class="fw-bold">[[${v.usedCount}]]</span> / 
-												<span th:text="${v.usageLimit != null ? v.usageLimit : '∞'}"></span>
-											</td>
-											<td>
-												<span th:if="${v.endDate != null}">[[${v.endDate}]]</span>
-												<span th:unless="${v.endDate != null}" class="text-muted">Vô thời hạn</span>
-											</td>
-											<td>
-												<span th:if="${v.isActive}" class="badge bg-success-subtle text-success border rounded-pill">Hoạt động</span>
-												<span th:unless="${v.isActive}" class="badge bg-secondary-subtle text-secondary border rounded-pill">Tắt</span>
-											</td>
-											<td>
-												<a th:href="@{'/admin/delete-voucher/' + ${v.id}}" class="btn btn-sm btn-outline-danger rounded-pill px-2 py-1" onclick="return confirm('Bạn có chắc chắn muốn xóa mã giảm giá này?');">
-													<i class="fa-solid fa-trash"></i>
+												<a th:href="@{'/admin/delete-voucher/' + ${v.id}}" class="btn btn-sm btn-outline-danger py-0 px-2 rounded-pill" onclick="return confirm('Bạn có chắc chắn muốn xóa mã này?');">
+													Xóa
 												</a>
 											</td>
 										</tr>
 										<tr th:if="${vouchers == null or vouchers.isEmpty()}">
-											<td colspan="8" class="text-center text-muted py-4">Chưa có mã giảm giá nào. Hãy tạo mã đầu tiên!</td>
+											<td colspan="8" class="text-center text-muted py-4">Chưa có mã giảm giá nào</td>
 										</tr>
 									</tbody>
 								</table>

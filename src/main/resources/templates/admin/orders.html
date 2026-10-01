@@ -3,74 +3,86 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>Quản lý đơn hàng</title>
+<title>Quản lý đơn hàng — Quản trị Ecom Store</title>
 </head>
 <body>
-	<section>
-		<div class="container-fluid mt-5 p-4">
-			<div class="card card-sh border-0 shadow-sm">
-				<div class="card-body p-4">
-					<div class="d-flex justify-content-between align-items-center mb-4">
-						<a href="/admin/" class="btn btn-outline-secondary"><i class="fa-solid fa-arrow-left me-2"></i>Quay lại</a>
-						<p class="fs-3 fw-bold text-primary mb-0">Quản lý đơn hàng</p>
-						<div style="width: 100px;"></div> <!-- Spacer for centering -->
+	<section class="mt-4 pt-2 pb-5">
+		<div class="container-fluid px-lg-4">
+			<div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white mb-5">
+				<!-- Header -->
+				<div class="card-header py-4 text-white d-flex justify-content-between align-items-center" style="background: var(--dark-gradient); border-bottom: 2px solid var(--gold-primary);">
+					<div class="d-flex align-items-center gap-3">
+						<a href="/admin/" class="btn btn-outline-light btn-sm rounded-pill px-3">
+							<i class="fa-solid fa-arrow-left me-1"></i>Quay lại
+						</a>
+						<div>
+							<h5 class="mb-0 fw-bold text-white"><i class="fa-solid fa-truck-fast text-warning me-2"></i>QUẢN LÝ ĐƠN HÀNG</h5>
+							<small class="text-white-50">Tra cứu, cập nhật tiến độ vận chuyển và xuất hóa đơn VAT</small>
+						</div>
 					</div>
-					
-					<hr class="mb-4">
-					
+				</div>
+
+				<div class="card-body p-4 p-md-5">
 					<th:block th:if="${session.succMsg}">
-						<div class="alert alert-success text-center">[[${session.succMsg}]]</div>
+						<div class="alert alert-success rounded-4 text-center mb-4">[[${session.succMsg}]]</div>
 						<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
 					</th:block>
 
 					<th:block th:if="${session.errorMsg}">
-						<div class="alert alert-danger text-center">[[${session.errorMsg}]]</div>
+						<div class="alert alert-danger rounded-4 text-center mb-4">[[${session.errorMsg}]]</div>
 						<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
 					</th:block>
 
+					<!-- Search Order by ID -->
 					<div class="row mb-4">
-						<div class="col-md-5">
+						<div class="col-md-6 col-lg-5">
 							<form action="/admin/search-order" method="get">
 								<div class="input-group">
-									<input type="text" class="form-control" name="orderId" placeholder="Nhập mã đơn hàng...">
-									<button class="btn btn-primary px-4"><i class="fa-solid fa-magnifying-glass me-2"></i>Tìm kiếm</button>
+									<input type="text" class="form-control" name="orderId" placeholder="Nhập mã đơn hàng cần tra cứu..." autocomplete="off">
+									<button class="btn btn-gold px-4 fw-bold" type="submit">
+										<i class="fa-solid fa-magnifying-glass me-1"></i>Tìm kiếm
+									</button>
 								</div>
 							</form>
 						</div>
 					</div>
 					
-					<div class="table-responsive">
-						<table class="table table-bordered table-hover align-middle">
-							<thead class="table-primary text-center">
+					<!-- Orders Table -->
+					<div class="table-responsive rounded-4 border overflow-hidden">
+						<table class="table table-hover align-middle mb-0">
+							<thead class="bg-light text-secondary text-uppercase small text-center">
 								<tr>
-									<th scope="col">Mã đơn</th>
-									<th scope="col">Thông tin người nhận</th>
-									<th scope="col">Ngày đặt</th>
-									<th scope="col">Sản phẩm</th>
-									<th scope="col">Giá & Số lượng</th>
-									<th scope="col">Trạng thái</th>
-									<th scope="col">Cập nhật</th>
+									<th scope="col" class="py-3">Mã đơn</th>
+									<th scope="col" class="py-3 text-start ps-4">Thông tin khách hàng</th>
+									<th scope="col" class="py-3">Ngày đặt</th>
+									<th scope="col" class="py-3 text-start ps-3">Sản phẩm</th>
+									<th scope="col" class="py-3">Số lượng & Giá</th>
+									<th scope="col" class="py-3">Trạng thái</th>
+									<th scope="col" class="py-3">Cập nhật</th>
 								</tr>
 							</thead>
 							<tbody>
+								<!-- Single Search Result -->
 								<th:block th:if="${srch}">
 									<th:block th:if="${orderDtls!=null}">
 										<tr>
-											<th scope="row" class="text-center fw-bold">[[${orderDtls.orderId}]]</th>
-											<td>
-												<span class="fw-bold">Tên:</span> [[${orderDtls.orderAddress.fullName}]]<br> 
-												<span class="fw-bold">Email:</span> [[${orderDtls.orderAddress.email}]] <br> 
-												<span class="fw-bold">SĐT:</span> [[${orderDtls.orderAddress.phone}]] <br> 
-												<span class="fw-bold">Địa chỉ:</span> [[${orderDtls.orderAddress.detailAddress}]], [[${orderDtls.orderAddress.ward}]], [[${orderDtls.orderAddress.province}]]
+											<th scope="row" class="text-center font-monospace fw-bold text-dark py-3">[[${orderDtls.orderId}]]</th>
+											<td class="text-start ps-4 small">
+												<span class="fw-bold text-dark">[[${orderDtls.orderAddress.fullName}]]</span><br> 
+												<span class="text-muted">[[${orderDtls.orderAddress.email}]]</span><br> 
+												<span class="text-muted">[[${orderDtls.orderAddress.phone}]]</span><br> 
+												<span class="text-secondary">[[${orderDtls.orderAddress.detailAddress}]], [[${orderDtls.orderAddress.ward}]], [[${orderDtls.orderAddress.province}]]</span>
 											</td>
-											<td class="text-center">[[${orderDtls.orderDate}]]</td>
-											<td class="fw-bold text-primary">[[${orderDtls.product.title}]]</td>
-											<td>
-												SL: [[${orderDtls.quantity}]] <br>
-												Đơn giá: [[${#numbers.formatDecimal(orderDtls.price, 0, 'POINT', 0, 'COMMA')}]]đ <br>
+											<td class="text-center small text-muted">[[${orderDtls.orderDate}]]</td>
+											<td class="fw-bold text-start ps-3">[[${orderDtls.product.title}]]</td>
+											<td class="text-center small">
+												SL: <strong>[[${orderDtls.quantity}]]</strong><br>
+												Đơn giá: [[${#numbers.formatDecimal(orderDtls.price, 0, 'POINT', 0, 'COMMA')}]]đ<br>
 												<span class="fw-bold text-danger">Tổng: [[${#numbers.formatDecimal(orderDtls.quantity * orderDtls.price, 0, 'POINT', 0, 'COMMA')}]]đ</span>
 											</td>
-											<td class="text-center fw-bold">[[${orderDtls.status}]]</td>
+											<td class="text-center">
+												<span class="badge bg-warning text-dark fw-bold rounded-pill px-3 py-1">[[${orderDtls.status}]]</span>
+											</td>
 											<td>
 												<form action="/admin/update-order-status" method="post">
 													<div class="d-flex flex-column gap-2">
@@ -85,9 +97,9 @@
 														</select>
 														<input th:value="${orderDtls.id}" name="id" type="hidden">
 														
-														<button th:if="${orderDtls.status=='Cancelled' || orderDtls.status=='Delivered' || orderDtls.status=='Đã hủy' || orderDtls.status=='Đã giao hàng'}" class="btn btn-primary btn-sm w-100 disabled">Cập nhật</button>
-														<button th:unless="${orderDtls.status=='Cancelled' || orderDtls.status=='Delivered' || orderDtls.status=='Đã hủy' || orderDtls.status=='Đã giao hàng'}" class="btn btn-primary btn-sm w-100">Cập nhật</button>
-														<a th:href="@{'/admin/order/invoice/' + ${orderDtls.orderId}}" class="btn btn-outline-danger btn-sm w-100" target="_blank">
+														<button th:if="${orderDtls.status=='Cancelled' || orderDtls.status=='Delivered' || orderDtls.status=='Đã hủy' || orderDtls.status=='Đã giao hàng'}" class="btn btn-secondary btn-sm rounded-pill disabled" disabled>Cập nhật</button>
+														<button th:unless="${orderDtls.status=='Cancelled' || orderDtls.status=='Delivered' || orderDtls.status=='Đã hủy' || orderDtls.status=='Đã giao hàng'}" class="btn btn-gold btn-sm rounded-pill fw-bold">Cập nhật</button>
+														<a th:href="@{'/admin/order/invoice/' + ${orderDtls.orderId}}" class="btn btn-outline-danger btn-sm rounded-pill" target="_blank">
 															<i class="fa-solid fa-file-pdf me-1"></i>Hóa đơn PDF
 														</a>
 													</div>
@@ -97,28 +109,36 @@
 									</th:block>
 									<th:block th:unless="${orderDtls!=null}">
 										<tr>
-											<td colspan="7" class="fs-4 text-center text-danger py-4"><i class="fa-solid fa-circle-xmark me-2"></i>[[${errorMsg}]]</td>
+											<td colspan="7" class="text-center text-danger py-5">
+												<i class="fa-solid fa-circle-xmark fs-2 mb-2 d-block"></i>
+												[[${errorMsg}]]
+											</td>
 										</tr>
 									</th:block>
 								</th:block>
 
+								<!-- Regular Order List -->
 								<th:block th:unless="${srch}">
 									<tr th:each="o:${orders}">
-										<th scope="row" class="text-center fw-bold">[[${o.orderId}]]</th>
-										<td>
-											<span class="fw-bold">Tên:</span> [[${o.orderAddress.fullName}]]<br> 
-											<span class="fw-bold">Email:</span> [[${o.orderAddress.email}]] <br> 
-											<span class="fw-bold">SĐT:</span> [[${o.orderAddress.phone}]] <br> 
-											<span class="fw-bold">Địa chỉ:</span> [[${o.orderAddress.detailAddress}]], [[${o.orderAddress.ward}]], [[${o.orderAddress.province}]]
+										<th scope="row" class="text-center font-monospace fw-bold text-dark py-3">[[${o.orderId}]]</th>
+										<td class="text-start ps-4 small">
+											<span class="fw-bold text-dark">[[${o.orderAddress.fullName}]]</span><br> 
+											<span class="text-muted">[[${o.orderAddress.email}]]</span><br> 
+											<span class="text-muted">[[${o.orderAddress.phone}]]</span><br> 
+											<span class="text-secondary">[[${o.orderAddress.detailAddress}]], [[${o.orderAddress.ward}]], [[${o.orderAddress.province}]]</span>
 										</td>
-										<td class="text-center">[[${o.orderDate}]]</td>
-										<td class="fw-bold text-primary">[[${o.product.title}]]</td>
-										<td>
-											SL: [[${o.quantity}]] <br>
-											Đơn giá: [[${#numbers.formatDecimal(o.price, 0, 'POINT', 0, 'COMMA')}]]đ <br>
+										<td class="text-center small text-muted">[[${o.orderDate}]]</td>
+										<td class="fw-bold text-start ps-3">[[${o.product.title}]]</td>
+										<td class="text-center small">
+											SL: <strong>[[${o.quantity}]]</strong><br>
+											Đơn giá: [[${#numbers.formatDecimal(o.price, 0, 'POINT', 0, 'COMMA')}]]đ<br>
 											<span class="fw-bold text-danger">Tổng: [[${#numbers.formatDecimal(o.quantity * o.price, 0, 'POINT', 0, 'COMMA')}]]đ</span>
 										</td>
-										<td class="text-center fw-bold">[[${o.status}]]</td>
+										<td class="text-center">
+											<span th:if="${o.status == 'Đã hủy' || o.status == 'Cancelled'}" class="badge bg-danger rounded-pill px-3 py-1">[[${o.status}]]</span>
+											<span th:if="${o.status == 'Đã giao hàng' || o.status == 'Delivered'}" class="badge bg-success rounded-pill px-3 py-1">[[${o.status}]]</span>
+											<span th:unless="${o.status == 'Đã hủy' || o.status == 'Cancelled' || o.status == 'Đã giao hàng' || o.status == 'Delivered'}" class="badge bg-warning text-dark fw-bold rounded-pill px-3 py-1">[[${o.status}]]</span>
+										</td>
 										<td>
 											<form action="/admin/update-order-status" method="post">
 												<div class="d-flex flex-column gap-2">
@@ -133,9 +153,9 @@
 													</select>
 													<input th:value="${o.id}" name="id" type="hidden">
 													
-													<button th:if="${o.status=='Cancelled' || o.status=='Delivered' || o.status=='Đã hủy' || o.status=='Đã giao hàng'}" class="btn btn-primary btn-sm w-100 disabled">Cập nhật</button>
-													<button th:unless="${o.status=='Cancelled' || o.status=='Delivered' || o.status=='Đã hủy' || o.status=='Đã giao hàng'}" class="btn btn-primary btn-sm w-100">Cập nhật</button>
-													<a th:href="@{'/admin/order/invoice/' + ${o.orderId}}" class="btn btn-outline-danger btn-sm w-100" target="_blank">
+													<button th:if="${o.status=='Cancelled' || o.status=='Delivered' || o.status=='Đã hủy' || o.status=='Đã giao hàng'}" class="btn btn-secondary btn-sm rounded-pill disabled" disabled>Cập nhật</button>
+													<button th:unless="${o.status=='Cancelled' || o.status=='Delivered' || o.status=='Đã hủy' || o.status=='Đã giao hàng'}" class="btn btn-gold btn-sm rounded-pill fw-bold">Cập nhật</button>
+													<a th:href="@{'/admin/order/invoice/' + ${o.orderId}}" class="btn btn-outline-danger btn-sm rounded-pill" target="_blank">
 														<i class="fa-solid fa-file-pdf me-1"></i>Hóa đơn PDF
 													</a>
 												</div>
@@ -147,25 +167,24 @@
 						</table>
 					</div>
 					
+					<!-- Pagination -->
 					<th:block th:if="${!srch}">
-						<div class="row align-items-center mt-3">
-							<div class="col-md-4 fw-bold text-secondary">Tổng số đơn hàng: [[${totalElements}]]</div>
-							<div class="col-md-8">
+						<div class="d-flex justify-content-between align-items-center mt-4" th:if="${totalPages > 1}">
+							<div class="small text-muted">Tổng số đơn hàng: <strong>[[${totalElements}]]</strong></div>
+							<div>
 								<nav aria-label="Page navigation">
-									<ul class="pagination justify-content-end mb-0">
+									<ul class="pagination pagination-sm mb-0">
 										<li class="page-item" th:classappend="${isFirst} ? 'disabled':''">
-											<a class="page-link" th:href="@{'/admin/orders?pageNo='+${pageNo-1}}" aria-label="Previous"> 
-												<span aria-hidden="true">&laquo; Trước</span>
+											<a class="page-link rounded-start-pill px-3" th:href="@{'/admin/orders?pageNo='+${pageNo-1}}">
+												&laquo; Trước
 											</a>
 										</li>
-
 										<li th:each="i:${#numbers.sequence(1,totalPages)}" class="page-item" th:classappend="${pageNo+1==i}?'active':''">
-											<a class="page-link" th:href="@{'/admin/orders?pageNo='+${i-1}}">[[${i}]]</a>
+											<a class="page-link px-3" th:href="@{'/admin/orders?pageNo='+${i-1}}">[[${i}]]</a>
 										</li>
-
 										<li class="page-item" th:classappend="${isLast} ? 'disabled':''">
-											<a class="page-link" th:href="@{'/admin/orders?pageNo='+${pageNo+1}}" aria-label="Next"> 
-												<span aria-hidden="true">Tiếp &raquo;</span>
+											<a class="page-link rounded-end-pill px-3" th:href="@{'/admin/orders?pageNo='+${pageNo+1}}">
+												Tiếp &raquo;
 											</a>
 										</li>
 									</ul>

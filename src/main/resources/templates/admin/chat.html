@@ -10,20 +10,20 @@
 		<div class="container-fluid px-4 mb-5">
 			<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
 				<!-- Header Bar -->
-				<div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+				<div class="card-header py-3 text-white border-bottom d-flex justify-content-between align-items-center" style="background: var(--dark-gradient); border-bottom: 2px solid var(--gold-primary) !important;">
 					<div class="d-flex align-items-center gap-3">
-						<a href="/admin/" class="btn btn-outline-secondary btn-sm rounded-pill">
+						<a href="/admin/" class="btn btn-outline-light btn-sm rounded-pill">
 							<i class="fa-solid fa-arrow-left me-1"></i>Bảng điều khiển
 						</a>
-						<h5 class="mb-0 fw-bold text-primary">
-							<i class="fa-solid fa-headset me-2"></i>Trung tâm CSKH Trực tuyến (1-on-1)
+						<h5 class="mb-0 fw-bold text-white">
+							<i class="fa-solid fa-headset text-warning me-2"></i>TRUNG TÂM CSKH TRỰC TUYẾN (1-ON-1)
 						</h5>
 					</div>
 					<div class="d-flex align-items-center gap-2">
 						<span id="admin-chat-status" class="badge bg-success rounded-pill px-3 py-2">
 							<i class="fa-solid fa-circle me-1" style="font-size: 0.6rem;"></i>Đang kết nối...
 						</span>
-						<button class="btn btn-sm btn-outline-primary rounded-pill px-3" onclick="loadConversationsList()">
+						<button class="btn btn-sm btn-gold rounded-pill px-3" onclick="loadConversationsList()">
 							<i class="fa-solid fa-arrows-rotate me-1"></i>Làm mới
 						</button>
 					</div>
@@ -38,7 +38,7 @@
 							<div class="p-3 border-bottom bg-white">
 								<div class="d-flex justify-content-between align-items-center mb-2">
 									<span class="fw-bold text-secondary small text-uppercase">Khách hàng</span>
-									<span id="conversation-count-badge" class="badge bg-primary-subtle text-primary rounded-pill">0 cuộc trò chuyện</span>
+									<span id="conversation-count-badge" class="badge bg-warning-subtle text-dark border rounded-pill">0 cuộc trò chuyện</span>
 								</div>
 								<div class="input-group input-group-sm">
 									<span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
@@ -49,7 +49,7 @@
 							<!-- Conversations Scrollable List -->
 							<div class="flex-grow-1 overflow-auto" id="conversations-list-container">
 								<div class="text-center text-muted p-4 small">
-									<div class="spinner-border spinner-border-sm text-primary mb-2" role="status"></div>
+									<div class="spinner-border spinner-border-sm text-warning mb-2" role="status"></div>
 									<div>Đang tải danh sách hội thoại...</div>
 								</div>
 							</div>
@@ -57,7 +57,7 @@
 							<!-- Admin Profile Badge -->
 							<div class="p-3 border-top bg-white mt-auto">
 								<div class="d-flex align-items-center gap-2">
-									<div class="rounded-circle bg-danger text-white d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+									<div class="rounded-circle bg-dark text-warning d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; border: 1px solid rgba(212, 175, 55, 0.4);">
 										<i class="fa-solid fa-user-shield"></i>
 									</div>
 									<div class="overflow-hidden">
@@ -73,7 +73,7 @@
 							<!-- Chat Room Header -->
 							<div class="p-3 border-bottom bg-white d-flex justify-content-between align-items-center" id="chat-header">
 								<div class="d-flex align-items-center gap-3" id="active-customer-info">
-									<div class="rounded-circle bg-primary-subtle text-primary d-flex align-items-center justify-content-center fw-bold fs-5" style="width: 44px; height: 44px;" id="header-avatar">
+									<div class="rounded-circle bg-warning-subtle text-dark border d-flex align-items-center justify-content-center fw-bold fs-5" style="width: 44px; height: 44px;" id="header-avatar">
 										<i class="fa-solid fa-user"></i>
 									</div>
 									<div>
@@ -91,7 +91,7 @@
 							<!-- Chat Messages Window -->
 							<div class="flex-grow-1 p-4 overflow-auto" id="admin-chat-messages" style="background-color: #f7f9fa;">
 								<div class="h-100 d-flex flex-column align-items-center justify-content-center text-muted" id="chat-placeholder">
-									<i class="fa-regular fa-comments fs-1 mb-3 text-secondary opacity-50"></i>
+									<i class="fa-regular fa-comments fs-1 mb-3 text-warning opacity-75"></i>
 									<h6 class="fw-bold">Chưa chọn cuộc trò chuyện</h6>
 									<p class="small text-center mb-0" style="max-width: 320px;">
 										Nhấp vào một khách hàng ở cột bên trái để xem lịch sử trò chuyện và phản hồi riêng tư với khách hàng đó.
@@ -103,8 +103,8 @@
 							<div class="p-3 border-top bg-white">
 								<form id="admin-chat-form" onsubmit="sendAdminReply(event)" class="d-flex gap-2">
 									<input type="text" id="admin-chat-input" class="form-control rounded-pill px-4" placeholder="Nhập câu trả lời riêng cho khách hàng này..." autocomplete="off" disabled required>
-									<button type="submit" id="admin-chat-submit" class="btn btn-primary rounded-pill px-4 fw-bold" style="background: #1e3c72;" disabled>
-										<i class="fa-solid fa-paper-plane me-1"></i>Gửi
+									<button type="submit" id="admin-chat-submit" class="btn btn-gold rounded-pill px-4 fw-bold shadow-sm" disabled>
+										<i class="fa-solid fa-paper-plane me-1"></i>Gửi phản hồi
 									</button>
 								</form>
 							</div>

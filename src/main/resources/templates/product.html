@@ -3,86 +3,99 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>Sản phẩm</title>
+<title>Sản phẩm — Ecom Store</title>
 </head>
 <body>
-	<section class="mt-4 pt-2">
-		<!-- Search Hero Banner -->
-		<div class="container-fluid p-4" style="background: linear-gradient(135deg, #1e3c72, #2a5298);">
-			<div class="row">
-				<div class="col-md-8 offset-md-2">
-					<form action="/products" method="get">
-						<input type="hidden" name="category" th:value="${paramValue}">
-						<input type="hidden" name="sortBy" th:value="${sortBy}">
-						<div class="input-group shadow-sm">
-							<input type="text" class="form-control form-control-lg border-0" name="ch" th:value="${ch}" placeholder="Tìm kiếm sản phẩm theo tên...">
-							<button class="btn btn-warning text-dark px-4 fw-bold" type="submit">
-								<i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm
-							</button>
-						</div>
-					</form>
+	<section class="pb-5">
+		<!-- Search Hero Banner (Luxury Dark Theme) -->
+		<div class="container-fluid px-lg-4 pt-3">
+			<div class="p-4 p-md-5 rounded-4 shadow-sm position-relative overflow-hidden" style="background: var(--dark-gradient); border: 1px solid rgba(212, 175, 55, 0.3);">
+				<div class="row align-items-center">
+					<div class="col-lg-8 mx-auto text-center">
+						<span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill mb-2 text-uppercase small">Hệ thống phân phối</span>
+						<h2 class="fw-bold text-white mb-3">TẤT CẢ <span class="brand-gold-text">SẢN PHẨM</span></h2>
+						<form action="/products" method="get">
+							<input type="hidden" name="category" th:value="${paramValue}">
+							<input type="hidden" name="sortBy" th:value="${sortBy}">
+							<div class="input-group shadow-lg">
+								<input type="text" class="form-control form-control-lg border-0 px-4" name="ch" th:value="${ch}" placeholder="Tìm kiếm sản phẩm, phụ kiện công nghệ..." autocomplete="off">
+								<button class="btn btn-gold px-4 fw-bold" type="submit">
+									<i class="fa-solid fa-magnifying-glass me-1"></i> Tìm kiếm
+								</button>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="container-fluid mt-4">
+		<!-- Main Listing Content -->
+		<div class="container-fluid px-lg-4 mt-4">
 			<div class="row">
-				<!-- Filter Sidebar -->
+				<!-- 1. Filter Sidebar -->
 				<div class="col-lg-3 col-md-4 mb-4">
-					<!-- Categories -->
-					<div class="card shadow-sm border-0 rounded-4 mb-3">
-						<div class="card-header bg-white py-3 border-bottom">
-							<h6 class="mb-0 fw-bold text-primary"><i class="fa-solid fa-list me-2"></i>Danh mục</h6>
+					<!-- Category List Card -->
+					<div class="card shadow-sm border-0 rounded-4 mb-3 overflow-hidden">
+						<div class="card-header py-3 bg-white border-bottom d-flex align-items-center justify-content-between">
+							<h6 class="mb-0 fw-bold text-dark"><i class="fa-solid fa-layer-group text-warning me-2"></i>Danh mục sản phẩm</h6>
 						</div>
-						<div class="list-group list-group-flush rounded-bottom-4">
+						<div class="list-group list-group-flush">
 							<a th:href="@{/products(ch=${ch}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy=${sortBy})}"
-							   th:classappend="${paramValue=='' or paramValue==null} ? 'active bg-primary text-white':''"
-							   class="list-group-item list-group-item-action py-2">Tất cả sản phẩm</a>
+							   th:classappend="${paramValue=='' or paramValue==null} ? 'active bg-dark border-0 text-warning fw-bold':''"
+							   class="list-group-item list-group-item-action py-3 px-3 d-flex justify-content-between align-items-center">
+								<span>Tất cả sản phẩm</span>
+								<i class="fa-solid fa-chevron-right small opacity-50"></i>
+							</a>
 							<a th:each="c:${categories}"
 							   th:href="@{'/products?category=' + ${c.encodedName} + (${ch != null and ch != ''} ? '&ch=' + ${ch} : '') + (${minPrice != null} ? '&minPrice=' + ${minPrice} : '') + (${maxPrice != null} ? '&maxPrice=' + ${maxPrice} : '') + (${sortBy != null} ? '&sortBy=' + ${sortBy} : '')}"
-							   th:classappend="${paramValue == c.name} ? 'active bg-primary text-white':''"
-							   class="list-group-item list-group-item-action py-2">[[${c.name}]]</a>
+							   th:classappend="${paramValue == c.name} ? 'active bg-dark border-0 text-warning fw-bold':''"
+							   class="list-group-item list-group-item-action py-3 px-3 d-flex justify-content-between align-items-center">
+								<span>[[${c.name}]]</span>
+								<i class="fa-solid fa-chevron-right small opacity-50"></i>
+							</a>
 						</div>
 					</div>
 
-					<!-- Price & Sort Filter Form -->
-					<div class="card shadow-sm border-0 rounded-4">
-						<div class="card-header bg-white py-3 border-bottom">
-							<h6 class="mb-0 fw-bold text-primary"><i class="fa-solid fa-filter me-2"></i>Bộ lọc nâng cao</h6>
+					<!-- Advanced Filter Form Card -->
+					<div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+						<div class="card-header py-3 bg-white border-bottom">
+							<h6 class="mb-0 fw-bold text-dark"><i class="fa-solid fa-sliders text-warning me-2"></i>Bộ lọc nâng cao</h6>
 						</div>
 						<div class="card-body p-3">
 							<form action="/products" method="get">
 								<input type="hidden" name="category" th:value="${paramValue}">
 								<input type="hidden" name="ch" th:value="${ch}">
 
+								<!-- Sort Selector -->
 								<div class="mb-3">
 									<label class="form-label fw-bold small text-secondary">Sắp xếp theo</label>
 									<select name="sortBy" class="form-select form-select-sm">
 										<option value="latest" th:selected="${sortBy == 'latest' or sortBy == null}">Mới nhất</option>
 										<option value="price_asc" th:selected="${sortBy == 'price_asc'}">Giá: Thấp đến Cao</option>
 										<option value="price_desc" th:selected="${sortBy == 'price_desc'}">Giá: Cao đến Thấp</option>
-										<option value="rating" th:selected="${sortBy == 'rating'}">Đánh giá cao</option>
+										<option value="rating" th:selected="${sortBy == 'rating'}">Đánh giá cao nhất</option>
 									</select>
 								</div>
 
+								<!-- Price Range Inputs -->
 								<div class="mb-3">
 									<label class="form-label fw-bold small text-secondary">Khoảng giá (VNĐ)</label>
 									<div class="input-group input-group-sm mb-2">
-										<span class="input-group-text">Từ</span>
+										<span class="input-group-text bg-light text-muted">Từ</span>
 										<input type="number" name="minPrice" th:value="${minPrice}" class="form-control" placeholder="0" min="0" step="50000">
 									</div>
 									<div class="input-group input-group-sm">
-										<span class="input-group-text">Đến</span>
+										<span class="input-group-text bg-light text-muted">Đến</span>
 										<input type="number" name="maxPrice" th:value="${maxPrice}" class="form-control" placeholder="Tối đa" min="0" step="50000">
 									</div>
 								</div>
 
 								<div class="d-grid gap-2">
-									<button type="submit" class="btn btn-primary btn-sm rounded-pill fw-bold">
-										<i class="fa-solid fa-check me-1"></i>Áp dụng lọc
+									<button type="submit" class="btn btn-gold btn-sm fw-bold">
+										<i class="fa-solid fa-check me-1"></i>Áp dụng bộ lọc
 									</button>
 									<a th:href="@{'/products?category=' + ${encodedParamValue}}" class="btn btn-outline-secondary btn-sm rounded-pill">
-										<i class="fa-solid fa-rotate-left me-1"></i>Đặt lại
+										<i class="fa-solid fa-rotate-left me-1"></i>Đặt lại bộ lọc
 									</a>
 								</div>
 							</form>
@@ -90,92 +103,154 @@
 					</div>
 				</div>
 
-				<!-- Products List Grid -->
+				<!-- 2. Products List & Grid -->
 				<div class="col-lg-9 col-md-8">
-					<div class="d-flex justify-content-between align-items-center mb-3">
+					<!-- Top Action Bar with View Mode Toggler -->
+					<div class="d-flex justify-content-between align-items-center mb-3 p-3 bg-white rounded-4 shadow-sm border">
 						<h5 class="fw-bold mb-0 text-dark">
 							<span th:if="${paramValue != '' and paramValue != null}">Danh mục: [[${paramValue}]]</span>
 							<span th:unless="${paramValue != '' and paramValue != null}">Tất cả sản phẩm</span>
-							<small class="text-muted fs-6 fw-normal">([[${totalElements}]] kết quả)</small>
+							<small class="text-muted fs-6 fw-normal ms-2">([[${totalElements}]] sản phẩm)</small>
 						</h5>
+
+						<!-- Grid vs List View Mode Toggler (Questionnaire A6) -->
+						<div class="d-flex align-items-center gap-2">
+							<span class="small text-muted d-none d-sm-inline">Hiển thị:</span>
+							<button type="button" class="view-mode-btn active" id="btn-grid-view" onclick="setViewMode('grid')" title="Dạng lưới (Grid)">
+								<i class="fa-solid fa-grip"></i>
+							</button>
+							<button type="button" class="view-mode-btn" id="btn-list-view" onclick="setViewMode('list')" title="Dạng danh sách (List)">
+								<i class="fa-solid fa-list-ul"></i>
+							</button>
+						</div>
 					</div>
 
-					<div class="row g-3">
+					<!-- Products Container -->
+					<div id="products-container">
 						<th:block th:if="${productsSize > 0}">
-							<div class="col-xl-3 col-lg-4 col-sm-6" th:each="p:${products}">
-								<div class="card product-card h-100 position-relative border-0 shadow-sm rounded-4 overflow-hidden">
-									<!-- Discount Badge -->
-									<span th:if="${p.discount > 0}" class="discount-badge">Giảm [[${p.discount}]]%</span>
+							<div class="row g-3" id="products-grid-row">
+								<div class="col-xl-3 col-lg-4 col-sm-6 product-item-col" th:each="p:${products}">
+									<div class="card product-card h-100">
+										<!-- Shopee-style Ribbon Discount Badge (Questionnaire A4) -->
+										<div class="ribbon-discount" th:if="${p.discount > 0}">
+											<small>GIẢM</small>
+											[[${p.discount}]]%
+										</div>
 
-									<div class="card-body text-center d-flex flex-column p-3">
-										<div class="position-relative overflow-hidden mb-2" style="height: 180px;">
-											<img alt="" th:src="@{'/img/product_img/'+${p.image}}" class="w-100 h-100 object-fit-contain">
-											<!-- Stock Overlay if Out of stock -->
-											<div th:if="${p.stock <= 0}" class="position-absolute top-50 start-50 translate-middle badge bg-dark bg-opacity-75 text-white px-3 py-2 fs-6">
+										<!-- Product Thumbnail -->
+										<div class="product-thumb-wrap">
+											<img th:src="@{'/img/product_img/'+${p.image}}" th:alt="${p.title}">
+											<div th:if="${p.stock <= 0}" class="position-absolute top-50 start-50 translate-middle badge bg-dark bg-opacity-75 text-white px-3 py-2">
 												HẾT HÀNG
 											</div>
 										</div>
 
-										<p class="fw-bold mb-1 text-truncate" th:title="${p.title}">[[${p.title}]]</p>
+										<!-- Product Card Body -->
+										<div class="card-body">
+											<a th:href="@{'/product/'+${p.id}}" class="product-title" th:title="${p.title}">[[${p.title}]]</a>
 
-										<!-- Rating stars -->
-										<div class="text-warning small mb-2">
-											<i class="fa-solid fa-star"></i>
-											<span class="text-dark fw-bold">[[${p.rating}]]</span>
-											<span class="text-muted">([[${p.reviewCount}]])</span>
-											<!-- Low Stock Notice -->
-											<span th:if="${p.stock > 0 and p.stock < 10}" class="badge bg-warning-subtle text-warning border ms-1">Còn [[${p.stock}]]</span>
+											<!-- Rating Stars -->
+											<div class="product-rating">
+												<i class="fa-solid fa-star"></i>
+												<span class="score">[[${p.rating}]]</span>
+												<span class="reviews-count">([[${p.reviewCount}]] đánh giá)</span>
+												<span th:if="${p.stock > 0 and p.stock < 10}" class="badge bg-warning-subtle text-warning border ms-auto small">Còn [[${p.stock}]]</span>
+											</div>
+
+											<!-- Price Row -->
+											<div class="price-row">
+												<span class="price-current">[[${#numbers.formatDecimal(p.discountPrice, 0, 'POINT', 0, 'COMMA')}]]đ</span>
+												<span th:if="${p.discount > 0}" class="price-old">[[${#numbers.formatDecimal(p.price, 0, 'POINT', 0, 'COMMA')}]]đ</span>
+											</div>
+
+											<!-- Action Button -->
+											<a th:href="@{'/product/'+${p.id}}" class="btn btn-outline-gold btn-sm w-100 fw-bold">
+												Xem chi tiết
+											</a>
 										</div>
-
-										<!-- Price -->
-										<div class="text-center mb-3 mt-auto">
-											<span class="price-discount me-2 fs-6">[[${#numbers.formatDecimal(p.discountPrice, 0, 'POINT', 0, 'COMMA')}]]đ</span>
-											<span th:if="${p.discount > 0}" class="price-original small">[[${#numbers.formatDecimal(p.price, 0, 'POINT', 0, 'COMMA')}]]đ</span>
-										</div>
-
-										<a th:href="@{'/product/'+${p.id}}" class="btn btn-outline-primary btn-sm rounded-pill w-100 fw-bold">
-											Xem chi tiết
-										</a>
 									</div>
 								</div>
 							</div>
 						</th:block>
 
+						<!-- Empty State -->
 						<th:block th:unless="${productsSize > 0}">
-							<div class="col-12 py-5 text-center">
-								<i class="fa-solid fa-box-open fs-1 text-muted mb-3 d-block"></i>
-								<h6 class="text-secondary">Không tìm thấy sản phẩm nào phù hợp</h6>
-								<p class="text-muted small">Hãy thử tìm kiếm với từ khóa khác hoặc điều chỉnh khoảng giá lọc.</p>
-								<a href="/products" class="btn btn-primary rounded-pill btn-sm">Xem tất cả sản phẩm</a>
+							<div class="card border-0 rounded-4 shadow-sm p-5 text-center my-4 bg-white">
+								<i class="fa-solid fa-box-open fs-1 text-warning mb-3 opacity-75"></i>
+								<h5 class="fw-bold text-dark">Không tìm thấy sản phẩm nào phù hợp</h5>
+								<p class="text-muted small mb-4">Hãy thử tìm kiếm với từ khóa khác hoặc điều chỉnh lại khoảng giá lọc.</p>
+								<div>
+									<a href="/products" class="btn btn-gold btn-sm px-4">
+										<i class="fa-solid fa-rotate-left me-1"></i>Xem tất cả sản phẩm
+									</a>
+								</div>
 							</div>
 						</th:block>
 					</div>
 
 					<!-- Pagination -->
-					<div class="row align-items-center mt-4 mb-5" th:if="${totalPages > 1}">
-						<div class="col-12">
-							<nav aria-label="Page navigation">
-								<ul class="pagination justify-content-center mb-0">
-									<li class="page-item" th:classappend="${isFirst} ? 'disabled':''">
-										<a class="page-link rounded-start-pill" th:href="@{/products(category=${paramValue}, ch=${ch}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy=${sortBy}, pageNo=${pageNo-1})}">
-											&laquo; Trước
-										</a>
-									</li>
-									<li th:each="i:${#numbers.sequence(1,totalPages)}" class="page-item" th:classappend="${pageNo+1==i}?'active':''">
-										<a class="page-link" th:href="@{/products(category=${paramValue}, ch=${ch}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy=${sortBy}, pageNo=${i-1})}">[[${i}]]</a>
-									</li>
-									<li class="page-item" th:classappend="${isLast} ? 'disabled':''">
-										<a class="page-link rounded-end-pill" th:href="@{/products(category=${paramValue}, ch=${ch}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy=${sortBy}, pageNo=${pageNo+1})}">
-											Tiếp &raquo;
-										</a>
-									</li>
-								</ul>
-							</nav>
-						</div>
+					<div class="d-flex justify-content-center mt-5 mb-5" th:if="${totalPages > 1}">
+						<nav aria-label="Page navigation">
+							<ul class="pagination pagination-sm mb-0">
+								<li class="page-item" th:classappend="${isFirst} ? 'disabled':''">
+									<a class="page-link rounded-start-pill px-3" th:href="@{/products(category=${paramValue}, ch=${ch}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy=${sortBy}, pageNo=${pageNo-1})}">
+										<i class="fa-solid fa-chevron-left me-1"></i>Trước
+									</a>
+								</li>
+								<li th:each="i:${#numbers.sequence(1,totalPages)}" class="page-item" th:classappend="${pageNo+1==i}?'active':''">
+									<a class="page-link px-3" th:href="@{/products(category=${paramValue}, ch=${ch}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy=${sortBy}, pageNo=${i-1})}">[[${i}]]</a>
+								</li>
+								<li class="page-item" th:classappend="${isLast} ? 'disabled':''">
+									<a class="page-link rounded-end-pill px-3" th:href="@{/products(category=${paramValue}, ch=${ch}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy=${sortBy}, pageNo=${pageNo+1})}">
+										Tiếp<i class="fa-solid fa-chevron-right ms-1"></i>
+									</a>
+								</li>
+							</ul>
+						</nav>
 					</div>
 				</div>
 			</div>
 		</div>
+
+		<!-- Script for Grid vs List View Mode Toggle -->
+		<script>
+			function setViewMode(mode) {
+				var gridBtn = document.getElementById('btn-grid-view');
+				var listBtn = document.getElementById('btn-list-view');
+				var cols = document.querySelectorAll('.product-item-col');
+				var cards = document.querySelectorAll('.product-card');
+
+				if (mode === 'list') {
+					listBtn.classList.add('active');
+					gridBtn.classList.remove('active');
+					cols.forEach(function(col) {
+						col.className = 'col-12 product-item-col mb-3';
+					});
+					cards.forEach(function(card) {
+						card.classList.add('product-card-list');
+					});
+					localStorage.setItem('ecom_view_mode', 'list');
+				} else {
+					gridBtn.classList.add('active');
+					listBtn.classList.remove('active');
+					cols.forEach(function(col) {
+						col.className = 'col-xl-3 col-lg-4 col-sm-6 product-item-col';
+					});
+					cards.forEach(function(card) {
+						card.classList.remove('product-card-list');
+					});
+					localStorage.setItem('ecom_view_mode', 'grid');
+				}
+			}
+
+			// Restore user preference
+			document.addEventListener("DOMContentLoaded", function() {
+				var savedMode = localStorage.getItem('ecom_view_mode');
+				if (savedMode === 'list') {
+					setViewMode('list');
+				}
+			});
+		</script>
 	</section>
 </body>
 </html>

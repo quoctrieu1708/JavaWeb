@@ -3,82 +3,89 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>Địa chỉ nhận hàng</title>
+<title>Thanh toán & Đặt hàng — Ecom Store</title>
 </head>
 <body>
-	<section>
-		<div class="container mt-5 p-4">
+	<section class="mt-4 pt-2 pb-5">
+		<div class="container px-lg-4">
 			<form action="/user/save-order" method="post" id="orders" novalidate>
-				<div class="row">
-					<div class="col-md-7 mb-4">
-						<div class="card shadow-sm border-0 h-100 rounded-4">
-							<div class="card-header bg-primary text-white py-3 rounded-top-4" style="background: linear-gradient(135deg, #1e3c72, #2a5298) !important;">
-								<p class="text-center fs-5 fw-bold mb-0"><i class="fa-solid fa-map-location-dot me-2"></i>Địa chỉ nhận hàng</p>
+				<div class="row g-4">
+					<!-- 1. Shipping Address Information -->
+					<div class="col-lg-7">
+						<div class="card shadow-sm border-0 rounded-4 overflow-hidden bg-white h-100">
+							<div class="card-header py-3 text-white" style="background: var(--dark-gradient); border-bottom: 2px solid var(--gold-primary);">
+								<h5 class="mb-0 fw-bold"><i class="fa-solid fa-map-location-dot text-warning me-2"></i>Thông tin nhận hàng</h5>
 							</div>
-							<div class="card-body p-4">
+							<div class="card-body p-4 p-md-5">
 								<div class="row mb-3">
 									<div class="col-md-6 mb-3 mb-md-0">
-										<label class="fw-bold form-label">Họ và tên</label> 
-										<input type="text" name="fullName" required class="form-control" placeholder="Nhập họ và tên" th:value="${user != null ? user.name : ''}">
+										<label class="fw-bold form-label small text-secondary">Họ và tên người nhận</label> 
+										<input type="text" name="fullName" required class="form-control" placeholder="Nhập họ và tên đầy đủ" th:value="${user != null ? user.name : ''}">
 									</div>
 									<div class="col-md-6">
-										<label class="fw-bold form-label">Số điện thoại</label> 
-										<input type="text" name="phone" required class="form-control" placeholder="Nhập số điện thoại" th:value="${user != null ? user.mobileNumber : ''}">
+										<label class="fw-bold form-label small text-secondary">Số điện thoại liên hệ</label> 
+										<input type="text" name="phone" required class="form-control" placeholder="Ví dụ: 0987654321" th:value="${user != null ? user.mobileNumber : ''}">
 									</div>
 								</div>
 
 								<div class="mb-3">
-									<label class="fw-bold form-label">Email</label> 
-									<input type="email" name="email" required class="form-control" placeholder="Nhập email" th:value="${user != null ? user.email : ''}">
+									<label class="fw-bold form-label small text-secondary">Email nhận thông báo đơn hàng</label> 
+									<input type="email" name="email" required class="form-control" placeholder="Nhập địa chỉ email" th:value="${user != null ? user.email : ''}">
 								</div>
 
 								<div class="row mb-3">
 									<div class="col-md-6 mb-3 mb-md-0">
-										<label class="fw-bold form-label">Tỉnh / Thành phố</label> 
+										<label class="fw-bold form-label small text-secondary">Tỉnh / Thành phố</label> 
 										<input type="text" name="province" required class="form-control" placeholder="Ví dụ: Hà Nội, TP.HCM..." th:value="${user != null ? user.city : ''}">
 									</div>
 									<div class="col-md-6">
-										<label class="fw-bold form-label">Phường / Xã</label> 
-										<input type="text" name="ward" required class="form-control" placeholder="Ví dụ: Phường Dịch Vọng Hậu..." th:value="${user != null ? user.state : ''}">
+										<label class="fw-bold form-label small text-secondary">Quận / Huyện / Phường</label> 
+										<input type="text" name="ward" required class="form-control" placeholder="Ví dụ: Ba Đình, Cầu Giấy..." th:value="${user != null ? user.state : ''}">
 									</div>
 								</div>
 								
 								<div class="mb-3">
-									<label class="fw-bold form-label">Địa chỉ chi tiết</label> 
-									<input type="text" name="detailAddress" required class="form-control" placeholder="Số nhà, tên đường, toà nhà..." th:value="${user != null ? user.address : ''}">
+									<label class="fw-bold form-label small text-secondary">Địa chỉ chi tiết (Số nhà, ngõ ngách, tên tòa nhà)</label> 
+									<input type="text" name="detailAddress" required class="form-control" placeholder="Ví dụ: Số 25, ngõ 102 Trần Phú..." th:value="${user != null ? user.address : ''}">
+								</div>
+
+								<div class="p-3 bg-light rounded-3 border small text-muted mt-4">
+									<i class="fa-solid fa-truck-fast text-warning me-1"></i>
+									Đơn vị vận chuyển sẽ chủ động gọi điện thoại liên hệ với bạn trước khi giao hàng từ 15-30 phút.
 								</div>
 							</div>
 						</div>
 					</div>
 					
-					<div class="col-md-5 mb-4">
-						<div class="card shadow-sm border-0 h-100 rounded-4">
-							<div class="card-header bg-primary text-white py-3 rounded-top-4" style="background: linear-gradient(135deg, #1e3c72, #2a5298) !important;">
-								<p class="text-center fs-5 fw-bold mb-0"><i class="fa-solid fa-credit-card me-2"></i>Thanh toán & Đặt hàng</p>
+					<!-- 2. Payment & Voucher Summary -->
+					<div class="col-lg-5">
+						<div class="card shadow-sm border-0 rounded-4 overflow-hidden bg-white h-100">
+							<div class="card-header py-3 text-white" style="background: var(--dark-gradient); border-bottom: 2px solid var(--gold-primary);">
+								<h5 class="mb-0 fw-bold"><i class="fa-solid fa-credit-card text-warning me-2"></i>Thanh toán & Đặt hàng</h5>
 							</div>
-							<div class="card-body p-4 d-flex flex-column">
+							<div class="card-body p-4 p-md-5 d-flex flex-column">
 								<!-- Summary Box -->
-								<div class="bg-light p-3 rounded-4 mb-3 border">
+								<div class="bg-light p-3 rounded-4 mb-4 border">
 									<table class="table table-borderless mb-0">
 										<tbody>
 											<tr>
-												<td class="fw-bold text-secondary">Tổng tiền hàng:</td>
+												<td class="text-secondary small">Tổng tiền hàng:</td>
 												<td class="text-end fw-bold">[[${#numbers.formatDecimal(orderPrice, 0, 'POINT', 0, 'COMMA')}]]đ</td>
 											</tr>
 											<tr id="voucherRow" class="d-none text-success">
-												<td class="fw-bold"><i class="fa-solid fa-tag me-1"></i>Voucher giảm:</td>
+												<td class="small fw-bold"><i class="fa-solid fa-ticket me-1"></i>Voucher giảm giá:</td>
 												<td class="text-end fw-bold" id="voucherDiscountText">-0đ</td>
 											</tr>
 											<tr>
-												<td class="fw-bold text-secondary">Phí giao hàng:</td>
+												<td class="text-secondary small">Phí vận chuyển:</td>
 												<td class="text-end fw-bold">[[${#numbers.formatDecimal(shippingFee, 0, 'POINT', 0, 'COMMA')}]]đ</td>
 											</tr>
 											<tr>
-												<td class="fw-bold text-secondary">Thuế VAT:</td>
+												<td class="text-secondary small">Thuế VAT (8%):</td>
 												<td class="text-end fw-bold">[[${#numbers.formatDecimal(tax, 0, 'POINT', 0, 'COMMA')}]]đ</td>
 											</tr>
-											<tr class="border-top border-secondary">
-												<td class="fw-bold fs-5 pt-3">Tổng thanh toán:</td>
+											<tr class="border-top">
+												<td class="fw-bold fs-6 pt-3 text-dark">Tổng thanh toán:</td>
 												<td class="text-end fw-bold text-danger fs-4 pt-3" id="finalTotalText">[[${#numbers.formatDecimal(totalOrderPrice, 0, 'POINT', 0, 'COMMA')}]]đ</td>
 											</tr>
 										</tbody>
@@ -86,30 +93,30 @@
 								</div>
 
 								<!-- Voucher Code Section -->
-								<div class="mb-3">
+								<div class="mb-4">
 									<label class="fw-bold form-label small text-secondary">
-										<i class="fa-solid fa-ticket text-warning me-1"></i>Mã giảm giá / Voucher
+										<i class="fa-solid fa-tag text-warning me-1"></i>Mã giảm giá / Voucher ưu đãi
 									</label>
 									<div class="input-group">
 										<input type="text" id="voucherInput" name="voucherCode" class="form-control text-uppercase" placeholder="Nhập mã (VD: GIAM20K)">
-										<button type="button" class="btn btn-outline-primary fw-bold" onclick="applyVoucher()">Áp dụng</button>
+										<button type="button" class="btn btn-dark-gold px-3 fw-bold" onclick="applyVoucher()">Áp dụng</button>
 									</div>
 									<div id="voucherMsg" class="small mt-1 d-none"></div>
 								</div>
 
 								<!-- Payment Method -->
 								<div class="mb-4">
-									<label class="fw-bold form-label fs-6 mb-2">Hình thức thanh toán</label> 
-									<select required name="paymentType" class="form-select form-select-lg">
-										<option value="">--Chọn hình thức thanh toán--</option>
+									<label class="fw-bold form-label small text-secondary mb-2">Hình thức thanh toán</label> 
+									<select required name="paymentType" class="form-select">
 										<option value="COD" selected>Thanh toán khi nhận hàng (COD)</option>
-										<option value="VNPAY">Thanh toán qua VNPay (Demo)</option>
-										<option value="MOMO">Thanh toán qua Momo (Demo)</option>
+										<option value="VNPAY">Thanh toán qua Cổng VNPay (Demo)</option>
+										<option value="MOMO">Thanh toán qua Ví điện tử MoMo (Demo)</option>
 									</select>
 								</div>
 
-								<button type="submit" class="btn btn-primary w-100 py-3 fs-5 fw-bold rounded-pill shadow mt-auto" style="background: linear-gradient(135deg, #1e3c72, #2a5298); border: none;">
-									<i class="fa-solid fa-bag-shopping me-2"></i>Đặt hàng ngay
+								<!-- Submit Button -->
+								<button type="submit" class="btn btn-gold w-100 py-3 fs-5 fw-bold shadow mt-auto">
+									<i class="fa-solid fa-check-double me-2"></i>Xác nhận đặt hàng ngay
 								</button>
 							</div>
 						</div>
@@ -118,6 +125,7 @@
 			</form>
 		</div>
 
+		<!-- Voucher Validation Script -->
 		<script th:inline="javascript">
 			var originalTotal = /*[[${totalOrderPrice}]]*/ 0;
 			var orderBasePrice = /*[[${orderPrice}]]*/ 0;

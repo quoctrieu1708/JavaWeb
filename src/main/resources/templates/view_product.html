@@ -3,49 +3,63 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>Chi tiết sản phẩm</title>
+<title>[[${product.title}]] — Chi tiết sản phẩm</title>
 </head>
 <body>
-	<section class="mt-4 pt-3">
-		<div class="container bg-white p-4 p-md-5 rounded-4 shadow-sm" style="margin-bottom: 50px;">
-			<div class="row">
-				<!-- Product Image -->
-				<div class="col-md-6 text-center mb-4">
-					<div class="p-4 border rounded-4 bg-light position-relative">
-						<img alt="" th:src="@{'/img/product_img/'+${product.image}}" class="img-fluid rounded" style="max-height: 400px; object-fit: contain;">
-						<span th:if="${product.discount > 0}" class="discount-badge fs-6">Giảm [[${product.discount}]]%</span>
+	<section class="mt-4 pt-2 pb-5">
+		<!-- Main Product Details Container -->
+		<div class="container bg-white p-4 p-md-5 rounded-4 shadow-sm border" style="margin-bottom: 50px;">
+			<div class="row g-5">
+				<!-- 1. Product Image Column -->
+				<div class="col-lg-6 text-center">
+					<div class="p-4 rounded-4 bg-light position-relative border overflow-hidden" style="min-height: 420px; display: flex; align-items: center; justify-content: center;">
+						<!-- Shopee-style Vertical Ribbon Discount Badge (Questionnaire A4) -->
+						<div class="ribbon-discount" th:if="${product.discount > 0}" style="top: 0; left: 20px; width: 44px; height: 56px; font-size: 0.8rem;">
+							<small>GIẢM</small>
+							[[${product.discount}]]%
+						</div>
+
+						<img alt="" th:src="@{'/img/product_img/'+${product.image}}" class="img-fluid rounded" style="max-height: 380px; object-fit: contain; transition: transform 0.4s ease;">
 					</div>
 				</div>
 
-				<!-- Product Info -->
-				<div class="col-md-6">
-					<h2 class="fw-bold text-dark mb-2">[[${product.title}]]</h2>
+				<!-- 2. Product Information Column -->
+				<div class="col-lg-6">
+					<span class="badge bg-dark text-warning border border-warning px-3 py-1 rounded-pill mb-2 small text-uppercase">
+						<i class="fa-solid fa-crown me-1"></i>Chính hãng 100%
+					</span>
+					<h2 class="fw-bold text-dark mb-2" style="font-size: 1.85rem; line-height: 1.3;">[[${product.title}]]</h2>
 
-					<!-- Rating summary -->
-					<div class="mb-3 d-flex align-items-center gap-2">
+					<!-- Rating & Category Summary -->
+					<div class="mb-3 d-flex flex-wrap align-items-center gap-2 small">
 						<div class="text-warning">
 							<i class="fa-solid fa-star"></i>
 							<span class="text-dark fw-bold ms-1">[[${avgRating}]]</span>
 						</div>
 						<span class="text-muted">|</span>
-						<span class="text-muted">[[${reviewCount}]] đánh giá</span>
+						<span class="text-muted">[[${reviewCount}]] nhận xét</span>
 						<span class="text-muted">|</span>
-						<span class="text-primary fw-medium">Danh mục: [[${product.category}]]</span>
+						<span class="text-secondary">Danh mục: <strong class="text-dark">[[${product.category}]]</strong></span>
 					</div>
 
-					<!-- Price card -->
-					<div class="p-3 rounded-4 mb-4" style="background: #f8f9fa; border-left: 4px solid #1e3c72;">
-						<div class="d-flex align-items-baseline gap-3">
-							<span class="fs-2 fw-bold text-danger">[[${#numbers.formatDecimal(product.discountPrice, 0, 'POINT', 0, 'COMMA')}]]đ</span>
-							<span th:if="${product.discount > 0}" class="fs-5 text-decoration-line-through text-muted">[[${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'COMMA')}]]đ</span>
-							<span th:if="${product.discount > 0}" class="badge bg-danger rounded-pill">Tiết kiệm [[${product.discount}]]%</span>
+					<!-- Luxury Price Card (Dark Obsidian & Gold Accents) -->
+					<div class="p-3 p-md-4 rounded-4 mb-4" style="background: var(--dark-gradient); border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: var(--shadow-dark);">
+						<div class="d-flex align-items-baseline gap-3 flex-wrap">
+							<span class="fs-1 fw-bold text-warning">[[${#numbers.formatDecimal(product.discountPrice, 0, 'POINT', 0, 'COMMA')}]]đ</span>
+							<span th:if="${product.discount > 0}" class="fs-5 text-decoration-line-through text-white-50">[[${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'COMMA')}]]đ</span>
+							<span th:if="${product.discount > 0}" class="badge bg-danger rounded-pill px-3 py-2 text-uppercase fs-6">
+								Tiết kiệm [[${product.discount}]]%
+							</span>
+						</div>
+						<div class="small text-white-50 mt-2">
+							<i class="fa-solid fa-truck-fast text-warning me-1"></i>Miễn phí vận chuyển toàn quốc cho đơn hàng này
 						</div>
 					</div>
 
 					<!-- Low Stock Alert -->
 					<div th:if="${product.stock > 0 and product.stock < 10}" class="alert alert-warning py-2 mb-3 rounded-3 d-flex align-items-center">
 						<i class="fa-solid fa-fire me-2 fs-5 text-danger"></i>
-						<span>Sắp hết hàng! Hiện chỉ còn <strong>[[${product.stock}]]</strong> sản phẩm trong kho.</span>
+						<span>Chỉ còn <strong>[[${product.stock}]]</strong> sản phẩm trong kho! Hãy nhanh tay đặt hàng.</span>
 					</div>
 
 					<!-- Out of Stock Alert -->
@@ -55,43 +69,43 @@
 
 					<!-- Description -->
 					<div class="mb-4">
-						<h6 class="fw-bold text-dark">Mô tả sản phẩm:</h6>
-						<p class="text-secondary" style="line-height: 1.7;">[[${product.description}]]</p>
+						<h6 class="fw-bold text-dark mb-2">Mô tả sản phẩm:</h6>
+						<p class="text-secondary mb-0" style="line-height: 1.8;">[[${product.description}]]</p>
 					</div>
 
-					<!-- Commitments -->
+					<!-- Trust & Commitment Badges -->
 					<div class="row g-2 mb-4 text-center">
 						<div class="col-4">
 							<div class="p-2 border rounded-3 bg-light h-100">
-								<i class="fas fa-truck text-primary mb-1 d-block fs-5"></i>
-								<small class="fw-bold d-block">Giao toàn quốc</small>
-								<small class="text-muted" style="font-size: 0.75rem;">3-5 ngày làm việc</small>
+								<i class="fa-solid fa-truck text-warning mb-1 d-block fs-5"></i>
+								<small class="fw-bold d-block">Giao hỏa tốc 2H</small>
+								<small class="text-muted" style="font-size: 0.72rem;">Nội thành nhanh chóng</small>
 							</div>
 						</div>
 						<div class="col-4">
 							<div class="p-2 border rounded-3 bg-light h-100">
-								<i class="fas fa-rotate text-success mb-1 d-block fs-5"></i>
+								<i class="fa-solid fa-arrows-rotate text-warning mb-1 d-block fs-5"></i>
 								<small class="fw-bold d-block">Đổi trả 7 ngày</small>
-								<small class="text-muted" style="font-size: 0.75rem;">Miễn phí đổi hàng lỗi</small>
+								<small class="text-muted" style="font-size: 0.72rem;">1 đổi 1 nếu lỗi</small>
 							</div>
 						</div>
 						<div class="col-4">
 							<div class="p-2 border rounded-3 bg-light h-100">
-								<i class="fas fa-shield-halved text-warning mb-1 d-block fs-5"></i>
-								<small class="fw-bold d-block">Chính hãng 100%</small>
-								<small class="text-muted" style="font-size: 0.75rem;">Bảo hành uy tín</small>
+								<i class="fa-solid fa-shield-halved text-warning mb-1 d-block fs-5"></i>
+								<small class="fw-bold d-block">Bảo hành 100%</small>
+								<small class="text-muted" style="font-size: 0.72rem;">Chính hãng uy tín</small>
 							</div>
 						</div>
 					</div>
 
-					<!-- Add to Cart / Action -->
+					<!-- Add to Cart CTA (Gold Button - Questionnaire A5) -->
 					<div class="d-grid gap-2">
 						<th:block th:if="${product.stock > 0}">
-							<a th:if="${user == null}" href="/signin" class="btn btn-primary py-3 fs-5 fw-bold rounded-pill shadow-sm" style="background: linear-gradient(135deg, #1e3c72, #2a5298); border: none;">
-								<i class="fas fa-cart-plus me-2"></i>Đăng nhập để mua hàng
+							<a th:if="${user == null}" href="/signin" class="btn btn-gold py-3 fs-5 fw-bold shadow">
+								<i class="fa-solid fa-right-to-bracket me-2"></i>Đăng nhập để đặt mua
 							</a>
-							<a th:unless="${user == null}" th:href="@{'/user/addCart?pid='+${product.id}}" class="btn btn-primary py-3 fs-5 fw-bold rounded-pill shadow" style="background: linear-gradient(135deg, #1e3c72, #2a5298); border: none;">
-								<i class="fas fa-cart-plus me-2"></i>Thêm vào giỏ hàng
+							<a th:unless="${user == null}" th:href="@{'/user/addCart?pid='+${product.id}}" class="btn btn-gold py-3 fs-5 fw-bold shadow">
+								<i class="fa-solid fa-bag-shopping me-2"></i>Thêm vào giỏ hàng ngay
 							</a>
 						</th:block>
 						<th:block th:unless="${product.stock > 0}">
@@ -106,7 +120,7 @@
 			<!-- Divider -->
 			<hr class="my-5">
 
-			<!-- Reviews & Ratings Section -->
+			<!-- 3. Reviews & Ratings Section -->
 			<div class="row">
 				<div class="col-lg-8">
 					<h4 class="fw-bold text-dark mb-4">
@@ -114,15 +128,15 @@
 						<small class="text-muted fs-6 fw-normal">([[${reviewCount}]] đánh giá)</small>
 					</h4>
 
-					<!-- Review Form (For logged in users) -->
+					<!-- Review Submission Box (For Logged in User) -->
 					<div class="card border-0 shadow-sm rounded-4 mb-4 bg-light">
 						<div class="card-body p-4">
-							<h6 class="fw-bold text-primary mb-3">
-								<i class="fa-solid fa-pen-to-square me-2"></i>Để lại đánh giá của bạn
+							<h6 class="fw-bold text-dark mb-3">
+								<i class="fa-solid fa-pen-to-square text-warning me-2"></i>Để lại nhận xét của bạn
 							</h6>
 							<div th:if="${user == null}" class="text-center py-3">
 								<p class="text-muted mb-2">Vui lòng đăng nhập để gửi đánh giá và nhận xét sản phẩm này.</p>
-								<a href="/signin" class="btn btn-outline-primary btn-sm rounded-pill px-3">Đăng nhập ngay</a>
+								<a href="/signin" class="btn btn-outline-gold btn-sm px-3">Đăng nhập ngay</a>
 							</div>
 							<form th:unless="${user == null}" action="/user/addReview" method="post">
 								<input type="hidden" name="productId" th:value="${product.id}">
@@ -141,20 +155,20 @@
 								</div>
 
 								<div class="mb-3">
-									<label class="form-label fw-bold small text-secondary">Nhận xét chi tiết:</label>
-									<textarea name="comment" class="form-control rounded-3" rows="3" placeholder="Chia sẻ cảm nhận của bạn về chất lượng sản phẩm..." required th:text="${userReview != null ? userReview.comment : ''}"></textarea>
+									<label class="form-label fw-bold small text-secondary">Nội dung nhận xét:</label>
+									<textarea name="comment" class="form-control rounded-3" rows="3" placeholder="Chia sẻ cảm nhận chân thực của bạn về sản phẩm này..." required th:text="${userReview != null ? userReview.comment : ''}"></textarea>
 								</div>
 
-								<button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold" style="background: #1e3c72;">
+								<button type="submit" class="btn btn-gold btn-sm px-4 fw-bold">
 									<i class="fa-solid fa-paper-plane me-1"></i>Gửi đánh giá
 								</button>
 							</form>
 						</div>
 					</div>
 
-					<!-- Reviews List -->
-					<div th:if="${reviews == null or reviews.isEmpty()}" class="text-center py-4 text-muted">
-						<i class="fa-regular fa-comment-dots fs-2 mb-2 d-block"></i>
+					<!-- Existing Reviews List -->
+					<div th:if="${reviews == null or reviews.isEmpty()}" class="text-center py-4 text-muted bg-light rounded-4">
+						<i class="fa-regular fa-comment-dots fs-2 mb-2 d-block opacity-50"></i>
 						<span>Chưa có nhận xét nào. Hãy là người đầu tiên đánh giá sản phẩm này!</span>
 					</div>
 
@@ -162,7 +176,7 @@
 						<div th:each="r : ${reviews}" class="border rounded-4 p-3 bg-white shadow-sm">
 							<div class="d-flex justify-content-between align-items-center mb-2">
 								<div class="d-flex align-items-center gap-2">
-									<div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 36px; height: 36px;">
+									<div class="bg-dark text-warning rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 38px; height: 38px; border: 1px solid rgba(212, 175, 55, 0.4);">
 										[[${r.user != null and r.user.name != null ? r.user.name.substring(0, 1).toUpperCase() : 'U'}]]
 									</div>
 									<div>
@@ -180,21 +194,21 @@
 					</div>
 				</div>
 
-				<!-- Related Products Column -->
+				<!-- 4. Related Products Column -->
 				<div class="col-lg-4 mt-5 mt-lg-0">
 					<h5 class="fw-bold text-dark mb-4">
-						<i class="fa-solid fa-shapes text-primary me-2"></i>Sản phẩm liên quan
+						<i class="fa-solid fa-layer-group text-warning me-2"></i>Sản phẩm cùng danh mục
 					</h5>
 					<div class="d-flex flex-column gap-3" th:if="${relatedProducts != null and !relatedProducts.isEmpty()}">
-						<div th:each="rp : ${relatedProducts}" class="card border-0 shadow-sm rounded-4 p-2">
+						<div th:each="rp : ${relatedProducts}" class="card border-0 shadow-sm rounded-4 p-2 bg-light">
 							<div class="row g-2 align-items-center">
 								<div class="col-4">
-									<img th:src="@{'/img/product_img/'+${rp.image}}" class="img-fluid rounded-3 object-fit-contain" style="height: 80px; width: 100%;">
+									<img th:src="@{'/img/product_img/'+${rp.image}}" class="img-fluid rounded-3 object-fit-contain bg-white p-1" style="height: 80px; width: 100%;">
 								</div>
 								<div class="col-8">
 									<h6 class="fw-bold text-truncate mb-1" th:title="${rp.title}">[[${rp.title}]]</h6>
 									<div class="text-danger fw-bold small mb-1">[[${#numbers.formatDecimal(rp.discountPrice, 0, 'POINT', 0, 'COMMA')}]]đ</div>
-									<a th:href="@{'/product/'+${rp.id}}" class="btn btn-sm btn-outline-primary rounded-pill py-0 px-2 small">Xem ngay</a>
+									<a th:href="@{'/product/'+${rp.id}}" class="btn btn-sm btn-outline-gold py-0 px-2 small">Xem ngay</a>
 								</div>
 							</div>
 						</div>

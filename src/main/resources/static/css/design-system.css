@@ -365,3 +365,223 @@
     font-size: 1rem;
 }
 
+/* ==========================================================================
+   7. WHITE & GOLD LUXURY THEME OVERRIDES (NỀN TRẮNG SANG TRỌNG ĐỒNG BỘ)
+   ========================================================================== */
+:root {
+    --bg-canvas: #FFFFFF !important;
+    --bg-surface: #FFFFFF !important;
+    --dark-gradient: linear-gradient(145deg, #FFFFFF 0%, #FDF8E7 100%) !important;
+}
+
+body {
+    background-color: #FFFFFF !important;
+    color: #111827 !important;
+}
+
+/* White & Gold Luxury Navbar */
+.luxury-navbar {
+    background: rgba(255, 255, 255, 0.97) !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.38) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+.luxury-navbar .navbar-brand {
+    color: #111827 !important;
+}
+
+.luxury-navbar .nav-link {
+    color: #374151 !important;
+    font-weight: 600 !important;
+}
+
+.luxury-navbar .nav-link:hover,
+.luxury-navbar .nav-link.active {
+    color: #996515 !important;
+    background: #FDF8E7 !important;
+}
+
+.luxury-navbar .dropdown-menu {
+    background: #FFFFFF !important;
+    border: 1px solid #E5E7EB !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+.luxury-navbar .dropdown-item {
+    color: #374151 !important;
+}
+
+.luxury-navbar .dropdown-item:hover {
+    background: #FDF8E7 !important;
+    color: #996515 !important;
+}
+
+.luxury-navbar .dropdown-divider {
+    border-color: #F1F5F9 !important;
+}
+
+.nav-search-bar input {
+    background: #F8FAFC !important;
+    border: 1px solid #D1D5DB !important;
+    color: #111827 !important;
+}
+
+.nav-search-bar input::placeholder {
+    color: #6B7280 !important;
+}
+
+.nav-search-bar input:focus {
+    background: #FFFFFF !important;
+    border-color: #D4AF37 !important;
+    color: #111827 !important;
+}
+
+/* White & Gold Page Header & Card Headers */
+.ds-page-header,
+.ds-surface-dark,
+.card-header[style*="var(--dark-gradient)"],
+div[style*="var(--dark-gradient)"] {
+    background: #FFFFFF !important;
+    color: #111827 !important;
+    border: 1px solid #E5E7EB !important;
+    border-bottom: 2px solid #D4AF37 !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+}
+
+.ds-page-header h3,
+.ds-page-header h4,
+.ds-page-header h5,
+.ds-page-header .text-white,
+.card-header[style*="var(--dark-gradient)"] h4,
+.card-header[style*="var(--dark-gradient)"] h5,
+.card-header[style*="var(--dark-gradient)"] h6,
+.card-header[style*="var(--dark-gradient)"] p,
+.card-header[style*="var(--dark-gradient)"] .text-white,
+div[style*="var(--dark-gradient)"] h4,
+div[style*="var(--dark-gradient)"] h5,
+div[style*="var(--dark-gradient)"] .text-white {
+    color: #111827 !important;
+}
+
+.ds-page-header .text-white-50,
+.card-header[style*="var(--dark-gradient)"] .text-white-50,
+div[style*="var(--dark-gradient)"] .text-white-50 {
+    color: #6B7280 !important;
+}
+
+.ds-page-header .btn-outline-light,
+.card-header .btn-outline-light {
+    color: #374151 !important;
+    border-color: #D1D5DB !important;
+    background: #F9FAFB !important;
+}
+
+.ds-page-header .btn-outline-light:hover,
+.card-header .btn-outline-light:hover {
+    background: #FDF8E7 !important;
+    border-color: #D4AF37 !important;
+    color: #996515 !important;
+}
+
+/* White & Gold Auth Split Banner (Login & Register) */
+.ds-auth-banner {
+    background: linear-gradient(155deg, #FFFDF7 0%, #FDF8E7 100%) !important;
+    color: #111827 !important;
+    border-right: 1px solid rgba(212, 175, 55, 0.3) !important;
+}
+
+.ds-auth-banner h2,
+.ds-auth-banner .text-white,
+.ds-auth-banner strong.text-white {
+    color: #111827 !important;
+}
+
+.ds-auth-banner .text-white-50 {
+    color: #4B5563 !important;
+}
+
+.ds-auth-feature-item {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(212, 175, 55, 0.3) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* White & Gold VIP Price Box (Product Detail) */
+.ds-vip-price-box {
+    background: #FFFDF7 !important;
+    border: 1px solid rgba(212, 175, 55, 0.45) !important;
+    color: #111827 !important;
+    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.1) !important;
+}
+
+.ds-vip-price-box .text-white,
+.ds-vip-price-box .text-white-50 {
+    color: #4B5563 !important;
+}
+
+/* White & Gold Flash Sale & Promo Section */
+.flash-sale-box,
+.promo-banner-section {
+    background: linear-gradient(135deg, #FFFFFF 0%, #FDF8E7 100%) !important;
+    border: 1px solid rgba(212, 175, 55, 0.45) !important;
+    color: #111827 !important;
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.12) !important;
+}
+
+.flash-title,
+.promo-title,
+.promo-banner-section .text-white,
+.flash-sale-box .text-white {
+    color: #111827 !important;
+}
+
+.promo-banner-section .text-white-50,
+.flash-sale-box .text-white-50 {
+    color: #4B5563 !important;
+}
+
+.countdown-box {
+    background: #FFFFFF !important;
+    border: 1px solid #D4AF37 !important;
+    color: #996515 !important;
+    box-shadow: 0 2px 6px rgba(212, 175, 55, 0.15) !important;
+}
+
+/* White & Gold Footer */
+.luxury-footer {
+    background: #FFFFFF !important;
+    color: #4B5563 !important;
+    border-top: 2px solid #D4AF37 !important;
+}
+
+.luxury-footer .footer-title,
+.luxury-footer .text-white {
+    color: #111827 !important;
+}
+
+.luxury-footer a {
+    color: #4B5563 !important;
+}
+
+.luxury-footer a:hover {
+    color: #996515 !important;
+}
+
+.footer-social-btn {
+    background: #FDF8E7 !important;
+    color: #996515 !important;
+    border-color: rgba(212, 175, 55, 0.4) !important;
+}
+
+.footer-bottom {
+    border-top: 1px solid #E5E7EB !important;
+    color: #6B7280 !important;
+}
+
+.footer-bottom .badge.bg-dark {
+    background: #F9FAFB !important;
+    color: #374151 !important;
+    border-color: #E5E7EB !important;
+}
+
+

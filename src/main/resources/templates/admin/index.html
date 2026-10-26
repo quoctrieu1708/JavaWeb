@@ -19,21 +19,14 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
 tailwind.config = {
-  darkMode: "class",
   theme: {
     extend: {
       colors: {
         "primary": "#D4AF37",
-        "primary-container": "#D4AF37",
-        "on-primary": "#111111",
-        "on-primary-container": "#111111",
-        "background": "#0D0D0D",
-        "surface": "#111111",
-        "surface-card": "#151515",
-        "surface-card-hover": "#1A1A1A",
-        "surface-border": "#222222",
-        "on-surface-variant": "#8E8E93",
-        "error": "#EF4444"
+        "primary-dark": "#996515",
+        "background": "#F8FAFC",
+        "surface": "#FFFFFF",
+        "surface-border": "#E5E7EB"
       },
       borderRadius: {
         "xl": "1rem",
@@ -52,19 +45,15 @@ tailwind.config = {
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
-.material-symbols-fill {
-  font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
-}
-/* Custom scrollbar for admin dashboard */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #111111;
+  background: #F8FAFC;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
+  background: #CBD5E1;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -72,137 +61,137 @@ tailwind.config = {
 }
 </style>
 </head>
-<body class="bg-[#0D0D0D] text-[#FAFAFA] font-body h-full flex flex-col md:flex-row overflow-hidden selection:bg-[#D4AF37] selection:text-[#111111]">
+<body class="bg-[#F8FAFC] text-[#111827] font-body h-full flex flex-col md:flex-row overflow-hidden selection:bg-[#D4AF37] selection:text-[#111111]">
 
-<!-- 1. LEFT SIDEBAR (Luxury Admin Sidebar) -->
-<aside class="hidden md:flex flex-col w-64 h-screen p-4 bg-[#111111] border-r border-[#222222] shrink-0 justify-between">
+<!-- 1. LEFT SIDEBAR (White & Gold Luxury Admin Sidebar) -->
+<aside class="hidden md:flex flex-col w-64 h-screen p-4 bg-white border-r border-[#E5E7EB] shrink-0 justify-between shadow-sm z-20">
   <div>
     <!-- Brand Header -->
-    <a href="/admin/" class="flex items-center gap-3 px-2 py-3 mb-5 border-b border-[#222222] no-underline">
-      <div class="w-10 h-10 rounded-xl bg-[#D4AF37] flex items-center justify-center text-[#111111] font-headline font-extrabold text-xl shadow-md">
+    <a href="/admin/" class="flex items-center gap-3 px-2 py-3 mb-5 border-b border-[#F1F5F9] no-underline">
+      <div class="w-10 h-10 rounded-xl bg-[#D4AF37] flex items-center justify-center text-[#111111] font-headline font-extrabold text-xl shadow-sm">
         E
       </div>
       <div>
-        <h1 class="text-base font-extrabold font-headline text-[#D4AF37] tracking-wider mb-0 leading-tight">E-COMMERCE</h1>
-        <p class="text-xs text-[#8E8E93] mb-0">Luxury Admin</p>
+        <h1 class="text-base font-extrabold font-headline text-[#111827] tracking-wider mb-0 leading-tight">E-COMMERCE</h1>
+        <p class="text-xs text-[#996515] font-semibold mb-0">Luxury Admin</p>
       </div>
     </a>
 
     <!-- Navigation Menu Items -->
     <nav class="flex flex-col gap-1.5">
       <!-- Dashboard (Active) -->
-      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl bg-[#D4AF37] text-[#111111] font-headline font-bold shadow-md transition-all duration-200 no-underline" href="/admin/">
+      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl bg-[#D4AF37] text-[#111111] font-headline font-bold shadow-sm transition-all duration-200 no-underline" href="/admin/">
         <span class="material-symbols-outlined text-xl">dashboard</span>
         <span class="text-sm">Dashboard</span>
       </a>
 
       <!-- Sản phẩm -->
-      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#A0A0A0] hover:text-[#FAFAFA] hover:bg-[#1A1A1A] transition-all duration-200 no-underline font-medium" href="/admin/products">
-        <span class="material-symbols-outlined text-xl">inventory_2</span>
+      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#4B5563] hover:text-[#111827] hover:bg-[#FDF8E7] transition-all duration-200 no-underline font-medium" href="/admin/products">
+        <span class="material-symbols-outlined text-xl text-[#996515]">inventory_2</span>
         <span class="text-sm">Sản phẩm</span>
       </a>
 
       <!-- Đơn hàng -->
-      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#A0A0A0] hover:text-[#FAFAFA] hover:bg-[#1A1A1A] transition-all duration-200 no-underline font-medium" href="/admin/orders">
-        <span class="material-symbols-outlined text-xl">shopping_bag</span>
+      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#4B5563] hover:text-[#111827] hover:bg-[#FDF8E7] transition-all duration-200 no-underline font-medium" href="/admin/orders">
+        <span class="material-symbols-outlined text-xl text-[#996515]">shopping_bag</span>
         <span class="text-sm">Đơn hàng</span>
       </a>
 
       <!-- Khách hàng -->
-      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#A0A0A0] hover:text-[#FAFAFA] hover:bg-[#1A1A1A] transition-all duration-200 no-underline font-medium" href="/admin/users?type=1">
-        <span class="material-symbols-outlined text-xl">group</span>
+      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#4B5563] hover:text-[#111827] hover:bg-[#FDF8E7] transition-all duration-200 no-underline font-medium" href="/admin/users?type=1">
+        <span class="material-symbols-outlined text-xl text-[#996515]">group</span>
         <span class="text-sm">Khách hàng</span>
       </a>
 
       <!-- CSKH Chat -->
-      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#A0A0A0] hover:text-[#FAFAFA] hover:bg-[#1A1A1A] transition-all duration-200 no-underline font-medium" href="/admin/chat">
-        <span class="material-symbols-outlined text-xl">chat</span>
+      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#4B5563] hover:text-[#111827] hover:bg-[#FDF8E7] transition-all duration-200 no-underline font-medium" href="/admin/chat">
+        <span class="material-symbols-outlined text-xl text-[#996515]">chat</span>
         <span class="text-sm">CSKH Chat</span>
       </a>
 
       <!-- Mã Voucher -->
-      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#A0A0A0] hover:text-[#FAFAFA] hover:bg-[#1A1A1A] transition-all duration-200 no-underline font-medium" href="/admin/vouchers">
-        <span class="material-symbols-outlined text-xl">local_offer</span>
+      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#4B5563] hover:text-[#111827] hover:bg-[#FDF8E7] transition-all duration-200 no-underline font-medium" href="/admin/vouchers">
+        <span class="material-symbols-outlined text-xl text-[#996515]">local_offer</span>
         <span class="text-sm">Mã Voucher</span>
       </a>
 
       <!-- Danh mục -->
-      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#A0A0A0] hover:text-[#FAFAFA] hover:bg-[#1A1A1A] transition-all duration-200 no-underline font-medium" href="/admin/category">
-        <span class="material-symbols-outlined text-xl">category</span>
+      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#4B5563] hover:text-[#111827] hover:bg-[#FDF8E7] transition-all duration-200 no-underline font-medium" href="/admin/category">
+        <span class="material-symbols-outlined text-xl text-[#996515]">category</span>
         <span class="text-sm">Danh mục</span>
       </a>
 
       <!-- Cài đặt -->
-      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#A0A0A0] hover:text-[#FAFAFA] hover:bg-[#1A1A1A] transition-all duration-200 no-underline font-medium" href="/admin/profile">
-        <span class="material-symbols-outlined text-xl">settings</span>
+      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#4B5563] hover:text-[#111827] hover:bg-[#FDF8E7] transition-all duration-200 no-underline font-medium" href="/admin/profile">
+        <span class="material-symbols-outlined text-xl text-[#996515]">settings</span>
         <span class="text-sm">Cài đặt</span>
       </a>
     </nav>
   </div>
 
   <!-- Bottom Version & Store Link -->
-  <div class="pt-4 border-t border-[#222222] flex flex-col gap-2">
-    <a href="/" class="flex items-center gap-2 px-3 py-2 text-xs text-[#D4AF37] hover:bg-[#1A1A1A] rounded-lg transition-all no-underline">
+  <div class="pt-4 border-t border-[#F1F5F9] flex flex-col gap-2">
+    <a href="/" class="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-[#996515] bg-[#FDF8E7] hover:bg-[#F5E6B3] rounded-lg transition-all no-underline">
       <span class="material-symbols-outlined text-sm">storefront</span>
       <span>Xem Cửa Hàng (Storefront)</span>
     </a>
-    <div class="text-[11px] text-[#666666] text-center font-mono">
+    <div class="text-[11px] text-[#9CA3AF] text-center font-mono">
       v2.4.0 Luxury Edition
     </div>
   </div>
 </aside>
 
 <!-- 2. MAIN WRAPPER -->
-<div class="flex-1 flex flex-col h-screen overflow-hidden bg-[#0D0D0D]">
+<div class="flex-1 flex flex-col h-screen overflow-hidden bg-[#F8FAFC]">
 
-  <!-- TopNavBar Header -->
-  <header class="flex justify-between items-center w-full px-6 py-3.5 bg-[#111111] border-b border-[#222222] shrink-0 z-30">
+  <!-- TopNavBar Header (White) -->
+  <header class="flex justify-between items-center w-full px-6 py-3.5 bg-white border-b border-[#E5E7EB] shrink-0 z-30 shadow-xs">
     <div class="flex items-center gap-3">
       <!-- Mobile Brand Logo -->
       <a href="/admin/" class="md:hidden flex items-center gap-2 no-underline">
         <div class="w-8 h-8 rounded-lg bg-[#D4AF37] flex items-center justify-center text-[#111111] font-extrabold text-sm">E</div>
-        <span class="text-base font-extrabold font-headline text-[#D4AF37]">E-COMMERCE</span>
+        <span class="text-base font-extrabold font-headline text-[#111827]">E-COMMERCE</span>
       </a>
-      <h2 class="text-lg font-headline font-bold text-white hidden sm:block mb-0">Bảng điều khiển</h2>
+      <h2 class="text-lg font-headline font-bold text-[#111827] hidden sm:block mb-0">Bảng điều khiển</h2>
     </div>
 
     <!-- Right Controls -->
     <div class="flex items-center gap-4">
       <!-- Notifications -->
-      <a href="/admin/orders" class="p-2 rounded-full hover:bg-[#1A1A1A] text-[#D4AF37] transition-all duration-200 relative no-underline" title="Đơn hàng & Thông báo">
+      <a href="/admin/orders" class="p-2 rounded-full hover:bg-[#FDF8E7] text-[#996515] transition-all duration-200 relative no-underline" title="Đơn hàng & Thông báo">
         <span class="material-symbols-outlined text-xl">notifications</span>
         <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
       </a>
 
       <!-- Settings -->
-      <a href="/admin/profile" class="p-2 rounded-full hover:bg-[#1A1A1A] text-[#D4AF37] transition-all duration-200 no-underline" title="Cài đặt">
+      <a href="/admin/profile" class="p-2 rounded-full hover:bg-[#FDF8E7] text-[#996515] transition-all duration-200 no-underline" title="Cài đặt">
         <span class="material-symbols-outlined text-xl">settings</span>
       </a>
 
       <!-- Profile Avatar & Name -->
-      <div class="flex items-center gap-3 pl-3 border-l border-[#262626]">
+      <div class="flex items-center gap-3 pl-3 border-l border-[#E5E7EB]">
         <div class="relative group cursor-pointer">
           <div class="flex items-center gap-2.5">
             <img class="w-9 h-9 rounded-full object-cover border-2 border-[#D4AF37] shadow-sm"
                  th:src="${user != null and user.profileImage != null ? '/img/profile_img/' + user.profileImage : '/img/profile_img/ecom.png'}"
                  onerror="this.onerror=null;this.src='/img/profile_img/ecom.png';"
                  alt="Admin VIP Avatar"/>
-            <span class="text-sm font-semibold text-white hidden sm:inline" th:text="${user != null ? user.name : 'Admin VIP'}">Admin VIP</span>
-            <span class="material-symbols-outlined text-sm text-[#8E8E93]">expand_more</span>
+            <span class="text-sm font-bold text-[#111827] hidden sm:inline" th:text="${user != null ? user.name : 'Admin VIP'}">Admin VIP</span>
+            <span class="material-symbols-outlined text-sm text-[#6B7280]">expand_more</span>
           </div>
 
           <!-- Dropdown Menu -->
-          <div class="absolute right-0 mt-2 w-48 bg-[#151515] border border-[#262626] rounded-xl shadow-2xl py-2 hidden group-hover:block z-50">
-            <a href="/admin/profile" class="flex items-center gap-2 px-4 py-2 text-xs text-gray-300 hover:bg-[#1E1E1E] hover:text-[#D4AF37] no-underline">
+          <div class="absolute right-0 mt-2 w-48 bg-white border border-[#E5E7EB] rounded-xl shadow-xl py-2 hidden group-hover:block z-50">
+            <a href="/admin/profile" class="flex items-center gap-2 px-4 py-2 text-xs text-[#374151] hover:bg-[#FDF8E7] hover:text-[#996515] no-underline font-medium">
               <span class="material-symbols-outlined text-sm">person</span>
               <span>Hồ sơ quản trị</span>
             </a>
-            <a href="/" class="flex items-center gap-2 px-4 py-2 text-xs text-gray-300 hover:bg-[#1E1E1E] hover:text-[#D4AF37] no-underline">
+            <a href="/" class="flex items-center gap-2 px-4 py-2 text-xs text-[#374151] hover:bg-[#FDF8E7] hover:text-[#996515] no-underline font-medium">
               <span class="material-symbols-outlined text-sm">store</span>
               <span>Trang mua sắm</span>
             </a>
-            <div class="border-t border-[#262626] my-1"></div>
-            <a href="/logout" class="flex items-center gap-2 px-4 py-2 text-xs text-red-400 hover:bg-[#1E1E1E] no-underline">
+            <div class="border-t border-[#F1F5F9] my-1"></div>
+            <a href="/logout" class="flex items-center gap-2 px-4 py-2 text-xs text-red-600 hover:bg-red-50 no-underline font-medium">
               <span class="material-symbols-outlined text-sm">logout</span>
               <span>Đăng xuất</span>
             </a>
@@ -212,139 +201,139 @@ tailwind.config = {
     </div>
   </header>
 
-  <!-- 3. MAIN CONTENT CANVAS -->
-  <main class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 bg-[#0D0D0D]">
+  <!-- 3. MAIN CONTENT CANVAS (White / Alabaster Background) -->
+  <main class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 bg-[#F8FAFC]">
 
     <!-- 1. Header Chào Mừng Quản Trị Viên VIP Banner -->
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-[#151515] p-6 rounded-2xl border border-[#222222] shadow-sm">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-6 rounded-2xl border border-[#E5E7EB] border-l-4 border-l-[#D4AF37] shadow-sm">
       <div>
-        <h2 class="text-2xl font-extrabold font-headline text-[#D4AF37] tracking-tight mb-1">
-          Xin chào, Quản trị viên VIP
+        <h2 class="text-2xl font-extrabold font-headline text-[#111827] tracking-tight mb-1">
+          Xin chào, <span class="text-[#996515]">Quản trị viên VIP</span>
         </h2>
-        <p class="text-sm text-[#8E8E93] mb-0">
+        <p class="text-sm text-[#6B7280] mb-0">
           Hôm nay là một ngày tuyệt vời. Hệ thống ghi nhận mức tăng trưởng ổn định ở phân khúc cao cấp.
         </p>
       </div>
       <div class="flex items-center gap-3">
-        <button onclick="window.print()" class="px-5 py-2.5 bg-[#D4AF37] text-[#111111] font-headline font-bold rounded-xl text-sm hover:opacity-90 transition-all shadow-md flex items-center gap-2 cursor-pointer">
+        <button onclick="window.print()" class="px-5 py-2.5 bg-[#D4AF37] text-[#111111] font-headline font-bold rounded-xl text-sm hover:bg-[#C5A028] transition-all shadow-sm flex items-center gap-2 cursor-pointer">
           <span class="material-symbols-outlined text-base">download</span>
           <span>Xuất Báo Cáo</span>
         </button>
       </div>
     </div>
 
-    <!-- 2. 6 Thẻ Thống Kê KPI (2 Rows x 3 Cols) -->
+    <!-- 2. 6 Thẻ Thống Kê KPI (2 Rows x 3 Cols - White Cards) -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
       <!-- KPI 1: Tổng doanh thu -->
-      <div class="bg-[#151515] p-6 rounded-2xl border border-[#222222] hover:border-[#D4AF37]/50 transition-all duration-200 shadow-sm">
+      <div class="bg-white p-6 rounded-2xl border border-[#E5E7EB] hover:border-[#D4AF37] transition-all duration-200 shadow-sm">
         <div class="flex justify-between items-start">
           <div>
-            <p class="text-xs text-[#8E8E93] font-medium uppercase tracking-wider mb-0">Tổng doanh thu</p>
-            <h3 class="text-2xl font-extrabold font-headline text-[#D4AF37] mt-2 mb-0">
+            <p class="text-xs text-[#6B7280] font-semibold uppercase tracking-wider mb-0">Tổng doanh thu</p>
+            <h3 class="text-2xl font-extrabold font-headline text-[#996515] mt-2 mb-0">
               [[${#numbers.formatDecimal(totalRevenue, 0, 'POINT', 0, 'COMMA')}]] đ
             </h3>
           </div>
-          <div class="w-12 h-12 rounded-xl bg-[#201C12] border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37]">
+          <div class="w-12 h-12 rounded-xl bg-[#FDF8E7] border border-[#D4AF37]/30 flex items-center justify-center text-[#996515]">
             <span class="material-symbols-outlined text-2xl">payments</span>
           </div>
         </div>
-        <div class="mt-4 flex items-center gap-1.5 text-xs text-emerald-400 font-medium">
+        <div class="mt-4 flex items-center gap-1.5 text-xs text-emerald-600 font-semibold">
           <span class="material-symbols-outlined text-sm">trending_up</span>
           <span>+12.5% so với tháng trước</span>
         </div>
       </div>
 
       <!-- KPI 2: Tổng đơn hàng -->
-      <div class="bg-[#151515] p-6 rounded-2xl border border-[#222222] hover:border-[#D4AF37]/50 transition-all duration-200 shadow-sm">
+      <div class="bg-white p-6 rounded-2xl border border-[#E5E7EB] hover:border-[#D4AF37] transition-all duration-200 shadow-sm">
         <div class="flex justify-between items-start">
           <div>
-            <p class="text-xs text-[#8E8E93] font-medium uppercase tracking-wider mb-0">Tổng đơn hàng</p>
-            <h3 class="text-2xl font-extrabold font-headline text-white mt-2 mb-0">
+            <p class="text-xs text-[#6B7280] font-semibold uppercase tracking-wider mb-0">Tổng đơn hàng</p>
+            <h3 class="text-2xl font-extrabold font-headline text-[#111827] mt-2 mb-0">
               [[${totalOrders}]]
             </h3>
           </div>
-          <div class="w-12 h-12 rounded-xl bg-[#201C12] border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37]">
+          <div class="w-12 h-12 rounded-xl bg-[#FDF8E7] border border-[#D4AF37]/30 flex items-center justify-center text-[#996515]">
             <span class="material-symbols-outlined text-2xl">shopping_cart</span>
           </div>
         </div>
-        <div class="mt-4 flex items-center gap-1.5 text-xs text-emerald-400 font-medium">
+        <div class="mt-4 flex items-center gap-1.5 text-xs text-emerald-600 font-semibold">
           <span class="material-symbols-outlined text-sm">trending_up</span>
           <span>+8.2% tuần này</span>
         </div>
       </div>
 
       <!-- KPI 3: Đơn chờ xử lý -->
-      <div class="bg-[#151515] p-6 rounded-2xl border border-[#222222] hover:border-[#D4AF37]/50 transition-all duration-200 shadow-sm">
+      <div class="bg-white p-6 rounded-2xl border border-[#E5E7EB] hover:border-[#D4AF37] transition-all duration-200 shadow-sm">
         <div class="flex justify-between items-start">
           <div>
-            <p class="text-xs text-[#8E8E93] font-medium uppercase tracking-wider mb-0">Đơn chờ xử lý</p>
-            <h3 class="text-2xl font-extrabold font-headline text-white mt-2 mb-0">
+            <p class="text-xs text-[#6B7280] font-semibold uppercase tracking-wider mb-0">Đơn chờ xử lý</p>
+            <h3 class="text-2xl font-extrabold font-headline text-[#111827] mt-2 mb-0">
               [[${pendingOrders}]]
             </h3>
           </div>
-          <div class="w-12 h-12 rounded-xl bg-[#201C12] border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37]">
+          <div class="w-12 h-12 rounded-xl bg-[#FDF8E7] border border-[#D4AF37]/30 flex items-center justify-center text-[#996515]">
             <span class="material-symbols-outlined text-2xl">pending_actions</span>
           </div>
         </div>
-        <div class="mt-4 flex items-center gap-1.5 text-xs text-amber-400 font-medium">
+        <div class="mt-4 flex items-center gap-1.5 text-xs text-amber-600 font-semibold">
           <span class="material-symbols-outlined text-sm">schedule</span>
           <span>Cần xử lý ngay</span>
         </div>
       </div>
 
       <!-- KPI 4: Tổng sản phẩm -->
-      <div class="bg-[#151515] p-6 rounded-2xl border border-[#222222] hover:border-[#D4AF37]/50 transition-all duration-200 shadow-sm">
+      <div class="bg-white p-6 rounded-2xl border border-[#E5E7EB] hover:border-[#D4AF37] transition-all duration-200 shadow-sm">
         <div class="flex justify-between items-start">
           <div>
-            <p class="text-xs text-[#8E8E93] font-medium uppercase tracking-wider mb-0">Tổng sản phẩm</p>
-            <h3 class="text-2xl font-extrabold font-headline text-white mt-2 mb-0">
+            <p class="text-xs text-[#6B7280] font-semibold uppercase tracking-wider mb-0">Tổng sản phẩm</p>
+            <h3 class="text-2xl font-extrabold font-headline text-[#111827] mt-2 mb-0">
               [[${totalProducts}]]
             </h3>
           </div>
-          <div class="w-12 h-12 rounded-xl bg-[#201C12] border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37]">
+          <div class="w-12 h-12 rounded-xl bg-[#FDF8E7] border border-[#D4AF37]/30 flex items-center justify-center text-[#996515]">
             <span class="material-symbols-outlined text-2xl">inventory_2</span>
           </div>
         </div>
-        <div class="mt-4 flex items-center gap-1.5 text-xs text-[#8E8E93] font-medium">
-          <span class="material-symbols-outlined text-sm text-emerald-400">check_circle</span>
+        <div class="mt-4 flex items-center gap-1.5 text-xs text-[#6B7280] font-medium">
+          <span class="material-symbols-outlined text-sm text-emerald-600">check_circle</span>
           <span>Đang hoạt động ổn định</span>
         </div>
       </div>
 
       <!-- KPI 5: Sắp hết hàng -->
-      <div class="bg-[#151515] p-6 rounded-2xl border border-[#222222] hover:border-red-500/50 transition-all duration-200 shadow-sm">
+      <div class="bg-white p-6 rounded-2xl border border-[#E5E7EB] hover:border-red-400 transition-all duration-200 shadow-sm">
         <div class="flex justify-between items-start">
           <div>
-            <p class="text-xs text-[#8E8E93] font-medium uppercase tracking-wider mb-0">Sắp hết hàng</p>
-            <h3 class="text-2xl font-extrabold font-headline text-red-500 mt-2 mb-0">
+            <p class="text-xs text-[#6B7280] font-semibold uppercase tracking-wider mb-0">Sắp hết hàng</p>
+            <h3 class="text-2xl font-extrabold font-headline text-red-600 mt-2 mb-0">
               [[${lowStockCount}]]
             </h3>
           </div>
-          <div class="w-12 h-12 rounded-xl bg-red-950/40 border border-red-500/30 flex items-center justify-center text-red-400">
+          <div class="w-12 h-12 rounded-xl bg-red-50 border border-red-200 flex items-center justify-center text-red-600">
             <span class="material-symbols-outlined text-2xl">warning</span>
           </div>
         </div>
-        <div class="mt-4 flex items-center gap-1.5 text-xs text-red-400 font-medium">
+        <div class="mt-4 flex items-center gap-1.5 text-xs text-red-600 font-semibold">
           <span class="material-symbols-outlined text-sm">error</span>
           <span>Cần nhập thêm kho</span>
         </div>
       </div>
 
       <!-- KPI 6: Khách hàng VIP -->
-      <div class="bg-[#151515] p-6 rounded-2xl border border-[#222222] hover:border-[#D4AF37]/50 transition-all duration-200 shadow-sm">
+      <div class="bg-white p-6 rounded-2xl border border-[#E5E7EB] hover:border-[#D4AF37] transition-all duration-200 shadow-sm">
         <div class="flex justify-between items-start">
           <div>
-            <p class="text-xs text-[#8E8E93] font-medium uppercase tracking-wider mb-0">Khách hàng VIP</p>
-            <h3 class="text-2xl font-extrabold font-headline text-[#D4AF37] mt-2 mb-0">
+            <p class="text-xs text-[#6B7280] font-semibold uppercase tracking-wider mb-0">Khách hàng VIP</p>
+            <h3 class="text-2xl font-extrabold font-headline text-[#996515] mt-2 mb-0">
               [[${totalUsers}]]
             </h3>
           </div>
-          <div class="w-12 h-12 rounded-xl bg-[#201C12] border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37]">
+          <div class="w-12 h-12 rounded-xl bg-[#FDF8E7] border border-[#D4AF37]/30 flex items-center justify-center text-[#996515]">
             <span class="material-symbols-outlined text-2xl">diamond</span>
           </div>
         </div>
-        <div class="mt-4 flex items-center gap-1.5 text-xs text-emerald-400 font-medium">
+        <div class="mt-4 flex items-center gap-1.5 text-xs text-emerald-600 font-semibold">
           <span class="material-symbols-outlined text-sm">trending_up</span>
           <span>+45 thành viên mới</span>
         </div>
@@ -352,17 +341,17 @@ tailwind.config = {
 
     </div>
 
-    <!-- 3. Khu Vực Biểu Đồ (Grid 2/3 và 1/3) -->
+    <!-- 3. Khu Vực Biểu Đồ (Grid 2/3 và 1/3 - White Cards) -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
       <!-- Left: Biểu đồ doanh thu theo ngày (Bar Chart) -->
-      <div class="lg:col-span-2 bg-[#151515] p-6 rounded-2xl border border-[#222222] flex flex-col justify-between shadow-sm">
+      <div class="lg:col-span-2 bg-white p-6 rounded-2xl border border-[#E5E7EB] flex flex-col justify-between shadow-sm">
         <div class="flex justify-between items-center mb-4">
           <div>
-            <h3 class="text-lg font-bold font-headline text-white mb-0.5">Biểu đồ doanh thu theo ngày</h3>
-            <p class="text-xs text-[#8E8E93] mb-0">Thống kê 7 ngày gần nhất</p>
+            <h3 class="text-lg font-bold font-headline text-[#111827] mb-0.5">Biểu đồ doanh thu theo ngày</h3>
+            <p class="text-xs text-[#6B7280] mb-0">Thống kê 7 ngày gần nhất</p>
           </div>
-          <select id="revenueRange" class="bg-[#1E1E1E] text-xs text-gray-300 rounded-lg px-3 py-1.5 border border-[#333333] focus:outline-none focus:border-[#D4AF37]">
+          <select id="revenueRange" class="bg-[#F9FAFB] text-xs text-[#374151] font-medium rounded-lg px-3 py-1.5 border border-[#D1D5DB] focus:outline-none focus:border-[#D4AF37]">
             <option>7 ngày qua</option>
             <option>30 ngày qua</option>
           </select>
@@ -375,10 +364,10 @@ tailwind.config = {
       </div>
 
       <!-- Right: Trạng thái đơn hàng (Donut Chart) -->
-      <div class="bg-[#151515] p-6 rounded-2xl border border-[#222222] flex flex-col justify-between shadow-sm">
+      <div class="bg-white p-6 rounded-2xl border border-[#E5E7EB] flex flex-col justify-between shadow-sm">
         <div>
-          <h3 class="text-lg font-bold font-headline text-white mb-0.5">Trạng thái đơn hàng</h3>
-          <p class="text-xs text-[#8E8E93] mb-0">Tỷ lệ phân bổ hiện tại</p>
+          <h3 class="text-lg font-bold font-headline text-[#111827] mb-0.5">Trạng thái đơn hàng</h3>
+          <p class="text-xs text-[#6B7280] mb-0">Tỷ lệ phân bổ hiện tại</p>
         </div>
 
         <!-- Donut Canvas with Center Text -->
@@ -386,44 +375,44 @@ tailwind.config = {
           <div class="w-48 h-48 relative">
             <canvas id="orderStatusChart"></canvas>
             <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span class="text-xs text-[#8E8E93]">Tổng</span>
-              <span class="text-xl font-headline font-extrabold text-[#D4AF37]" th:text="${totalOrders}">420</span>
+              <span class="text-xs text-[#6B7280]">Tổng</span>
+              <span class="text-xl font-headline font-extrabold text-[#996515]" th:text="${totalOrders}">420</span>
             </div>
           </div>
         </div>
 
         <!-- Legend Items -->
-        <div class="grid grid-cols-2 gap-2.5 text-xs pt-2 border-t border-[#222222]">
+        <div class="grid grid-cols-2 gap-2.5 text-xs pt-3 border-t border-[#F1F5F9]">
           <div class="flex items-center gap-2">
             <span class="w-3 h-3 rounded-full bg-emerald-500 shrink-0"></span>
-            <span class="text-[#A0A0A0]">Hoàn thành ([[${completedPct != null ? completedPct : 65}]]%)</span>
+            <span class="text-[#4B5563] font-medium">Hoàn thành ([[${completedPct != null ? completedPct : 65}]]%)</span>
           </div>
           <div class="flex items-center gap-2">
             <span class="w-3 h-3 rounded-full bg-[#D4AF37] shrink-0"></span>
-            <span class="text-[#A0A0A0]">Đang giao ([[${shippingPct != null ? shippingPct : 20}]]%)</span>
+            <span class="text-[#4B5563] font-medium">Đang giao ([[${shippingPct != null ? shippingPct : 20}]]%)</span>
           </div>
           <div class="flex items-center gap-2">
             <span class="w-3 h-3 rounded-full bg-amber-500 shrink-0"></span>
-            <span class="text-[#A0A0A0]">Chờ xử lý ([[${pendingPct != null ? pendingPct : 10}]]%)</span>
+            <span class="text-[#4B5563] font-medium">Chờ xử lý ([[${pendingPct != null ? pendingPct : 10}]]%)</span>
           </div>
           <div class="flex items-center gap-2">
             <span class="w-3 h-3 rounded-full bg-red-500 shrink-0"></span>
-            <span class="text-[#A0A0A0]">Đã hủy ([[${cancelledPct != null ? cancelledPct : 5}]]%)</span>
+            <span class="text-[#4B5563] font-medium">Đã hủy ([[${cancelledPct != null ? cancelledPct : 5}]]%)</span>
           </div>
         </div>
       </div>
 
     </div>
 
-    <!-- 4. Danh Sách Đơn Hàng Mới Nhất Table -->
-    <div class="bg-[#151515] rounded-2xl border border-[#222222] overflow-hidden shadow-sm">
-      <div class="p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#222222]">
+    <!-- 4. Danh Sách Đơn Hàng Mới Nhất Table (White Card) -->
+    <div class="bg-white rounded-2xl border border-[#E5E7EB] overflow-hidden shadow-sm">
+      <div class="p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#F1F5F9]">
         <div>
-          <h3 class="text-lg font-bold font-headline text-white mb-0.5">Danh sách đơn hàng mới nhất</h3>
-          <p class="text-xs text-[#8E8E93] mb-0">Các giao dịch phát sinh gần đây nhất trong hệ thống</p>
+          <h3 class="text-lg font-bold font-headline text-[#111827] mb-0.5">Danh sách đơn hàng mới nhất</h3>
+          <p class="text-xs text-[#6B7280] mb-0">Các giao dịch phát sinh gần đây nhất trong hệ thống</p>
         </div>
         <div class="flex items-center gap-2">
-          <a href="/admin/orders" class="px-4 py-2 bg-[#1E1E1E] text-[#D4AF37] font-semibold rounded-xl text-xs hover:bg-[#252525] transition-all border border-[#333333] flex items-center gap-2 no-underline">
+          <a href="/admin/orders" class="px-4 py-2 bg-[#FDF8E7] text-[#996515] font-semibold rounded-xl text-xs hover:bg-[#F5E6B3] transition-all border border-[#D4AF37]/30 flex items-center gap-2 no-underline">
             <span class="material-symbols-outlined text-sm">visibility</span>
             <span>Xem tất cả đơn</span>
           </a>
@@ -433,7 +422,7 @@ tailwind.config = {
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
           <thead>
-            <tr class="border-b border-[#222222] text-xs text-[#8E8E93] uppercase font-semibold">
+            <tr class="bg-[#F9FAFB] border-b border-[#E5E7EB] text-xs text-[#6B7280] uppercase font-semibold">
               <th class="p-4">Mã đơn</th>
               <th class="p-4">Khách hàng</th>
               <th class="p-4">Sản phẩm</th>
@@ -442,22 +431,22 @@ tailwind.config = {
               <th class="p-4 text-right">Thao tác</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-[#222222] text-sm">
+          <tbody class="divide-y divide-[#F1F5F9] text-sm">
             <!-- Thymeleaf dynamic loop if orders exist -->
             <th:block th:if="${recentOrders != null and !#lists.isEmpty(recentOrders)}">
-              <tr th:each="ord : ${recentOrders}" class="hover:bg-[#1A1A1A] transition-all">
-                <td class="p-4 font-bold text-[#D4AF37] font-mono" th:text="${'#' + ord.orderId}">#ORD-9821</td>
-                <td class="p-4 text-white font-medium" th:text="${ord.orderAddress != null ? ord.orderAddress.fullName : 'Khách hàng'}">Nguyễn Văn An</td>
-                <td class="p-4 text-[#A0A0A0]" th:text="${ord.product != null ? ord.product.title : 'Sản phẩm cao cấp'}">Đồng hồ Rolex Submariner</td>
-                <td class="p-4 font-semibold text-white font-mono" th:text="${#numbers.formatDecimal(ord.price * ord.quantity, 0, 'POINT', 0, 'COMMA') + ' đ'}">450.000.000 đ</td>
+              <tr th:each="ord : ${recentOrders}" class="hover:bg-[#FDFBF4] transition-all">
+                <td class="p-4 font-bold text-[#996515] font-mono" th:text="${'#' + ord.orderId}">#ORD-9821</td>
+                <td class="p-4 text-[#111827] font-semibold" th:text="${ord.orderAddress != null ? ord.orderAddress.fullName : 'Khách hàng'}">Nguyễn Văn An</td>
+                <td class="p-4 text-[#4B5563]" th:text="${ord.product != null ? ord.product.title : 'Sản phẩm cao cấp'}">Đồng hồ Rolex Submariner</td>
+                <td class="p-4 font-bold text-[#111827] font-mono" th:text="${#numbers.formatDecimal(ord.price * ord.quantity, 0, 'POINT', 0, 'COMMA') + ' đ'}">450.000.000 đ</td>
                 <td class="p-4">
-                  <span th:if="${ord.status == 'Đã giao hàng'}" class="px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Hoàn thành</span>
-                  <span th:if="${ord.status == 'Đang giao hàng' or ord.status == 'Đã đóng gói'}" class="px-2.5 py-1 rounded-full text-xs font-medium bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20">Đang giao</span>
-                  <span th:if="${ord.status == 'Đang xử lý' or ord.status == 'Đã tiếp nhận'}" class="px-2.5 py-1 rounded-full text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">Chờ xử lý</span>
-                  <span th:if="${ord.status == 'Đã hủy'}" class="px-2.5 py-1 rounded-full text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">Đã hủy</span>
+                  <span th:if="${ord.status == 'Đã giao hàng'}" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">Hoàn thành</span>
+                  <span th:if="${ord.status == 'Đang giao hàng' or ord.status == 'Đã đóng gói'}" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#FDF8E7] text-[#996515] border border-[#D4AF37]/40">Đang giao</span>
+                  <span th:if="${ord.status == 'Đang xử lý' or ord.status == 'Đã tiếp nhận'}" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">Chờ xử lý</span>
+                  <span th:if="${ord.status == 'Đã hủy'}" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-200">Đã hủy</span>
                 </td>
                 <td class="p-4 text-right">
-                  <a th:href="@{'/admin/search-order?orderId=' + ${ord.orderId}}" class="p-1.5 hover:bg-[#252525] rounded-lg text-[#D4AF37] inline-flex items-center transition-all no-underline" title="Chi tiết đơn">
+                  <a th:href="@{'/admin/search-order?orderId=' + ${ord.orderId}}" class="p-1.5 hover:bg-[#FDF8E7] rounded-lg text-[#996515] inline-flex items-center transition-all no-underline" title="Chi tiết đơn">
                     <span class="material-symbols-outlined text-base">visibility</span>
                   </a>
                 </td>
@@ -466,58 +455,16 @@ tailwind.config = {
 
             <!-- Fallback Static Mock rows if recentOrders is empty -->
             <th:block th:if="${recentOrders == null or #lists.isEmpty(recentOrders)}">
-              <tr class="hover:bg-[#1A1A1A] transition-all">
-                <td class="p-4 font-bold text-[#D4AF37] font-mono">#ORD-9821</td>
-                <td class="p-4 text-white font-medium">Nguyễn Văn An</td>
-                <td class="p-4 text-[#A0A0A0]">Đồng hồ Rolex Submariner Gold</td>
-                <td class="p-4 font-semibold text-white font-mono">450.000.000 đ</td>
+              <tr class="hover:bg-[#FDFBF4] transition-all">
+                <td class="p-4 font-bold text-[#996515] font-mono">#ORD-9821</td>
+                <td class="p-4 text-[#111827] font-semibold">Nguyễn Văn An</td>
+                <td class="p-4 text-[#4B5563]">Đồng hồ Rolex Submariner Gold</td>
+                <td class="p-4 font-bold text-[#111827] font-mono">450.000.000 đ</td>
                 <td class="p-4">
-                  <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Hoàn thành</span>
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">Hoàn thành</span>
                 </td>
                 <td class="p-4 text-right">
-                  <a href="/admin/orders" class="p-1.5 hover:bg-[#252525] rounded-lg text-[#D4AF37] inline-flex items-center transition-all">
-                    <span class="material-symbols-outlined text-base">visibility</span>
-                  </a>
-                </td>
-              </tr>
-              <tr class="hover:bg-[#1A1A1A] transition-all">
-                <td class="p-4 font-bold text-[#D4AF37] font-mono">#ORD-9820</td>
-                <td class="p-4 text-white font-medium">Trần Thị Mai</td>
-                <td class="p-4 text-[#A0A0A0]">Túi xách Hermès Birkin 30</td>
-                <td class="p-4 font-semibold text-white font-mono">380.000.000 đ</td>
-                <td class="p-4">
-                  <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20">Đang giao</span>
-                </td>
-                <td class="p-4 text-right">
-                  <a href="/admin/orders" class="p-1.5 hover:bg-[#252525] rounded-lg text-[#D4AF37] inline-flex items-center transition-all">
-                    <span class="material-symbols-outlined text-base">visibility</span>
-                  </a>
-                </td>
-              </tr>
-              <tr class="hover:bg-[#1A1A1A] transition-all">
-                <td class="p-4 font-bold text-[#D4AF37] font-mono">#ORD-9819</td>
-                <td class="p-4 text-white font-medium">Lê Hoàng Long</td>
-                <td class="p-4 text-[#A0A0A0]">Nhẫn Kim Cương Nam 5Ct</td>
-                <td class="p-4 font-semibold text-white font-mono">210.000.000 đ</td>
-                <td class="p-4">
-                  <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">Chờ xử lý</span>
-                </td>
-                <td class="p-4 text-right">
-                  <a href="/admin/orders" class="p-1.5 hover:bg-[#252525] rounded-lg text-[#D4AF37] inline-flex items-center transition-all">
-                    <span class="material-symbols-outlined text-base">visibility</span>
-                  </a>
-                </td>
-              </tr>
-              <tr class="hover:bg-[#1A1A1A] transition-all">
-                <td class="p-4 font-bold text-[#D4AF37] font-mono">#ORD-9818</td>
-                <td class="p-4 text-white font-medium">Phạm Quỳnh Nga</td>
-                <td class="p-4 text-[#A0A0A0]">Vòng cổ Cartier Love Vàng Hồng</td>
-                <td class="p-4 font-semibold text-white font-mono">155.000.000 đ</td>
-                <td class="p-4">
-                  <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">Đã hủy</span>
-                </td>
-                <td class="p-4 text-right">
-                  <a href="/admin/orders" class="p-1.5 hover:bg-[#252525] rounded-lg text-[#D4AF37] inline-flex items-center transition-all">
+                  <a href="/admin/orders" class="p-1.5 hover:bg-[#FDF8E7] rounded-lg text-[#996515] inline-flex items-center transition-all">
                     <span class="material-symbols-outlined text-base">visibility</span>
                   </a>
                 </td>
@@ -530,31 +477,34 @@ tailwind.config = {
 
   </main>
 
-  <!-- 5. FOOTER -->
-  <footer class="flex justify-between items-center w-full px-6 py-4 bg-[#111111] border-t border-[#222222] shrink-0 text-xs text-[#8E8E93]">
+  <!-- 5. FOOTER (White) -->
+  <footer class="flex justify-between items-center w-full px-6 py-4 bg-white border-t border-[#E5E7EB] shrink-0 text-xs text-[#6B7280]">
     <p class="mb-0">© 2026 E-COMMERCE. All rights reserved.</p>
     <div class="flex items-center gap-4">
-      <a class="hover:text-[#D4AF37] transition-all text-[#8E8E93] no-underline" href="#">Hỗ trợ</a>
-      <a class="hover:text-[#D4AF37] transition-all text-[#8E8E93] no-underline" href="#">Bảo mật</a>
-      <a class="hover:text-[#D4AF37] transition-all text-[#8E8E93] no-underline" href="#">Điều khoản</a>
+      <a class="hover:text-[#996515] transition-all text-[#6B7280] no-underline" href="/admin/chat">Hỗ trợ</a>
+      <a class="hover:text-[#996515] transition-all text-[#6B7280] no-underline" href="/admin/profile">Bảo mật</a>
+      <a class="hover:text-[#996515] transition-all text-[#6B7280] no-underline" href="/">Điều khoản</a>
     </div>
   </footer>
 
 </div>
 
-<!-- 6. CHART.JS INITIALIZATION SCRIPT -->
+<!-- 6. CHART.JS INITIALIZATION SCRIPT (Light Theme) -->
 <script th:inline="javascript">
 document.addEventListener("DOMContentLoaded", function() {
-  // 1. Data from Spring Boot Model or Default Stitch Fallback
   /*<![CDATA[*/
   var serverDates = /*[[${chartDates}]]*/ [];
   var serverRevenues = /*[[${chartRevenues}]]*/ [];
+  var cPct = /*[[${completedPct != null ? completedPct : 65}]]*/ 65;
+  var sPct = /*[[${shippingPct != null ? shippingPct : 20}]]*/ 20;
+  var pPct = /*[[${pendingPct != null ? pendingPct : 10}]]*/ 10;
+  var xPct = /*[[${cancelledPct != null ? cancelledPct : 5}]]*/ 5;
   /*]]>*/
 
   var barLabels = (serverDates && serverDates.length >= 2) ? serverDates : ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'CN'];
   var barValues = (serverRevenues && serverRevenues.length >= 2) ? serverRevenues : [45, 65, 50, 80, 60, 90, 75];
 
-  // 2. Bar Chart: Biểu đồ doanh thu theo ngày
+  // Bar Chart: Biểu đồ doanh thu theo ngày (Light Theme + Gold Bars)
   var barCtx = document.getElementById('revenueBarChart');
   if (barCtx) {
     new Chart(barCtx, {
@@ -564,13 +514,13 @@ document.addEventListener("DOMContentLoaded", function() {
         datasets: [{
           label: 'Doanh thu',
           data: barValues,
-          backgroundColor: 'rgba(212, 175, 55, 0.45)',
-          hoverBackgroundColor: 'rgba(212, 175, 55, 0.95)',
+          backgroundColor: 'rgba(212, 175, 55, 0.78)',
+          hoverBackgroundColor: '#996515',
           borderColor: '#D4AF37',
           borderWidth: 1,
-          borderRadius: 6,
-          barPercentage: 0.65,
-          categoryPercentage: 0.8
+          borderRadius: 8,
+          barPercentage: 0.6,
+          categoryPercentage: 0.75
         }]
       },
       options: {
@@ -579,10 +529,10 @@ document.addEventListener("DOMContentLoaded", function() {
         plugins: {
           legend: { display: false },
           tooltip: {
-            backgroundColor: '#1E1E1E',
-            titleColor: '#D4AF37',
-            bodyColor: '#FAFAFA',
-            borderColor: '#333333',
+            backgroundColor: '#FFFFFF',
+            titleColor: '#111827',
+            bodyColor: '#996515',
+            borderColor: '#E5E7EB',
             borderWidth: 1,
             padding: 10,
             displayColors: false,
@@ -597,17 +547,17 @@ document.addEventListener("DOMContentLoaded", function() {
           x: {
             grid: { display: false },
             ticks: {
-              color: '#8E8E93',
-              font: { family: 'Be Vietnam Pro', size: 11 }
+              color: '#4B5563',
+              font: { family: 'Be Vietnam Pro', size: 11, weight: '500' }
             }
           },
           y: {
             grid: {
-              color: 'rgba(255, 255, 255, 0.05)',
+              color: '#F1F5F9',
               drawBorder: false
             },
             ticks: {
-              color: '#8E8E93',
+              color: '#6B7280',
               font: { family: 'Be Vietnam Pro', size: 10 },
               callback: function(val) {
                 return val >= 1000000 ? (val / 1000000) + 'M' : val;
@@ -619,13 +569,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // 3. Donut Chart: Trạng thái đơn hàng
-  /*<![CDATA[*/
-  var cPct = /*[[${completedPct != null ? completedPct : 65}]]*/ 65;
-  var sPct = /*[[${shippingPct != null ? shippingPct : 20}]]*/ 20;
-  var pPct = /*[[${pendingPct != null ? pendingPct : 10}]]*/ 10;
-  var xPct = /*[[${cancelledPct != null ? cancelledPct : 5}]]*/ 5;
-  /*]]>*/
+  // Donut Chart: Trạng thái đơn hàng (Light Theme)
   var donutCtx = document.getElementById('orderStatusChart');
   if (donutCtx) {
     new Chart(donutCtx, {
@@ -638,9 +582,9 @@ document.addEventListener("DOMContentLoaded", function() {
             '#10B981', // Emerald green
             '#D4AF37', // Gold
             '#F59E0B', // Amber
-            '#EF4444'  // Error Red
+            '#EF4444'  // Red
           ],
-          borderColor: '#151515',
+          borderColor: '#FFFFFF',
           borderWidth: 3,
           hoverOffset: 4
         }]
@@ -648,14 +592,14 @@ document.addEventListener("DOMContentLoaded", function() {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        cutout: '76%',
+        cutout: '75%',
         plugins: {
           legend: { display: false },
           tooltip: {
-            backgroundColor: '#1E1E1E',
-            titleColor: '#D4AF37',
-            bodyColor: '#FAFAFA',
-            borderColor: '#333333',
+            backgroundColor: '#FFFFFF',
+            titleColor: '#111827',
+            bodyColor: '#374151',
+            borderColor: '#E5E7EB',
             borderWidth: 1,
             padding: 8
           }

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html class="h-full" lang="vi" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(content)">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>E-COMMERCE — Hệ Thống Quản Trị Luxury</title>
+
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<!-- FontAwesome 6 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- Google Fonts & Material Symbols -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+<!-- Stitch Design System Tokens & Custom Luxury Black & Gold Theme CSS -->
+<link rel="stylesheet" th:href="@{/css/design-system.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  corePlugins: {
+    preflight: false
+  },
+  theme: {
+    extend: {
+      colors: {
+        "primary": "#D4AF37",
+        "background": "#0D0D0D",
+        "surface": "#111111",
+        "surface-card": "#151515",
+        "surface-border": "#222222",
+        "on-surface-variant": "#8E8E93"
+      },
+      fontFamily: {
+        headline: ["Plus Jakarta Sans", "sans-serif"],
+        body: ["Be Vietnam Pro", "sans-serif"]
+      }
+    }
+  }
+}
+</script>
+
+<style>
+body.admin-luxury-body {
+  padding-top: 0 !important;
+  background-color: #0D0D0D !important;
+  color: #FAFAFA !important;
+  font-family: 'Be Vietnam Pro', sans-serif;
+}
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+/* Dark Luxury Overrides for Inner Admin Pages */
+.admin-luxury-canvas .card,
+.admin-luxury-canvas .bg-white {
+  background-color: #151515 !important;
+  border: 1px solid #222222 !important;
+  color: #FAFAFA !important;
+}
+.admin-luxury-canvas .bg-light,
+.admin-luxury-canvas .table-light,
+.admin-luxury-canvas thead.bg-light,
+.admin-luxury-canvas thead.table-light {
+  background-color: #1A1A1A !important;
+  color: #A0A0A0 !important;
+  border-color: #262626 !important;
+}
+.admin-luxury-canvas .table {
+  color: #FAFAFA !important;
+  border-color: #262626 !important;
+  --bs-table-bg: #151515;
+  --bs-table-color: #FAFAFA;
+  --bs-table-border-color: #262626;
+  --bs-table-hover-bg: #1C1C1C;
+  --bs-table-hover-color: #FFFFFF;
+}
+.admin-luxury-canvas .table th,
+.admin-luxury-canvas .table td {
+  border-color: #262626 !important;
+}
+.admin-luxury-canvas .text-dark {
+  color: #FAFAFA !important;
+}
+.admin-luxury-canvas .text-secondary,
+.admin-luxury-canvas .text-muted {
+  color: #9CA3AF !important;
+}
+.admin-luxury-canvas .border,
+.admin-luxury-canvas .border-top,
+.admin-luxury-canvas .border-bottom,
+.admin-luxury-canvas .border-end,
+.admin-luxury-canvas .border-start {
+  border-color: #262626 !important;
+}
+.admin-luxury-canvas .form-control,
+.admin-luxury-canvas .form-select,
+.admin-luxury-canvas .input-group-text {
+  background-color: #1C1C1C !important;
+  border-color: #333333 !important;
+  color: #FAFAFA !important;
+}
+.admin-luxury-canvas .form-control::placeholder {
+  color: #6B7280 !important;
+}
+.admin-luxury-canvas .form-control:focus,
+.admin-luxury-canvas .form-select:focus {
+  border-color: #D4AF37 !important;
+  box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.2) !important;
+}
+.admin-luxury-canvas .badge.bg-warning.text-dark,
+.admin-luxury-canvas .bg-warning-subtle.text-dark {
+  color: #111111 !important;
+}
+.admin-luxury-canvas #admin-chat-messages {
+  background-color: #111111 !important;
+}
+.admin-luxury-canvas .page-link {
+  background-color: #1A1A1A !important;
+  border-color: #333333 !important;
+  color: #D4AF37 !important;
+}
+.admin-luxury-canvas .page-item.active .page-link {
+  background-color: #D4AF37 !important;
+  border-color: #D4AF37 !important;
+  color: #111111 !important;
+  font-weight: 700;
+}
+.admin-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.875rem;
+  border-radius: 0.75rem;
+  color: #A0A0A0;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+.admin-nav-link:hover {
+  color: #FAFAFA;
+  background-color: #1A1A1A;
+}
+.admin-nav-link.active {
+  background-color: #D4AF37 !important;
+  color: #111111 !important;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25);
+}
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #111111;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
+</style>
+</head>
+<body class="admin-luxury-body h-screen flex flex-col md:flex-row overflow-hidden">
+
+  <!-- 1. LEFT SIDEBAR (Stitch Luxury Admin Sidebar) -->
+  <aside class="hidden md:flex flex-col w-64 h-screen p-4 bg-[#111111] border-r border-[#222222] shrink-0 justify-between">
+    <div>
+      <!-- Brand Header -->
+      <a href="/admin/" class="flex items-center gap-3 px-2 py-3 mb-4 border-b border-[#222222] text-decoration-none">
+        <div class="w-10 h-10 rounded-xl bg-[#D4AF37] flex items-center justify-center text-[#111111] font-headline font-extrabold text-xl shadow-md">
+          E
+        </div>
+        <div>
+          <h1 class="text-base font-extrabold font-headline text-[#D4AF37] tracking-wider mb-0 leading-tight">E-COMMERCE</h1>
+          <p class="text-xs text-[#8E8E93] mb-0">Luxury Admin</p>
+        </div>
+      </a>
+
+      <!-- Navigation Menu Items -->
+      <nav class="flex flex-col gap-1.5" id="adminSidebarNav">
+        <a class="admin-nav-link" href="/admin/" data-match="/admin/">
+          <span class="material-symbols-outlined text-xl">dashboard</span>
+          <span>Dashboard</span>
+        </a>
+        <a class="admin-nav-link" href="/admin/products" data-match="/admin/products,/admin/loadAddProduct,/admin/editProduct">
+          <span class="material-symbols-outlined text-xl">inventory_2</span>
+          <span>Sản phẩm</span>
+        </a>
+        <a class="admin-nav-link" href="/admin/orders" data-match="/admin/orders,/admin/search-order">
+          <span class="material-symbols-outlined text-xl">shopping_bag</span>
+          <span>Đơn hàng</span>
+        </a>
+        <a class="admin-nav-link" href="/admin/users?type=1" data-match="/admin/users,/admin/add-admin">
+          <span class="material-symbols-outlined text-xl">group</span>
+          <span>Khách hàng</span>
+        </a>
+        <a class="admin-nav-link" href="/admin/chat" data-match="/admin/chat">
+          <span class="material-symbols-outlined text-xl">chat</span>
+          <span>CSKH Chat</span>
+        </a>
+        <a class="admin-nav-link" href="/admin/vouchers" data-match="/admin/vouchers">
+          <span class="material-symbols-outlined text-xl">local_offer</span>
+          <span>Mã Voucher</span>
+        </a>
+        <a class="admin-nav-link" href="/admin/category" data-match="/admin/category,/admin/loadEditCategory">
+          <span class="material-symbols-outlined text-xl">category</span>
+          <span>Danh mục</span>
+        </a>
+        <a class="admin-nav-link" href="/admin/profile" data-match="/admin/profile">
+          <span class="material-symbols-outlined text-xl">settings</span>
+          <span>Cài đặt</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Bottom Store Link & Version -->
+    <div class="pt-4 border-t border-[#222222] flex flex-col gap-2">
+      <a href="/" class="flex items-center gap-2 px-3 py-2 text-xs text-[#D4AF37] hover:bg-[#1A1A1A] rounded-lg transition-all text-decoration-none">
+        <span class="material-symbols-outlined text-sm">storefront</span>
+        <span>Xem Cửa Hàng (Storefront)</span>
+      </a>
+      <div class="text-[11px] text-[#666666] text-center font-mono">
+        v2.4.0 Luxury Edition
+      </div>
+    </div>
+  </aside>
+
+  <!-- 2. MAIN WRAPPER -->
+  <div class="flex-1 flex flex-col h-screen overflow-hidden bg-[#0D0D0D]">
+
+    <!-- TopNavBar Header -->
+    <header class="flex justify-between items-center w-full px-6 py-3.5 bg-[#111111] border-b border-[#222222] shrink-0 z-30">
+      <div class="flex items-center gap-3">
+        <a href="/admin/" class="md:hidden flex items-center gap-2 text-decoration-none">
+          <div class="w-8 h-8 rounded-lg bg-[#D4AF37] flex items-center justify-center text-[#111111] font-extrabold text-sm">E</div>
+          <span class="text-base font-extrabold font-headline text-[#D4AF37]">E-COMMERCE</span>
+        </a>
+        <h2 class="text-lg font-headline font-bold text-white hidden sm:block mb-0" id="adminHeaderTitle">Bảng điều khiển</h2>
+      </div>
+
+      <!-- Right Controls -->
+      <div class="flex items-center gap-4">
+        <a href="/admin/orders" class="p-2 rounded-full hover:bg-[#1A1A1A] text-[#D4AF37] transition-all duration-200 relative text-decoration-none" title="Đơn hàng & Thông báo">
+          <span class="material-symbols-outlined text-xl">notifications</span>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
+        </a>
+        <a href="/admin/profile" class="p-2 rounded-full hover:bg-[#1A1A1A] text-[#D4AF37] transition-all duration-200 text-decoration-none" title="Cài đặt">
+          <span class="material-symbols-outlined text-xl">settings</span>
+        </a>
+
+        <!-- Profile Avatar & Dropdown -->
+        <div class="dropdown pl-3 border-l border-[#262626]">
+          <a href="#" class="flex items-center gap-2.5 text-decoration-none dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">
+            <img class="w-9 h-9 rounded-full object-cover border-2 border-[#D4AF37] shadow-sm"
+                 th:src="${user != null and user.profileImage != null ? '/img/profile_img/' + user.profileImage : '/img/profile_img/ecom.png'}"
+                 onerror="this.onerror=null;this.src='/img/profile_img/ecom.png';"
+                 alt="Admin VIP Avatar"/>
+            <span class="text-sm font-semibold text-white hidden sm:inline" th:text="${user != null ? user.name : 'Admin VIP'}">Admin VIP</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end bg-[#151515] border border-[#262626] rounded-xl shadow-2xl py-2">
+            <li>
+              <a class="dropdown-item text-xs text-light py-2" href="/admin/profile">
+                <i class="fa-solid fa-user-gear me-2 text-warning"></i>Hồ sơ quản trị
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item text-xs text-light py-2" href="/">
+                <i class="fa-solid fa-store me-2 text-warning"></i>Trang mua sắm
+              </a>
+            </li>
+            <li><hr class="dropdown-divider border-secondary opacity-25"></li>
+            <li>
+              <a class="dropdown-item text-xs text-danger py-2" href="/logout">
+                <i class="fa-solid fa-right-from-bracket me-2"></i>Đăng xuất
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- 3. MAIN CONTENT CANVAS -->
+    <main class="admin-luxury-canvas flex-1 overflow-y-auto p-4 md:p-6 bg-[#0D0D0D]">
+      <div th:replace="${content}"></div>
+    </main>
+
+    <!-- 4. FOOTER -->
+    <footer class="flex justify-between items-center w-full px-6 py-3.5 bg-[#111111] border-t border-[#222222] shrink-0 text-xs text-[#8E8E93]">
+      <p class="mb-0">© 2026 E-COMMERCE. All rights reserved.</p>
+      <div class="flex items-center gap-4">
+        <a class="hover:text-[#D4AF37] transition-all text-[#8E8E93] text-decoration-none" href="/admin/chat">Hỗ trợ</a>
+        <a class="hover:text-[#D4AF37] transition-all text-[#8E8E93] text-decoration-none" href="/admin/profile">Bảo mật</a>
+        <a class="hover:text-[#D4AF37] transition-all text-[#8E8E93] text-decoration-none" href="/">Điều khoản</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+  <script src="/js/script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var currentPath = window.location.pathname;
+      var navLinks = document.querySelectorAll("#adminSidebarNav .admin-nav-link");
+      navLinks.forEach(function(link) {
+        var matches = (link.getAttribute("data-match") || "").split(",");
+        for (var i = 0; i < matches.length; i++) {
+          var m = matches[i].trim();
+          if (m === "/admin/" && (currentPath === "/admin/" || currentPath === "/admin")) {
+            link.classList.add("active");
+            break;
+          } else if (m !== "/admin/" && m.length > 0 && currentPath.indexOf(m) === 0) {
+            link.classList.add("active");
+            break;
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

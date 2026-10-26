@@ -101,14 +101,39 @@ public class AdminController {
 		List<Object[]> statusCounts = orderService.getOrderStatusCounts();
 		java.util.List<String> statusLabels = new java.util.ArrayList<>();
 		java.util.List<Long> statusData = new java.util.ArrayList<>();
+		long completedCnt = 0;
+		long shippingCnt = 0;
+		long pendingCnt = 0;
+		long cancelledCnt = 0;
 		if (statusCounts != null) {
 			for (Object[] row : statusCounts) {
-				statusLabels.add(row[0] != null ? row[0].toString() : "Khác");
-				statusData.add(row[1] != null ? ((Number) row[1]).longValue() : 0L);
+				String stName = row[0] != null ? row[0].toString() : "Khác";
+				long stVal = row[1] != null ? ((Number) row[1]).longValue() : 0L;
+				statusLabels.add(stName);
+				statusData.add(stVal);
+				if ("Đã giao hàng".equalsIgnoreCase(stName) || "Delivered".equalsIgnoreCase(stName)) {
+					completedCnt += stVal;
+				} else if ("Đang giao hàng".equalsIgnoreCase(stName) || "Đã đóng gói".equalsIgnoreCase(stName)) {
+					shippingCnt += stVal;
+				} else if ("Đã hủy".equalsIgnoreCase(stName) || "Cancelled".equalsIgnoreCase(stName)) {
+					cancelledCnt += stVal;
+				} else {
+					pendingCnt += stVal;
+				}
 			}
 		}
+		long sumStatus = completedCnt + shippingCnt + pendingCnt + cancelledCnt;
+		int completedPct = sumStatus > 0 ? (int) Math.round(completedCnt * 100.0 / sumStatus) : 65;
+		int shippingPct = sumStatus > 0 ? (int) Math.round(shippingCnt * 100.0 / sumStatus) : 20;
+		int pendingPct = sumStatus > 0 ? (int) Math.round(pendingCnt * 100.0 / sumStatus) : 10;
+		int cancelledPct = sumStatus > 0 ? Math.max(0, 100 - completedPct - shippingPct - pendingPct) : 5;
+
 		m.addAttribute("statusLabels", statusLabels);
 		m.addAttribute("statusData", statusData);
+		m.addAttribute("completedPct", completedPct);
+		m.addAttribute("shippingPct", shippingPct);
+		m.addAttribute("pendingPct", pendingPct);
+		m.addAttribute("cancelledPct", cancelledPct);
 
 		// Recent orders (truy vấn 5 dòng mới nhất dưới DB)
 		List<ProductOrder> recentOrders = orderService.getRecentOrders(5);
@@ -306,7 +331,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/users")
-	public String getAllUsers(Model m, @RequestParam Integer type) {
+	public String getAllUsers(Model m, @RequestParam(defaultValue = "1") Integer type) {
 		List<UserDtls> users = null;
 		if (type == 1) {
 			users = userService.getUsers("ROLE_USER");
@@ -315,7 +340,7 @@ public class AdminController {
 		}
 		m.addAttribute("userType",type);
 		m.addAttribute("users", users);
-		return "/admin/users";
+		return "admin/users";
 	}
 
 	@GetMapping("/updateSts")
@@ -347,7 +372,7 @@ public class AdminController {
 		m.addAttribute("isFirst", page.isFirst());
 		m.addAttribute("isLast", page.isLast());
 
-		return "/admin/orders";
+		return "admin/orders";
 	}
 
 	@PostMapping("/update-order-status")
@@ -380,7 +405,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/search-order")
-	public String searchProduct(@RequestParam String orderId, Model m, HttpSession session,
+	public String searchProduct(@RequestParam(defaultValue = "") String orderId, Model m, HttpSession session,
 			@RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo,
 			@RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
 
@@ -402,7 +427,7 @@ public class AdminController {
 //			m.addAttribute("srch", false);
 
 			Page<ProductOrder> page = orderService.getAllOrdersPagination(pageNo, pageSize);
-			m.addAttribute("orders", page);
+			m.addAttribute("orders", page.getContent());
 			m.addAttribute("srch", false);
 
 			m.addAttribute("pageNo", page.getNumber());
@@ -413,13 +438,13 @@ public class AdminController {
 			m.addAttribute("isLast", page.isLast());
 
 		}
-		return "/admin/orders";
+		return "admin/orders";
 
 	}
 
 	@GetMapping("/add-admin")
 	public String loadAdminAdd() {
-		return "/admin/add_admin";
+		return "admin/add_admin";
 	}
 
 	@PostMapping("/save-admin")
@@ -441,7 +466,7 @@ public class AdminController {
 
 	@GetMapping("/profile")
 	public String profile() {
-		return "/admin/profile";
+		return "admin/profile";
 	}
 
 	@PostMapping("/update-profile")

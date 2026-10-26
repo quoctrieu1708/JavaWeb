@@ -184,7 +184,8 @@ tailwind.config = {
         <div class="relative group cursor-pointer">
           <div class="flex items-center gap-2.5">
             <img class="w-9 h-9 rounded-full object-cover border-2 border-[#D4AF37] shadow-sm"
-                 th:src="${user != null and user.profileImage != null ? '/img/profile_img/' + user.profileImage : 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop'}"
+                 th:src="${user != null and user.profileImage != null ? '/img/profile_img/' + user.profileImage : '/img/profile_img/ecom.png'}"
+                 onerror="this.onerror=null;this.src='/img/profile_img/ecom.png';"
                  alt="Admin VIP Avatar"/>
             <span class="text-sm font-semibold text-white hidden sm:inline" th:text="${user != null ? user.name : 'Admin VIP'}">Admin VIP</span>
             <span class="material-symbols-outlined text-sm text-[#8E8E93]">expand_more</span>
@@ -395,19 +396,19 @@ tailwind.config = {
         <div class="grid grid-cols-2 gap-2.5 text-xs pt-2 border-t border-[#222222]">
           <div class="flex items-center gap-2">
             <span class="w-3 h-3 rounded-full bg-emerald-500 shrink-0"></span>
-            <span class="text-[#A0A0A0]">Hoàn thành (65%)</span>
+            <span class="text-[#A0A0A0]">Hoàn thành ([[${completedPct != null ? completedPct : 65}]]%)</span>
           </div>
           <div class="flex items-center gap-2">
             <span class="w-3 h-3 rounded-full bg-[#D4AF37] shrink-0"></span>
-            <span class="text-[#A0A0A0]">Đang giao (20%)</span>
+            <span class="text-[#A0A0A0]">Đang giao ([[${shippingPct != null ? shippingPct : 20}]]%)</span>
           </div>
           <div class="flex items-center gap-2">
             <span class="w-3 h-3 rounded-full bg-amber-500 shrink-0"></span>
-            <span class="text-[#A0A0A0]">Chờ xử lý (10%)</span>
+            <span class="text-[#A0A0A0]">Chờ xử lý ([[${pendingPct != null ? pendingPct : 10}]]%)</span>
           </div>
           <div class="flex items-center gap-2">
             <span class="w-3 h-3 rounded-full bg-red-500 shrink-0"></span>
-            <span class="text-[#A0A0A0]">Đã hủy (5%)</span>
+            <span class="text-[#A0A0A0]">Đã hủy ([[${cancelledPct != null ? cancelledPct : 5}]]%)</span>
           </div>
         </div>
       </div>
@@ -446,12 +447,12 @@ tailwind.config = {
             <th:block th:if="${recentOrders != null and !#lists.isEmpty(recentOrders)}">
               <tr th:each="ord : ${recentOrders}" class="hover:bg-[#1A1A1A] transition-all">
                 <td class="p-4 font-bold text-[#D4AF37] font-mono" th:text="${'#' + ord.orderId}">#ORD-9821</td>
-                <td class="p-4 text-white font-medium" th:text="${ord.orderAddress != null ? ord.orderAddress.firstName + ' ' + ord.orderAddress.lastName : 'Khách hàng'}">Nguyễn Văn An</td>
+                <td class="p-4 text-white font-medium" th:text="${ord.orderAddress != null ? ord.orderAddress.fullName : 'Khách hàng'}">Nguyễn Văn An</td>
                 <td class="p-4 text-[#A0A0A0]" th:text="${ord.product != null ? ord.product.title : 'Sản phẩm cao cấp'}">Đồng hồ Rolex Submariner</td>
                 <td class="p-4 font-semibold text-white font-mono" th:text="${#numbers.formatDecimal(ord.price * ord.quantity, 0, 'POINT', 0, 'COMMA') + ' đ'}">450.000.000 đ</td>
                 <td class="p-4">
                   <span th:if="${ord.status == 'Đã giao hàng'}" class="px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Hoàn thành</span>
-                  <span th:if="${ord.status == 'Đang giao hàng'}" class="px-2.5 py-1 rounded-full text-xs font-medium bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20">Đang giao</span>
+                  <span th:if="${ord.status == 'Đang giao hàng' or ord.status == 'Đã đóng gói'}" class="px-2.5 py-1 rounded-full text-xs font-medium bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20">Đang giao</span>
                   <span th:if="${ord.status == 'Đang xử lý' or ord.status == 'Đã tiếp nhận'}" class="px-2.5 py-1 rounded-full text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">Chờ xử lý</span>
                   <span th:if="${ord.status == 'Đã hủy'}" class="px-2.5 py-1 rounded-full text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">Đã hủy</span>
                 </td>
@@ -619,6 +620,12 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // 3. Donut Chart: Trạng thái đơn hàng
+  /*<![CDATA[*/
+  var cPct = /*[[${completedPct != null ? completedPct : 65}]]*/ 65;
+  var sPct = /*[[${shippingPct != null ? shippingPct : 20}]]*/ 20;
+  var pPct = /*[[${pendingPct != null ? pendingPct : 10}]]*/ 10;
+  var xPct = /*[[${cancelledPct != null ? cancelledPct : 5}]]*/ 5;
+  /*]]>*/
   var donutCtx = document.getElementById('orderStatusChart');
   if (donutCtx) {
     new Chart(donutCtx, {
@@ -626,7 +633,7 @@ document.addEventListener("DOMContentLoaded", function() {
       data: {
         labels: ['Hoàn thành', 'Đang giao', 'Chờ xử lý', 'Đã hủy'],
         datasets: [{
-          data: [65, 20, 10, 5],
+          data: [cPct, sPct, pPct, xPct],
           backgroundColor: [
             '#10B981', // Emerald green
             '#D4AF37', // Gold

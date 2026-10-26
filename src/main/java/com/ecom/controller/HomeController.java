@@ -209,7 +209,7 @@ public class HomeController {
 
 	@GetMapping("/forgot-password")
 	public String showForgotPassword() {
-		return "forgot_password.html";
+		return "forgot_password";
 	}
 
 	@PostMapping("/forgot-password")
@@ -276,9 +276,20 @@ public class HomeController {
 	}
 
 	@GetMapping("/search")
-	public String searchProduct(@RequestParam String ch, Model m) {
+	public String searchProduct(@RequestParam(defaultValue = "") String ch, Model m) {
 		List<Product> searchProducts = productService.searchProduct(ch);
 		m.addAttribute("products", searchProducts);
+		m.addAttribute("productsSize", searchProducts != null ? searchProducts.size() : 0);
+		m.addAttribute("totalElements", searchProducts != null ? (long) searchProducts.size() : 0L);
+		m.addAttribute("totalPages", 1);
+		m.addAttribute("pageNo", 0);
+		m.addAttribute("pageSize", 12);
+		m.addAttribute("isFirst", true);
+		m.addAttribute("isLast", true);
+		m.addAttribute("paramValue", "");
+		m.addAttribute("encodedParamValue", "");
+		m.addAttribute("ch", ch);
+		m.addAttribute("sortBy", "latest");
 		List<Category> categories = categoryService.getAllActiveCategory();
 		m.addAttribute("categories", categories);
 		return "product";

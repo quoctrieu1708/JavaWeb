@@ -1,7 +1,7 @@
 package com.ecom.service.impl;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -10,8 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
+import com.ecom.exception.InsufficientStockException;
 import com.ecom.model.Cart;
 import com.ecom.model.OrderAddress;
 import com.ecom.model.OrderRequest;
@@ -43,7 +48,12 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private CommonUtil commonUtil;
 
+	/**
+	 * Đặt hàng trong MỘT giao dịch duy nhất: trừ kho, tăng lượt dùng voucher, tạo đơn và xóa giỏ.
+	 * Nếu bất kỳ sản phẩm nào không đủ tồn kho -> ném InsufficientStockException và rollback toàn bộ.
+	 */
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void saveOrder(Integer userid, OrderRequest orderRequest) throws Exception {
 
 		List<Cart> carts = cartRepository.findByUserId(userid);
@@ -51,7 +61,21 @@ public class OrderServiceImpl implements OrderService {
 			return;
 		}
 
-		// Calculate total order amount for voucher check
+		// 1. Trừ kho nguyên tử cho từng sản phẩm (UPDATE ... WHERE stock >= qty)
+		for (Cart cart : carts) {
+			int qty = cart.getQuantity() != null ? cart.getQuantity() : 0;
+			if (qty <= 0) {
+				throw new InsufficientStockException("Số lượng sản phẩm \"" + cart.getProduct().getTitle() + "\" không hợp lệ.");
+			}
+			int updated = productRepository.decreaseStock(cart.getProduct().getId(), qty);
+			if (updated == 0) {
+				throw new InsufficientStockException("Sản phẩm \"" + cart.getProduct().getTitle()
+						+ "\" không đủ hàng (còn " + Math.max(0, cart.getProduct().getStock())
+						+ " sản phẩm). Vui lòng cập nhật lại số lượng trong giỏ hàng.");
+			}
+		}
+
+		// 2. Tính tổng tiền & áp dụng voucher
 		double cartTotal = carts.stream()
 				.mapToDouble(c -> c.getProduct().getDiscountPrice() * c.getQuantity())
 				.sum();
@@ -67,8 +91,10 @@ public class OrderServiceImpl implements OrderService {
 			}
 		}
 
+		// 3. Tạo các dòng đơn hàng dùng chung một mã đơn
 		String sharedOrderId = UUID.randomUUID().toString();
 		com.ecom.model.UserDtls user = null;
+		List<ProductOrder> savedOrders = new ArrayList<>();
 
 		for (int i = 0; i < carts.size(); i++) {
 			Cart cart = carts.get(i);
@@ -90,12 +116,8 @@ public class OrderServiceImpl implements OrderService {
 
 			if (vCode != null) {
 				order.setVoucherCode(vCode);
-				// Phân bổ giảm giá cho item (hoặc lưu toàn bộ vào item đầu tiên)
-				if (i == 0) {
-					order.setDiscountAmount(totalDiscount);
-				} else {
-					order.setDiscountAmount(0.0);
-				}
+				// Lưu toàn bộ giảm giá vào dòng đầu tiên của đơn hàng
+				order.setDiscountAmount(i == 0 ? totalDiscount : 0.0);
 			}
 
 			OrderAddress address = new OrderAddress();
@@ -108,23 +130,13 @@ public class OrderServiceImpl implements OrderService {
 
 			order.setOrderAddress(address);
 
-			ProductOrder saveOrder = orderRepository.save(order);
-
-			// Deduct stock
-			com.ecom.model.Product product = cart.getProduct();
-			product.setStock(product.getStock() - cart.getQuantity());
-			productRepository.save(product);
-
-			try {
-				commonUtil.sendMailForProductOrder(saveOrder, "success");
-			} catch (Exception e) {
-				System.err.println("Gửi email thông báo đơn hàng thất bại: " + e.getMessage());
-			}
+			savedOrders.add(orderRepository.save(order));
 		}
-		// Clear cart
+
+		// 4. Xóa giỏ hàng
 		cartRepository.deleteAll(carts);
 
-		// Send system notification to user
+		// 5. Thông báo trong hệ thống
 		if (user != null) {
 			notificationService.createNotification(
 					user,
@@ -134,6 +146,9 @@ public class OrderServiceImpl implements OrderService {
 					"/user/user-orders"
 			);
 		}
+
+		// 6. Gửi MỘT email xác nhận (bất đồng bộ) chỉ sau khi giao dịch commit thành công
+		runAfterCommit(() -> commonUtil.sendOrderConfirmationMail(savedOrders, OrderStatus.IN_PROGRESS.getName()));
 	}
 
 	@Override
@@ -142,11 +157,37 @@ public class OrderServiceImpl implements OrderService {
 		return orders;
 	}
 
+	/**
+	 * Cập nhật trạng thái đơn hàng. Tự động hoàn kho khi chuyển sang "Đã hủy"
+	 * và trừ kho lại nếu khôi phục một đơn đã hủy.
+	 */
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public ProductOrder updateOrderStatus(Integer id, String status) {
+		if (status == null) {
+			return null;
+		}
 		Optional<ProductOrder> findById = orderRepository.findById(id);
 		if (findById.isPresent()) {
 			ProductOrder productOrder = findById.get();
+			String oldStatus = productOrder.getStatus();
+			String cancelName = OrderStatus.CANCEL.getName();
+
+			if (productOrder.getProduct() != null && productOrder.getQuantity() != null) {
+				Integer productId = productOrder.getProduct().getId();
+				int qty = productOrder.getQuantity();
+				if (cancelName.equals(status) && !cancelName.equals(oldStatus)) {
+					// Hủy đơn -> hoàn trả tồn kho
+					productRepository.increaseStock(productId, qty);
+				} else if (cancelName.equals(oldStatus) && !cancelName.equals(status)) {
+					// Khôi phục đơn đã hủy -> trừ kho lại (nếu còn đủ)
+					if (productRepository.decreaseStock(productId, qty) == 0) {
+						throw new InsufficientStockException("Không thể khôi phục đơn hàng: sản phẩm \""
+								+ productOrder.getProduct().getTitle() + "\" không đủ tồn kho.");
+					}
+				}
+			}
+
 			productOrder.setStatus(status);
 			ProductOrder updateOrder = orderRepository.save(productOrder);
 
@@ -160,6 +201,9 @@ public class OrderServiceImpl implements OrderService {
 						"/user/user-orders"
 				);
 			}
+
+			// Email thông báo (bất đồng bộ) sau khi commit
+			runAfterCommit(() -> commonUtil.sendMailForProductOrder(updateOrder, status));
 
 			return updateOrder;
 		}
@@ -180,7 +224,67 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public ProductOrder getOrdersByOrderId(String orderId) {
-		return orderRepository.findByOrderId(orderId);
+		List<ProductOrder> items = orderRepository.findAllByOrderId(orderId);
+		return items.isEmpty() ? null : items.get(0);
+	}
+
+	@Override
+	public ProductOrder getOrderItemById(Integer id) {
+		return orderRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public List<ProductOrder> getOrderItemsByOrderId(String orderId) {
+		return orderRepository.findAllByOrderId(orderId);
+	}
+
+	@Override
+	public List<ProductOrder> getRecentOrders(int limit) {
+		return orderRepository.findAll(PageRequest.of(0, limit, Sort.by("id").descending())).getContent();
+	}
+
+	@Override
+	public Double getTotalRevenue() {
+		return orderRepository.getTotalRevenue();
+	}
+
+	@Override
+	public Long countOrders() {
+		return orderRepository.count();
+	}
+
+	@Override
+	public Long countByStatus(String status) {
+		return orderRepository.countByStatus(status);
+	}
+
+	@Override
+	public List<Object[]> getRevenueByDate() {
+		return orderRepository.getRevenueByDate();
+	}
+
+	@Override
+	public List<Object[]> getOrderStatusCounts() {
+		return orderRepository.getOrderStatusCounts();
+	}
+
+	@Override
+	public List<Object[]> getTopSellingProducts(int limit) {
+		return orderRepository.getTopSellingProducts(PageRequest.of(0, limit));
+	}
+
+	/** Thực thi tác vụ sau khi giao dịch hiện tại commit; nếu không có giao dịch thì chạy ngay. */
+	private void runAfterCommit(Runnable task) {
+		if (TransactionSynchronizationManager.isSynchronizationActive()) {
+			TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+				@Override
+				public void afterCommit() {
+					task.run();
+				}
+			});
+		} else {
+			task.run();
+		}
 	}
 
 }

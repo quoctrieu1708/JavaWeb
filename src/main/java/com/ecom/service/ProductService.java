@@ -37,4 +37,9 @@ public interface ProductService {
 
 	public Long countOutOfStock();
 
+	public Long countProducts();
+
+	/** Lấy N sản phẩm đang bán mới nhất bằng truy vấn phân trang dưới DB. */
+	public List<Product> getLatestActiveProducts(int limit);
+
 }

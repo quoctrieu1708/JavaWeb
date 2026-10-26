@@ -18,7 +18,7 @@
 							<input type="hidden" name="category" th:value="${paramValue}">
 							<input type="hidden" name="sortBy" th:value="${sortBy}">
 							<div class="input-group shadow-lg">
-								<input type="text" class="form-control form-control-lg border-0 px-4" name="ch" th:value="${ch}" placeholder="Tìm kiếm sản phẩm, phụ kiện công nghệ..." autocomplete="off" oninput="handleLiveSearch(this, 'productPageSearchDropdown')">
+								<input type="text" class="form-control form-control-lg border-0 px-4" name="ch" th:value="${ch}" placeholder="Tìm kiếm sản phẩm, phụ kiện công nghệ..." autocomplete="off" data-search-target="productPageSearchDropdown">
 								<button class="btn btn-gold px-4 fw-bold" type="submit">
 									<i class="fa-solid fa-magnifying-glass me-1"></i> Tìm kiếm
 								</button>
@@ -140,7 +140,7 @@
 
 										<!-- Product Thumbnail -->
 										<div class="product-thumb-wrap">
-											<img th:src="@{'/img/product_img/'+${p.image}}" th:alt="${p.title}">
+											<img th:src="@{'/img/product_img/'+${p.image}}" th:alt="${p.title}" loading="lazy">
 											<div th:if="${p.stock <= 0}" class="position-absolute top-50 start-50 translate-middle badge bg-dark bg-opacity-75 text-white px-3 py-2">
 												HẾT HÀNG
 											</div>

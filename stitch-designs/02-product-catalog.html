@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>E-COMMERCE - Danh Sách &amp; Bộ Lọc Sản Phẩm</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-dim": "#a4000e",
+            "on-error-container": "#520c00",
+            "inverse-surface": "#0c0f0f",
+            "on-secondary-container": "#525151",
+            "background": "#f6f6f6",
+            "on-secondary": "#f5f2f1",
+            "surface-container-lowest": "#ffffff",
+            "error": "#b02500",
+            "primary-fixed": "#f5ce53",
+            "tertiary-container": "#ff9287",
+            "primary-fixed-dim": "#e6c047",
+            "surface": "#f6f6f6",
+            "outline-variant": "#acadad",
+            "on-tertiary-fixed": "#3a0002",
+            "tertiary-fixed": "#ff9287",
+            "surface-container": "#e7e8e8",
+            "primary-dim": "#624d00",
+            "on-error": "#ffefec",
+            "secondary-dim": "#504f4f",
+            "secondary": "#5c5b5b",
+            "outline": "#767777",
+            "on-primary-fixed-variant": "#634e00",
+            "error-container": "#f95630",
+            "on-primary": "#fff1d4",
+            "secondary-fixed-dim": "#d7d4d3",
+            "on-secondary-fixed-variant": "#5c5b5b",
+            "error-dim": "#b92902",
+            "secondary-fixed": "#e5e2e1",
+            "secondary-container": "#e5e2e1",
+            "tertiary": "#ba0012",
+            "surface-container-highest": "#dbdddd",
+            "on-tertiary": "#ffefed",
+            "surface-tint": "#705900",
+            "surface-container-high": "#e1e3e3",
+            "inverse-on-surface": "#9c9d9d",
+            "on-tertiary-fixed-variant": "#7a0008",
+            "surface-container-low": "#f0f1f1",
+            "on-tertiary-container": "#690006",
+            "surface-dim": "#d3d5d5",
+            "primary": "#705900",
+            "surface-bright": "#f6f6f6",
+            "primary-container": "#f5ce53",
+            "on-primary-fixed": "#413200",
+            "on-primary-container": "#584500",
+            "on-surface": "#2d2f2f",
+            "on-background": "#2d2f2f",
+            "on-secondary-fixed": "#403f3f",
+            "surface-variant": "#dbdddd",
+            "on-surface-variant": "#5a5c5c",
+            "tertiary-fixed-dim": "#ff7b6f",
+            "inverse-primary": "#f5ce53",
+            "luxury-dark": "#111111",
+            "luxury-card": "#1A1A1A",
+            "luxury-gold": "#D4AF37",
+            "luxury-light-gold": "#F5D77F",
+            "luxury-dark-gold": "#996515"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "3xl": "1.5rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "headline": ["Plus Jakarta Sans"],
+            "display": ["Plus Jakarta Sans"],
+            "body": ["Be Vietnam Pro"],
+            "label": ["Be Vietnam Pro"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #111111;
+      color: #f6f6f6;
+      font-family: 'Be Vietnam Pro', sans-serif;
+    }
+    .font-headline {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-luxury-dark text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<nav class="bg-inverse-surface/95 dark:bg-inverse-surface/95 backdrop-blur-md docked full-width top-0 sticky z-50 border-b border-primary-fixed/20 dark:border-primary-fixed/20 shadow-md">
+<div class="w-full max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+<div class="flex items-center gap-8">
+<a class="font-headline font-extrabold tracking-wider text-xl text-primary-fixed dark:text-primary-fixed flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">diamond</span>
+          E-COMMERCE
+        </a>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-surface-bright/80 dark:text-surface-bright/80 font-normal hover:text-primary-fixed transition-colors duration-200 text-sm font-medium" href="#">Trang chủ</a>
+<a class="text-primary-fixed dark:text-primary-fixed font-semibold border-b-2 border-primary-fixed pb-1 text-sm font-medium" href="#">Bộ sưu tập</a>
+<a class="text-surface-bright/80 dark:text-surface-bright/80 font-normal hover:text-primary-fixed transition-colors duration-200 text-sm font-medium" href="#">Flash Sale</a>
+<a class="text-surface-bright/80 dark:text-surface-bright/80 font-normal hover:text-primary-fixed transition-colors duration-200 text-sm font-medium" href="#">Thương hiệu nổi bật</a>
+<a class="text-surface-bright/80 dark:text-surface-bright/80 font-normal hover:text-primary-fixed transition-colors duration-200 text-sm font-medium" href="#">Hàng mới về</a>
+<a class="text-surface-bright/80 dark:text-surface-bright/80 font-normal hover:text-primary-fixed transition-colors duration-200 text-sm font-medium" href="#">Ưu đãi VIP</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-surface-bright hover:text-primary-fixed transition-colors p-2 rounded-full active:scale-95 transition-transform duration-150 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="text-surface-bright hover:text-primary-fixed transition-colors p-2 rounded-full active:scale-95 transition-transform duration-150 relative">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="absolute -top-1 -right-1 bg-primary-fixed text-luxury-dark font-bold text-[10px] w-4 h-4 rounded-full flex items-center justify-center">3</span>
+</button>
+<div class="hidden lg:flex items-center gap-3 pl-3 border-l border-surface-bright/20">
+<img class="w-9 h-9 rounded-full object-cover border border-primary-fixed" data-alt="Ảnh chân dung cận cảnh một khách hàng VIP lịch lãm trong trang phục sang trọng, bối cảnh nội thất biệt thự cao cấp ánh đèn vàng ấm áp, chất lượng chi tiết cao, phong cách nghệ thuật nhiếp ảnh thương mại." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCT0JRUppFsIr4JpafAti0LWssO54et6zOcHQ6uN61yVeQ097juHzPC_6aKPAwYKKK2golgvmfDtYrR6Hz4uYr9aa4050q6aTKyQHM5ulzTHIWeYHVM6SE2Dx8P0sFDsNd8UFMDqkzNPuQS7vowyvW7XjW6Q3mXbvq38ywR931rkWoxkEADzUT4KrZWw2ndCTtEQzfEjtyXUIYHYRR8SiOr4qU5Y4T8drQP8rXIRfxLka8lnwnQeYXXdazOkNccJDEVZE1x-Gk_YrV3"/>
+<div class="text-left">
+<div class="text-xs text-surface-bright/60">Xin chào,</div>
+<div class="text-sm font-bold text-primary-fixed">Thành viên VIP</div>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-2">
+<a class="text-surface-bright hover:text-primary-fixed text-sm font-medium px-3 py-1.5 transition-colors" href="#">Đăng nhập</a>
+<a class="bg-primary-fixed text-luxury-dark font-bold text-sm px-4 py-2 rounded-xl shadow-lg hover:bg-luxury-light-gold transition-all active:scale-95" href="#">Đăng ký</a>
+</div>
+</div>
+</div>
+</nav>
+<!-- Banner tìm kiếm cao cấp -->
+<header class="relative bg-gradient-to-b from-[#1A1A1A] to-[#111111] py-12 px-6 border-b border-primary-fixed/10">
+<div class="max-w-5xl mx-auto text-center space-y-6 relative z-10">
+<h1 class="font-headline font-extrabold text-3xl md:text-5xl text-surface-bright tracking-tight">
+        Khám Phá <span class="text-primary-fixed">Đỉnh Cao Công Nghệ</span> &amp; Xa Xỉ
+      </h1>
+<p class="text-surface-bright/70 max-w-2xl mx-auto text-sm md:text-base font-body">
+        Hơn 2.400+ sản phẩm siêu sang được tuyển chọn khắt khe dành riêng cho giới thượng lưu và những người sành điệu nhất.
+      </p>
+<!-- Ô input tìm kiếm lớn kèm dropdown gợi ý -->
+<div class="relative max-w-3xl mx-auto mt-6">
+<div class="flex items-center bg-luxury-card border-2 border-primary-fixed/40 rounded-2xl p-2 shadow-2xl focus-within:border-primary-fixed transition-all">
+<span class="material-symbols-outlined text-primary-fixed ml-3 text-2xl">search</span>
+<input class="w-full bg-transparent border-none text-surface-bright placeholder-surface-bright/40 focus:ring-0 px-4 text-base font-body" placeholder="Tìm kiếm đồng hồ Thụy Sỹ, Smartphone Flagship, Âm thanh Hi-End..." type="text"/>
+<button class="bg-primary-fixed hover:bg-luxury-light-gold text-luxury-dark font-headline font-bold px-6 py-3 rounded-xl transition-all flex items-center gap-2 shadow-md active:scale-95">
+<span>Tìm kiếm</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<!-- Dropdown gợi ý 5 sản phẩm nổi bật -->
+<div class="absolute left-0 right-0 top-full mt-2 bg-luxury-card border border-primary-fixed/30 rounded-2xl shadow-2xl overflow-hidden z-30 divide-y divide-primary-fixed/10 text-left">
+<div class="px-4 py-2.5 text-xs font-bold text-primary-fixed uppercase tracking-wider bg-inverse-surface/50">
+            Gợi ý sản phẩm nổi bật
+          </div>
+<!-- Item 1 -->
+<a class="flex items-center gap-4 px-4 py-3 hover:bg-surface-bright/5 transition-colors group" href="#">
+<img class="w-12 h-12 rounded-xl object-cover border border-primary-fixed/30 group-hover:border-primary-fixed transition-colors" data-alt="Cận cảnh chiếc đồng hồ Thụy Sỹ cơ lộ máy cao cấp với vỏ vàng nguyên khối, dây da cá sấu đen bóng, chi tiết bánh răng tinh xảo, ánh sáng studio làm nổi bật độ bóng bẩy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbphyFnFE7odUwRhFkx2FI6OKO2bCqoyTR_7_y8swKvvjgQd1j4uHdwPgdQVZzSXM2_OGMM7e8D13OLKtWW2bb2iE2CP1wKMMRBx-wUpHUq_rEtU0QLfq1uEyXaVQzXCPFwMjQHrsytMtlk2LoR11VN9ageqI0T5Y_ygA6339c9J5R0fVt4LKqMiMBScnMPZAva6wyYFCeBYhuV7mhBzT7Dl733sUw0QSaVWZy2Lg0M2I_xnwnavfpXPZdh9VOpnJlh4rWQIfO_zjt"/>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-surface-bright group-hover:text-primary-fixed transition-colors">Rolex Cosmograph Daytona Gold Edition</h4>
+<p class="text-xs text-surface-bright/60">Đồng hồ Thụy Sỹ • Fullbox chính hãng</p>
+</div>
+<div class="text-right font-headline font-bold text-primary-fixed">
+              1.250.000.000 đ
+            </div>
+</a>
+<!-- Item 2 -->
+<a class="flex items-center gap-4 px-4 py-3 hover:bg-surface-bright/5 transition-colors group" href="#">
+<img class="w-12 h-12 rounded-xl object-cover border border-primary-fixed/30 group-hover:border-primary-fixed transition-colors" data-alt="Điện thoại thông minh flagship khung viền titanium vàng ánh kim cao cấp, màn hình cong tràn viền sắc nét hiển thị hình nền trừu tượng sang trọng, đặt trên mặt bàn đá cẩm thạch." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIDF-pIfrQ96NR8AjspEXgkSQC_asG_u-U4ijhzNViCg2uJFlDLyoINz4H2AmJ5pwSePXT5qKQKU3lGoOFJMqzdW-3SIwem4dIOTKrf-cluTKkXbqbAZmar-4ZkiwN7zqH3giyHD2mQp5RTYdr3uAE92-cXYHpVbP7hk8d0FQ9Qro9_PiRE8voBtesTDYizARmQ_u-JVpp-AfwYUOAYXcFM9eJRmQhWOVAuhDd0R3HMDPgMWIv3qb1nGd_xlJ9Oz7QcMKJOS_k4U8y"/>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-surface-bright group-hover:text-primary-fixed transition-colors">Vertu MetaVertu II Web3 5G Titanium Gold</h4>
+<p class="text-xs text-surface-bright/60">Smartphone &amp; Flagship • Phiên bản giới hạn</p>
+</div>
+<div class="text-right font-headline font-bold text-primary-fixed">
+              185.000.000 đ
+            </div>
+</a>
+<!-- Item 3 -->
+<a class="flex items-center gap-4 px-4 py-3 hover:bg-surface-bright/5 transition-colors group" href="#">
+<img class="w-12 h-12 rounded-xl object-cover border border-primary-fixed/30 group-hover:border-primary-fixed transition-colors" data-alt="Hệ thống loa âm thanh hi-end cao cấp bọc da thủ công màu đen tuyền kết hợp mạ vàng chi tiết màng loa, thiết kế hình khối tối giản đặt trong phòng nghe nhạc đẳng cấp." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCA8SZ9IsZMn7v-sFY5oGNz9CpbbVlSCSPOUQPtdXSzn8nLZX8HJRwpxFkcHcXpgEeb3pox1oSHJbYSpP_7k8Cg7Pf_2HI2i_tPk9mKIzseGycGP4WtnoSvCqBTLEgV2wt65weoorvHyNeejWbjtftPHHlMyIgesKFIWap9w34SNhhXQjG1mWljJ1bz8I3sPjZnalTCncQKpK3Iv7c52qbuSBh871wMEZlPOab6Rwzey6TgmJHvEcraZZCTF66BdfmlTRbLnsQlptLR"/>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-surface-bright group-hover:text-primary-fixed transition-colors">Devialet Phantom I 105dB Gold Opéra</h4>
+<p class="text-xs text-surface-bright/60">Âm thanh Hi-End • Công suất đỉnh cao</p>
+</div>
+<div class="text-right font-headline font-bold text-primary-fixed">
+              98.500.000 đ
+            </div>
+</a>
+<!-- Item 4 -->
+<a class="flex items-center gap-4 px-4 py-3 hover:bg-surface-bright/5 transition-colors group" href="#">
+<img class="w-12 h-12 rounded-xl object-cover border border-primary-fixed/30 group-hover:border-primary-fixed transition-colors" data-alt="Laptop doanh nhân siêu mỏng nhẹ khung hợp kim magie màu xám khói, bàn phím có đèn nền sang trọng, logo thương hiệu khắc laser tinh tế trên mặt lưng." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFwu55lfRmHlAaN2KgkOzWkVobVoIxxVeObLQACnZ9GyFaz3MK2qX-gBZgGPW73zat1Ojvwyqdrz4W2T42cyPLDwh-gzCDTQY8jAG54RlsZTwIE7t_qwOVKE6OmqwqXA1p92OTICFagvAvgNcAhv8zZp88Ro0eBQDaxTwW1ffNQTlfl__3cfK-ZnSqt4DYBZScJXaCwtEQHKsU6DLUN_WgJsA6oal-mMs03n2hq3KU17-CrsScFIwR2ee_uRd5C_fqZVSFy-FEBpQv"/>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-surface-bright group-hover:text-primary-fixed transition-colors">MacBook Pro 16 M3 Max Custom Gold Edition</h4>
+<p class="text-xs text-surface-bright/60">Laptop Doanh nhân • 128GB RAM / 8TB SSD</p>
+</div>
+<div class="text-right font-headline font-bold text-primary-fixed">
+              145.000.000 đ
+            </div>
+</a>
+<!-- Item 5 -->
+<a class="flex items-center gap-4 px-4 py-3 hover:bg-surface-bright/5 transition-colors group" href="#">
+<img class="w-12 h-12 rounded-xl object-cover border border-primary-fixed/30 group-hover:border-primary-fixed transition-colors" data-alt="Túi xách da cá sấu thượng hạng màu đen bóng với khóa cài mạ vàng 24k sáng lấp lánh, thiết kế thủ công tinh xảo từng đường kim mũi chỉ." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4o2yahbvcekopviyD_6tGEXQTzaPr8fOA3WPgS5MacRHpgmM5zI55PhhmKZb4mr1MTDZcBYOLVGQsLDFfLcE3btce3GGgNDWxbhX9ckf5D13SDzNSgNcFFW3G-ZKm83FPaZJ0Iz4CxvgmYMxmlCLt6hZ2TscRZfiYY1PTG1WosA0dRLFJJw0amwTl_RXtSKm1cX92E8ia4OwfQVAkd0q2wJBv0t-iBegnQFhpJr0KByK2kcqnfN0wY4q5nOQHCMYuBwbyHEu75G22"/>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-surface-bright group-hover:text-primary-fixed transition-colors">Hermès Birkin 35 Black Crocodile Gold Hardware</h4>
+<p class="text-xs text-surface-bright/60">Thời trang &amp; Phụ kiện • Hàng sưu tầm hiếm</p>
+</div>
+<div class="text-right font-headline font-bold text-primary-fixed">
+              1.850.000.000 đ
+            </div>
+</a>
+</div>
+</div>
+</div>
+</header>
+<!-- Bố cục 2 cột chính -->
+<main class="max-w-7xl mx-auto px-6 py-10">
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+<!-- Cột trái: Sidebar Bộ lọc chi tiết (280px) -->
+<aside class="lg:col-span-1 space-y-8 bg-luxury-card p-6 rounded-2xl border border-primary-fixed/20 shadow-xl h-fit sticky top-28">
+<div class="flex items-center justify-between pb-4 border-b border-primary-fixed/20">
+<div class="flex items-center gap-2 font-headline font-bold text-lg text-primary-fixed">
+<span class="material-symbols-outlined">tune</span>
+            Bộ Lọc Tìm Kiếm
+          </div>
+<button class="text-xs text-surface-bright/60 hover:text-primary-fixed underline transition-colors">Xóa tất cả</button>
+</div>
+<!-- Danh mục sản phẩm (Checkbox) -->
+<div class="space-y-4">
+<h3 class="font-headline font-bold text-sm text-surface-bright uppercase tracking-wider">Danh Mục Sản Phẩm</h3>
+<div class="space-y-3">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-4 h-4 rounded bg-luxury-dark border-primary-fixed/50 text-primary-fixed focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="text-sm text-surface-bright/80 group-hover:text-primary-fixed transition-colors">Smartphone &amp; Flagship</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-4 h-4 rounded bg-luxury-dark border-primary-fixed/50 text-primary-fixed focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="text-sm text-surface-bright/80 group-hover:text-primary-fixed transition-colors">Đồng hồ Thụy Sỹ</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-4 h-4 rounded bg-luxury-dark border-primary-fixed/50 text-primary-fixed focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="text-sm text-surface-bright/80 group-hover:text-primary-fixed transition-colors">Âm thanh Hi-End</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-4 h-4 rounded bg-luxury-dark border-primary-fixed/50 text-primary-fixed focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="text-sm text-surface-bright/80 group-hover:text-primary-fixed transition-colors">Laptop Doanh nhân</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-4 h-4 rounded bg-luxury-dark border-primary-fixed/50 text-primary-fixed focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="text-sm text-surface-bright/80 group-hover:text-primary-fixed transition-colors">Thời trang &amp; Phụ kiện</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-4 h-4 rounded bg-luxury-dark border-primary-fixed/50 text-primary-fixed focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="text-sm text-surface-bright/80 group-hover:text-primary-fixed transition-colors">Siêu xe &amp; Đồ sưu tầm</span>
+</label>
+</div>
+</div>
+<hr class="border-primary-fixed/10"/>
+<!-- Khoảng giá -->
+<div class="space-y-4">
+<h3 class="font-headline font-bold text-sm text-surface-bright uppercase tracking-wider">Khoảng Giá (VND)</h3>
+<div class="space-y-3">
+<div class="flex items-center gap-2">
+<input class="w-full bg-luxury-dark border border-primary-fixed/30 rounded-xl px-3 py-2 text-sm text-surface-bright focus:border-primary-fixed focus:ring-0" placeholder="Từ" type="text" value="0"/>
+<span class="text-surface-bright/50">-</span>
+<input class="w-full bg-luxury-dark border border-primary-fixed/30 rounded-xl px-3 py-2 text-sm text-surface-bright focus:border-primary-fixed focus:ring-0" placeholder="Đến" type="text" value="2.000.000.000"/>
+</div>
+<div class="space-y-2 pt-2">
+<button class="w-full text-left text-xs text-surface-bright/70 hover:text-primary-fixed py-1 transition-colors flex items-center justify-between">
+<span>Dưới 50 Triệu</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+<button class="w-full text-left text-xs text-surface-bright/70 hover:text-primary-fixed py-1 transition-colors flex items-center justify-between">
+<span>50 Triệu - 200 Triệu</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+<button class="w-full text-left text-xs text-surface-bright/70 hover:text-primary-fixed py-1 transition-colors flex items-center justify-between">
+<span>200 Triệu - 1 Tỷ</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+<button class="w-full text-left text-xs text-surface-bright/70 hover:text-primary-fixed py-1 transition-colors flex items-center justify-between">
+<span>Trên 1 Tỷ VND</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<hr class="border-primary-fixed/10"/>
+<!-- Thương hiệu -->
+<div class="space-y-4">
+<h3 class="font-headline font-bold text-sm text-surface-bright uppercase tracking-wider">Thương Hiệu</h3>
+<div class="space-y-2">
+<label class="flex items-center gap-3 cursor-pointer">
+<input class="w-4 h-4 rounded bg-luxury-dark border-primary-fixed/50 text-primary-fixed" type="checkbox"/>
+<span class="text-sm text-surface-bright/80">Rolex</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer">
+<input class="w-4 h-4 rounded bg-luxury-dark border-primary-fixed/50 text-primary-fixed" type="checkbox"/>
+<span class="text-sm text-surface-bright/80">Vertu</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer">
+<input class="w-4 h-4 rounded bg-luxury-dark border-primary-fixed/50 text-primary-fixed" type="checkbox"/>
+<span class="text-sm text-surface-bright/80">Devialet</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer">
+<input class="w-4 h-4 rounded bg-luxury-dark border-primary-fixed/50 text-primary-fixed" type="checkbox"/>
+<span class="text-sm text-surface-bright/80">Hermès</span>
+</label>
+</div>
+</div>
+<button class="w-full bg-primary-fixed hover:bg-luxury-light-gold text-luxury-dark font-headline font-bold py-3 rounded-xl transition-all shadow-lg active:scale-95">
+          Áp Dụng Bộ Lọc
+        </button>
+</aside>
+<!-- Cột phải: Nội dung chính -->
+<div class="lg:col-span-3 space-y-6">
+<!-- Thanh công cụ sắp xếp (Sorting toolbar) -->
+<div class="bg-luxury-card p-4 rounded-2xl border border-primary-fixed/20 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="text-sm text-surface-bright/80">
+            Hiển thị <span class="font-bold text-primary-fixed">12</span> trên tổng số <span class="font-bold text-primary-fixed">2.418</span> sản phẩm
+          </div>
+<div class="flex items-center gap-4 w-full sm:w-auto justify-end">
+<div class="flex items-center gap-2">
+<span class="text-xs text-surface-bright/60">Sắp xếp:</span>
+<select class="bg-luxury-dark border border-primary-fixed/30 rounded-xl text-sm text-surface-bright py-2 px-3 focus:border-primary-fixed focus:ring-0">
+<option>Mới nhất</option>
+<option>Giá tăng dần</option>
+<option>Giá giảm dần</option>
+<option>Đánh giá cao nhất</option>
+</select>
+</div>
+<div class="flex items-center gap-1 bg-luxury-dark p-1 rounded-xl border border-primary-fixed/20">
+<button class="p-1.5 bg-primary-fixed text-luxury-dark rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-sm">grid_view</span>
+</button>
+<button class="p-1.5 text-surface-bright/60 hover:text-surface-bright rounded-lg transition-colors">
+<span class="material-symbols-outlined text-sm">view_list</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Lưới 12 thẻ sản phẩm (Product Cards) sang trọng -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="bg-luxury-card rounded-2xl border border-primary-fixed/30 overflow-hidden shadow-2xl hover:border-primary-fixed transition-all duration-300 group flex flex-col justify-between">
+<div class="relative overflow-hidden aspect-square bg-inverse-surface">
+<div class="absolute top-3 left-3 z-10 bg-error text-on-error text-xs font-bold px-2.5 py-1 rounded-lg shadow-md">-22%</div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Đồng hồ Rolex thể thao mạ vàng hoàng gia 18k, mặt số đen tuyền đính kim cương lấp lánh, chụp cận cảnh sắc nét trong phòng trưng bày ánh sáng vàng nghệ thuật." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC39kdSuxUbkXdoHG_zSirbsLsaeHWKFNi_KOz4No774sFI3NIOe4sgcNxumGO3p9zfHv-E4Z7BdE2OxOmPhllbECBmNe2LhVkgh9Y-nwhkHtWlYnKI2538nHZYmxTHHm00QKM_kQWdI3aZz-rkgqeDtwVszxYZ_VUDCP8VRpb6AWoHmTj9Doh_2V1AhpmZw2T4MTWNbgNx5RsrrJTUxShfdqzJNjjj9R8YPraYKd1A4sUmG9srgBeHx3nmD-uh-_fHEbUCZG6yaiR5"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+<div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
+<div>
+<span class="text-xs font-medium text-surface-bright/50 uppercase tracking-wider">Rolex • Thụy Sỹ</span>
+<h3 class="font-headline font-bold text-base text-surface-bright mt-1 group-hover:text-primary-fixed transition-colors line-clamp-1">Rolex Submariner Date Yellow Gold</h3>
+</div>
+<div class="flex items-center gap-1 text-primary-fixed text-xs">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-surface-bright/60 ml-1">(5.0)</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-primary-fixed/10">
+<div>
+<div class="text-xs text-surface-bright/40 line-through">1.150.000.000 đ</div>
+<div class="font-headline font-extrabold text-lg text-primary-fixed">895.000.000 đ</div>
+</div>
+<button class="bg-primary-fixed hover:bg-luxury-light-gold text-luxury-dark font-headline font-bold p-2.5 rounded-xl transition-all shadow-md active:scale-95 flex items-center gap-1 text-xs">
+<span class="material-symbols-outlined text-sm">shopping_bag</span>
+<span>Thêm</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-luxury-card rounded-2xl border border-primary-fixed/30 overflow-hidden shadow-2xl hover:border-primary-fixed transition-all duration-300 group flex flex-col justify-between">
+<div class="relative overflow-hidden aspect-square bg-inverse-surface">
+<div class="absolute top-3 left-3 z-10 bg-error text-on-error text-xs font-bold px-2.5 py-1 rounded-lg shadow-md">-35%</div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Điện thoại Vertu thiết kế bọc da bê màu nâu đậm kết hợp khung titan mạ vàng lấp lánh, đặt trên bàn làm việc giám đốc sang trọng." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgze5W4XJPVDtH1MSYEGopL9g-oUFtnOjVYFop3UT-Reyd9buFAZzEbmrgD4cN0LY4gPgbaCAno5iIGHqBPyrcR64j246V2eSRXysTmeo5nZI3NNvAtmFlsAsFH85O0dtIOVvtaYZG1hWxYaPbfCUHd_zJPh1LsuEdeYbRfjyxOvixnbC6UOrbaRslYrF7EchUMCqH50LPk4zM3egQTr5QUoT8i3gbLW7Sa0kjLPfsBBNzzIBgJLxnwSn1Rk5ztrGkWsW7oK6pXqV6"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+<div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
+<div>
+<span class="text-xs font-medium text-surface-bright/50 uppercase tracking-wider">Vertu • Anh Quốc</span>
+<h3 class="font-headline font-bold text-base text-surface-bright mt-1 group-hover:text-primary-fixed transition-colors line-clamp-1">Vertu Aster P Gold Brown Alligator</h3>
+</div>
+<div class="flex items-center gap-1 text-primary-fixed text-xs">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-surface-bright/60 ml-1">(5.0)</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-primary-fixed/10">
+<div>
+<div class="text-xs text-surface-bright/40 line-through">220.000.000 đ</div>
+<div class="font-headline font-extrabold text-lg text-primary-fixed">142.500.000 đ</div>
+</div>
+<button class="bg-primary-fixed hover:bg-luxury-light-gold text-luxury-dark font-headline font-bold p-2.5 rounded-xl transition-all shadow-md active:scale-95 flex items-center gap-1 text-xs">
+<span class="material-symbols-outlined text-sm">shopping_bag</span>
+<span>Thêm</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-luxury-card rounded-2xl border border-primary-fixed/30 overflow-hidden shadow-2xl hover:border-primary-fixed transition-all duration-300 group flex flex-col justify-between">
+<div class="relative overflow-hidden aspect-square bg-inverse-surface">
+<div class="absolute top-3 left-3 z-10 bg-luxury-gold text-luxury-dark text-xs font-bold px-2.5 py-1 rounded-lg shadow-md">VIP</div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Hệ thống loa không dây Devialet Phantom phiên bản giới hạn mạ vàng 24 cara phát sáng rực rỡ trong phòng khách biệt thự hiện đại." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDW-YaeIPHR7JPSDEo_2Y8r7JkNAnZ5_deQg4rFVofDUS4o724WuKiA34dnz7J1wZ34nMIAstCqrqXhcAoGCfnAxAJLBIJXvPUKRSSj4djWJwlRL1-OTqhAM_zS9APv9bKhPOk2fdaf0O5o_9UYDuEow1zBB3rCcpZ3NC5JM2DN8MCVKR11nSju-AD2vvBGfx0anPL8XjGm4y7ilFKaBrrUeI3vZzaNmciUPmGNyz_--kh9zZJQx4u5nQvBSxKdV6hXuIfH2vzy49t1"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+<div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
+<div>
+<span class="text-xs font-medium text-surface-bright/50 uppercase tracking-wider">Devialet • Pháp</span>
+<h3 class="font-headline font-bold text-base text-surface-bright mt-1 group-hover:text-primary-fixed transition-colors line-clamp-1">Devialet Phantom I 108dB Opéra de Paris</h3>
+</div>
+<div class="flex items-center gap-1 text-primary-fixed text-xs">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-surface-bright/60 ml-1">(5.0)</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-primary-fixed/10">
+<div>
+<div class="text-xs text-surface-bright/40 line-through">115.000.000 đ</div>
+<div class="font-headline font-extrabold text-lg text-primary-fixed">99.900.000 đ</div>
+</div>
+<button class="bg-primary-fixed hover:bg-luxury-light-gold text-luxury-dark font-headline font-bold p-2.5 rounded-xl transition-all shadow-md active:scale-95 flex items-center gap-1 text-xs">
+<span class="material-symbols-outlined text-sm">shopping_bag</span>
+<span>Thêm</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-luxury-card rounded-2xl border border-primary-fixed/30 overflow-hidden shadow-2xl hover:border-primary-fixed transition-all duration-300 group flex flex-col justify-between">
+<div class="relative overflow-hidden aspect-square bg-inverse-surface">
+<div class="absolute top-3 left-3 z-10 bg-error text-on-error text-xs font-bold px-2.5 py-1 rounded-lg shadow-md">-15%</div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Laptop MacBook Pro độ vỏ vàng nguyên khối khắc hoa văn rồng tinh xảo, đặt trên cuốn sổ da cao cấp và bút máy mạ vàng." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAl5OpwxuR61lyy8R8AOpoqVlN6d2IWH7J0Cyxx82OgK6T6Qk7HCgws5xRb27mQpxaggJ6BKqhuzcOzOMbmcEwF9LXO1ii7oTv-zY2BW8W-bkXtrfs37QBAzaIb1LGK2JUVzpXiNlDZaamNsTrDjXgp_SJ9Jts2HMOISa0cYgCz-6UB9-c-sCSSvGTlaRiypK5MvPP_IdnWr5q0YcUuwrzGAzeMINd1As4BSwpLR3sOtf1VNDMc0f5Br4pWa847oA2L83vDmTJF-0T2"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+<div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
+<div>
+<span class="text-xs font-medium text-surface-bright/50 uppercase tracking-wider">Apple • USA</span>
+<h3 class="font-headline font-bold text-base text-surface-bright mt-1 group-hover:text-primary-fixed transition-colors line-clamp-1">MacBook Pro 16 Golden Dragon Edition</h3>
+</div>
+<div class="flex items-center gap-1 text-primary-fixed text-xs">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-surface-bright/60 ml-1">(5.0)</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-primary-fixed/10">
+<div>
+<div class="text-xs text-surface-bright/40 line-through">180.000.000 đ</div>
+<div class="font-headline font-extrabold text-lg text-primary-fixed">153.000.000 đ</div>
+</div>
+<button class="bg-primary-fixed hover:bg-luxury-light-gold text-luxury-dark font-headline font-bold p-2.5 rounded-xl transition-all shadow-md active:scale-95 flex items-center gap-1 text-xs">
+<span class="material-symbols-outlined text-sm">shopping_bag</span>
+<span>Thêm</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-luxury-card rounded-2xl border border-primary-fixed/30 overflow-hidden shadow-2xl hover:border-primary-fixed transition-all duration-300 group flex flex-col justify-between">
+<div class="relative overflow-hidden aspect-square bg-inverse-surface">
+<div class="absolute top-3 left-3 z-10 bg-error text-on-error text-xs font-bold px-2.5 py-1 rounded-lg shadow-md">-20%</div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Túi xách Hermès Birkin da cá sấu màu đen tuyền sang trọng với khóa cài mạ vàng sáng bóng, trưng bày trong tủ kính cao cấp." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQQVK94HotUO60pVeqCpSBDUwciVzg0A4T2bM3Kyj9cOSvsGFBRDrf-p2cPVhCC5fKJdeEJZdSnc9rb1CAXHV6-vtqpEY2ZwRZLhlRz8XhSI-48YPbCqub6KCUt8RA1p4-JZs405w0xXH_GnAAonNxN0VZe94FuNodWUg3tivRbQr-jGsjmyWH2cY6mSDJLvlxbvrybaW5tFbL-p8DC_loc8fn4Ei9T8kxnZRWzltc7iDz0dEzKhTHTJDHp6F9KgYnH1VMg39VoqdF"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+<div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
+<div>
+<span class="text-xs font-medium text-surface-bright/50 uppercase tracking-wider">Hermès • Pháp</span>
+<h3 class="font-headline font-bold text-base text-surface-bright mt-1 group-hover:text-primary-fixed transition-colors line-clamp-1">Hermès Birkin 30 Black Matte Alligator</h3>
+</div>
+<div class="flex items-center gap-1 text-primary-fixed text-xs">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-surface-bright/60 ml-1">(5.0)</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-primary-fixed/10">
+<div>
+<div class="text-xs text-surface-bright/40 line-through">2.100.000.000 đ</div>
+<div class="font-headline font-extrabold text-lg text-primary-fixed">1.680.000.000 đ</div>
+</div>
+<button class="bg-primary-fixed hover:bg-luxury-light-gold text-luxury-dark font-headline font-bold p-2.5 rounded-xl transition-all shadow-md active:scale-95 flex items-center gap-1 text-xs">
+<span class="material-symbols-outlined text-sm">shopping_bag</span>
+<span>Thêm</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="bg-luxury-card rounded-2xl border border-primary-fixed/30 overflow-hidden shadow-2xl hover:border-primary-fixed transition-all duration-300 group flex flex-col justify-between">
+<div class="relative overflow-hidden aspect-square bg-inverse-surface">
+<div class="absolute top-3 left-3 z-10 bg-luxury-gold text-luxury-dark text-xs font-bold px-2.5 py-1 rounded-lg shadow-md">NEW</div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Mô hình siêu xe mạ vàng 24k đặt trên bệ gỗ óc chó cao cấp, ánh đèn spotlight chiếu rọi phản chiếu ánh kim rực rỡ." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_mKjeL99RssHKnwbZUOv7aDEdWE_1JY48slA0PIY05odrQkLbnW0ESWOkTqvxpK7Fh_2yN7xjxZABur7yB0-aEaz-QmOB7Zw885QJyRIdlKPFxT-hnLPYJAD3pWxMCSFdBeeByvsaUTG2YXheYrg8mNIXglEYGmT-z1Eu3WGwlaxU9GQGy7oSpeADMk0qtNeYPoJVcZFwnfM7Lm0qWOmlczoXefliERgCseGJ0-AlyN33aHTr1QMBE5oDB69iThEJmih7vMgNeHRW"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+<div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
+<div>
+<span class="text-xs font-medium text-surface-bright/50 uppercase tracking-wider">Supercar • Ý</span>
+<h3 class="font-headline font-bold text-base text-surface-bright mt-1 group-hover:text-primary-fixed transition-colors line-clamp-1">Lamborghini Aventador 24K Gold Model</h3>
+</div>
+<div class="flex items-center gap-1 text-primary-fixed text-xs">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-surface-bright/60 ml-1">(5.0)</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-primary-fixed/10">
+<div>
+<div class="text-xs text-surface-bright/40 opacity-0">---</div>
+<div class="font-headline font-extrabold text-lg text-primary-fixed">345.000.000 đ</div>
+</div>
+<button class="bg-primary-fixed hover:bg-luxury-light-gold text-luxury-dark font-headline font-bold p-2.5 rounded-xl transition-all shadow-md active:scale-95 flex items-center gap-1 text-xs">
+<span class="material-symbols-outlined text-sm">shopping_bag</span>
+<span>Thêm</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 7 -->
+<div class="bg-luxury-card rounded-2xl border border-primary-fixed/30 overflow-hidden shadow-2xl hover:border-primary-fixed transition-all duration-300 group flex flex-col justify-between">
+<div class="relative overflow-hidden aspect-square bg-inverse-surface">
+<div class="absolute top-3 left-3 z-10 bg-error text-on-error text-xs font-bold px-2.5 py-1 rounded-lg shadow-md">-25%</div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Tai nghe chụp tai hi-end bọc da cừu mềm mại kết hợp chi tiết hợp kim mạ vàng hồng, đặt trên chân đế nhôm nguyên khối." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoqc5VYgBo6XK8pGkvJIkxUYmZYnsQ-gDyJEyh3XFnIaD_ngI1LYEDN8zPc8EioWCXuETRBCohQAHEgeFaoLaUb400UBlFlh8jlNPnDavozgXZiecOQ311de2Gn2puQ9nI3VhH_ZQ2tepQFqr9NkQSXnyHZCWS56k91wDt8ELWWLI06Xz2tPI3bVSMCsHsF_x_N73LtHjpKSZsL2dCiA79TPvt4M8w7Lrs1KCpxaKu9TgSE7q_hr2H2Br5TCTqULad_FmwtlDR4Dwe"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+<div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
+<div>
+<span class="text-xs font-medium text-surface-bright/50 uppercase tracking-wider">Focal • Pháp</span>
+<h3 class="font-headline font-bold text-base text-surface-bright mt-1 group-hover:text-primary-fixed transition-colors line-clamp-1">Focal Utopia Gold Limited Edition</h3>
+</div>
+<div class="flex items-center gap-1 text-primary-fixed text-xs">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-surface-bright/60 ml-1">(5.0)</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-primary-fixed/10">
+<div>
+<div class="text-xs text-surface-bright/40 line-through">120.000.000 đ</div>
+<div class="font-headline font-extrabold text-lg text-primary-fixed">90.000.000 đ</div>
+</div>
+<button class="bg-primary-fixed hover:bg-luxury-light-gold text-luxury-dark font-headline font-bold p-2.5 rounded-xl transition-all shadow-md active:scale-95 flex items-center gap-1 text-xs">
+<span class="material-symbols-outlined text-sm">shopping_bag</span>
+<span>Thêm</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 8 -->
+<div class="bg-luxury-card rounded-2xl border border-primary-fixed/30 overflow-hidden shadow-2xl hover:border-primary-fixed transition-all duration-300 group flex flex-col justify-between">
+<div class="relative overflow-hidden aspect-square bg-inverse-surface">
+<div class="absolute top-3 left-3 z-10 bg-luxury-gold text-luxury-dark text-xs font-bold px-2.5 py-1 rounded-lg shadow-md">VIP</div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Đồng hồ Patek Philippe Nautilus mạ vàng hồng nguyên khối, mặt số sọc ngang độc đáo, phản chiếu ánh sáng lấp lánh." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyzk2VqPKkuunVqcjiCpfRi1jMXzbkamegiXUm3BDqPAh7omnCQO6JDGwy8qdUTsuKjdPe4RztNs1G7RrOY5B0gGELrpC4YgS1Ij0MvDIuVoROsrvlfFXsCKAxeA_EBp9RdKBeagNQVRcSa4l8eFoyuDJzmsiOo1oL9AOA24Pq9e7SG2BZli0hVjzou4O5I7dHA58uh8TgdBqjF8AENp-01AhGKHUMJqQwcu2_IALIBq7QgEcxFEtQj_7pNakF0Z4YUogazUiXXDhR"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+<div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
+<div>
+<span class="text-xs font-medium text-surface-bright/50 uppercase tracking-wider">Patek Philippe • Thụy Sỹ</span>
+<h3 class="font-headline font-bold text-base text-surface-bright mt-1 group-hover:text-primary-fixed transition-colors line-clamp-1">Patek Philippe Nautilus Rose Gold</h3>
+</div>
+<div class="flex items-center gap-1 text-primary-fixed text-xs">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-surface-bright/60 ml-1">(5.0)</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-primary-fixed/10">
+<div>
+<div class="text-xs text-surface-bright/40 opacity-0">---</div>
+<div class="font-headline font-extrabold text-lg text-primary-fixed">2.850.000.000 đ</div>
+</div>
+<button class="bg-primary-fixed hover:bg-luxury-light-gold text-luxury-dark font-headline font-bold p-2.5 rounded-xl transition-all shadow-md active:scale-95 flex items-center gap-1 text-xs">
+<span class="material-symbols-outlined text-sm">shopping_bag</span>
+<span>Thêm</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 9 -->
+<div class="bg-luxury-card rounded-2xl border border-primary-fixed/30 overflow-hidden shadow-2xl hover:border-primary-fixed transition-all duration-300 group flex flex-col justify-between">
+<div class="relative overflow-hidden aspect-square bg-inverse-surface">
+<div class="absolute top-3 left-3 z-10 bg-error text-on-error text-xs font-bold px-2.5 py-1 rounded-lg shadow-md">-10%</div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Kính thực tế ảo cao cấp kết hợp khung nhôm mạ vàng và đệm mắt bọc da thượng hạng." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWyf6ycW7iQjEF59AHmhjm1NvcKT4VhkYh1HiwXChoWINfpOmsboqam1TbEspdHyfLwL7IfAT43ER8oTiCCsVe49aWRggOA17Bk2UZZi2FnVs67ufZYx2XI0DAD4Ua8ka8S52h9HNGhXjz40ageeFExMH3cxcAFeMnpFYo5FzPt7zMsjNqy86sv12Jwt4ct3KtesAcr9QnIdMySeFxO4tmj2agb0lLfCbzmws7gEqS3A4ueFJmoWP58k6gAO9ojaHuyiysK1PhktA6"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+<div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
+<div>
+<span class="text-xs font-medium text-surface-bright/50 uppercase tracking-wider">Apple • USA</span>
+<h3 class="font-headline font-bold text-base text-surface-bright mt-1 group-hover:text-primary-fixed transition-colors line-clamp-1">Apple Vision Pro Custom Gold Edition</h3>
+</div>
+<div class="flex items-center gap-1 text-primary-fixed text-xs">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-surface-bright/60 ml-1">(5.0)</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-primary-fixed/10">
+<div>
+<div class="text-xs text-surface-bright/40 line-through">150.000.000 đ</div>
+<div class="font-headline font-extrabold text-lg text-primary-fixed">135.000.000 đ</div>
+</div>
+<button class="bg-primary-fixed hover:bg-luxury-light-gold text-luxury-dark font-headline font-bold p-2.5 rounded-xl transition-all shadow-md active:scale-95 flex items-center gap-1 text-xs">
+<span class="material-symbols-outlined text-sm">shopping_bag</span>
+<span>Thêm</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 10 -->
+<div class="bg-luxury-card rounded-2xl border border-primary-fixed/30 overflow-hidden shadow-2xl hover:border-primary-fixed transition-all duration-300 group flex flex-col justify-between">
+<div class="relative overflow-hidden aspect-square bg-inverse-surface">
+<div class="absolute top-3 left-3 z-10 bg-error text-on-error text-xs font-bold px-2.5 py-1 rounded-lg shadow-md">-30%</div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Bút máy Montblanc mạ vàng 18k chạm trổ hoa văn tinh xảo, đặt cạnh cuốn sổ da cao cấp." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIpAJDW7Ouz_6HJ7_xBR6tO6CVsuAIsqLJs-G6aKC_4YmFt9bWVmAAb2V9vXHg7a-ZOH-Y6GQdN-rGB2t2_FfKzE0CLGrXRDdWjnUE-p8yxZxHzDVpj8iOu71wp1RdLBQZj52QAjWCpCCwnxzhcEbrjqokOb37O5rNrCH8TNdl1qCBeu8dceeBrhf3MiquvnE-9pRSZiZOcPK9tSGolXBamN8B5DCcdfylqUVGNUWInYQi02FkCdQ5JYOQBXaUjNJdKAND5at3G43B"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+<div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
+<div>
+<span class="text-xs font-medium text-surface-bright/50 uppercase tracking-wider">Montblanc • Đức</span>
+<h3 class="font-headline font-bold text-base text-surface-bright mt-1 group-hover:text-primary-fixed transition-colors line-clamp-1">Montblanc Meisterstück Solitaire Gold</h3>
+</div>
+<div class="flex items-center gap-1 text-primary-fixed text-xs">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-surface-bright/60 ml-1">(5.0)</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-primary-fixed/10">
+<div>
+<div class="text-xs text-surface-bright/40 line-through">45.000.000 đ</div>
+<div class="font-headline font-extrabold text-lg text-primary-fixed">31.500.000 đ</div>
+</div>
+<button class="bg-primary-fixed hover:bg-luxury-light-gold text-luxury-dark font-headline font-bold p-2.5 rounded-xl transition-all shadow-md active:scale-95 flex items-center gap-1 text-xs">
+<span class="material-symbols-outlined text-sm">shopping_bag</span>
+<span>Thêm</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 11 -->
+<div class="bg-luxury-card rounded-2xl border border-primary-fixed/30 overflow-hidden shadow-2xl hover:border-primary-fixed transition-all duration-300 group flex flex-col justify-between">
+<div class="relative overflow-hidden aspect-square bg-inverse-surface">
+<div class="absolute top-3 left-3 z-10 bg-luxury-gold text-luxury-dark text-xs font-bold px-2.5 py-1 rounded-lg shadow-md">HOT</div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Bàn phím cơ thủ công phím mạ vàng khối, bọc da cá sấu thủ công, đặt trên bàn làm việc giám đốc." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRYe_HEnm-wwdRV4DLB6jetNtQwYCZSItH14S-B5l8eUSY2lSUt55sWOwPkrqhRB4kTCPZM7ikue8etcusH9VP2FsKm5ba3ttGlhmE1LuVtjkgvUkV_YXzs0vzUbDZeukLkoG2S3axPIUUDuJJ7VjvADWAcOgAOQT4SMp4IMbsSdNaDgQnlclKfARPoUgfgUkQUI9mVRTG3UxoYXHCZLHsu_g-vW40OvfY_MC8L8eFm84idCjEXRzZi5QZUAgeb1U5fKDnW_X0OyqX"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+<div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
+<div>
+<span class="text-xs font-medium text-surface-bright/50 uppercase tracking-wider">AZIO • USA</span>
+<h3 class="font-headline font-bold text-base text-surface-bright mt-1 group-hover:text-primary-fixed transition-colors line-clamp-1">AZIO Retro Classic 24K Gold Keyboard</h3>
+</div>
+<div class="flex items-center gap-1 text-primary-fixed text-xs">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-surface-bright/60 ml-1">(5.0)</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-primary-fixed/10">
+<div>
+<div class="text-xs text-surface-bright/40 opacity-0">---</div>
+<div class="font-headline font-extrabold text-lg text-primary-fixed">18.500.000 đ</div>
+</div>
+<button class="bg-primary-fixed hover:bg-luxury-light-gold text-luxury-dark font-headline font-bold p-2.5 rounded-xl transition-all shadow-md active:scale-95 flex items-center gap-1 text-xs">
+<span class="material-symbols-outlined text-sm">shopping_bag</span>
+<span>Thêm</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 12 -->
+<div class="bg-luxury-card rounded-2xl border border-primary-fixed/30 overflow-hidden shadow-2xl hover:border-primary-fixed transition-all duration-300 group flex flex-col justify-between">
+<div class="relative overflow-hidden aspect-square bg-inverse-surface">
+<div class="absolute top-3 left-3 z-10 bg-error text-on-error text-xs font-bold px-2.5 py-1 rounded-lg shadow-md">-18%</div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Hộp đựng đồng hồ cơ xoay tự động bọc da carbon và nội thất nhung vàng sang trọng." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfLIe_cQm1o5Wr3pbiPg-rUnr1lP2uz4TrG153Uoa318ugqy-PDXVgHBIf96zTDnwoMtGcwdx0K9wddRRuROJ9BcJcAhcZl0MSvlCNFTYabkhyRAhA4m_MwxL8ypXudfUVvATg9Qy383NmZsrHMUeO8WKEeX-tarxAjeoyqdUEBAVW-T0W0gsAymN1NIVUdR2w2YFQ4UO2_-YHKVdAWghA2urxHtjAfYqmqzhrsN_ZImQ1QlxMKCeLj6XLF3gwFu8oZS92yKlSTKR9"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="bg-luxury-dark text-primary-fixed p-3 rounded-full shadow-lg hover:bg-primary-fixed hover:text-luxury-dark transition-all">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+<div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
+<div>
+<span class="text-xs font-medium text-surface-bright/50 uppercase tracking-wider">Buben &amp; Zörweg • Đức</span>
+<h3 class="font-headline font-bold text-base text-surface-bright mt-1 group-hover:text-primary-fixed transition-colors line-clamp-1">Watch Winder 6slots Carbon Gold</h3>
+</div>
+<div class="flex items-center gap-1 text-primary-fixed text-xs">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-surface-bright/60 ml-1">(5.0)</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-primary-fixed/10">
+<div>
+<div class="text-xs text-surface-bright/40 line-through">85.000.000 đ</div>
+<div class="font-headline font-extrabold text-lg text-primary-fixed">69.700.000 đ</div>
+</div>
+<button class="bg-primary-fixed hover:bg-luxury-light-gold text-luxury-dark font-headline font-bold p-2.5 rounded-xl transition-all shadow-md active:scale-95 flex items-center gap-1 text-xs">
+<span class="material-symbols-outlined text-sm">shopping_bag</span>
+<span>Thêm</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Phân trang (Pagination) trang nhã -->
+<div class="flex items-center justify-center pt-8 pb-4 gap-2">
+<button class="w-10 h-10 rounded-xl bg-luxury-card border border-primary-fixed/30 text-surface-bright/50 flex items-center justify-center cursor-not-allowed">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-xl bg-primary-fixed text-luxury-dark font-headline font-bold text-sm flex items-center justify-center shadow-md">1</button>
+<button class="w-10 h-10 rounded-xl bg-luxury-card border border-primary-fixed/30 text-surface-bright hover:border-primary-fixed font-headline font-medium text-sm flex items-center justify-center transition-all">2</button>
+<button class="w-10 h-10 rounded-xl bg-luxury-card border border-primary-fixed/30 text-surface-bright hover:border-primary-fixed font-headline font-medium text-sm flex items-center justify-center transition-all">3</button>
+<span class="text-surface-bright/50 px-2">...</span>
+<button class="w-10 h-10 rounded-xl bg-luxury-card border border-primary-fixed/30 text-surface-bright hover:border-primary-fixed font-headline font-medium text-sm flex items-center justify-center transition-all">10</button>
+<button class="w-10 h-10 rounded-xl bg-luxury-card border border-primary-fixed/30 text-surface-bright hover:border-primary-fixed flex items-center justify-center transition-all hover:bg-primary-fixed hover:text-luxury-dark">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer chuẩn từ component library -->
+<footer class="bg-inverse-surface dark:bg-inverse-surface border-t border-primary-fixed/20 dark:border-primary-fixed/20 shadow-inner mt-20">
+<div class="w-full max-w-7xl mx-auto px-6 py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-primary-fixed/10">
+<div class="space-y-4 md:col-span-1">
+<div class="font-headline font-extrabold text-2xl tracking-wider text-primary-fixed dark:text-primary-fixed flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">diamond</span>
+            E-COMMERCE
+          </div>
+<p class="text-surface-bright/70 text-sm font-body">
+            Đỉnh cao công nghệ - Đẳng cấp mua sắm. Nơi hội tụ các thương hiệu xa xỉ và độc quyền hàng đầu thế giới.
+          </p>
+</div>
+<div>
+<h4 class="font-headline font-bold text-base text-primary-fixed mb-4">Dịch Vụ Khách Hàng</h4>
+<ul class="space-y-2 text-sm text-surface-bright/70">
+<li><a class="hover:text-primary-fixed transition-colors" href="#">Chính sách bảo hành vàng</a></li>
+<li><a class="hover:text-primary-fixed transition-colors" href="#">Quy định đổi trả 1-1</a></li>
+<li><a class="hover:text-primary-fixed transition-colors" href="#">Dịch vụ khách hàng 24/7</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-headline font-bold text-base text-primary-fixed mb-4">Hệ Thống Showroom</h4>
+<ul class="space-y-2 text-sm text-surface-bright/70">
+<li><a class="hover:text-primary-fixed transition-colors" href="#">Hệ thống showroom VIP</a></li>
+<li><a class="hover:text-primary-fixed transition-colors" href="#">Cam kết chính hãng 100%</a></li>
+<li><a class="hover:text-primary-fixed transition-colors" href="#">Điều khoản &amp; Điều kiện</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-headline font-bold text-base text-primary-fixed mb-4">Đăng Ký Nhận Tin VIP</h4>
+<p class="text-xs text-surface-bright/70 mb-3">Nhận thông tin về các bộ sưu tập giới hạn mới nhất.</p>
+<div class="flex gap-2">
+<input class="bg-luxury-card border border-primary-fixed/30 rounded-xl px-3 py-2 text-xs text-surface-bright w-full focus:border-primary-fixed focus:ring-0" placeholder="Email của bạn..." type="email"/>
+<button class="bg-primary-fixed text-luxury-dark font-headline font-bold px-4 py-2 rounded-xl text-xs hover:bg-luxury-light-gold transition-all">Gửi</button>
+</div>
+</div>
+</div>
+<div class="pt-8 text-center text-sm text-surface-bright/70">
+        © 2025 E-COMMERCE. Đỉnh cao công nghệ - Đẳng cấp mua sắm. Bản quyền được bảo lưu.
+      </div>
+</div>
+</footer>
+</body></html>

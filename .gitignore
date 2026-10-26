@@ -35,3 +35,18 @@ build/
 ### Uploads ###
 uploads/
 
+
+### Security, Secrets & Local Credentials ###
+*.env
+*.env.*
+*.key
+*.pem
+*.jks
+*.p12
+*.pfx
+*.sql
+*.dump
+application-local.yml
+application-local.properties
+secrets/
+credentials/

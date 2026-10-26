@@ -1,16 +1,10 @@
 package com.ecom.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -64,13 +58,7 @@ public class AdminController {
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired
-	private com.ecom.repository.ProductOrderRepository productOrderRepository;
-
-	@Autowired
-	private com.ecom.repository.ProductRepository productRepository;
-
-	@Autowired
-	private com.ecom.repository.UserRepository userRepository;
+	private com.ecom.service.FileStorageService fileStorageService;
 
 	@Autowired
 	private com.ecom.service.VoucherService voucherService;
@@ -78,28 +66,16 @@ public class AdminController {
 	@Autowired
 	private com.ecom.service.PdfInvoiceService pdfInvoiceService;
 
-	@ModelAttribute
-	public void getUserDetails(Principal p, Model m) {
-		if (p != null) {
-			String email = p.getName();
-			UserDtls userDtls = userService.getUserByEmail(email);
-			m.addAttribute("user", userDtls);
-			Integer countCart = cartService.getCountCart(userDtls.getId());
-			m.addAttribute("countCart", countCart);
-		}
-
-		List<Category> allActiveCategory = categoryService.getAllActiveCategory();
-		m.addAttribute("categorys", allActiveCategory);
-	}
+	// Thuộc tính layout dùng chung được cung cấp bởi com.ecom.config.GlobalControllerAdvice
 
 	@GetMapping("/")
 	public String index(Model m) {
-		Double totalRevenue = productOrderRepository.getTotalRevenue();
-		Long totalOrders = productOrderRepository.count();
-		Long pendingOrders = productOrderRepository.countByStatus(OrderStatus.IN_PROGRESS.getName());
-		Long totalProducts = productRepository.count();
+		Double totalRevenue = orderService.getTotalRevenue();
+		Long totalOrders = orderService.countOrders();
+		Long pendingOrders = orderService.countByStatus(OrderStatus.IN_PROGRESS.getName());
+		Long totalProducts = productService.countProducts();
 		Long lowStockCount = productService.countLowStock(10);
-		Long totalUsers = userRepository.countByRole("ROLE_USER");
+		Long totalUsers = userService.countByRole("ROLE_USER");
 
 		m.addAttribute("totalRevenue", totalRevenue != null ? totalRevenue : 0.0);
 		m.addAttribute("totalOrders", totalOrders != null ? totalOrders : 0L);
@@ -109,7 +85,7 @@ public class AdminController {
 		m.addAttribute("totalUsers", totalUsers != null ? totalUsers : 0L);
 
 		// Revenue chart data (date vs sum)
-		List<Object[]> revenueByDate = productOrderRepository.getRevenueByDate();
+		List<Object[]> revenueByDate = orderService.getRevenueByDate();
 		java.util.List<String> chartDates = new java.util.ArrayList<>();
 		java.util.List<Double> chartRevenues = new java.util.ArrayList<>();
 		if (revenueByDate != null) {
@@ -122,7 +98,7 @@ public class AdminController {
 		m.addAttribute("chartRevenues", chartRevenues);
 
 		// Order status counts for Doughnut chart
-		List<Object[]> statusCounts = productOrderRepository.getOrderStatusCounts();
+		List<Object[]> statusCounts = orderService.getOrderStatusCounts();
 		java.util.List<String> statusLabels = new java.util.ArrayList<>();
 		java.util.List<Long> statusData = new java.util.ArrayList<>();
 		if (statusCounts != null) {
@@ -134,16 +110,12 @@ public class AdminController {
 		m.addAttribute("statusLabels", statusLabels);
 		m.addAttribute("statusData", statusData);
 
-		// Recent orders
-		List<ProductOrder> allOrders = orderService.getAllOrders();
-		List<ProductOrder> recentOrders = allOrders.stream()
-				.sorted((o1, o2) -> o2.getId().compareTo(o1.getId()))
-				.limit(5)
-				.toList();
+		// Recent orders (truy vấn 5 dòng mới nhất dưới DB)
+		List<ProductOrder> recentOrders = orderService.getRecentOrders(5);
 		m.addAttribute("recentOrders", recentOrders);
 
 		// Top selling products
-		List<Object[]> topProducts = productOrderRepository.getTopSellingProducts(org.springframework.data.domain.PageRequest.of(0, 5));
+		List<Object[]> topProducts = orderService.getTopSellingProducts(5);
 		m.addAttribute("topProducts", topProducts);
 
 		return "admin/index";
@@ -178,29 +150,20 @@ public class AdminController {
 	public String saveCategory(@ModelAttribute Category category, @RequestParam("file") MultipartFile file,
 			HttpSession session) throws IOException {
 
-		String imageName = file != null ? file.getOriginalFilename() : "default.jpg";
-		category.setImageName(imageName);
-
 		Boolean existCategory = categoryService.existCategory(category.getName());
 
 		if (existCategory) {
 			session.setAttribute("errorMsg", "Tên danh mục đã tồn tại");
 		} else {
+			// Lưu ảnh vào thư mục upload ngoài (an toàn khi chạy dưới dạng JAR)
+			String savedName = fileStorageService.saveFile(file, "category_img");
+			category.setImageName(savedName != null ? savedName : "default.jpg");
 
 			Category saveCategory = categoryService.saveCategory(category);
 
 			if (ObjectUtils.isEmpty(saveCategory)) {
 				session.setAttribute("errorMsg", "Lưu thất bại! Lỗi máy chủ");
 			} else {
-
-				File saveFile = new ClassPathResource("static/img").getFile();
-
-				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "category_img" + File.separator
-						+ file.getOriginalFilename());
-
-				// System.out.println(path);
-				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-
 				session.setAttribute("succMsg", "Lưu thành công");
 			}
 		}
@@ -232,7 +195,8 @@ public class AdminController {
 			HttpSession session) throws IOException {
 
 		Category oldCategory = categoryService.getCategoryById(category.getId());
-		String imageName = file.isEmpty() ? oldCategory.getImageName() : file.getOriginalFilename();
+		String savedName = fileStorageService.saveFile(file, "category_img");
+		String imageName = savedName == null ? oldCategory.getImageName() : savedName;
 
 		if (!ObjectUtils.isEmpty(category)) {
 
@@ -244,17 +208,6 @@ public class AdminController {
 		Category updateCategory = categoryService.saveCategory(oldCategory);
 
 		if (!ObjectUtils.isEmpty(updateCategory)) {
-
-			if (!file.isEmpty()) {
-				File saveFile = new ClassPathResource("static/img").getFile();
-
-				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "category_img" + File.separator
-						+ file.getOriginalFilename());
-
-				// System.out.println(path);
-				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-			}
-
 			session.setAttribute("succMsg", "Cập nhật danh mục thành công");
 		} else {
 			session.setAttribute("errorMsg", "Đã xảy ra lỗi trên máy chủ");
@@ -267,7 +220,8 @@ public class AdminController {
 	public String saveProduct(@ModelAttribute Product product, @RequestParam("file") MultipartFile image,
 			HttpSession session) throws IOException {
 
-		String imageName = image.isEmpty() ? "default.jpg" : image.getOriginalFilename();
+		String savedName = fileStorageService.saveFile(image, "product_img");
+		String imageName = savedName == null ? "default.jpg" : savedName;
 
 		product.setImage(imageName);
 		product.setDiscount(0);
@@ -275,15 +229,6 @@ public class AdminController {
 		Product saveProduct = productService.saveProduct(product);
 
 		if (!ObjectUtils.isEmpty(saveProduct)) {
-
-			File saveFile = new ClassPathResource("static/img").getFile();
-
-			Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "product_img" + File.separator
-					+ image.getOriginalFilename());
-
-			// System.out.println(path);
-			Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-
 			session.setAttribute("succMsg", "Thêm sản phẩm thành công");
 		} else {
 			session.setAttribute("errorMsg", "Đã xảy ra lỗi trên máy chủ");
@@ -417,12 +362,13 @@ public class AdminController {
 			}
 		}
 
-		ProductOrder updateOrder = orderService.updateOrderStatus(id, status);
-
+		// Email thông báo được gửi bất đồng bộ (@Async) bên trong OrderService sau khi commit
+		ProductOrder updateOrder = null;
 		try {
-			commonUtil.sendMailForProductOrder(updateOrder, status);
-		} catch (Exception e) {
-			e.printStackTrace();
+			updateOrder = orderService.updateOrderStatus(id, status);
+		} catch (com.ecom.exception.InsufficientStockException e) {
+			session.setAttribute("errorMsg", e.getMessage());
+			return "redirect:/admin/orders";
 		}
 
 		if (!ObjectUtils.isEmpty(updateOrder)) {
@@ -480,20 +426,11 @@ public class AdminController {
 	public String saveAdmin(@ModelAttribute UserDtls user, @RequestParam("img") MultipartFile file, HttpSession session)
 			throws IOException {
 
-		String imageName = file.isEmpty() ? "default.jpg" : file.getOriginalFilename();
-		user.setProfileImage(imageName);
+		String savedName = fileStorageService.saveFile(file, "profile_img");
+		user.setProfileImage(savedName == null ? "default.jpg" : savedName);
 		UserDtls saveUser = userService.saveAdmin(user);
 
 		if (!ObjectUtils.isEmpty(saveUser)) {
-			if (!file.isEmpty()) {
-				File saveFile = new ClassPathResource("static/img").getFile();
-
-				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "profile_img" + File.separator
-						+ file.getOriginalFilename());
-
-//				System.out.println(path);
-				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-			}
 			session.setAttribute("succMsg", "Đăng ký tài khoản thành công");
 		} else {
 			session.setAttribute("errorMsg", "Đã xảy ra lỗi trên máy chủ");
@@ -572,13 +509,7 @@ public class AdminController {
 
 	@GetMapping("/order/invoice/{orderId}")
 	public org.springframework.http.ResponseEntity<byte[]> adminDownloadInvoice(@PathVariable String orderId) {
-		List<ProductOrder> orders = productOrderRepository.findAllByOrderId(orderId);
-		if (orders.isEmpty()) {
-			ProductOrder single = productOrderRepository.findByOrderId(orderId);
-			if (single != null) {
-				orders = java.util.Collections.singletonList(single);
-			}
-		}
+		List<ProductOrder> orders = orderService.getOrderItemsByOrderId(orderId);
 		if (orders.isEmpty()) {
 			return org.springframework.http.ResponseEntity.notFound().build();
 		}

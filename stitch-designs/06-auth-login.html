@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Đăng nhập - E-COMMERCE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-container": "#525151",
+            "background": "#f6f6f6",
+            "primary-container": "#f5ce53",
+            "tertiary-dim": "#a4000e",
+            "surface-container-low": "#f0f1f1",
+            "surface-bright": "#f6f6f6",
+            "on-primary-fixed-variant": "#634e00",
+            "surface": "#f6f6f6",
+            "on-tertiary-fixed-variant": "#7a0008",
+            "tertiary": "#ba0012",
+            "surface-container": "#e7e8e8",
+            "primary": "#705900",
+            "inverse-primary": "#f5ce53",
+            "surface-container-highest": "#dbdddd",
+            "on-primary-container": "#584500",
+            "on-primary-fixed": "#413200",
+            "on-error": "#ffefec",
+            "on-error-container": "#520c00",
+            "secondary": "#5c5b5b",
+            "error": "#b02500",
+            "secondary-fixed-dim": "#d7d4d3",
+            "primary-fixed-dim": "#e6c047",
+            "on-surface": "#2d2f2f",
+            "on-tertiary-fixed": "#3a0002",
+            "outline": "#767777",
+            "tertiary-container": "#ff9287",
+            "error-dim": "#b92902",
+            "secondary-fixed": "#e5e2e1",
+            "on-primary": "#fff1d4",
+            "on-secondary": "#f5f2f1",
+            "surface-container-high": "#e1e3e3",
+            "on-tertiary": "#ffefed",
+            "outline-variant": "#acadad",
+            "on-background": "#2d2f2f",
+            "secondary-container": "#e5e2e1",
+            "surface-variant": "#dbdddd",
+            "on-secondary-fixed-variant": "#5c5b5b",
+            "primary-dim": "#624d00",
+            "on-surface-variant": "#5a5c5c",
+            "on-secondary-fixed": "#403f3f",
+            "secondary-dim": "#504f4f",
+            "inverse-surface": "#0c0f0f",
+            "tertiary-fixed-dim": "#ff7b6f",
+            "surface-dim": "#d3d5d5",
+            "primary-fixed": "#f5ce53",
+            "surface-tint": "#705900",
+            "error-container": "#f95630",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary-container": "#690006",
+            "inverse-on-surface": "#9c9d9d",
+            "tertiary-fixed": "#ff9287"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "headline": ["Plus Jakarta Sans"],
+            "display": ["Plus Jakarta Sans"],
+            "body": ["Be Vietnam Pro"],
+            "label": ["Be Vietnam Pro"]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background font-body text-on-surface min-h-screen flex flex-col justify-between">
+<main class="w-full flex-grow flex items-center justify-center p-4 sm:p-6 lg:p-8">
+<div class="w-full max-w-6xl bg-surface-container-lowest rounded-xl shadow-xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 border border-outline-variant/30">
+<!-- Cột trái: Banner thương hiệu xa xỉ -->
+<div class="bg-inverse-surface text-inverse-surface p-8 lg:p-12 flex flex-col justify-between relative overflow-hidden">
+<!-- Background decorative elements -->
+<div class="absolute inset-0 opacity-10 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:16px_16px]"></div>
+<div class="relative z-10">
+<a class="inline-block text-xl font-extrabold text-inverse-primary font-headline tracking-wider" href="#">E-COMMERCE</a>
+</div>
+<div class="relative z-10 my-12">
+<div class="w-16 h-16 rounded-full bg-primary-container/10 flex items-center justify-center mb-6 border border-[#D4AF37]/30">
+<span class="material-symbols-outlined text-[#D4AF37] text-3xl" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<h1 class="text-3xl lg:text-4xl font-extrabold font-headline text-inverse-primary leading-tight mb-4">
+            ĐỈNH CAO CÔNG NGHỆ - ĐẲNG CẤP MUA SẮM
+          </h1>
+<p class="text-inverse-on-surface font-body text-base leading-relaxed">
+            Chào mừng quý khách hàng VIP quay trở lại với hệ thống mua sắm xa xỉ bậc nhất. Trải nghiệm dịch vụ đặc quyền và các bộ sưu tập giới hạn dành riêng cho bạn.
+          </p>
+</div>
+<div class="relative z-10 text-xs text-inverse-on-surface/60 font-body">
+          © 2023 E-COMMERCE. Bảo lưu mọi quyền.
+        </div>
+</div>
+<!-- Cột phải: Biểu mẫu Đăng nhập -->
+<div class="p-8 lg:p-12 flex flex-col justify-center bg-surface-container-lowest">
+<div class="mb-8">
+<h2 class="text-2xl font-bold font-headline text-on-surface mb-2">Đăng nhập tài khoản</h2>
+<p class="text-on-surface-variant font-body text-sm">Vui lòng nhập thông tin để truy cập hệ thống</p>
+</div>
+<form class="space-y-5" onsubmit="event.preventDefault();">
+<div>
+<label class="block text-xs font-semibold font-label text-on-surface-variant mb-2">Email hoặc Số điện thoại</label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">mail</span>
+</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-low border border-outline-variant/60 rounded-xl text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-sm transition-all" placeholder="name@example.com hoặc số điện thoại" required="" type="text"/>
+</div>
+</div>
+<div>
+<div class="flex items-center justify-between mb-2">
+<label class="block text-xs font-semibold font-label text-on-surface-variant">Mật khẩu</label>
+<a class="text-xs font-semibold text-primary hover:underline" href="#">Quên mật khẩu?</a>
+</div>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">lock</span>
+</span>
+<input class="w-full pl-10 pr-10 py-3 bg-surface-container-low border border-outline-variant/60 rounded-xl text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-sm transition-all" placeholder="••••••••" required="" type="password"/>
+<button class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-on-surface-variant hover:text-on-surface" type="button">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-4 h-4 rounded text-primary border-outline-variant focus:ring-primary" type="checkbox"/>
+<span class="text-xs font-medium text-on-surface-variant select-none">Ghi nhớ đăng nhập</span>
+</label>
+</div>
+<button class="w-full py-3.5 px-4 bg-primary-container text-on-primary-container font-headline font-bold text-sm rounded-xl shadow-md hover:opacity-95 active:scale-[0.98] transition-all flex items-center justify-center gap-2" type="submit">
+<span>Đăng nhập</span>
+<span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</form>
+<div class="mt-8 text-center">
+<p class="text-xs text-on-surface-variant">
+            Bạn chưa có tài khoản? 
+            <a class="font-bold text-primary hover:underline ml-1" href="#">Đăng ký ngay</a>
+</p>
+</div>
+</div>
+</div>
+</main>
+</body></html>

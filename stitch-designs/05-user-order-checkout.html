@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Thanh toán đặt hàng - E-COMMERCE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed-variant": "#7a0008",
+              "secondary-container": "#e5e2e1",
+              "primary-dim": "#624d00",
+              "surface": "#f6f6f6",
+              "surface-container-low": "#f0f1f1",
+              "inverse-on-surface": "#9c9d9d",
+              "error": "#b02500",
+              "on-secondary": "#f5f2f1",
+              "tertiary-container": "#ff9287",
+              "surface-container-lowest": "#ffffff",
+              "surface-variant": "#dbdddd",
+              "secondary-fixed-dim": "#d7d4d3",
+              "on-secondary-fixed": "#403f3f",
+              "on-primary-fixed": "#413200",
+              "outline": "#767777",
+              "primary-fixed": "#f5ce53",
+              "on-tertiary-container": "#690006",
+              "error-container": "#f95630",
+              "surface-tint": "#705900",
+              "on-error": "#ffefec",
+              "tertiary-fixed-dim": "#ff7b6f",
+              "primary-container": "#f5ce53",
+              "primary-fixed-dim": "#e6c047",
+              "surface-container-high": "#e1e3e3",
+              "on-secondary-fixed-variant": "#5c5b5b",
+              "secondary-dim": "#504f4f",
+              "surface-bright": "#f6f6f6",
+              "on-surface-variant": "#5a5c5c",
+              "on-primary": "#fff1d4",
+              "secondary": "#5c5b5b",
+              "primary": "#705900",
+              "background": "#f6f6f6",
+              "tertiary": "#ba0012",
+              "secondary-fixed": "#e5e2e1",
+              "on-tertiary-fixed": "#3a0002",
+              "on-primary-container": "#584500",
+              "on-secondary-container": "#525151",
+              "surface-container": "#e7e8e8",
+              "outline-variant": "#acadad",
+              "on-error-container": "#520c00",
+              "surface-dim": "#d3d5d5",
+              "inverse-primary": "#f5ce53",
+              "tertiary-fixed": "#ff9287",
+              "on-primary-fixed-variant": "#634e00",
+              "surface-container-highest": "#dbdddd",
+              "on-background": "#2d2f2f",
+              "tertiary-dim": "#a4000e",
+              "on-tertiary": "#ffefed",
+              "inverse-surface": "#0c0f0f",
+              "error-dim": "#b92902",
+              "on-surface": "#2d2f2f",
+              "luxury-dark": "#111111",
+              "luxury-dark-card": "#1A1A1A",
+              "luxury-gold": "#D4AF37",
+              "luxury-gold-light": "#F5D77F",
+              "luxury-gold-dark": "#996515"
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              "2xl": "1rem",
+              "3xl": "1.5rem",
+              full: "9999px"
+            },
+            fontFamily: {
+              headline: ["Plus Jakarta Sans"],
+              display: ["Plus Jakarta Sans"],
+              body: ["Be Vietnam Pro"],
+              label: ["Be Vietnam Pro"]
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-[#111111] text-[#FAFAFA] font-body antialiased selection:bg-[#D4AF37] selection:text-black">
+<!-- TopNavBar -->
+<header class="bg-[#111111] text-[#FAFAFA] shadow-sm sticky top-0 z-50 border-b border-[#222222]">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-8">
+<a class="text-xl font-extrabold text-[#FAFAFA] tracking-wider font-headline flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[#D4AF37]" style="font-variation-settings: 'FILL' 1;">diamond</span>
+                    E-COMMERCE
+                </a>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-[#FAFAFA] hover:text-[#D4AF37] transition-colors font-medium" href="#">Trang chủ</a>
+<a class="text-[#FAFAFA] hover:text-[#D4AF37] transition-colors font-medium" href="#">Sản phẩm</a>
+<a class="text-[#D4AF37] font-bold border-b-2 border-[#D4AF37] pb-1" href="#">Giỏ hàng</a>
+<a class="text-[#FAFAFA] hover:text-[#D4AF37] transition-colors font-medium" href="#">Đơn hàng</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-[#FAFAFA] hover:text-[#D4AF37] transition-colors">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="absolute top-0 right-0 bg-[#D4AF37] text-black text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">2</span>
+</button>
+<button class="p-2 text-[#FAFAFA] hover:text-[#D4AF37] transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="flex items-center gap-2 pl-2 border-l border-[#333333]">
+<div class="w-9 h-9 rounded-full bg-[#222222] border border-[#D4AF37] flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A high-end professional studio portrait of a sophisticated customer wearing luxury black attire against a dark moody background with subtle warm lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAT7IDFMTHg7S6ojUPqIWauA0CZDzeMjfCaeV_GhmpY7vnwf31_4Ms6orX-HLmskpQYyuWAQ_N9ul0hJJ2Ow3JMs_Aodlas-nsUyCTcCu6P_KH4YqVpVRw9izQuIeqaN8KI15lhoo1rYryMCFcyffZI95aNmpw1UBxUsFLbOrNnBeX9k8ZjDCrMd5WiRAIR0WXoLHinff6wbQvEzFDBUQPVbVHvAp2W3Mu7k2NkRzALoAqm8ftmEmO5hOJ_5uhd2u4u7fSzp1lYkIYB"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Container -->
+<main class="max-w-7xl mx-auto px-6 py-8">
+<!-- Breadcrumb -->
+<nav class="flex items-center gap-2 text-sm text-[#888888] mb-6 font-body">
+<a class="hover:text-[#D4AF37] transition-colors" href="#">Trang chủ</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<a class="hover:text-[#D4AF37] transition-colors" href="#">Giỏ hàng</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-[#D4AF37] font-medium">Thanh toán</span>
+</nav>
+<!-- Page Title -->
+<h1 class="text-3xl md:text-4xl font-extrabold font-headline text-[#FAFAFA] mb-8 tracking-tight border-l-4 border-[#D4AF37] pl-4">
+            THANH TOÁN ĐẶT HÀNG
+        </h1>
+<!-- 2-Column Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Shipping & Payment (7 Cols) -->
+<div class="lg:col-span-7 space-y-8">
+<!-- Shipping Address Card -->
+<div class="bg-[#1A1A1A] p-6 md:p-8 rounded-2xl border border-[#333333] shadow-xl">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-xl bg-[#222222] border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+</div>
+<h2 class="text-xl font-bold font-headline text-[#FAFAFA]">Địa chỉ giao hàng</h2>
+</div>
+<form class="space-y-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium text-[#CCCCCC] mb-1">Họ và tên</label>
+<input class="w-full bg-[#111111] border border-[#333333] rounded-xl px-4 py-3 text-[#FAFAFA] placeholder-[#666666] focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] outline-none transition-all" placeholder="Nguyễn Văn A" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-[#CCCCCC] mb-1">Số điện thoại</label>
+<input class="w-full bg-[#111111] border border-[#333333] rounded-xl px-4 py-3 text-[#FAFAFA] placeholder-[#666666] focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] outline-none transition-all" placeholder="0901234567" type="tel"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium text-[#CCCCCC] mb-1">Tỉnh / Thành phố</label>
+<select class="w-full bg-[#111111] border border-[#333333] rounded-xl px-4 py-3 text-[#FAFAFA] focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] outline-none transition-all">
+<option>TP. Hồ Chí Minh</option>
+<option>Hà Nội</option>
+<option>Đà Nẵng</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-[#CCCCCC] mb-1">Phường / Xã</label>
+<select class="w-full bg-[#111111] border border-[#333333] rounded-xl px-4 py-3 text-[#FAFAFA] focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] outline-none transition-all">
+<option>Phường Bến Nghé, Quận 1</option>
+<option>Phường Đa Kao, Quận 1</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-[#CCCCCC] mb-1">Địa chỉ chi tiết</label>
+<input class="w-full bg-[#111111] border border-[#333333] rounded-xl px-4 py-3 text-[#FAFAFA] placeholder-[#666666] focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] outline-none transition-all" placeholder="Số nhà, tên đường, tòa nhà..." type="text"/>
+</div>
+</form>
+</div>
+<!-- Payment Method Card -->
+<div class="bg-[#1A1A1A] p-6 md:p-8 rounded-2xl border border-[#333333] shadow-xl">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-xl bg-[#222222] border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<h2 class="text-xl font-bold font-headline text-[#FAFAFA]">Phương thức thanh toán</h2>
+</div>
+<div class="space-y-3">
+<!-- Option 1 -->
+<label class="flex items-center justify-between p-4 rounded-xl border border-[#D4AF37] bg-[#111111] cursor-pointer transition-all">
+<div class="flex items-center gap-3">
+<input checked="" class="text-[#D4AF37] focus:ring-[#D4AF37] bg-[#222222] border-[#444444] h-5 w-5" name="payment_method" type="radio"/>
+<span class="font-medium text-[#FAFAFA]">Chuyển khoản ngân hàng</span>
+</div>
+<span class="material-symbols-outlined text-[#D4AF37]">account_balance</span>
+</label>
+<!-- Option 2 -->
+<label class="flex items-center justify-between p-4 rounded-xl border border-[#333333] bg-[#111111] hover:border-[#555555] cursor-pointer transition-all">
+<div class="flex items-center gap-3">
+<input class="text-[#D4AF37] focus:ring-[#D4AF37] bg-[#222222] border-[#444444] h-5 w-5" name="payment_method" type="radio"/>
+<span class="font-medium text-[#FAFAFA]">Thẻ tín dụng VIP</span>
+</div>
+<span class="material-symbols-outlined text-[#D4AF37]">credit_card</span>
+</label>
+<!-- Option 3 -->
+<label class="flex items-center justify-between p-4 rounded-xl border border-[#333333] bg-[#111111] hover:border-[#555555] cursor-pointer transition-all">
+<div class="flex items-center gap-3">
+<input class="text-[#D4AF37] focus:ring-[#D4AF37] bg-[#222222] border-[#444444] h-5 w-5" name="payment_method" type="radio"/>
+<span class="font-medium text-[#FAFAFA]">Thanh toán khi nhận hàng (COD)</span>
+</div>
+<span class="material-symbols-outlined text-[#D4AF37]">local_atm</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Right Column: Order Summary & Checkout Action (5 Cols) -->
+<div class="lg:col-span-5 space-y-8">
+<div class="bg-[#1A1A1A] p-6 md:p-8 rounded-2xl border border-[#333333] shadow-xl sticky top-24">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-xl bg-[#222222] border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+</div>
+<h2 class="text-xl font-bold font-headline text-[#FAFAFA]">Tóm tắt đơn hàng</h2>
+</div>
+<!-- Products List inside Summary -->
+<div class="space-y-4 mb-6 max-h-60 overflow-y-auto pr-1">
+<div class="flex items-center gap-4 pb-4 border-b border-[#222222]">
+<div class="w-16 h-16 rounded-xl bg-[#222222] border border-[#333333] overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A luxurious black leather designer handbag with gold metallic accents displayed against a dark minimalist studio background with soft dramatic lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCH9P5-CjQsVnMi8GwJ0OrKJJxyL6LJqgAcHR0ebGlvWMhxo3ca-Jl7POz5Lv995WDqqYJDN1-KKEDMVzzS8gIwAq0c28OgC_8UcF4QWOOWMAp5zyn6KRtE3r5vaM9OL2C6B4XV-Pw2tl7Fnz79gZnaFcIlE2rCA3Bjshm2Q5iuK-NK2Uk1rWMDd3c1pBuvU03nc_s6nVx2qYbyR7hRzXNzkG_iHddOC1Y__-uh5bktasnK_L0IuLr_Ip5dnvxHrpf8DSKGk6SMVVT4"/>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-[#FAFAFA] line-clamp-1">Túi Xách Da Cao Cấp Edition Royale</h4>
+<p class="text-xs text-[#888888]">Số lượng: 1</p>
+</div>
+<span class="text-sm font-bold text-[#D4AF37]">12.500.000 đ</span>
+</div>
+<div class="flex items-center gap-4 pb-4 border-b border-[#222222]">
+<div class="w-16 h-16 rounded-xl bg-[#222222] border border-[#333333] overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="An exquisite high-end mechanical wristwatch with a black dial and polished 18k gold bezel, showcased on a dark luxury textured surface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV_ZE7VpvpdY4ArLFY79wiv57Vc6ggHVf3acuOnLQut4O_AoCvejM04-2a_X0ud0yaqGq3Qfv-Rbldg-jowJSGsKqILD991kxKz8GxOxr2qcXjLInhvDsKsbhbZXzoLo8fS5-JNKm2PH9rhMeXl9eU88jQpAJ1w56fsvWdIpksaavawp-QQiRz_l8VkH7ZQaZtU4HFsTV8jxH3SV1F6BA4Y92XrCE5f5xFU4d7VnpzkBG-T02ziBvMLv2ob1cpiD_85hdos6IxvLbU"/>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-[#FAFAFA] line-clamp-1">Đồng Hồ Nam Vàng Khối 18K</h4>
+<p class="text-xs text-[#888888]">Số lượng: 1</p>
+</div>
+<span class="text-sm font-bold text-[#D4AF37]">35.000.000 đ</span>
+</div>
+</div>
+<!-- Voucher Input -->
+<div class="mb-6">
+<label class="block text-sm font-medium text-[#CCCCCC] mb-2">Mã giảm giá Voucher</label>
+<div class="flex gap-2">
+<input class="flex-1 bg-[#111111] border border-[#333333] rounded-xl px-4 py-2.5 text-sm text-[#FAFAFA] placeholder-[#666666] focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] outline-none transition-all" placeholder="Nhập mã ưu đãi..." type="text"/>
+<button class="px-5 py-2.5 bg-[#222222] hover:bg-[#333333] border border-[#D4AF37]/50 text-[#D4AF37] text-sm font-bold rounded-xl transition-all">
+                                Áp dụng
+                            </button>
+</div>
+</div>
+<!-- Cost Breakdown Table -->
+<div class="space-y-3 mb-8 pt-4 border-t border-[#333333]">
+<div class="flex justify-between text-sm text-[#CCCCCC]">
+<span>Tạm tính</span>
+<span class="font-medium text-[#FAFAFA]">47.500.000 đ</span>
+</div>
+<div class="flex justify-between text-sm text-[#CCCCCC]">
+<span>Phí vận chuyển</span>
+<span class="font-medium text-[#FAFAFA]">150.000 đ</span>
+</div>
+<div class="flex justify-between text-sm text-[#CCCCCC]">
+<span>Giảm giá Voucher</span>
+<span class="font-medium text-[#D4AF37]">- 2.500.000 đ</span>
+</div>
+<div class="flex justify-between text-lg font-bold pt-3 border-t border-[#333333] text-[#FAFAFA]">
+<span>Tổng thanh toán</span>
+<span class="text-xl text-[#D4AF37]">45.150.000 đ</span>
+</div>
+</div>
+<!-- Checkout Button -->
+<button class="w-full py-4 bg-[#D4AF37] hover:bg-[#F5D77F] text-black font-extrabold text-base rounded-xl transition-all shadow-lg shadow-[#D4AF37]/20 flex items-center justify-center gap-2 transform active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified</span>
+                        ĐẶT HÀNG VÀNG ÁNH KIM
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-[#1A1A1A] text-[#FAFAFA] border-t border-[#333333] mt-20">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-8 py-8 max-w-7xl mx-auto gap-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#D4AF37]" style="font-variation-settings: 'FILL' 1;">diamond</span>
+<span class="text-lg font-bold text-[#FAFAFA] font-headline">E-COMMERCE</span>
+</div>
+<div class="flex flex-wrap justify-center gap-6 text-sm text-[#888888]">
+<a class="hover:text-[#D4AF37] transition-colors" href="#">Chính sách bảo mật</a>
+<a class="hover:text-[#D4AF37] transition-colors" href="#">Điều khoản dịch vụ</a>
+<a class="hover:text-[#D4AF37] transition-colors" href="#">Hỗ trợ khách hàng</a>
+<a class="hover:text-[#D4AF37] transition-colors" href="#">Liên hệ</a>
+</div>
+<p class="text-xs text-[#888888]">
+                © 2023 E-COMMERCE. Bản quyền thuộc về chúng tôi.
+            </p>
+</div>
+</footer>
+</body></html>

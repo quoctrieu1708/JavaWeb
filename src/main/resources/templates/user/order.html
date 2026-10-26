@@ -3,11 +3,34 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>Thanh toán & Đặt hàng — Ecom Store</title>
+<title>Thanh toán & Đặt hàng — E-COMMERCE</title>
 </head>
 <body>
-	<section class="mt-4 pt-2 pb-5">
+	<section class="pb-5">
+		<!-- Stitch Luxury Breadcrumb Navigation Bar -->
+		<div class="ds-breadcrumb-bar">
+			<div class="container px-lg-4">
+				<ul class="ds-breadcrumb">
+					<li><a href="/"><i class="fa-solid fa-house me-1 text-warning"></i>Trang chủ</a></li>
+					<li class="ds-breadcrumb-sep"><i class="fa-solid fa-chevron-right"></i></li>
+					<li><a href="/user/cart">Giỏ hàng</a></li>
+					<li class="ds-breadcrumb-sep"><i class="fa-solid fa-chevron-right"></i></li>
+					<li class="ds-breadcrumb-current">Thanh toán & Đặt hàng</li>
+				</ul>
+			</div>
+		</div>
+
 		<div class="container px-lg-4">
+			<div class="ds-page-header mb-4 d-flex flex-wrap justify-content-between align-items-center gap-3">
+				<div>
+					<span class="ds-badge-gold mb-2 d-inline-block"><i class="fa-solid fa-shield-halved me-1"></i>THANH TOÁN BẢO MẬT</span>
+					<h4 class="fw-bold mb-1 text-white ds-headline">HOÀN TẤT ĐƠN ĐẶT HÀNG</h4>
+					<p class="text-white-50 small mb-0">Xác nhận địa chỉ giao nhận và áp dụng mã Voucher ưu đãi độc quyền từ E-COMMERCE.</p>
+				</div>
+				<a href="/user/cart" class="btn btn-outline-light btn-sm rounded-pill px-3">
+					<i class="fa-solid fa-arrow-left me-1"></i>Quay lại giỏ hàng
+				</a>
+			</div>
 			<form action="/user/save-order" method="post" id="orders" novalidate>
 				<div class="row g-4">
 					<!-- 1. Shipping Address Information -->

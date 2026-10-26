@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quản lý Sản phẩm - E-COMMERCE</title>
+<!-- Tailwind CSS Configuration -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#f6f6f6",
+            "on-surface": "#2d2f2f",
+            "on-error": "#ffefec",
+            "tertiary-fixed-dim": "#ff7b6f",
+            "inverse-on-surface": "#9c9d9d",
+            "surface-container-lowest": "#ffffff",
+            "error": "#b02500",
+            "primary-container": "#f5ce53",
+            "tertiary": "#ba0012",
+            "on-tertiary-fixed": "#3a0002",
+            "outline": "#767777",
+            "surface-bright": "#f6f6f6",
+            "secondary": "#5c5b5b",
+            "primary-dim": "#624d00",
+            "primary-fixed": "#f5ce53",
+            "on-secondary": "#f5f2f1",
+            "error-dim": "#b92902",
+            "on-secondary-fixed-variant": "#5c5b5b",
+            "on-error-container": "#520c00",
+            "on-primary-fixed-variant": "#634e00",
+            "on-background": "#2d2f2f",
+            "surface-container": "#e7e8e8",
+            "inverse-surface": "#0c0f0f",
+            "tertiary-dim": "#a4000e",
+            "on-secondary-fixed": "#403f3f",
+            "surface-dim": "#d3d5d5",
+            "error-container": "#f95630",
+            "surface-tint": "#705900",
+            "secondary-fixed": "#e5e2e1",
+            "primary-fixed-dim": "#e6c047",
+            "background": "#f6f6f6",
+            "tertiary-fixed": "#ff9287",
+            "outline-variant": "#acadad",
+            "on-primary": "#fff1d4",
+            "surface-container-low": "#f0f1f1",
+            "surface-variant": "#dbdddd",
+            "primary": "#705900",
+            "on-primary-fixed": "#413200",
+            "on-tertiary-container": "#690006",
+            "on-primary-container": "#584500",
+            "inverse-primary": "#f5ce53",
+            "surface-container-highest": "#dbdddd",
+            "surface-container-high": "#e1e3e3",
+            "tertiary-container": "#ff9287",
+            "secondary-fixed-dim": "#d7d4d3",
+            "secondary-dim": "#504f4f",
+            "on-tertiary": "#ffefed",
+            "on-surface-variant": "#5a5c5c",
+            "on-secondary-container": "#525151",
+            "secondary-container": "#e5e2e1",
+            "on-tertiary-fixed-variant": "#7a0008"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px"
+          },
+          fontFamily: {
+            headline: ["Plus Jakarta Sans"],
+            display: ["Plus Jakarta Sans"],
+            body: ["Be Vietnam Pro"],
+            label: ["Be Vietnam Pro"]
+          }
+        }
+      }
+    }
+  </script>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+</head>
+<body class="h-full bg-[#111111] text-[#FAFAFA] font-body antialiased selection:bg-[#D4AF37] selection:text-[#111111]">
+<div class="flex h-full min-h-screen">
+<!-- SideNavBar Quản trị -->
+<aside class="w-64 bg-[#111111] border-r border-[#222222] flex flex-col justify-between hidden md:flex z-40">
+<div>
+<!-- Brand Header -->
+<div class="p-6 flex items-center gap-3 border-b border-[#222222]">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#D4AF37] to-[#996515] flex items-center justify-center text-[#111111] font-bold shadow-lg shadow-[#D4AF37]/10">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">admin_panel_settings</span>
+</div>
+<div>
+<span class="text-lg font-black text-[#FAFAFA] tracking-widest block font-headline">E-COMMERCE</span>
+<span class="text-xs text-[#D4AF37] font-medium">Hệ thống Quản trị</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="p-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#FAFAFA] opacity-80 hover:opacity-100 hover:bg-[#1A1A1A] transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Tổng quan</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#1A1A1A] text-[#D4AF37] font-semibold border-l-2 border-[#D4AF37] shadow-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="text-sm">Quản lý Sản phẩm</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#FAFAFA] opacity-80 hover:opacity-100 hover:bg-[#1A1A1A] transition-all" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-sm font-medium">Đơn hàng</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#FAFAFA] opacity-80 hover:opacity-100 hover:bg-[#1A1A1A] transition-all" href="#">
+<span class="material-symbols-outlined">local_offer</span>
+<span class="text-sm font-medium">Mã Voucher</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#FAFAFA] opacity-80 hover:opacity-100 hover:bg-[#1A1A1A] transition-all" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Khách hàng</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#FAFAFA] opacity-80 hover:opacity-100 hover:bg-[#1A1A1A] transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Cài đặt hệ thống</span>
+</a>
+</nav>
+</div>
+<!-- User Profile Bottom -->
+<div class="p-4 border-t border-[#222222]">
+<div class="flex items-center gap-3 p-3 rounded-xl bg-[#1A1A1A]">
+<img class="w-10 h-10 rounded-lg object-cover border border-[#D4AF37]/30" data-alt="Ảnh đại diện quản trị viên hệ thống thương mại điện tử sang trọng nam giới mặc vest lịch lãm tông màu đen vàng" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDL42JWc8WmIUuA02oX7K7kIwJ_gQllrHhUC5AABNG_bE5857SphfDfcI7PlvyfRpGfA2erqXRQ1KgkWLCuBwUmD3xBmsntBhA5x_0gEP0Y2IYi8bbPF4_RCF3HMjSPzlCrJu9x8Xn5ejWdFHnIX330zrY1U3yUWmJ4dh8LvC_woHAarVkcnJzR87yKQF8vM37nFGN0Ac2zKsW7ukI9At_b-cPda3zp3Vk6Mp1KlCN08SR7yL0-n6EngcpY77Wugd3Ck95GTaGFzYF2"/>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold text-[#FAFAFA] truncate">Nguyễn Quản Trị</p>
+<p class="text-xs text-[#D4AF37] truncate">Administrator</p>
+</div>
+<button class="text-[#FAFAFA] opacity-60 hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-[#161616]">
+<!-- Top Header -->
+<header class="h-20 bg-[#111111] border-b border-[#222222] flex items-center justify-between px-8 z-30">
+<div class="flex items-center gap-4">
+<h1 class="text-2xl font-extrabold font-headline text-[#FAFAFA] tracking-wide">Quản lý Sản phẩm</h1>
+<span class="px-3 py-1 rounded-full bg-[#D4AF37]/10 text-[#D4AF37] text-xs font-semibold border border-[#D4AF37]/20">Luxury Catalog</span>
+</div>
+<div class="flex items-center gap-4">
+<!-- Notification Bell -->
+<button class="w-10 h-10 rounded-xl bg-[#1A1A1A] border border-[#222222] flex items-center justify-center text-[#FAFAFA] hover:border-[#D4AF37] transition-colors relative">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#DC2626]"></span>
+</button>
+<!-- Add Product Button Primary -->
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B38F27] text-[#111111] font-bold text-sm shadow-lg shadow-[#D4AF37]/20 hover:brightness-110 transition-all active:scale-95" onclick="document.getElementById('addProductModal').classList.remove('hidden')">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span>Thêm sản phẩm mới</span>
+</button>
+</div>
+</header>
+<!-- Content Canvas -->
+<main class="flex-1 overflow-y-auto p-8 space-y-6">
+<!-- Stats / Overview Metrics Bar -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl p-6 shadow-xl">
+<div class="flex items-center justify-between mb-4">
+<span class="text-xs font-semibold text-[#FAFAFA]/60 uppercase tracking-wider">Tổng sản phẩm</span>
+<div class="w-10 h-10 rounded-xl bg-[#D4AF37]/10 text-[#D4AF37] flex items-center justify-center">
+<span class="material-symbols-outlined">inventory_2</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="text-2xl font-bold font-headline text-[#FAFAFA]">1,248</h3>
+<span class="text-xs text-[#10B981] font-medium flex items-center">+12 tháng này</span>
+</div>
+</div>
+<div class="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl p-6 shadow-xl">
+<div class="flex items-center justify-between mb-4">
+<span class="text-xs font-semibold text-[#FAFAFA]/60 uppercase tracking-wider">Tồn kho thấp</span>
+<div class="w-10 h-10 rounded-xl bg-[#DC2626]/10 text-[#DC2626] flex items-center justify-center">
+<span class="material-symbols-outlined">warning</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="text-2xl font-bold font-headline text-[#DC2626]">5</h3>
+<span class="text-xs text-[#DC2626]/80 font-medium">Cần nhập thêm hàng</span>
+</div>
+</div>
+<div class="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl p-6 shadow-xl">
+<div class="flex items-center justify-between mb-4">
+<span class="text-xs font-semibold text-[#FAFAFA]/60 uppercase tracking-wider">Danh mục cao cấp</span>
+<div class="w-10 h-10 rounded-xl bg-[#D4AF37]/10 text-[#D4AF37] flex items-center justify-center">
+<span class="material-symbols-outlined">category</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="text-2xl font-bold font-headline text-[#FAFAFA]">8</h3>
+<span class="text-xs text-[#FAFAFA]/60 font-medium">Bộ sưu tập độc quyền</span>
+</div>
+</div>
+<div class="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl p-6 shadow-xl">
+<div class="flex items-center justify-between mb-4">
+<span class="text-xs font-semibold text-[#FAFAFA]/60 uppercase tracking-wider">Tổng giá trị kho</span>
+<div class="w-10 h-10 rounded-xl bg-[#D4AF37]/10 text-[#D4AF37] flex items-center justify-center">
+<span class="material-symbols-outlined">payments</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="text-2xl font-bold font-headline text-[#D4AF37]">₫4.8B</h3>
+<span class="text-xs text-[#10B981] font-medium">+5.4%</span>
+</div>
+</div>
+</div>
+<!-- Filter & Search Bar Container -->
+<div class="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4">
+<!-- Search Box -->
+<div class="relative w-full md:w-96">
+<span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#FAFAFA]/40">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</span>
+<input class="w-full pl-11 pr-4 py-2.5 bg-[#111111] border border-[#2A2A2A] rounded-xl text-sm text-[#FAFAFA] placeholder-[#FAFAFA]/40 focus:outline-none focus:border-[#D4AF37] transition-colors" placeholder="Tìm kiếm theo tên sản phẩm, mã SKU..." type="text"/>
+</div>
+<!-- Filters & Actions -->
+<div class="flex items-center gap-3 w-full md:w-auto justify-end">
+<select class="bg-[#111111] border border-[#2A2A2A] rounded-xl px-4 py-2.5 text-sm text-[#FAFAFA] focus:outline-none focus:border-[#D4AF37] transition-colors">
+<option value="">Tất cả danh mục</option>
+<option value="watch">Đồng hồ Thụy Sỹ</option>
+<option value="jewelry">Trang sức Kim cương</option>
+<option value="leather">Đồ da Thủ công</option>
+<option value="perfume">Nước hoa Hoàng gia</option>
+</select>
+<select class="bg-[#111111] border border-[#2A2A2A] rounded-xl px-4 py-2.5 text-sm text-[#FAFAFA] focus:outline-none focus:border-[#D4AF37] transition-colors">
+<option value="">Trạng thái tồn kho</option>
+<option value="low">Tồn kho thấp (&lt; 3)</option>
+<option value="in">Còn hàng</option>
+<option value="out">Hết hàng</option>
+</select>
+</div>
+</div>
+<!-- Products Table Card -->
+<div class="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl overflow-hidden shadow-2xl">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-[#2A2A2A] bg-[#111111]/60 text-xs font-semibold text-[#FAFAFA]/60 uppercase tracking-wider">
+<th class="py-4 px-6">Sản phẩm</th>
+<th class="py-4 px-6">Danh mục</th>
+<th class="py-4 px-6">Giá niêm yết</th>
+<th class="py-4 px-6">Tồn kho</th>
+<th class="py-4 px-6">Trạng thái</th>
+<th class="py-4 px-6 text-right">Thao tác</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#2A2A2A] text-sm">
+<!-- Product Row 1 (Low stock warning) -->
+<tr class="hover:bg-[#1A1A1A] transition-colors group">
+<td class="py-4 px-6 flex items-center gap-4">
+<img class="w-12 h-12 rounded-xl object-cover border border-[#2A2A2A]" data-alt="Ảnh chụp cận cảnh đồng hồ cơ cao cấp mạ vàng đính kim cương với dây da cá sấu đen sang trọng" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKByVXfGRi6lUGJxy5Wd5lylnBafN7LZHLBbraymUrFIsHZZ_--h5-RwqG4HpIg0HYwAat21oEsVRBD-TvIYSvQ6nNWNDDVuCiK9myOi5l7JCCAMwaN1kAtNqLK72lMu9O3Uo-qk7Odk6oQ0gw3bsi0bA6rY9U67GFwW8kS4mM58zpY6WKzKHABSRiGGHnKwntEKkfNdg8_2Ud_aaQRDaHMgsdzMAFCb6rBrk1LUjOQ7ugwsPRFVjMj8-Mc031gC6sifdlD1rxBOY6"/>
+<div>
+<p class="font-bold text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors">Đồng hồ Rolex Submariner Gold</p>
+<span class="text-xs text-[#FAFAFA]/40 font-mono">SKU: LX-RLX-001</span>
+</div>
+</td>
+<td class="py-4 px-6 text-[#FAFAFA]/80">Đồng hồ Thụy Sỹ</td>
+<td class="py-4 px-6 font-semibold text-[#D4AF37]">₫450,000,000</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#DC2626]/10 text-[#DC2626] border border-[#DC2626]/30 text-xs font-bold animate-pulse">
+<span class="w-1.5 h-1.5 rounded-full bg-[#DC2626]"></span>
+                      2 sản phẩm
+                    </span>
+</td>
+<td class="py-4 px-6">
+<span class="px-2.5 py-1 rounded-full bg-[#10B981]/10 text-[#10B981] text-xs font-semibold">Đang bán</span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="w-8 h-8 rounded-lg bg-[#111111] border border-[#2A2A2A] flex items-center justify-center text-[#FAFAFA] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all" title="Sửa">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-[#111111] border border-[#2A2A2A] flex items-center justify-center text-[#FAFAFA] hover:border-[#DC2626] hover:text-[#DC2626] transition-all" title="Xóa">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Product Row 2 -->
+<tr class="hover:bg-[#1A1A1A] transition-colors group">
+<td class="py-4 px-6 flex items-center gap-4">
+<img class="w-12 h-12 rounded-xl object-cover border border-[#2A2A2A]" data-alt="Ảnh vòng cổ bạch kim đính kim cương tự nhiên sáng rực rỡ trong hộp nhung đen cao cấp" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsTHhDddpKXWv3eCu0RatjpaKbvojDJoj6dyPkBkw1mpSyT6mOYlPQmj6wTBdo0IlWd3a4b318B3L0qjC014nsnxxT1Aa7UINbx6HQPxzTvBbfc48DM51QR4Fg9Wnx5Dr8cXMV4Pzm6zAtdFH6D5KiYRAAcm5TB4pE3PnqRJdWvimk6KLZQk3tNY20-nirbwF35wDHyK40tYC5QwLFa6imbzjuKB2Znf4ypo-r_HNWmNNS0p7a9vr7dt1mDi915jH0sMyNkPY-wAyr"/>
+<div>
+<p class="font-bold text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors">Dây chuyền Cartier Diamants</p>
+<span class="text-xs text-[#FAFAFA]/40 font-mono">SKU: LX-CRT-042</span>
+</div>
+</td>
+<td class="py-4 px-6 text-[#FAFAFA]/80">Trang sức Kim cương</td>
+<td class="py-4 px-6 font-semibold text-[#D4AF37]">₫280,000,000</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#DC2626]/10 text-[#DC2626] border border-[#DC2626]/30 text-xs font-bold animate-pulse">
+<span class="w-1.5 h-1.5 rounded-full bg-[#DC2626]"></span>
+                      1 sản phẩm
+                    </span>
+</td>
+<td class="py-4 px-6">
+<span class="px-2.5 py-1 rounded-full bg-[#10B981]/10 text-[#10B981] text-xs font-semibold">Đang bán</span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="w-8 h-8 rounded-lg bg-[#111111] border border-[#2A2A2A] flex items-center justify-center text-[#FAFAFA] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all" title="Sửa">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-[#111111] border border-[#2A2A2A] flex items-center justify-center text-[#FAFAFA] hover:border-[#DC2626] hover:text-[#DC2626] transition-all" title="Xóa">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Product Row 3 -->
+<tr class="hover:bg-[#1A1A1A] transition-colors group">
+<td class="py-4 px-6 flex items-center gap-4">
+<img class="w-12 h-12 rounded-xl object-cover border border-[#2A2A2A]" data-alt="Ảnh cặp túi xách da cá sấu màu đen tuyền khâu tay thủ công tinh xảo với khóa mạ vàng" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAKMpsMAthTCMF4DeW4GxW_EsX9F--jpCM1kTd-hP4RZtjhblkKYbBnFi9xBmBLFXT3ajnkjqdE9t59kc1GTl1LA9Z28MDXtDvEB37XSF7fhwsn6zCdK69mOAB0lwWFxe4l0mcbiOc6lZs8Y9NV1ZrGTOEx_mb7cKZ1DYRjMBUnU1X9RbslSM3MXv-ss5lP_p_DobAFOC2XbKshEdqgR-6IF2-HRINBl8CM0xAWg16eXhOxBUGu1kZD6sQj5S4nhuhXxdL1DxP2XAv"/>
+<div>
+<p class="font-bold text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors">Túi xách Hermès Birkin Crocodile</p>
+<span class="text-xs text-[#FAFAFA]/40 font-mono">SKU: LX-HMS-888</span>
+</div>
+</td>
+<td class="py-4 px-6 text-[#FAFAFA]/80">Đồ da Thủ công</td>
+<td class="py-4 px-6 font-semibold text-[#D4AF37]">₫1,250,000,000</td>
+<td class="py-4 px-6">
+<span class="text-sm font-medium text-[#FAFAFA]/80">12 sản phẩm</span>
+</td>
+<td class="py-4 px-6">
+<span class="px-2.5 py-1 rounded-full bg-[#10B981]/10 text-[#10B981] text-xs font-semibold">Đang bán</span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="w-8 h-8 rounded-lg bg-[#111111] border border-[#2A2A2A] flex items-center justify-center text-[#FAFAFA] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all" title="Sửa">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-[#111111] border border-[#2A2A2A] flex items-center justify-center text-[#FAFAFA] hover:border-[#DC2626] hover:text-[#DC2626] transition-all" title="Xóa">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Product Row 4 -->
+<tr class="hover:bg-[#1A1A1A] transition-colors group">
+<td class="py-4 px-6 flex items-center gap-4">
+<img class="w-12 h-12 rounded-xl object-cover border border-[#2A2A2A]" data-alt="Ảnh chai nước hoa hoàng gia thiết kế lọ thủy tinh chạm khắc vàng khối tinh tế" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVCx1f6IsRTJ0tIaJHLEhBBSpzFNn6mnWgIsiCwVeL8QsEzniJG2Yar7zt2sZfbQGo02TzIhlkt9DZHSM-4gOZUWczcNQez0M6nmNz-IA_SuFmUTjYNdZv8dhqd0ak3tBfJxEslBZ0vrmgLYuIsRUPL-4NfXH3S2ICKfhYCWKKSdgI7umGAC9FJF9ElEG1nXerJsRnFQomIrYP1dAMTtUoV3G6qEPkU-VA7glb4iw_9pYbM_92qj7JJbDGntpenvFqqzd68Z9YHruL"/>
+<div>
+<p class="font-bold text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors">Nước hoa Roja Parfums Haute Luxe</p>
+<span class="text-xs text-[#FAFAFA]/40 font-mono">SKU: LX-RJA-099</span>
+</div>
+</td>
+<td class="py-4 px-6 text-[#FAFAFA]/80">Nước hoa Hoàng gia</td>
+<td class="py-4 px-6 font-semibold text-[#D4AF37]">₫32,000,000</td>
+<td class="py-4 px-6">
+<span class="text-sm font-medium text-[#FAFAFA]/80">45 sản phẩm</span>
+</td>
+<td class="py-4 px-6">
+<span class="px-2.5 py-1 rounded-full bg-[#10B981]/10 text-[#10B981] text-xs font-semibold">Đang bán</span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="w-8 h-8 rounded-lg bg-[#111111] border border-[#2A2A2A] flex items-center justify-center text-[#FAFAFA] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all" title="Sửa">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-[#111111] border border-[#2A2A2A] flex items-center justify-center text-[#FAFAFA] hover:border-[#DC2626] hover:text-[#DC2626] transition-all" title="Xóa">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Product Row 5 (Low stock warning) -->
+<tr class="hover:bg-[#1A1A1A] transition-colors group">
+<td class="py-4 px-6 flex items-center gap-4">
+<img class="w-12 h-12 rounded-xl object-cover border border-[#2A2A2A]" data-alt="Ảnh kính mát gọng titanium mạ vàng 24k với tròng kính phân cực cao cấp" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhqEAi1f-j9OladquDimOG-Q8-rguBcHjUqiRAAmaz-A5dcXqzJ-amui-Lzp0mwaWeUPKIDg1-sZxkg_oUyTnWka0cwOAUKXM7QAKqHEPNMPFke1pXujRNU0l5KCZRm_Ov9knx-mckxG6k8x7ntGd1bjusDsgl4oJ38eqk86CVs6wYqsuCTdaJuekysJ1DsFrj-bsdy-a_BYOoGsXD64XRfaTrGN3KcnI6CyS1HOzyV2M0EIr6HzotAhPUczAzT12-usULC_aSdP4I"/>
+<div>
+<p class="font-bold text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors">Kính mắt Cartier Signature C</p>
+<span class="text-xs text-[#FAFAFA]/40 font-mono">SKU: LX-CRT-332</span>
+</div>
+</td>
+<td class="py-4 px-6 text-[#FAFAFA]/80">Phụ kiện Thời trang</td>
+<td class="py-4 px-6 font-semibold text-[#D4AF37]">₫42,000,000</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#DC2626]/10 text-[#DC2626] border border-[#DC2626]/30 text-xs font-bold animate-pulse">
+<span class="w-1.5 h-1.5 rounded-full bg-[#DC2626]"></span>
+                      1 sản phẩm
+                    </span>
+</td>
+<td class="py-4 px-6">
+<span class="px-2.5 py-1 rounded-full bg-[#10B981]/10 text-[#10B981] text-xs font-semibold">Đang bán</span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="w-8 h-8 rounded-lg bg-[#111111] border border-[#2A2A2A] flex items-center justify-center text-[#FAFAFA] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all" title="Sửa">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-[#111111] border border-[#2A2A2A] flex items-center justify-center text-[#FAFAFA] hover:border-[#DC2626] hover:text-[#DC2626] transition-all" title="Xóa">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="px-6 py-4 border-t border-[#2A2A2A] flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#111111]/40">
+<span class="text-xs text-[#FAFAFA]/60">Hiển thị <span class="font-semibold text-[#FAFAFA]">1-5</span> trong tổng số <span class="font-semibold text-[#FAFAFA]">1,248</span> sản phẩm</span>
+<div class="flex items-center gap-2">
+<button class="px-3.5 py-2 rounded-xl bg-[#1C1C1C] border border-[#2A2A2A] text-xs font-semibold text-[#FAFAFA]/40 cursor-not-allowed">Trang trước</button>
+<button class="w-9 h-9 rounded-xl bg-[#D4AF37] text-[#111111] text-xs font-bold shadow-md">1</button>
+<button class="w-9 h-9 rounded-xl bg-[#1C1C1C] border border-[#2A2A2A] text-xs font-semibold text-[#FAFAFA] hover:border-[#D4AF37] transition-colors">2</button>
+<button class="w-9 h-9 rounded-xl bg-[#1C1C1C] border border-[#2A2A2A] text-xs font-semibold text-[#FAFAFA] hover:border-[#D4AF37] transition-colors">3</button>
+<span class="text-[#FAFAFA]/40 px-1">...</span>
+<button class="w-9 h-9 rounded-xl bg-[#1C1C1C] border border-[#2A2A2A] text-xs font-semibold text-[#FAFAFA] hover:border-[#D4AF37] transition-colors">250</button>
+<button class="px-3.5 py-2 rounded-xl bg-[#1C1C1C] border border-[#2A2A2A] text-xs font-semibold text-[#FAFAFA] hover:border-[#D4AF37] transition-colors">Trang sau</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+<!-- Add Product Modal (Hidden by default) -->
+<div class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden" id="addProductModal">
+<div class="bg-[#1C1C1C] border border-[#2A2A2A] rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+<div class="p-6 border-b border-[#2A2A2A] flex items-center justify-between bg-[#111111]">
+<h3 class="text-lg font-bold font-headline text-[#FAFAFA]">Thêm sản phẩm cao cấp mới</h3>
+<button class="w-8 h-8 rounded-lg bg-[#1A1A1A] flex items-center justify-center text-[#FAFAFA]/60 hover:text-[#FAFAFA] transition-colors" onclick="document.getElementById('addProductModal').classList.add('hidden')">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="p-6 space-y-4 max-h-[716px] overflow-y-auto">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-semibold text-[#FAFAFA]/70 uppercase tracking-wider mb-2">Tên sản phẩm</label>
+<input class="w-full px-4 py-2.5 bg-[#111111] border border-[#2A2A2A] rounded-xl text-sm text-[#FAFAFA] focus:outline-none focus:border-[#D4AF37]" placeholder="Nhập tên sản phẩm..." type="text"/>
+</div>
+<div>
+<label class="block text-xs font-semibold text-[#FAFAFA]/70 uppercase tracking-wider mb-2">Mã SKU</label>
+<input class="w-full px-4 py-2.5 bg-[#111111] border border-[#2A2A2A] rounded-xl text-sm text-[#FAFAFA] focus:outline-none focus:border-[#D4AF37]" placeholder="VD: LX-XYZ-001" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-semibold text-[#FAFAFA]/70 uppercase tracking-wider mb-2">Danh mục</label>
+<select class="w-full px-4 py-2.5 bg-[#111111] border border-[#2A2A2A] rounded-xl text-sm text-[#FAFAFA] focus:outline-none focus:border-[#D4AF37]">
+<option>Đồng hồ Thụy Sỹ</option>
+<option>Trang sức Kim cương</option>
+<option>Đồ da Thủ công</option>
+<option>Nước hoa Hoàng gia</option>
+</select>
+</div>
+<div>
+<label class="block text-xs font-semibold text-[#FAFAFA]/70 uppercase tracking-wider mb-2">Giá niêm yết (VNĐ)</label>
+<input class="w-full px-4 py-2.5 bg-[#111111] border border-[#2A2A2A] rounded-xl text-sm text-[#FAFAFA] focus:outline-none focus:border-[#D4AF37]" placeholder="0" type="number"/>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-semibold text-[#FAFAFA]/70 uppercase tracking-wider mb-2">Số lượng tồn kho</label>
+<input class="w-full px-4 py-2.5 bg-[#111111] border border-[#2A2A2A] rounded-xl text-sm text-[#FAFAFA] focus:outline-none focus:border-[#D4AF37]" placeholder="0" type="number"/>
+</div>
+<div>
+<label class="block text-xs font-semibold text-[#FAFAFA]/70 uppercase tracking-wider mb-2">Trạng thái</label>
+<select class="w-full px-4 py-2.5 bg-[#111111] border border-[#2A2A2A] rounded-xl text-sm text-[#FAFAFA] focus:outline-none focus:border-[#D4AF37]">
+<option>Đang bán</option>
+<option>Tạm ngưng</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block text-xs font-semibold text-[#FAFAFA]/70 uppercase tracking-wider mb-2">Mô tả chi tiết sản phẩm</label>
+<textarea class="w-full px-4 py-2.5 bg-[#111111] border border-[#2A2A2A] rounded-xl text-sm text-[#FAFAFA] focus:outline-none focus:border-[#D4AF37]" placeholder="Nhập mô tả đặc điểm nổi bật..." rows="4"></textarea>
+</div>
+</div>
+<div class="p-6 border-t border-[#2A2A2A] bg-[#111111] flex items-center justify-end gap-3">
+<button class="px-5 py-2.5 rounded-xl bg-[#1C1C1C] border border-[#2A2A2A] text-sm font-semibold text-[#FAFAFA] hover:border-[#FAFAFA]/40 transition-colors" onclick="document.getElementById('addProductModal').classList.add('hidden')">Hủy bỏ</button>
+<button class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B38F27] text-[#111111] font-bold text-sm shadow-lg shadow-[#D4AF37]/20 hover:brightness-110 transition-all" onclick="document.getElementById('addProductModal').classList.add('hidden')">Lưu sản phẩm</button>
+</div>
+</div>
+</div>
+</body></html>

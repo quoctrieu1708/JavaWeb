@@ -69,29 +69,19 @@ public class HomeController {
 	@Autowired
 	private com.ecom.service.NotificationService notificationService;
 
-	@ModelAttribute
-	public void getUserDetails(Principal p, Model m) {
-		if (p != null) {
-			String email = p.getName();
-			UserDtls userDtls = userService.getUserByEmail(email);
-			m.addAttribute("user", userDtls);
-			Integer countCart = cartService.getCountCart(userDtls.getId());
-			m.addAttribute("countCart", countCart);
-			Long countNotification = notificationService.getUnreadCount(userDtls.getId());
-			m.addAttribute("countNotification", countNotification != null ? countNotification : 0L);
-		}
+	@Autowired
+	private com.ecom.service.FileStorageService fileStorageService;
 
-		List<Category> allActiveCategory = categoryService.getAllActiveCategory();
-		m.addAttribute("categorys", allActiveCategory);
-	}
+	// Thuộc tính layout dùng chung (user, countCart, countNotification, categorys)
+	// được cung cấp bởi com.ecom.config.GlobalControllerAdvice
 
 	@GetMapping("/")
 	public String index(Model m) {
 
 		List<Category> allActiveCategory = categoryService.getAllActiveCategory().stream()
 				.sorted((c1, c2) -> c2.getId().compareTo(c1.getId())).limit(6).toList();
-		List<Product> allActiveProducts = productService.getAllActiveProducts("").stream()
-				.sorted((p1, p2) -> p2.getId().compareTo(p1.getId())).limit(8).toList();
+		// Truy vấn phân trang trực tiếp dưới DB thay vì tải toàn bộ sản phẩm lên RAM
+		List<Product> allActiveProducts = productService.getLatestActiveProducts(8);
 		m.addAttribute("category", allActiveCategory);
 		m.addAttribute("products", allActiveProducts);
 		return "index";
@@ -200,20 +190,12 @@ public class HomeController {
 		if (existsEmail) {
 			session.setAttribute("errorMsg", "Email này đã được đăng ký");
 		} else {
-			String imageName = file.isEmpty() ? "default.jpg" : file.getOriginalFilename();
-			user.setProfileImage(imageName);
+			// Lưu ảnh đại diện vào thư mục upload ngoài (an toàn khi chạy dưới dạng JAR)
+			String savedName = fileStorageService.saveFile(file, "profile_img");
+			user.setProfileImage(savedName == null ? "default.jpg" : savedName);
 			UserDtls saveUser = userService.saveUser(user);
 
 			if (!ObjectUtils.isEmpty(saveUser)) {
-				if (!file.isEmpty()) {
-					File saveFile = new ClassPathResource("static/img").getFile();
-
-					Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "profile_img" + File.separator
-							+ file.getOriginalFilename());
-
-//					System.out.println(path);
-					Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-				}
 				session.setAttribute("succMsg", "Đăng ký tài khoản thành công");
 			} else {
 				session.setAttribute("errorMsg", "Đã xảy ra lỗi trên máy chủ");

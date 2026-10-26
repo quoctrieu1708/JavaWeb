@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quản lý Voucher - E-COMMERCE Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#f6f6f6",
+            "on-surface": "#2d2f2f",
+            "on-error": "#ffefec",
+            "tertiary-fixed-dim": "#ff7b6f",
+            "inverse-on-surface": "#9c9d9d",
+            "surface-container-lowest": "#ffffff",
+            "error": "#b02500",
+            "primary-container": "#f5ce53",
+            "tertiary": "#ba0012",
+            "on-tertiary-fixed": "#3a0002",
+            "outline": "#767777",
+            "surface-bright": "#f6f6f6",
+            "secondary": "#5c5b5b",
+            "primary-dim": "#624d00",
+            "primary-fixed": "#f5ce53",
+            "on-secondary": "#f5f2f1",
+            "error-dim": "#b92902",
+            "on-secondary-fixed-variant": "#5c5b5b",
+            "on-error-container": "#520c00",
+            "on-primary-fixed-variant": "#634e00",
+            "on-background": "#2d2f2f",
+            "surface-container": "#e7e8e8",
+            "inverse-surface": "#0c0f0f",
+            "tertiary-dim": "#a4000e",
+            "on-secondary-fixed": "#403f3f",
+            "surface-dim": "#d3d5d5",
+            "error-container": "#f95630",
+            "surface-tint": "#705900",
+            "secondary-fixed": "#e5e2e1",
+            "primary-fixed-dim": "#e6c047",
+            "background": "#f6f6f6",
+            "tertiary-fixed": "#ff9287",
+            "outline-variant": "#acadad",
+            "on-primary": "#fff1d4",
+            "surface-container-low": "#f0f1f1",
+            "surface-variant": "#dbdddd",
+            "primary": "#705900",
+            "on-primary-fixed": "#413200",
+            "on-tertiary-container": "#690006",
+            "on-primary-container": "#584500",
+            "inverse-primary": "#f5ce53",
+            "surface-container-highest": "#dbdddd",
+            "surface-container-high": "#e1e3e3",
+            "tertiary-container": "#ff9287",
+            "secondary-fixed-dim": "#d7d4d3",
+            "secondary-dim": "#504f4f",
+            "on-tertiary": "#ffefed",
+            "on-surface-variant": "#5a5c5c",
+            "on-secondary-container": "#525151",
+            "secondary-container": "#e5e2e1",
+            "on-tertiary-fixed-variant": "#7a0008"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px"
+          },
+          fontFamily: {
+            headline: ["Plus Jakarta Sans"],
+            display: ["Plus Jakarta Sans"],
+            body: ["Be Vietnam Pro"],
+            label: ["Be Vietnam Pro"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .gold-gradient {
+      background: linear-gradient(135deg, #D4AF37 0%, #F5D77F 50%, #996515 100%);
+    }
+    .dark-luxury-bg {
+      background-color: #111111;
+    }
+    .dark-card-bg {
+      background-color: #1A1A1A;
+    }
+  </style>
+</head>
+<body class="h-full bg-[#111111] text-[#FAFAFA] font-body antialiased selection:bg-[#D4AF37] selection:text-black">
+<div class="min-h-screen flex flex-col md:flex-row">
+<!-- TopNavBar (Mobile) -->
+<header class="md:hidden bg-[#111111] text-[#FAFAFA] flex justify-between items-center w-full px-6 py-4 shadow-lg shadow-black/40 sticky top-0 z-50">
+<div class="text-xl font-black text-[#FAFAFA] tracking-widest">E-COMMERCE</div>
+<button class="text-[#D4AF37] focus:outline-none" onclick="toggleMobileMenu()">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+</header>
+<!-- SideNavBar (Admin) -->
+<aside class="w-72 dark-luxury-bg border-r border-[#222222] flex flex-col justify-between hidden md:flex shrink-0 min-h-screen sticky top-0" id="sidebar">
+<div>
+<div class="px-6 py-6 border-b border-[#222222] flex items-center justify-between">
+<span class="text-xl font-black text-[#FAFAFA] tracking-widest">E-COMMERCE</span>
+<span class="text-xs px-2 py-1 rounded bg-[#D4AF37]/10 text-[#D4AF37] font-semibold border border-[#D4AF37]/3art">ADMIN</span>
+</div>
+<nav class="p-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#FAFAFA] opacity-80 hover:opacity-100 hover:bg-[#222222] transition-all" href="#">
+<span class="material-symbols-outlined text-[#D4AF37]">dashboard</span>
+<span>Tổng quan</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#FAFAFA] opacity-80 hover:opacity-100 hover:bg-[#222222] transition-all" href="#">
+<span class="material-symbols-outlined text-[#D4AF37]">inventory_2</span>
+<span>Sản phẩm</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#222222] text-[#D4AF37] font-semibold border-l-4 border-[#D4AF37] shadow-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_activity</span>
+<span>Quản lý Voucher</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#FAFAFA] opacity-80 hover:opacity-100 hover:bg-[#222222] transition-all" href="#">
+<span class="material-symbols-outlined text-[#D4AF37]">orders</span>
+<span>Đơn hàng</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#FAFAFA] opacity-80 hover:opacity-100 hover:bg-[#222222] transition-all" href="#">
+<span class="material-symbols-outlined text-[#D4AF37]">group</span>
+<span>Khách hàng</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#FAFAFA] opacity-80 hover:opacity-100 hover:bg-[#222222] transition-all" href="#">
+<span class="material-symbols-outlined text-[#D4AF37]">settings</span>
+<span>Cài đặt hệ thống</span>
+</a>
+</nav>
+</div>
+<div class="p-4 border-t border-[#222222]">
+<div class="flex items-center gap-3 px-4 py-3 bg-[#1A1A1A] rounded-xl border border-[#333333]">
+<div class="w-10 h-10 rounded-full bg-[#D4AF37] text-black font-bold flex items-center justify-center shrink-0">AD</div>
+<div class="overflow-hidden">
+<p class="text-sm font-bold text-[#FAFAFA] truncate">Quản trị viên</p>
+<p class="text-xs text-[#D4AF37] truncate">admin@ecommerce.vn</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+<!-- Top Bar Header -->
+<header class="bg-[#111111] border-b border-[#222222] px-8 py-5 flex justify-between items-center sticky top-0 z-40 backdrop-blur-md bg-opacity-95">
+<div>
+<h1 class="text-2xl font-headline font-bold text-[#FAFAFA]">Quản lý Mã Giảm Giá</h1>
+<p class="text-sm text-[#888888] mt-0.5">Tạo lập và theo dõi các chương trình ưu đãi độc quyền.</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="gold-gradient text-black font-bold px-5 py-2.5 rounded-xl shadow-lg hover:opacity-90 active:scale-95 transition-all flex items-center gap-2" onclick="openVoucherModal()">
+<span class="material-symbols-outlined text-lg">add_circle</span>
+<span>Tạo Voucher Mới</span>
+</button>
+</div>
+</header>
+<!-- Content Body -->
+<div class="p-8 max-w-7xl w-full mx-auto space-y-8">
+<!-- Stats Overview Cards -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="dark-card-bg p-6 rounded-2xl border border-[#262626] shadow-xl relative overflow-hidden">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm text-[#888888] font-medium">Tổng số voucher</p>
+<h3 class="text-3xl font-bold font-headline mt-2 text-[#FAFAFA]">24</h3>
+</div>
+<div class="p-3 bg-[#D4AF37]/10 text-[#D4AF37] rounded-xl border border-[#D4AF37]/20">
+<span class="material-symbols-outlined">local_activity</span>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-2 text-xs text-[#10B981]">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+4 voucher mới tuần này</span>
+</div>
+</div>
+<div class="dark-card-bg p-6 rounded-2xl border border-[#262626] shadow-xl relative overflow-hidden">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm text-[#888888] font-medium">Đang hoạt động</p>
+<h3 class="text-3xl font-bold font-headline mt-2 text-[#10B981]">18</h3>
+</div>
+<div class="p-3 bg-[#10B981]/10 text-[#10B981] rounded-xl border border-[#10B981]/20">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-2 text-xs text-[#888888]">
+<span>Sẵn sàng áp dụng cho khách hàng</span>
+</div>
+</div>
+<div class="dark-card-bg p-6 rounded-2xl border border-[#262626] shadow-xl relative overflow-hidden">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm text-[#888888] font-medium">Đã hết hạn</p>
+<h3 class="text-3xl font-bold font-headline mt-2 text-[#EF4444]">4</h3>
+</div>
+<div class="p-3 bg-[#EF4444]/10 text-[#EF4444] rounded-xl border border-[#EF4444]/20">
+<span class="material-symbols-outlined">event_busy</span>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-2 text-xs text-[#888888]">
+<span>Cần cập nhật hoặc xóa</span>
+</div>
+</div>
+<div class="dark-card-bg p-6 rounded-2xl border border-[#262626] shadow-xl relative overflow-hidden">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm text-[#888888] font-medium">Lượt sử dụng</p>
+<h3 class="text-3xl font-bold font-headline mt-2 text-[#D4AF37]">1,482</h3>
+</div>
+<div class="p-3 bg-[#D4AF37]/10 text-[#D4AF37] rounded-xl border border-[#D4AF37]/20">
+<span class="material-symbols-outlined">redeem</span>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-2 text-xs text-[#10B981]">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+18.2% so với tháng trước</span>
+</div>
+</div>
+</div>
+<!-- Filter & Search Toolbar -->
+<div class="dark-card-bg p-4 rounded-2xl border border-[#262626] flex flex-col md:flex-row gap-4 justify-between items-center">
+<div class="flex items-center gap-3 w-full md:w-auto">
+<div class="relative w-full md:w-80">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#888888]">search</span>
+<input class="w-full bg-[#111111] border border-[#333333] rounded-xl pl-10 pr-4 py-2.5 text-sm text-[#FAFAFA] placeholder-[#666666] focus:outline-none focus:border-[#D4AF37] transition-all" placeholder="Tìm kiếm theo mã code..." type="text"/>
+</div>
+<select class="bg-[#111111] border border-[#333333] rounded-xl px-4 py-2.5 text-sm text-[#FAFAFA] focus:outline-none focus:border-[#D4AF37]">
+<option value="">Tất cả trạng thái</option>
+<option value="active">Đang hoạt động</option>
+<option value="expired">Đã hết hạn</option>
+<option value="upcoming">Sắp diễn ra</option>
+</select>
+</div>
+<div class="flex items-center gap-3 w-full md:w-auto justify-end">
+<span class="text-sm text-[#888888]">Hiển thị 1-5 của 24 voucher</span>
+</div>
+</div>
+<!-- Vouchers Data Table -->
+<div class="dark-card-bg rounded-2xl border border-[#262626] overflow-hidden shadow-2xl">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-[#262626] bg-[#151515] text-[#888888] text-xs font-semibold uppercase tracking-wider">
+<th class="py-4 px-6">Mã Code</th>
+<th class="py-4 px-6">Loại giảm giá</th>
+<th class="py-4 px-6">Giá trị</th>
+<th class="py-4 px-6">Thời hạn</th>
+<th class="py-4 px-6">Đã dùng</th>
+<th class="py-4 px-6">Trạng thái</th>
+<th class="py-4 px-6 text-right">Thao tác</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#222222] text-sm">
+<!-- Row 1 -->
+<tr class="hover:bg-[#202020] transition-colors">
+<td class="py-4 px-6 font-bold text-[#D4AF37] flex items-center gap-2">
+<span class="material-symbols-outlined text-base">local_activity</span>
+                    LUXURY2024
+                  </td>
+<td class="py-4 px-6 text-[#FAFAFA]">Phần trăm (%)</td>
+<td class="py-4 px-6 font-semibold text-[#FAFAFA]">20%</td>
+<td class="py-4 px-6 text-[#888888]">31/12/2024</td>
+<td class="py-4 px-6 text-[#888888]">420 / 500</td>
+<td class="py-4 px-6">
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-[#10B981]/15 text-[#10B981] border border-[#10B981]/30">Đang hoạt động</span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 hover:bg-[#2A2A2A] rounded-lg text-[#888888] hover:text-[#D4AF37] transition-colors" onclick="openVoucherModal()" title="Chỉnh sửa">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="p-2 hover:bg-[#2A2A2A] rounded-lg text-[#888888] hover:text-[#EF4444] transition-colors" title="Xóa">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-[#202020] transition-colors">
+<td class="py-4 px-6 font-bold text-[#D4AF37] flex items-center gap-2">
+<span class="material-symbols-outlined text-base">local_activity</span>
+                    GOLDEN500K
+                  </td>
+<td class="py-4 px-6 text-[#FAFAFA]">Số tiền cố định</td>
+<td class="py-4 px-6 font-semibold text-[#FAFAFA]">500.000 đ</td>
+<td class="py-4 px-6 text-[#888888]">15/11/2024</td>
+<td class="py-4 px-6 text-[#888888]">200 / 200</td>
+<td class="py-4 px-6">
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-[#EF4444]/15 text-[#EF4444] border border-[#EF4444]/30">Đã hết hạn</span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 hover:bg-[#2A2A2A] rounded-lg text-[#888888] hover:text-[#D4AF37] transition-colors" onclick="openVoucherModal()" title="Chỉnh sửa">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="p-2 hover:bg-[#2A2A2A] rounded-lg text-[#888888] hover:text-[#EF4444] transition-colors" title="Xóa">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-[#202020] transition-colors">
+<td class="py-4 px-6 font-bold text-[#D4AF37] flex items-center gap-2">
+<span class="material-symbols-outlined text-base">local_activity</span>
+                    VIPWELCOME
+                  </td>
+<td class="py-4 px-6 text-[#FAFAFA]">Phần trăm (%)</td>
+<td class="py-4 px-6 font-semibold text-[#FAFAFA]">15%</td>
+<td class="py-4 px-6 text-[#888888]">28/02/2025</td>
+<td class="py-4 px-6 text-[#888888]">85 / 1000</td>
+<td class="py-4 px-6">
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-[#10B981]/15 text-[#10B981] border border-[#10B981]/30">Đang hoạt động</span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 hover:bg-[#2A2A2A] rounded-lg text-[#888888] hover:text-[#D4AF37] transition-colors" onclick="openVoucherModal()" title="Chỉnh sửa">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="p-2 hover:bg-[#2A2A2A] rounded-lg text-[#888888] hover:text-[#EF4444] transition-colors" title="Xóa">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-[#202020] transition-colors">
+<td class="py-4 px-6 font-bold text-[#D4AF37] flex items-center gap-2">
+<span class="material-symbols-outlined text-base">local_activity</span>
+                    BLACKFRIDAY
+                  </td>
+<td class="py-4 px-6 text-[#FAFAFA]">Phần trăm (%)</td>
+<td class="py-4 px-6 font-semibold text-[#FAFAFA]">50%</td>
+<td class="py-4 px-6 text-[#888888]">30/11/2024</td>
+<td class="py-4 px-6 text-[#888888]">500 / 500</td>
+<td class="py-4 px-6">
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-[#EF4444]/15 text-[#EF4444] border border-[#EF4444]/30">Đã hết hạn</span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 hover:bg-[#2A2A2A] rounded-lg text-[#888888] hover:text-[#D4AF37] transition-colors" onclick="openVoucherModal()" title="Chỉnh sửa">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="p-2 hover:bg-[#2A2A2A] rounded-lg text-[#888888] hover:text-[#EF4444] transition-colors" title="Xóa">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-[#202020] transition-colors">
+<td class="py-4 px-6 font-bold text-[#D4AF37] flex items-center gap-2">
+<span class="material-symbols-outlined text-base">local_activity</span>
+                    FREESHIPVIP
+                  </td>
+<td class="py-4 px-6 text-[#FAFAFA]">Số tiền cố định</td>
+<td class="py-4 px-6 font-semibold text-[#FAFAFA]">50.000 đ</td>
+<td class="py-4 px-6 text-[#888888]">30/06/2025</td>
+<td class="py-4 px-6 text-[#888888]">120 / 1000</td>
+<td class="py-4 px-6">
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-[#10B981]/15 text-[#10B981] border border-[#10B981]/30">Đang hoạt động</span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 hover:bg-[#2A2A2A] rounded-lg text-[#888888] hover:text-[#D4AF37] transition-colors" onclick="openVoucherModal()" title="Chỉnh sửa">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="p-2 hover:bg-[#2A2A2A] rounded-lg text-[#888888] hover:text-[#EF4444] transition-colors" title="Xóa">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="px-6 py-4 bg-[#151515] border-t border-[#262626] flex justify-between items-center">
+<span class="text-sm text-[#888888]">Trang 1 / 5</span>
+<div class="flex gap-2">
+<button class="px-4 py-2 bg-[#222222] text-[#888888] rounded-xl text-sm font-semibold cursor-not-allowed">Trước</button>
+<button class="px-4 py-2 bg-[#D4AF37] text-black rounded-xl text-sm font-semibold hover:opacity-90">1</button>
+<button class="px-4 py-2 bg-[#222222] text-[#FAFAFA] rounded-xl text-sm font-semibold hover:bg-[#333333]">2</button>
+<button class="px-4 py-2 bg-[#222222] text-[#FAFAFA] rounded-xl text-sm font-semibold hover:bg-[#333333]">3</button>
+<button class="px-4 py-2 bg-[#222222] text-[#FAFAFA] rounded-xl text-sm font-semibold hover:bg-[#333333]">Tiếp</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Modal Tạo/Chỉnh sửa Voucher -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm hidden" id="voucherModal">
+<div class="dark-card-bg w-full max-w-xl rounded-2xl border border-[#333333] shadow-2xl overflow-hidden transform transition-all">
+<div class="px-6 py-4 border-b border-[#262626] flex justify-between items-center bg-[#151515]">
+<h3 class="text-lg font-bold font-headline text-[#FAFAFA]" id="modalTitle">Tạo Mới Mã Giảm Giá</h3>
+<button class="text-[#888888] hover:text-[#FAFAFA]" onclick="closeVoucherModal()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form class="p-6 space-y-4">
+<div>
+<label class="block text-sm font-medium text-[#888888] mb-1">Mã Code Voucher</label>
+<input class="w-full bg-[#111111] border border-[#333333] rounded-xl px-4 py-2.5 text-sm text-[#FAFAFA] placeholder-[#666666] focus:outline-none focus:border-[#D4AF37]" placeholder="Ví dụ: SUMMER2024" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium text-[#888888] mb-1">Loại giảm giá</label>
+<select class="w-full bg-[#111111] border border-[#333333] rounded-xl px-4 py-2.5 text-sm text-[#FAFAFA] focus:outline-none focus:border-[#D4AF37]">
+<option value="percent">Phần trăm (%)</option>
+<option value="fixed">Số tiền cố định (đ)</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-[#888888] mb-1">Giá trị giảm</label>
+<input class="w-full bg-[#111111] border border-[#333333] rounded-xl px-4 py-2.5 text-sm text-[#FAFAFA] placeholder-[#666666] focus:outline-none focus:border-[#D4AF37]" placeholder="20" type="number"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium text-[#888888] mb-1">Ngày hết hạn</label>
+<input class="w-full bg-[#111111] border border-[#333333] rounded-xl px-4 py-2.5 text-sm text-[#FAFAFA] focus:outline-none focus:border-[#D4AF37]" type="date"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-[#888888] mb-1">Giới hạn sử dụng</label>
+<input class="w-full bg-[#111111] border border-[#333333] rounded-xl px-4 py-2.5 text-sm text-[#FAFAFA] placeholder-[#666666] focus:outline-none focus:border-[#D4AF37]" placeholder="100" type="number"/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-[#888888] mb-1">Trạng thái</label>
+<select class="w-full bg-[#111111] border border-[#333333] rounded-xl px-4 py-2.5 text-sm text-[#FAFAFA] focus:outline-none focus:border-[#D4AF37]">
+<option value="active">Đang hoạt động</option>
+<option value="expired">Đã hết hạn</option>
+<option value="upcoming">Sắp diễn ra</option>
+</select>
+</div>
+<div class="pt-4 flex justify-end gap-3">
+<button class="px-5 py-2.5 rounded-xl bg-[#222222] text-[#FAFAFA] text-sm font-semibold hover:bg-[#333333] transition-colors" onclick="closeVoucherModal()" type="button">Hủy</button>
+<button class="px-5 py-2.5 rounded-xl gold-gradient text-black text-sm font-bold shadow-lg hover:opacity-90 transition-all" onclick="closeVoucherModal()" type="button">Lưu Voucher</button>
+</div>
+</form>
+</div>
+</div>
+<script>
+    function openVoucherModal() {
+      document.getElementById('voucherModal').classList.remove('hidden');
+    }
+    function closeVoucherModal() {
+      document.getElementById('voucherModal').classList.add('hidden');
+    }
+    function toggleMobileMenu() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('hidden');
+      sidebar.classList.toggle('fixed');
+      sidebar.classList.toggle('inset-y-0');
+      sidebar.classList.toggle('left-0');
+      sidebar.classList.toggle('z-50');
+    }
+  </script>
+</body></html>

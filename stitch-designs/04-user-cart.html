@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>E-COMMERCE - Giỏ hàng</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-tertiary-fixed-variant": "#7a0008",
+            "secondary-container": "#e5e2e1",
+            "primary-dim": "#624d00",
+            "surface": "#111111",
+            "surface-container-low": "#1a1a1a",
+            "inverse-on-surface": "#9c9d9d",
+            "error": "#b02500",
+            "on-secondary": "#f5f2f1",
+            "tertiary-container": "#ff9287",
+            "surface-container-lowest": "#0a0a0a",
+            "surface-variant": "#222222",
+            "secondary-fixed-dim": "#d7d4d3",
+            "on-secondary-fixed": "#403f3f",
+            "on-primary-fixed": "#413200",
+            "outline": "#767777",
+            "primary-fixed": "#D4AF37",
+            "on-tertiary-container": "#690006",
+            "error-container": "#f95630",
+            "surface-tint": "#D4AF37",
+            "on-error": "#ffefec",
+            "tertiary-fixed-dim": "#ff7b6f",
+            "primary-container": "#D4AF37",
+            "primary-fixed-dim": "#b5922b",
+            "surface-container-high": "#262626",
+            "on-secondary-fixed-variant": "#5c5b5b",
+            "secondary-dim": "#504f4f",
+            "surface-bright": "#1a1a1a",
+            "on-surface-variant": "#a0a0a0",
+            "on-primary": "#111111",
+            "secondary": "#a0a0a0",
+            "primary": "#D4AF37",
+            "background": "#111111",
+            "tertiary": "#ba0012",
+            "secondary-fixed": "#e5e2e1",
+            "on-tertiary-fixed": "#3a0002",
+            "on-primary-container": "#111111",
+            "on-secondary-container": "#e5e2e1",
+            "surface-container": "#1a1a1a",
+            "outline-variant": "#333333",
+            "on-error-container": "#520c00",
+            "surface-dim": "#0f0f0f",
+            "inverse-primary": "#705900",
+            "tertiary-fixed": "#ff9287",
+            "on-primary-fixed-variant": "#634e00",
+            "surface-container-highest": "#333333",
+            "on-background": "#FAFAFA",
+            "tertiary-dim": "#a4000e",
+            "on-tertiary": "#ffefed",
+            "inverse-surface": "#FAFAFA",
+            "error-dim": "#b92902",
+            "on-surface": "#FAFAFA"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px"
+          },
+          fontFamily: {
+            headline: ["Plus Jakarta Sans"],
+            display: ["Plus Jakarta Sans"],
+            body: ["Be Vietnam Pro"],
+            label: ["Be Vietnam Pro"]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background text-on-background font-body antialiased min-h-screen flex flex-col justify-between selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar -->
+<header class="bg-surface sticky top-0 z-50 shadow-sm">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center space-x-8">
+<a class="text-xl font-extrabold text-on-surface tracking-wider" href="#">E-COMMERCE</a>
+<nav class="hidden md:flex space-x-6">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Trang chủ</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Sản phẩm</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">Giỏ hàng</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Đơn hàng</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<button class="relative text-primary p-2 hover:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+<span class="absolute top-0 right-0 bg-primary text-on-primary text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">2</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-2">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="flex items-center space-x-2 pl-2 border-l border-outline-variant">
+<img class="w-8 h-8 rounded-full object-cover border border-primary" data-alt="A professional headshot portrait of a wealthy individual with a sophisticated expression, dressed in a high-end tailored black suit against a moody dark studio background with subtle warm gold rim lighting. The image exudes luxury, exclusivity, and modern elegance with sharp focus and cinematic depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3rg4Q53PMWPR2RUK_1OEAp6VeM50NCjXEdwdfg_t2pVC08u08O9YIzqmR7_gEaW3Xn2egmz9cf2LjuRkllh6U6QgrCoOt0b5Es1ZrmwSABxF2hkJJwy2wFzpQYq-j9JsEUA_i-_x8UMJUnO87sxlhwigCZkX3GpnHYn0bwFY5GbMN37Xc3Cn-0abD5rnGq9MrKXvNiuIlEXlUdzk-97TfZlFqAHxk-pWoF0GMojqFvjF0rGyrlFSjF8UN_XfO-tMySMlqz9_0nXbn"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow max-w-7xl w-full mx-auto px-6 py-8">
+<!-- Breadcrumb -->
+<nav class="text-sm text-on-surface-variant mb-6 flex items-center space-x-2">
+<a class="hover:text-primary transition-colors" href="#">Trang chủ</a>
+<span>/</span>
+<span class="text-primary font-medium">Giỏ hàng</span>
+</nav>
+<!-- Page Title -->
+<div class="mb-8">
+<h1 class="text-3xl md:text-4xl font-extrabold font-headline text-on-surface tracking-tight">GIỎ HÀNG CỦA BẠN</h1>
+<p class="text-on-surface-variant mt-1">Quản lý các sản phẩm cao cấp đã chọn trước khi tiến hành thanh toán bảo mật.</p>
+</div>
+<!-- Cart Layout Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left 2 Cols: Cart Items List -->
+<div class="lg:col-span-2 space-y-4">
+<!-- Cart Item 1: Rolex -->
+<div class="bg-surface-container p-5 rounded-xl border border-outline-variant flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all hover:border-primary">
+<div class="flex items-center space-x-4 w-full sm:w-auto">
+<img class="w-20 h-20 rounded-lg object-cover bg-surface-variant flex-shrink-0 border border-outline-variant" data-alt="A high-end luxury Rolex wristwatch with an 18k yellow gold case and deep black dial, displayed on a dark velvet surface with dramatic cinematic studio lighting highlighting the polished metallic bezel and sophisticated hour markers. The aesthetic is ultra-luxurious, exclusive, and refined." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXDJWcTDWk9YvUE1P6OGWk6VMybTRk_4tVyoVQwtObcj_o1dly6iILw7d18S3qJuLC76VBO7fs_uCEsjXTRUlCfSRi152KC2xcngPDUPr1JNzVq77YuFRG4dOwNpKHM8Ssy1snzK8Tgu_yRNsfaqtrBfsLLcmEtJqTGbmE2J9n_euxdGaEh7n6rVz3ixASkYzpYAWvJMIb2AZD5oLjwl3RQ46Q9Meqi-qfr0rJfbDvg6vhYP77zWpSgarebRqDxMUBoI3pekdsS8WG"/>
+<div>
+<h3 class="font-headline font-bold text-on-surface text-lg">Đồng hồ Rolex Datejust 36</h3>
+<p class="text-sm text-on-surface-variant">Phân loại: Vàng khối 18K / Mặt số đen</p>
+<div class="text-xs text-primary mt-1 font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">inventory_2</span>
+                Còn lại 2 sản phẩm trong kho VIP
+              </div>
+</div>
+</div>
+<div class="flex items-center justify-between w-full sm:w-auto sm:space-x-6 border-t sm:border-t-0 pt-3 sm:pt-0 border-outline-variant">
+<div class="text-right">
+<span class="text-xs text-on-surface-variant block sm:hidden">Đơn giá:</span>
+<span class="font-headline font-bold text-primary text-base">350.000.000 đ</span>
+</div>
+<!-- Quantity Stepper -->
+<div class="flex items-center border border-outline-variant rounded-lg bg-surface">
+<button class="px-3 py-1 text-on-surface-variant hover:text-primary transition-colors">-</button>
+<span class="px-3 py-1 font-medium text-on-surface text-sm">1</span>
+<button class="px-3 py-1 text-on-surface-variant hover:text-primary transition-colors">+</button>
+</div>
+<!-- Delete Action -->
+<button class="text-error hover:text-error-dim transition-colors p-2" title="Xóa sản phẩm">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<!-- Cart Item 2: Vertu -->
+<div class="bg-surface-container p-5 rounded-xl border border-outline-variant flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all hover:border-primary">
+<div class="flex items-center space-x-4 w-full sm:w-auto">
+<img class="w-20 h-20 rounded-lg object-cover bg-surface-variant flex-shrink-0 border border-outline-variant" data-alt="An exclusive Vertu luxury smartphone featuring handcrafted black alligator leather, titanium frame, and gold-plated physical accents, resting on a dark obsidian stone table with sleek minimal lighting. The atmosphere radiates elite status, bespoke craftsmanship, and sophisticated modern design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXjFNaeIcmgeRn9bmZDzZkmZkxH08M5KfZa9oN_WjSjUasyWxjIVdtVtVs2R_0j1hFWC5avjkhA70nsaLE9esvNP8jjodgUCLH3M922DZF0VU80cZ9SiEgo7hAmKQk9ZJk-AnWBwfhMhr8s1zzRmoR6QdWLz_ftSzjjVE_dl1wJOZqUBufInflMy1Ad9p9eVWY96aYA59ogTe365PmVAHsN9FkTz4Z5pEaSPEz9TJNoKg36ORiG7qLQp910drXeQOKvyPAh2Ka0pvu"/>
+<div>
+<h3 class="font-headline font-bold text-on-surface text-lg">Điện thoại Vertu MetaPhone</h3>
+<p class="text-sm text-on-surface-variant">Phân loại: Da cá sấu đen / Vàng nguyên khối</p>
+<div class="text-xs text-primary mt-1 font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">inventory_2</span>
+                Còn lại 1 sản phẩm trong kho VIP
+              </div>
+</div>
+</div>
+<div class="flex items-center justify-between w-full sm:w-auto sm:space-x-6 border-t sm:border-t-0 pt-3 sm:pt-0 border-outline-variant">
+<div class="text-right">
+<span class="text-xs text-on-surface-variant block sm:hidden">Đơn giá:</span>
+<span class="font-headline font-bold text-primary text-base">480.000.000 đ</span>
+</div>
+<!-- Quantity Stepper -->
+<div class="flex items-center border border-outline-variant rounded-lg bg-surface">
+<button class="px-3 py-1 text-on-surface-variant hover:text-primary transition-colors">-</button>
+<span class="px-3 py-1 font-medium text-on-surface text-sm">1</span>
+<button class="px-3 py-1 text-on-surface-variant hover:text-primary transition-colors">+</button>
+</div>
+<!-- Delete Action -->
+<button class="text-error hover:text-error-dim transition-colors p-2" title="Xóa sản phẩm">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Right 1 Col: Summary & Voucher -->
+<div class="space-y-6">
+<!-- Voucher Section -->
+<div class="bg-surface-container p-6 rounded-xl border border-outline-variant">
+<h3 class="font-headline font-bold text-on-surface text-base mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">local_offer</span>
+            Mã giảm giá VIP
+          </h3>
+<div class="flex space-x-2">
+<input class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary text-sm" placeholder="Nhập mã ưu đãi..." type="text"/>
+<button class="bg-surface-container-high border border-primary text-primary hover:bg-primary hover:text-on-primary font-bold px-4 py-2.5 rounded-lg text-sm transition-all whitespace-nowrap">Áp dụng</button>
+</div>
+</div>
+<!-- Order Summary Card -->
+<div class="bg-surface-container p-6 rounded-xl border border-outline-variant space-y-4">
+<h3 class="font-headline font-bold text-on-surface text-lg border-b border-outline-variant pb-3">Tổng kết đơn hàng</h3>
+<div class="flex justify-between text-on-surface-variant text-sm">
+<span>Tạm tính</span>
+<span class="font-medium text-on-surface">830.000.000 đ</span>
+</div>
+<div class="flex justify-between text-on-surface-variant text-sm">
+<span>Phí vận chuyển VIP</span>
+<span class="font-medium text-on-surface">Miễn phí</span>
+</div>
+<div class="flex justify-between text-on-surface-variant text-sm">
+<span>Giảm giá Voucher</span>
+<span class="font-medium text-primary">- 30.000.000 đ</span>
+</div>
+<div class="border-t border-outline-variant pt-4 flex justify-between items-center">
+<span class="font-headline font-bold text-on-surface text-base">Tổng thanh toán</span>
+<span class="font-headline font-extrabold text-primary text-2xl">800.000.000 đ</span>
+</div>
+<!-- Checkout Button -->
+<button class="w-full bg-primary text-on-primary font-headline font-bold py-3.5 px-6 rounded-xl hover:bg-primary-fixed-dim transition-all shadow-lg text-center tracking-wide mt-2">
+            Tiến hành thanh toán
+          </button>
+<p class="text-xs text-center text-on-surface-variant mt-2">Giao hàng bảo mật &amp; bảo hiểm toàn cầu 100%</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container border-t border-outline-variant mt-16">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-8 py-6 max-w-7xl mx-auto gap-4">
+<div class="text-lg font-bold text-on-surface">E-COMMERCE</div>
+<div class="flex flex-wrap justify-center gap-6 text-sm text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="#">Chính sách bảo mật</a>
+<a class="hover:text-primary transition-colors" href="#">Điều khoản dịch vụ</a>
+<a class="hover:text-primary transition-colors" href="#">Hỗ trợ khách hàng</a>
+<a class="hover:text-primary transition-colors" href="#">Liên hệ</a>
+</div>
+<div class="text-xs text-on-surface-variant text-center md:text-right">
+        © 2023 E-COMMERCE. Bản quyền thuộc về chúng tôi.
+      </div>
+</div>
+</footer>
+</body></html>

@@ -3,7 +3,7 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>Quản lý sản phẩm</title>
+<title>Quản lý sản phẩm — E-COMMERCE</title>
 </head>
 <body>
 	<section class="mt-4 pt-3">
@@ -22,12 +22,12 @@
 					<!-- Stock Alerts Summary Cards -->
 					<div class="row g-2 mb-4">
 						<div class="col-md-4">
-							<div class="p-3 border rounded-3 bg-light d-flex justify-content-between align-items-center">
+							<div class="p-3 border rounded-3 bg-light d-flex justify-content-between align-items-center" style="border-left: 4px solid var(--gold-primary) !important;">
 								<div>
 									<small class="text-muted text-uppercase fw-bold">Tổng sản phẩm</small>
 									<h5 class="fw-bold mb-0">[[${totalElements}]]</h5>
 								</div>
-								<i class="fa-solid fa-layer-group text-primary fs-3"></i>
+								<i class="fa-solid fa-layer-group text-warning fs-3"></i>
 							</div>
 						</div>
 						<div class="col-md-4">

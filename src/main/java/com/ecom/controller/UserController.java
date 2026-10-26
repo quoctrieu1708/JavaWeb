@@ -66,29 +66,12 @@ public class UserController {
 	@Autowired
 	private com.ecom.service.ProductService productService;
 
-	@Autowired
-	private com.ecom.repository.ProductOrderRepository productOrderRepository;
-
 	@GetMapping("/")
 	public String home() {
 		return "user/home";
 	}
 
-	@ModelAttribute
-	public void getUserDetails(Principal p, Model m) {
-		if (p != null) {
-			String email = p.getName();
-			UserDtls userDtls = userService.getUserByEmail(email);
-			m.addAttribute("user", userDtls);
-			Integer countCart = cartService.getCountCart(userDtls.getId());
-			m.addAttribute("countCart", countCart);
-			Long countNotification = notificationService.getUnreadCount(userDtls.getId());
-			m.addAttribute("countNotification", countNotification != null ? countNotification : 0L);
-		}
-
-		List<Category> allActiveCategory = categoryService.getAllActiveCategory();
-		m.addAttribute("categorys", allActiveCategory);
-	}
+	// Thuộc tính layout dùng chung được cung cấp bởi com.ecom.config.GlobalControllerAdvice
 
 	@GetMapping("/addCart")
 	public String addToCart(@RequestParam Integer pid, 
@@ -193,10 +176,15 @@ public class UserController {
 	}
 
 	@PostMapping("/save-order")
-	public String saveOrder(@ModelAttribute OrderRequest request, Principal p) throws Exception {
-		// System.out.println(request);
+	public String saveOrder(@ModelAttribute OrderRequest request, Principal p, HttpSession session) throws Exception {
 		UserDtls user = getLoggedInUserDetails(p);
-		orderService.saveOrder(user.getId(), request);
+		try {
+			orderService.saveOrder(user.getId(), request);
+		} catch (com.ecom.exception.InsufficientStockException e) {
+			// Giao dịch đã rollback toàn bộ: không trừ kho, không tạo đơn, giỏ hàng giữ nguyên
+			session.setAttribute("errorMsg", e.getMessage());
+			return "redirect:/user/cart";
+		}
 
 		return "redirect:/user/success";
 	}
@@ -215,24 +203,29 @@ public class UserController {
 	}
 
 	@GetMapping("/update-status")
-	public String updateOrderStatus(@RequestParam Integer id, @RequestParam Integer st, HttpSession session) {
+	public String updateOrderStatus(@RequestParam Integer id, @RequestParam Integer st, Principal p,
+			HttpSession session) {
 
-		OrderStatus[] values = OrderStatus.values();
-		String status = null;
-
-		for (OrderStatus orderSt : values) {
-			if (orderSt.getId().equals(st)) {
-				status = orderSt.getName();
-			}
+		// Khách hàng chỉ được phép HỦY đơn hàng của chính mình khi đơn còn đang xử lý
+		if (!OrderStatus.CANCEL.getId().equals(st)) {
+			session.setAttribute("errorMsg", "Bạn không có quyền thực hiện thao tác này");
+			return "redirect:/user/user-orders";
 		}
 
-		ProductOrder updateOrder = orderService.updateOrderStatus(id, status);
-		
-		try {
-			commonUtil.sendMailForProductOrder(updateOrder, status);
-		} catch (Exception e) {
-			e.printStackTrace();
+		UserDtls loginUser = getLoggedInUserDetails(p);
+		ProductOrder existing = orderService.getOrderItemById(id);
+		if (existing == null || existing.getUser() == null || !existing.getUser().getId().equals(loginUser.getId())) {
+			session.setAttribute("errorMsg", "Không tìm thấy đơn hàng");
+			return "redirect:/user/user-orders";
 		}
+		if (!OrderStatus.IN_PROGRESS.getName().equals(existing.getStatus())
+				&& !OrderStatus.ORDER_RECEIVED.getName().equals(existing.getStatus())) {
+			session.setAttribute("errorMsg", "Đơn hàng đã được xử lý, không thể hủy");
+			return "redirect:/user/user-orders";
+		}
+
+		// Email thông báo được gửi bất đồng bộ (@Async) bên trong OrderService sau khi commit
+		ProductOrder updateOrder = orderService.updateOrderStatus(id, OrderStatus.CANCEL.getName());
 
 		if (!ObjectUtils.isEmpty(updateOrder)) {
 			session.setAttribute("succMsg", "Cập nhật trạng thái thành công");
@@ -341,14 +334,7 @@ public class UserController {
 	@GetMapping("/order/invoice/{orderId}")
 	public org.springframework.http.ResponseEntity<byte[]> downloadInvoice(@PathVariable String orderId, Principal p) {
 		UserDtls user = getLoggedInUserDetails(p);
-		List<ProductOrder> orders = productOrderRepository.findAllByOrderId(orderId);
-		if (orders.isEmpty()) {
-			// Try finding by single orderId
-			ProductOrder single = productOrderRepository.findByOrderId(orderId);
-			if (single != null) {
-				orders = java.util.Collections.singletonList(single);
-			}
-		}
+		List<ProductOrder> orders = orderService.getOrderItemsByOrderId(orderId);
 		if (orders.isEmpty() || !orders.get(0).getUser().getId().equals(user.getId())) {
 			return org.springframework.http.ResponseEntity.status(403).build();
 		}

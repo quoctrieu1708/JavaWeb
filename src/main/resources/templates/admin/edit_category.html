@@ -3,16 +3,16 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>Chỉnh sửa danh mục</title>
+<title>Chỉnh sửa danh mục — E-COMMERCE</title>
 </head>
 <body>
-	<section>
-		<div class="container-fluid p-5 mt-5">
+	<section class="mt-4 pt-2 pb-5">
+		<div class="container px-lg-4">
 			<div class="row justify-content-center">
-				<div class="col-md-5">
-					<div class="card card-sh">
-						<div class="card-header text-center bg-primary text-white">
-							<p class="fs-4 mb-0 fw-bold">Chỉnh sửa danh mục</p>
+				<div class="col-md-6 col-lg-5">
+					<div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
+						<div class="card-header py-3 text-center text-white" style="background: var(--dark-gradient); border-bottom: 2px solid var(--gold-primary);">
+							<p class="fs-5 mb-0 fw-bold"><i class="fa-solid fa-pen-to-square text-warning me-2"></i>Chỉnh sửa danh mục</p>
 						</div>
 						<div class="card-body p-4">
 							<th:block th:if="${session.succMsg}">
@@ -57,8 +57,8 @@
 									<img th:src="@{'/img/category_img/'+${category.imageName}}" width="100px" height="100px" class="rounded shadow-sm" style="object-fit: cover;">
 								</div>
 								
-								<button class="btn btn-primary w-100 py-2 fs-5 mt-2">Cập nhật</button>
-								<a href="/admin/category" class="btn btn-outline-secondary w-100 py-2 mt-3">Quay lại</a>
+								<button class="btn btn-gold w-100 py-2 fs-6 fw-bold mt-2 shadow"><i class="fa-solid fa-floppy-disk me-1"></i>Cập nhật danh mục</button>
+								<a href="/admin/category" class="btn btn-outline-secondary w-100 py-2 mt-2 rounded-pill">Quay lại</a>
 							</form>
 						</div>
 					</div>

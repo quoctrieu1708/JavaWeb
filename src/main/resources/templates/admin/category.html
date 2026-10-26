@@ -3,7 +3,7 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>Quản lý danh mục</title>
+<title>Quản lý danh mục — E-COMMERCE</title>
 </head>
 <body>
 	<section>
@@ -85,8 +85,8 @@
 											</td>
 											<td><img th:src="@{'/img/category_img/'+${cat.imageName}}" width="50px" height="50px" class="rounded shadow-sm" style="object-fit: cover;"></td>
 											<td>
-												<a th:href="@{'/admin/loadEditCategory/'+${cat.id}}" class="btn btn-primary btn-sm me-2"><i class="fa-solid fa-pen-to-square"></i> Sửa</a> 
-												<a th:href="@{'/admin/deleteCategory/'+${cat.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này?');"><i class="fa-solid fa-trash"></i> Xóa</a>
+												<a th:href="@{'/admin/loadEditCategory/'+${cat.id}}" class="btn btn-dark-gold btn-sm me-2 rounded-pill px-3"><i class="fa-solid fa-pen-to-square me-1"></i>Sửa</a> 
+												<a th:href="@{'/admin/deleteCategory/'+${cat.id}}" class="btn btn-outline-danger btn-sm rounded-pill px-3" onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này?');"><i class="fa-solid fa-trash me-1"></i>Xóa</a>
 											</td>
 										</tr>
 									</tbody>

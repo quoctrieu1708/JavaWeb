@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quản lý Đơn hàng - E-COMMERCE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-fixed": "#f5ce53",
+            "on-surface": "#2d2f2f",
+            "secondary": "#5c5b5b",
+            "tertiary-fixed": "#ff9287",
+            "inverse-surface": "#0c0f0f",
+            "surface": "#f6f6f6",
+            "on-primary-fixed": "#413200",
+            "surface-variant": "#dbdddd",
+            "on-secondary-fixed": "#403f3f",
+            "on-primary": "#fff1d4",
+            "error-dim": "#b92902",
+            "surface-container": "#e7e8e8",
+            "on-secondary": "#f5f2f1",
+            "outline": "#767777",
+            "inverse-on-surface": "#9c9d9d",
+            "tertiary": "#ba0012",
+            "on-tertiary-fixed": "#3a0002",
+            "on-secondary-container": "#525151",
+            "on-tertiary": "#ffefed",
+            "on-background": "#2d2f2f",
+            "surface-container-highest": "#dbdddd",
+            "surface-container-lowest": "#ffffff",
+            "primary-fixed-dim": "#e6c047",
+            "on-secondary-fixed-variant": "#5c5b5b",
+            "primary-dim": "#624d00",
+            "tertiary-dim": "#a4000e",
+            "error-container": "#f95630",
+            "surface-container-high": "#e1e3e3",
+            "tertiary-fixed-dim": "#ff7b6f",
+            "surface-dim": "#d3d5d5",
+            "error": "#b02500",
+            "on-tertiary-container": "#690006",
+            "on-error": "#ffefec",
+            "primary": "#705900",
+            "on-tertiary-fixed-variant": "#7a0008",
+            "inverse-primary": "#f5ce53",
+            "secondary-dim": "#504f4f",
+            "primary-container": "#f5ce53",
+            "on-primary-fixed-variant": "#634e00",
+            "on-error-container": "#520c00",
+            "surface-container-low": "#f0f1f1",
+            "secondary-fixed": "#e5e2e1",
+            "secondary-container": "#e5e2e1",
+            "background": "#f6f6f6",
+            "outline-variant": "#acadad",
+            "on-primary-container": "#584500",
+            "surface-tint": "#705900",
+            "tertiary-container": "#ff9287",
+            "secondary-fixed-dim": "#d7d4d3",
+            "on-surface-variant": "#5a5c5c",
+            "surface-bright": "#f6f6f6"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "headline": ["Plus Jakarta Sans"],
+            "display": ["Plus Jakarta Sans"],
+            "body": ["Be Vietnam Pro"],
+            "label": ["Be Vietnam Pro"]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-[#111111] text-surface font-body antialiased min-h-screen flex flex-col justify-between selection:bg-[#f5ce53] selection:text-inverse-surface">
+<!-- TopNavBar -->
+<header class="bg-inverse-surface dark:bg-inverse-surface shadow-sm sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-8">
+<a class="text-xl font-extrabold text-primary-fixed dark:text-primary-fixed font-headline tracking-wider" href="#">E-COMMERCE</a>
+<nav class="hidden md:flex items-center gap-6 text-label-sm font-label">
+<a class="text-inverse-on-surface hover:text-primary-fixed-dim transition-all duration-200" href="#">Trang chủ</a>
+<a class="text-inverse-on-surface hover:text-primary-fixed-dim transition-all duration-200" href="#">Sản phẩm</a>
+<a class="text-primary-fixed font-bold hover:text-primary-fixed-dim transition-all duration-200" href="#">Đơn hàng</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<input class="bg-[#1a1a1a] border border-outline-variant text-surface text-sm rounded-xl px-4 py-2 pl-10 focus:outline-none focus:border-primary-fixed w-64 transition-all" placeholder="Tìm kiếm đơn hàng..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-inverse-on-surface text-lg">search</span>
+</div>
+<button class="relative p-2 text-inverse-on-surface hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="absolute top-1 right-1 bg-primary-fixed text-inverse-surface text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">2</span>
+</button>
+<button class="relative p-2 text-inverse-on-surface hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<a class="hidden sm:inline-flex items-center gap-2 bg-primary-fixed text-inverse-surface px-4 py-2 rounded-xl font-headline font-bold text-sm hover:bg-primary-fixed-dim transition-all shadow-md" href="#">
+          Đăng nhập
+        </a>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-7xl mx-auto px-6 py-10">
+<!-- Breadcrumb & Header -->
+<div class="mb-8">
+<nav class="flex text-sm text-inverse-on-surface mb-3 gap-2 items-center">
+<a class="hover:text-primary-fixed transition-colors" href="#">Trang chủ</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<a class="hover:text-primary-fixed transition-colors" href="#">Tài khoản</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-primary-fixed font-medium">Đơn hàng của tôi</span>
+</nav>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<h1 class="text-3xl md:text-4xl font-extrabold font-headline text-surface tracking-tight uppercase">QUẢN LÝ ĐƠN HÀNG</h1>
+<div class="flex items-center gap-3">
+<select class="bg-[#1a1a1a] border border-outline-variant text-surface text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-primary-fixed transition-all">
+<option>Tất cả trạng thái</option>
+<option>Đang giao</option>
+<option>Hoàn thành</option>
+<option>Đã hủy</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Order List Section -->
+<div class="space-y-6">
+<!-- Order Item 1: Đang giao -->
+<div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-6 shadow-xl hover:border-primary-fixed/50 transition-all duration-300">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-[#2a2a2a] gap-2">
+<div class="flex items-center gap-3">
+<span class="text-primary-fixed font-bold font-headline text-lg">#DH98234</span>
+<span class="text-inverse-on-surface text-sm">Đặt ngày: 24/10/2023</span>
+</div>
+<div>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+              Đang giao
+            </span>
+</div>
+</div>
+<div class="py-6 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+<div class="flex items-center gap-4 md:col-span-2">
+<div class="w-20 h-20 rounded-xl bg-[#222] bg-cover bg-center flex-shrink-0 border border-outline-variant/20" data-alt="A luxurious black leather designer handbag with gold hardware displayed against a dark minimalist studio background with soft warm lighting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAYfrAUAt6Ywly3A946lcMpnFBwgqWsCtyk1j3CU18EmjF7SH0zHLTaibewKoI9cDRmc7pqE_OJ20iMmHDjslSfpgw28p9Agdvq6eUywf9wepgn-6jwMG7tuq4G-8NUgHyp-yR5_JFXui7TsafYRtV0bpBejWgBqngnrttBz3N7KA-dEuQgIY1bhBn08ra0wXGG6a40rU8mOXnPgI81uj6OMltHXW0CGesZgkGERmFIyCOyFAGj5xUyT0TGul26h501RtwQ7VS0BSft')"></div>
+<div>
+<h3 class="font-headline font-bold text-surface text-base mb-1">Túi xách da cao cấp Milano Gold</h3>
+<p class="text-sm text-inverse-on-surface mb-2">Phân loại: Đen tuyền, Khóa vàng nguyên khối</p>
+<span class="text-xs text-inverse-on-surface">Số lượng: 1</span>
+</div>
+</div>
+<div class="flex flex-col md:items-end justify-center">
+<span class="text-xs text-inverse-on-surface mb-1">Tổng thanh toán</span>
+<span class="text-xl font-extrabold font-headline text-primary-fixed">12.500.000 đ</span>
+</div>
+</div>
+<div class="pt-4 border-t border-[#2a2a2a] flex flex-wrap justify-between items-center gap-4">
+<div class="text-xs text-inverse-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary-fixed">local_shipping</span>
+            Dự kiến giao hàng: <strong class="text-surface">28/10/2023</strong>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 rounded-xl border border-red-500/30 text-red-400 hover:bg-red-500/10 text-sm font-semibold transition-all">
+              Hủy đơn hàng
+            </button>
+<button class="px-4 py-2 rounded-xl bg-primary-fixed text-inverse-surface hover:bg-primary-fixed-dim text-sm font-semibold font-headline transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-base">download</span>
+              Tải hóa đơn PDF
+            </button>
+</div>
+</div>
+</div>
+<!-- Order Item 2: Hoàn thành -->
+<div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-6 shadow-xl hover:border-primary-fixed/50 transition-all duration-300">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-[#2a2a2a] gap-2">
+<div class="flex items-center gap-3">
+<span class="text-primary-fixed font-bold font-headline text-lg">#DH97850</span>
+<span class="text-inverse-on-surface text-sm">Đặt ngày: 15/10/2023</span>
+</div>
+<div>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Hoàn thành
+            </span>
+</div>
+</div>
+<div class="py-6 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+<div class="flex items-center gap-4 md:col-span-2">
+<div class="w-20 h-20 rounded-xl bg-[#222] bg-cover bg-center flex-shrink-0 border border-outline-variant/20" data-alt="An exquisite automatic luxury wristwatch with gold bezel and black leather strap showcased on a dark reflective surface with dramatic lighting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBV2CUDjZc0OS1rG2-PEYcsZq_deHyEGMriKAkIs8ew6HmFJk4sQZFegai_n69Na1CwdfvxD5eWfFSsrPNwty59cjd4Q8bz5Te42HknpzXROETTMBb7fagbaet_GVlE3tUdEFPsV3e-52BWDAfy5kyJS_2sLt4DtLVE5IdNwvc-lCi982zr05I_F2R9ZsBqqo5AiJlJARWz9SmMA94vGUpYfb3UD6fLdc2tQDOhLK96L5EdHnekfFbz7_g5Pm-20hzMXbryQoxZkXqX')"></div>
+<div>
+<h3 class="font-headline font-bold text-surface text-base mb-1">Đồng hồ nam Chronograph Hoàng Gia</h3>
+<p class="text-sm text-inverse-on-surface mb-2">Phân loại: Vàng 18K, Mặt số đen</p>
+<span class="text-xs text-inverse-on-surface">Số lượng: 1</span>
+</div>
+</div>
+<div class="flex flex-col md:items-end justify-center">
+<span class="text-xs text-inverse-on-surface mb-1">Tổng thanh toán</span>
+<span class="text-xl font-extrabold font-headline text-primary-fixed">24.800.000 đ</span>
+</div>
+</div>
+<div class="pt-4 border-t border-[#2a2a2a] flex flex-wrap justify-between items-center gap-4">
+<div class="text-xs text-inverse-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-emerald-400">check_circle</span>
+            Đã giao thành công vào 18/10/2023
+          </div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 rounded-xl bg-primary-fixed text-inverse-surface hover:bg-primary-fixed-dim text-sm font-semibold font-headline transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-base">download</span>
+              Tải hóa đơn PDF
+            </button>
+</div>
+</div>
+</div>
+<!-- Order Item 3: Đã hủy -->
+<div class="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-6 shadow-xl opacity-80 hover:opacity-100 transition-all duration-300">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-[#2a2a2a] gap-2">
+<div class="flex items-center gap-3">
+<span class="text-primary-fixed font-bold font-headline text-lg">#DH96112</span>
+<span class="text-inverse-on-surface text-sm">Đặt ngày: 01/10/2023</span>
+</div>
+<div>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-red-400"></span>
+              Đã hủy
+            </span>
+</div>
+</div>
+<div class="py-6 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+<div class="flex items-center gap-4 md:col-span-2">
+<div class="w-20 h-20 rounded-xl bg-[#222] bg-cover bg-center flex-shrink-0 border border-outline-variant/20" data-alt="A sleek minimalist fountain pen crafted from black resin and gold trim resting on a dark executive desk." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDdlBJJGgEDaUb7HTFp4vwWBRkXq6vSjcU2JP3uDQJGc7KobF2VnKvERq-fS8einCzXEM6nFp1LkndjDtRUVmzY6yeWD-emd8ejCwYwxNRp-rc6XCNxbGcq3s9zM04HBVN4Pv7_N_kP9jktwg6R4NGbaCBHI4boypvEK6Du7T4UQ7b1aY9TgaHjn_ebxL-egcdasUYQQ6IoR0PJLB2OWaBM43SVb0zfeN9o_SIgGvu6sSmhP8B1GZHRGYJli9ww1U0y-9dstje5Zcof')"></div>
+<div>
+<h3 class="font-headline font-bold text-surface text-base mb-1">Bút ký danh nhân Limited Edition</h3>
+<p class="text-sm text-inverse-on-surface mb-2">Phân loại: Ngòi vàng 24K</p>
+<span class="text-xs text-inverse-on-surface">Số lượng: 1</span>
+</div>
+</div>
+<div class="flex flex-col md:items-end justify-center">
+<span class="text-xs text-inverse-on-surface mb-1">Tổng thanh toán</span>
+<span class="text-xl font-extrabold font-headline text-primary-fixed">4.200.000 đ</span>
+</div>
+</div>
+<div class="pt-4 border-t border-[#2a2a2a] flex flex-wrap justify-between items-center gap-4">
+<div class="text-xs text-inverse-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-red-400">cancel</span>
+            Đã hủy bởi người dùng
+          </div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 rounded-xl border border-outline-variant/30 text-surface hover:bg-surface/10 text-sm font-semibold transition-all">
+              Mua lại
+            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-10 flex justify-center items-center gap-2">
+<button class="w-10 h-10 rounded-xl bg-[#1a1a1a] border border-outline-variant/30 text-surface flex items-center justify-center hover:border-primary-fixed transition-colors disabled:opacity-50">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-xl bg-primary-fixed text-inverse-surface font-bold text-sm flex items-center justify-center">1</button>
+<button class="w-10 h-10 rounded-xl bg-[#1a1a1a] border border-outline-variant/30 text-surface text-sm flex items-center justify-center hover:border-primary-fixed transition-colors">2</button>
+<button class="w-10 h-10 rounded-xl bg-[#1a1a1a] border border-outline-variant/30 text-surface flex items-center justify-center hover:border-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-inverse-surface dark:bg-inverse-surface border-t border-outline-variant mt-20">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-8 py-6 max-w-7xl mx-auto gap-4">
+<div class="text-sm text-inverse-on-surface">
+        © 2023 E-COMMERCE. Bản quyền được bảo lưu.
+      </div>
+<div class="flex flex-wrap gap-6 text-label-sm font-label">
+<a class="text-inverse-on-surface hover:text-primary-fixed-dim transition-all duration-200" href="#">Chính sách bảo mật</a>
+<a class="text-inverse-on-surface hover:text-primary-fixed-dim transition-all duration-200" href="#">Điều khoản dịch vụ</a>
+<a class="text-inverse-on-surface hover:text-primary-fixed-dim transition-all duration-200" href="#">Liên hệ</a>
+<a class="text-inverse-on-surface hover:text-primary-fixed-dim transition-all duration-200" href="#">Hỗ trợ</a>
+</div>
+</div>
+</footer>
+</body></html>

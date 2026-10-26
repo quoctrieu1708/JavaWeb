@@ -3,10 +3,19 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>Đơn hàng của tôi — Ecom Store</title>
+<title>Đơn hàng của tôi — E-COMMERCE</title>
 </head>
 <body>
-	<section class="mt-4 pt-2 pb-5">
+	<section class="pb-5">
+		<div class="ds-breadcrumb-bar">
+			<div class="container px-lg-4">
+				<ul class="ds-breadcrumb">
+					<li><a href="/"><i class="fa-solid fa-house me-1 text-warning"></i>Trang chủ</a></li>
+					<li class="ds-breadcrumb-sep"><i class="fa-solid fa-chevron-right"></i></li>
+					<li class="ds-breadcrumb-current">Đơn hàng của tôi</li>
+				</ul>
+			</div>
+		</div>
 		<div class="container px-lg-4">
 			<div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white mb-5">
 				<!-- Header -->

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Thông báo - E-COMMERCE</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-fixed": "#f5ce53",
+            "on-surface": "#2d2f2f",
+            "secondary": "#5c5b5b",
+            "tertiary-fixed": "#ff9287",
+            "inverse-surface": "#0c0f0f",
+            "surface": "#f6f6f6",
+            "on-primary-fixed": "#413200",
+            "surface-variant": "#dbdddd",
+            "on-secondary-fixed": "#403f3f",
+            "on-primary": "#fff1d4",
+            "error-dim": "#b92902",
+            "surface-container": "#e7e8e8",
+            "on-secondary": "#f5f2f1",
+            "outline": "#767777",
+            "inverse-on-surface": "#9c9d9d",
+            "tertiary": "#ba0012",
+            "on-tertiary-fixed": "#3a0002",
+            "on-secondary-container": "#525151",
+            "on-tertiary": "#ffefed",
+            "on-background": "#2d2f2f",
+            "surface-container-highest": "#dbdddd",
+            "surface-container-lowest": "#ffffff",
+            "primary-fixed-dim": "#e6c047",
+            "on-secondary-fixed-variant": "#5c5b5b",
+            "primary-dim": "#624d00",
+            "tertiary-dim": "#a4000e",
+            "error-container": "#f95630",
+            "surface-container-high": "#e1e3e3",
+            "tertiary-fixed-dim": "#ff7b6f",
+            "surface-dim": "#d3d5d5",
+            "error": "#b02500",
+            "on-tertiary-container": "#690006",
+            "on-error": "#ffefec",
+            "primary": "#705900",
+            "on-tertiary-fixed-variant": "#7a0008",
+            "inverse-primary": "#f5ce53",
+            "secondary-dim": "#504f4f",
+            "primary-container": "#f5ce53",
+            "on-primary-fixed-variant": "#634e00",
+            "on-error-container": "#520c00",
+            "surface-container-low": "#f0f1f1",
+            "secondary-fixed": "#e5e2e1",
+            "secondary-container": "#e5e2e1",
+            "background": "#f6f6f6",
+            "outline-variant": "#acadad",
+            "on-primary-container": "#584500",
+            "surface-tint": "#705900",
+            "tertiary-container": "#ff9287",
+            "secondary-fixed-dim": "#d7d4d3",
+            "on-surface-variant": "#5a5c5c",
+            "surface-bright": "#f6f6f6"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "headline": ["Plus Jakarta Sans"],
+            "display": ["Plus Jakarta Sans"],
+            "body": ["Be Vietnam Pro"],
+            "label": ["Be Vietnam Pro"]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-on-background font-body h-full flex flex-col justify-between antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar Component -->
+<header class="bg-inverse-surface text-primary-fixed shadow-sm sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-8">
+<a class="text-xl font-extrabold text-primary-fixed tracking-tight" href="#">E-COMMERCE</a>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-inverse-on-surface hover:text-primary-fixed-dim transition-all duration-200 text-label-sm font-label" href="#">Trang chủ</a>
+<a class="text-inverse-on-surface hover:text-primary-fixed-dim transition-all duration-200 text-label-sm font-label" href="#">Sản phẩm</a>
+<a class="text-inverse-on-surface hover:text-primary-fixed-dim transition-all duration-200 text-label-sm font-label" href="#">Đơn hàng</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center bg-inverse-surface border border-outline-variant/30 rounded-xl px-3 py-1.5 focus-within:border-primary-fixed">
+<span class="material-symbols-outlined text-inverse-on-surface text-sm">search</span>
+<input class="bg-transparent border-none text-xs text-inverse-on-surface focus:outline-none focus:ring-0 px-2 w-32 md:w-48" placeholder="Tìm kiếm..." type="text"/>
+</div>
+<button aria-label="Giỏ hàng" class="text-inverse-on-surface hover:text-primary-fixed transition-all duration-200 p-1 relative">
+<span class="material-symbols-outlined">shopping_bag</span>
+</button>
+<button aria-label="Thông báo" class="text-primary-fixed transition-all duration-200 p-1 relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-primary-fixed rounded-full"></span>
+</button>
+<a class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-xs font-bold text-inverse-surface bg-primary-fixed rounded-xl hover:bg-primary-fixed-dim transition-all duration-200" href="#">Đăng nhập</a>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8 md:py-12">
+<!-- Page Header & Actions -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+<div>
+<h1 class="text-2xl md:text-3xl font-extrabold font-headline text-on-surface tracking-tight">THÔNG BÁO HỆ THỐNG</h1>
+<p class="text-sm text-secondary mt-1">Cập nhật các chương trình độc quyền, ưu đãi VIP và trạng thái đơn hàng của bạn.</p>
+</div>
+<button class="self-start sm:self-auto inline-flex items-center gap-2 px-4 py-2.5 bg-surface-container-lowest border border-outline-variant/40 hover:border-primary-fixed text-on-surface text-xs font-semibold rounded-xl transition-all duration-200 shadow-sm group" onclick="markAllAsRead()">
+<span class="material-symbols-outlined text-sm text-primary-fixed group-hover:scale-110 transition-transform">done_all</span>
+<span>Đánh dấu tất cả đã đọc</span>
+</button>
+</div>
+<!-- Notification Filters/Tabs -->
+<div class="flex items-center gap-2 pb-4 mb-6 overflow-x-auto no-scrollbar border-b border-outline-variant/20">
+<button class="px-4 py-2 bg-inverse-surface text-primary-fixed rounded-xl text-xs font-semibold whitespace-nowrap shadow-sm">Tất cả (3)</button>
+<button class="px-4 py-2 bg-surface-container-low text-on-surface hover:bg-surface-container rounded-xl text-xs font-medium whitespace-nowrap transition-all">Đơn hàng (1)</button>
+<button class="px-4 py-2 bg-surface-container-low text-on-surface hover:bg-surface-container rounded-xl text-xs font-medium whitespace-nowrap transition-all">Thành viên VIP (1)</button>
+<button class="px-4 py-2 bg-surface-container-low text-on-surface hover:bg-surface-container rounded-xl text-xs font-medium whitespace-nowrap transition-all">Khuyến mãi (1)</button>
+</div>
+<!-- Notifications List -->
+<div class="space-y-4" id="notifications-list">
+<!-- Notification Item 1 (Unread VIP) -->
+<div class="notification-item unread bg-surface-container-lowest border-2 border-primary-fixed/80 rounded-2xl p-5 md:p-6 shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary-fixed/5 rounded-bl-full pointer-events-none"></div>
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-inverse-surface text-primary-fixed flex items-center justify-center shrink-0 shadow-inner">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex items-center justify-between gap-2 mb-1">
+<span class="text-xs font-bold text-primary-dim uppercase tracking-wider flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary-fixed inline-block"></span>
+                Chương trình VIP
+              </span>
+<span class="text-xs text-secondary">10 phút trước</span>
+</div>
+<h2 class="text-base font-bold text-on-surface mb-1 group-hover:text-primary-dim transition-colors">Nâng hạng thẻ Black Diamond thành công!</h2>
+<p class="text-sm text-secondary leading-relaxed mb-3">Chúc mừng bạn đã chính thức bước vào phân khúc khách hàng thượng lưu. Tận hưởng đặc quyền freeship toàn cầu, phòng chờ sân bay hạng 1 và dịch vụ CSKH riêng 24/7.</p>
+<div class="flex items-center gap-3">
+<a class="inline-flex items-center gap-1.5 text-xs font-bold text-inverse-surface bg-primary-fixed px-3.5 py-2 rounded-xl hover:bg-primary-fixed-dim transition-all" href="#">
+                Khám phá đặc quyền
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+<button class="text-xs text-secondary hover:text-on-surface font-medium px-2 py-1 transition-colors" onclick="markAsRead(this)">Đánh dấu đã đọc</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Notification Item 2 (Unread Order) -->
+<div class="notification-item unread bg-surface-container-lowest border-2 border-primary-fixed/80 rounded-2xl p-5 md:p-6 shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary-fixed/5 rounded-bl-full pointer-events-none"></div>
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-inverse-surface text-primary-fixed flex items-center justify-center shrink-0 shadow-inner">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex items-center justify-between gap-2 mb-1">
+<span class="text-xs font-bold text-primary-dim uppercase tracking-wider flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary-fixed inline-block"></span>
+                Đơn hàng
+              </span>
+<span class="text-xs text-secondary">2 giờ trước</span>
+</div>
+<h2 class="text-base font-bold text-on-surface mb-1 group-hover:text-primary-dim transition-colors">Đơn hàng #ECO-88923 đang được vận chuyển</h2>
+<p class="text-sm text-secondary leading-relaxed mb-3">Kiện hàng phiên bản giới hạn của bạn đã rời kho trung tâm Hà Nội và dự kiến giao đến tay bạn vào ngày mai trước 16:00.</p>
+<div class="flex items-center gap-3">
+<a class="inline-flex items-center gap-1.5 text-xs font-bold text-inverse-surface bg-primary-fixed px-3.5 py-2 rounded-xl hover:bg-primary-fixed-dim transition-all" href="#">
+                Theo dõi đơn hàng
+                <span class="material-symbols-outlined text-sm">visibility</span>
+</a>
+<button class="text-xs text-secondary hover:text-on-surface font-medium px-2 py-1 transition-colors" onclick="markAsRead(this)">Đánh dấu đã đọc</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Notification Item 3 (Read Promo) -->
+<div class="notification-item read bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-5 md:p-6 shadow-sm hover:shadow-md transition-all relative overflow-hidden opacity-80 hover:opacity-100">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">local_offer</span>
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex items-center justify-between gap-2 mb-1">
+<span class="text-xs font-medium text-secondary uppercase tracking-wider">Khuyến mãi độc quyền</span>
+<span class="text-xs text-secondary">Hôm qua</span>
+</div>
+<h2 class="text-base font-semibold text-on-surface mb-1">Private Sale: Giảm đến 50% Bộ sưu tập Xuân Hè</h2>
+<p class="text-sm text-secondary leading-relaxed mb-3">Ưu đãi dành riêng cho khách hàng thân thiết. Mở khóa kho tàng thời trang cao cấp với mã giảm giá đặc quyền áp dụng đến hết tuần này.</p>
+<div class="flex items-center gap-3">
+<a class="inline-flex items-center gap-1.5 text-xs font-semibold text-on-surface bg-surface-container hover:bg-surface-container-high px-3.5 py-2 rounded-xl transition-all" href="#">
+                Xem bộ sưu tập
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State (Hidden by default, can be toggled via JS if needed) -->
+<div class="hidden text-center py-16" id="empty-state">
+<div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center mx-auto mb-4 text-secondary">
+<span class="material-symbols-outlined text-2xl">notifications_off</span>
+</div>
+<h3 class="text-lg font-bold text-on-surface mb-1">Không có thông báo mới</h3>
+<p class="text-sm text-secondary">Bạn đã xem tất cả các cập nhật mới nhất từ hệ thống.</p>
+</div>
+</main>
+<!-- Footer Component -->
+<footer class="bg-inverse-surface text-inverse-on-surface mt-20">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-8 py-6 max-w-7xl mx-auto gap-4">
+<div class="text-lg font-bold text-primary-fixed tracking-tight">E-COMMERCE</div>
+<div class="flex flex-wrap justify-center gap-6 text-label-sm font-label">
+<a class="hover:text-primary-fixed-dim transition-all duration-200" href="#">Chính sách bảo mật</a>
+<a class="hover:text-primary-fixed-dim transition-all duration-200" href="#">Điều khoản dịch vụ</a>
+<a class="hover:text-primary-fixed-dim transition-all duration-200" href="#">Liên hệ</a>
+<a class="hover:text-primary-fixed-dim transition-all duration-200" href="#">Hỗ trợ</a>
+</div>
+<div class="text-xs text-inverse-on-surface/60">
+        © 2023 E-COMMERCE. Bản quyền được bảo lưu.
+      </div>
+</div>
+</footer>
+<!-- Micro-interactions Script -->
+<script>
+    function markAllAsRead() {
+      const items = document.querySelectorAll('.notification-item.unread');
+      items.forEach(item => {
+        item.classList.remove('unread', 'border-2', 'border-primary-fixed/80');
+        item.classList.add('read', 'border', 'border-outline-variant/30', 'opacity-80');
+        
+        // Remove the glowing dot & badge accent
+        const dot = item.querySelector('.w-2.h-2.rounded-full');
+        if (dot) dot.remove();
+
+        const badgeText = item.querySelector('.text-primary-dim');
+        if (badgeText) {
+          badgeText.classList.remove('text-primary-dim');
+          badgeText.classList.add('text-secondary');
+        }
+
+        // Remove the individual 'Mark as read' button
+        const actionBtn = item.querySelector('button[onclick*="markAsRead"]');
+        if (actionBtn) actionBtn.remove();
+
+        // Update background & shadow styling to match read state
+        item.style.borderWidth = '1px';
+      });
+
+      // Update top bar notification badge if needed
+      const topBadge = document.querySelector('header .absolute');
+      if (topBadge) topBadge.remove();
+    }
+
+    function markAsRead(button) {
+      const item = button.closest('.notification-item');
+      item.classList.remove('unread', 'border-2', 'border-primary-fixed/80');
+      item.classList.add('read', 'border', 'border-outline-variant/30', 'opacity-80');
+      
+      const dot = item.querySelector('.w-2.h-2.rounded-full');
+      if (dot) dot.remove();
+
+      const badgeText = item.querySelector('.text-primary-dim');
+      if (badgeText) {
+        badgeText.classList.remove('text-primary-dim');
+        badgeText.classList.add('text-secondary');
+      }
+
+      button.remove();
+    }
+  </script>
+</body></html>

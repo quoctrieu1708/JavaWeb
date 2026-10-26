@@ -1,16 +1,9 @@
 package com.ecom.service.impl;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -18,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ecom.model.UserDtls;
 import com.ecom.repository.UserRepository;
+import com.ecom.service.FileStorageService;
 import com.ecom.service.UserService;
 import com.ecom.util.AppConstant;
 
@@ -26,6 +20,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private FileStorageService fileStorageService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -129,8 +126,14 @@ public class UserServiceImpl implements UserService {
 
 		UserDtls dbUser = userRepository.findById(user.getId()).get();
 
-		if (!img.isEmpty()) {
-			dbUser.setProfileImage(img.getOriginalFilename());
+		// Lưu ảnh đại diện mới (nếu có) vào thư mục upload ngoài, an toàn khi chạy dưới dạng JAR
+		try {
+			String savedName = fileStorageService.saveFile(img, "profile_img");
+			if (savedName != null) {
+				dbUser.setProfileImage(savedName);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		if (!ObjectUtils.isEmpty(dbUser)) {
@@ -142,20 +145,6 @@ public class UserServiceImpl implements UserService {
 			dbUser.setState(user.getState());
 			dbUser.setPincode(user.getPincode());
 			dbUser = userRepository.save(dbUser);
-		}
-
-		try {
-			if (!img.isEmpty()) {
-				File saveFile = new ClassPathResource("static/img").getFile();
-
-				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "profile_img" + File.separator
-						+ img.getOriginalFilename());
-
-//			System.out.println(path);
-				Files.copy(img.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 
 		return dbUser;
@@ -177,6 +166,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Boolean existsEmail(String email) {
 		return userRepository.existsByEmail(email);
+	}
+
+	@Override
+	public Long countByRole(String role) {
+		return userRepository.countByRole(role);
 	}
 
 }

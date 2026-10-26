@@ -152,6 +152,15 @@ h1, h2, h3, h4, h5, h6 {
 .nav-search-bar {
     position: relative;
     max-width: 320px;
+    width: 100%;
+}
+@media (max-width: 991.98px) {
+    .nav-search-bar {
+        max-width: 100%;
+    }
+    .search-autocomplete-dropdown {
+        min-width: 100% !important;
+    }
 }
 .nav-search-bar input {
     background: #222222;

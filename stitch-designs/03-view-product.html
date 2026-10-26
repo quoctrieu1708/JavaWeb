@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>E-COMMERCE - Chi Tiết Sản Phẩm Cao Cấp</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+              "surface-container-lowest": "#ffffff",
+              "surface": "#f6f6f6",
+              "inverse-surface": "#0c0f0f",
+              "on-tertiary-fixed": "#3a0002",
+              "on-primary-container": "#584500",
+              "tertiary-dim": "#a4000e",
+              "inverse-primary": "#f5ce53",
+              "background": "#f6f6f6",
+              "surface-variant": "#dbdddd",
+              "surface-container-highest": "#dbdddd",
+              "on-secondary": "#f5f2f1",
+              "tertiary-fixed": "#ff9287",
+              "tertiary-fixed-dim": "#ff7b6f",
+              "on-secondary-fixed": "#403f3f",
+              "on-surface": "#2d2f2f",
+              "on-primary-fixed": "#413200",
+              "surface-tint": "#705900",
+              "on-primary": "#fff1d4",
+              "surface-container-low": "#f0f1f1",
+              "on-tertiary-fixed-variant": "#7a0008",
+              "outline": "#767777",
+              "error": "#b02500",
+              "surface-container-high": "#e1e3e3",
+              "on-surface-variant": "#5a5c5c",
+              "on-secondary-fixed-variant": "#5c5b5b",
+              "error-dim": "#b92902",
+              "tertiary-container": "#ff9287",
+              "tertiary": "#ba0012",
+              "secondary-fixed-dim": "#d7d4d3",
+              "surface-dim": "#d3d5d5",
+              "secondary": "#5c5b5b",
+              "on-primary-fixed-variant": "#634e00",
+              "surface-container": "#e7e8e8",
+              "secondary-fixed": "#e5e2e1",
+              "on-secondary-container": "#525151",
+              "inverse-on-surface": "#9c9d9d",
+              "on-error": "#ffefec",
+              "primary-dim": "#624d00",
+              "secondary-container": "#e5e2e1",
+              "on-tertiary": "#ffefed",
+              "secondary-dim": "#504f4f",
+              "primary-container": "#f5ce53",
+              "surface-bright": "#f6f6f6",
+              "on-tertiary-container": "#690006",
+              "on-background": "#2d2f2f",
+              "primary": "#705900",
+              "primary-fixed-dim": "#e6c047",
+              "error-container": "#f95630",
+              "primary-fixed": "#f5ce53",
+              "on-error-container": "#520c00",
+              "outline-variant": "#acadad"
+            },
+            "borderRadius": {
+              "DEFAULT": "0.25rem",
+              "lg": "0.5rem",
+              "xl": "0.75rem",
+              "full": "9999px"
+            },
+            "fontFamily": {
+              "headline": ["Plus Jakarta Sans"],
+              "display": ["Plus Jakarta Sans"],
+              "body": ["Be Vietnam Pro"],
+              "label": ["Be Vietnam Pro"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .luxury-gold-gradient {
+        background: linear-gradient(135deg, #F5D77F 0%, #D4AF37 50%, #996515 100%);
+      }
+      .luxury-dark-bg {
+        background-color: #111111;
+      }
+      .luxury-card-bg {
+        background-color: #1A1A1A;
+      }
+    </style>
+</head>
+<body class="bg-[#111111] text-[#f6f6f6] font-body antialiased selection:bg-[#D4AF37] selection:text-[#0c0f0f]">
+<!-- TopNavBar Component -->
+<nav class="bg-inverse-surface/95 dark:bg-inverse-surface/95 backdrop-blur-md docked full-width top-0 sticky z-50 border-b border-primary-fixed/20 dark:border-primary-fixed/20 shadow-md">
+<div class="w-full max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+<!-- Brand Logo & Search -->
+<div class="flex items-center gap-8">
+<a class="font-headline font-extrabold tracking-wider text-xl text-primary-fixed dark:text-primary-fixed flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[#D4AF37]" style="font-variation-settings: 'FILL' 1;">diamond</span>
+                    E-COMMERCE
+                </a>
+<div class="hidden lg:flex items-center relative">
+<span class="material-symbols-outlined absolute left-3 text-surface-bright/60 text-sm">search</span>
+<input class="bg-[#1A1A1A] border border-primary-fixed/20 text-sm rounded-full pl-10 pr-4 py-2 text-surface-bright focus:outline-none focus:border-primary-fixed w-64 transition-all" placeholder="Tìm kiếm đồng hồ cao cấp..." type="text"/>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="hidden md:flex items-center space-x-6">
+<a class="text-surface-bright/80 dark:text-surface-bright/80 font-normal hover:text-primary-fixed transition-colors duration-200" href="#">Trang chủ</a>
+<a class="text-surface-bright/80 dark:text-surface-bright/80 font-normal hover:text-primary-fixed transition-colors duration-200" href="#">Bộ sưu tập</a>
+<a class="text-primary-fixed dark:text-primary-fixed font-semibold border-b-2 border-primary-fixed pb-1" href="#">Flash Sale</a>
+<a class="text-surface-bright/80 dark:text-surface-bright/80 font-normal hover:text-primary-fixed transition-colors duration-200" href="#">Thương hiệu nổi bật</a>
+<a class="text-surface-bright/80 dark:text-surface-bright/80 font-normal hover:text-primary-fixed transition-colors duration-200" href="#">Hàng mới về</a>
+<a class="text-surface-bright/80 dark:text-surface-bright/80 font-normal hover:text-primary-fixed transition-colors duration-200" href="#">Ưu đãi VIP</a>
+</div>
+<!-- Actions -->
+<div class="flex items-center space-x-4">
+<button aria-label="notifications" class="text-surface-bright/80 hover:text-primary-fixed transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">3</span>
+</button>
+<button aria-label="shopping_bag" class="text-surface-bright/80 hover:text-primary-fixed transition-colors relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+<span class="absolute -top-1 -right-1 bg-[#D4AF37] text-black text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">2</span>
+</button>
+<div class="hidden sm:flex items-center gap-2 pl-2 border-l border-primary-fixed/20">
+<img alt="Ảnh đại diện tài khoản thành viên VIP" class="w-8 h-8 rounded-full object-cover border border-[#D4AF37]" data-alt="A professional portrait of a VIP luxury watch collector with a refined expression, dressed in a tailored dark tuxedo against a sophisticated moody background with subtle golden highlights and soft cinematic lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwBU-AKDvPFELNTvZFH_StqGLOtZRi9BHufwIotTooTWERtZsB5_HOIXrJ4fN9vkAm56ADE5_eYHkXwmcX4lUI17zD4qM5Eb21QwkDuk2tGpO4L2H5wqnRQP8Dz75EhVRIqnSm4RVPWlZ7HLpca0eaCLxw_wV76_7UW6up7o_m-CfEviDFUt9EqT_JDvoOcGlrWfk35VbcWo78_MR3VRx07ySxfxs_1YDsYli_AqyUjaJyJVzbeHHv7bSOnTuHpHy4ub7aT2UJM-Qs"/>
+<span class="text-xs font-medium text-primary-fixed">VIP Member</span>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="w-full max-w-7xl mx-auto px-6 py-10">
+<!-- Breadcrumb -->
+<div class="flex items-center space-x-2 text-sm text-surface-bright/60 mb-8">
+<a class="hover:text-primary-fixed transition-colors" href="#">Trang chủ</a>
+<span>/</span>
+<a class="hover:text-primary-fixed transition-colors" href="#">Bộ sưu tập</a>
+<span>/</span>
+<span class="text-primary-fixed font-medium">Rolex Cosmograph Daytona Swiss Edition</span>
+</div>
+<!-- Product Detail 2-Column Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20">
+<!-- Left Column: Image Gallery -->
+<div class="lg:col-span-7 flex flex-col gap-4">
+<div class="relative rounded-2xl overflow-hidden border border-[#D4AF37]/30 bg-[#1A1A1A] shadow-2xl group">
+<div class="absolute top-4 left-4 z-10 bg-red-600 text-white font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
+                        -22% Giảm giá
+                    </div>
+<div class="absolute top-4 right-4 z-10 bg-[#111111]/80 backdrop-blur-md text-[#D4AF37] font-semibold text-xs px-3 py-1 rounded-full border border-[#D4AF37]/30 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+                        Phiên bản giới hạn
+                    </div>
+<img alt="Rolex Cosmograph Daytona Limited Edition" class="w-full h-[480px] object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A macro studio shot of an ultra-luxury Rolex Cosmograph Daytona Swiss wristwatch with an 18k yellow gold case, a deep obsidian black dial, intricate chronograph sub-dials, and a sapphire crystal reflecting soft golden rim light in a dark minimalist luxury showroom." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsQUgtuCFaEYh3ggLPbv2gnLDkY81g7Gi72xOmvZqsLzbstt2YYPXsOg392-f08xyklju9x9dRr2jNVNcsVigecTMBhRMQBWjbV_qGqaQk634p53ekG1Au1iyxt2VEOb0TfVEErgMoxye_0ykEDfFC9rCMEblEcYU50t-RH__Nh7kcfXDiWijamqHznUPSqEmoNU0ZRZZaByZ0M4s5B68r2AOR0SBBq266qDnbaBYrEdByWKC8G_malMM1v2-tbkGFbopAGrjyu5k4"/>
+</div>
+<!-- Thumbnails -->
+<div class="grid grid-cols-4 gap-4">
+<div class="rounded-xl overflow-hidden border-2 border-[#D4AF37] bg-[#1A1A1A] cursor-pointer shadow-lg">
+<img alt="Thumbnail 1" class="w-full h-24 object-cover" data-alt="Close-up detail shot of the gold bezel and tachymeter scale on the luxury Swiss timepiece under warm studio lighting with rich dark shadows and gold accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAP3WUqpO-COFmhBgMQavUQLoTrjx39wuSh_fzzgyKcIxUaIUTrylVFeVGXA3QSyvF02OIz4IdFjk_o8aU3mYg5252l92ma_N--jIcjg-ndYx3-xYu3HzkrvUk1KLWKaOKIF-BPFfOLKb3icDZqSWyhx83rqjBBBEmtY5NZ1aaLzy4KKRoSGo36DQAubJoju3MnV4hLc77PnqifBhSZQUuYH4gemWTuxXYlzl9u41t3tJXtHnO8xI15H0Hh-2UbpFfSZRbxVLLQD_YX"/>
+</div>
+<div class="rounded-xl overflow-hidden border border-primary-fixed/20 bg-[#1A1A1A] cursor-pointer hover:border-[#D4AF37] transition-all opacity-70 hover:opacity-100">
+<img alt="Thumbnail 2" class="w-full h-24 object-cover" data-alt="Side profile view of the polished 18k yellow gold watch crown and pushers against a dark textured obsidian background with professional product photography lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHw2VHcIL8_id8BT-09czF5JOVpkEXg6qIerIvD8YqODfYx09UeZpFick8zpST82NezsKk0ZATbLgkrI2ee_OgYszGIwdvuWfXHcGw_i3SUMQ_OIlgB4atrsHZuD1nwYgBTu0fj8WVSU7nrhEbsGzsvDR6cbHpC5q76yfgEW247at639XsDnU2TcAuyOLCEtMD_3CuXoUKGINvisE0FOAKHtqC2XYS82bfBsk_hFCivPwVu73Zb6SseLyDYypAqCd-kVol3iAyT1EF"/>
+</div>
+<div class="rounded-xl overflow-hidden border border-primary-fixed/20 bg-[#1A1A1A] cursor-pointer hover:border-[#D4AF37] transition-all opacity-70 hover:opacity-100">
+<img alt="Thumbnail 3" class="w-full h-24 object-cover" data-alt="Detailed view of the premium solid gold Oyster bracelet clasp engraved with the Swiss brand insignia in a moody luxury presentation box setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCO401AAiTIvoq6TJdS04hgimQoUNjuSPX81wCO67CYmEBV8oUWs4-xZBBo6WXM-sFuos6S6ZUO0aMs1peBuYVcw2mgOqocL6RFJE6LKRVDIPhC6ivcVE94TQ99HKUBe2Kyp9JILkTS2xVWJYwOB-6wugrKBb9GnA8LxMCBbirHpJ5WZzmDr_7KCMzJ0AewBmlQcGiYk-Kxx87MSSxSk2nnNNrYtgGE1yqqswRb0vBwxwJE4nYPWUSlMAYUV6rDosP3HBE0rGfW8YZY"/>
+</div>
+<div class="rounded-xl overflow-hidden border border-primary-fixed/20 bg-[#1A1A1A] cursor-pointer hover:border-[#D4AF37] transition-all opacity-70 hover:opacity-100">
+<img alt="Thumbnail 4" class="w-full h-24 object-cover" data-alt="Wrist shot of the luxury gold chronograph timepiece worn by a discerning collector in an upscale executive lounge with soft warm bokeh in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDkPgA6wJgM1uHtyem2uhhbFQ4gKJ807i8ZU65sGvXdT9PdGOyLqFJH4J3cJ4GOu342hJ-K-ENDmvRcreugP_e4ZiayEc7V9gwPSlBCZGkkahQppXO7Eaj3Oid7OqOGWHdzEhUOALm0DKvyawzWPlvMAFeuYG4JAbAc0zBUDFNdLDR20Y29EG0BosBkUUBs_7GgZEnS7uzMi2Og8wUItkdoWFA-rjpZF2hpbuRt6geWFxQk7EHJH98JOHh4ga1buzk9ZMP-VFizD73"/>
+</div>
+</div>
+</div>
+<!-- Right Column: Product Info & Actions -->
+<div class="lg:col-span-5 flex flex-col justify-between">
+<div>
+<!-- Badges & Status -->
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-bold uppercase tracking-widest text-[#D4AF37] bg-[#D4AF37]/1px px-3 py-1 rounded-full border border-[#D4AF37]/30">
+                            Rolex Swiss Official
+                        </span>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-semibold px-2.5 py-1 rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                Còn hàng
+                            </span>
+<span class="inline-flex items-center gap-1 bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/30 text-xs font-semibold px-2.5 py-1 rounded-full">
+                                Trong giỏ: 2
+                            </span>
+</div>
+</div>
+<!-- Title -->
+<h1 class="font-headline font-extrabold text-3xl text-surface-bright mb-3 leading-tight">
+                        Rolex Cosmograph Daytona 18K Yellow Gold Automatic Chronograph
+                    </h1>
+<!-- Ratings -->
+<div class="flex items-center gap-3 mb-6 pb-6 border-b border-surface-variant/20">
+<div class="flex items-center text-[#D4AF37]">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="text-sm font-bold text-surface-bright">5.0</span>
+<span class="text-sm text-surface-bright/60">(389 đánh giá VIP)</span>
+</div>
+<!-- Pricing -->
+<div class="bg-[#1A1A1A] p-5 rounded-xl border border-primary-fixed/20 mb-6 flex items-center justify-between">
+<div>
+<div class="text-xs text-surface-bright/60 uppercase tracking-wider mb-1">Giá đặc quyền VIP</div>
+<div class="text-3xl font-extrabold text-red-600 flex items-center gap-3">
+                                890.000.000 đ
+                                <span class="text-lg font-normal text-surface-bright/40 line-through">1.140.000.000 đ</span>
+</div>
+</div>
+<div class="text-right">
+<span class="inline-block bg-red-600/20 text-red-500 border border-red-600/40 text-xs font-bold px-2.5 py-1 rounded-lg">
+                                Tiết kiệm 250M
+                            </span>
+</div>
+</div>
+<!-- Short Description -->
+<p class="text-surface-bright/80 text-sm leading-relaxed mb-8">
+                        Tuyệt tác đồng hồ Thụy Sỹ chính hãng chế tác thủ công từ vàng nguyên khối 18K. Tích hợp bộ máy cơ khí Thụy Sỹ độc quyền với độ chính xác tuyệt đối, mặt kính saphia chống xước cao cấp và thiết kế biểu tượng cho giới thượng lưu.
+                    </p>
+<!-- Quantity & Action -->
+<div class="space-y-4 mb-8">
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium text-surface-bright">Số lượng chọn mua:</span>
+<div class="flex items-center border border-primary-fixed/30 rounded-lg overflow-hidden bg-[#1A1A1A]">
+<button class="px-3 py-1.5 text-surface-bright/70 hover:text-primary-fixed hover:bg-surface-variant/10 transition-colors">-</button>
+<input class="w-12 text-center bg-transparent text-surface-bright border-none text-sm focus:ring-0" max="5" min="1" type="number" value="1"/>
+<button class="px-3 py-1.5 text-surface-bright/70 hover:text-primary-fixed hover:bg-surface-variant/10 transition-colors">+</button>
+</div>
+</div>
+<button class="w-full py-4 rounded-xl luxury-gold-gradient text-[#0c0f0f] font-headline font-bold text-base shadow-lg hover:opacity-95 active:scale-[0.99] transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+                            Cập nhật thêm vào giỏ hàng
+                        </button>
+</div>
+</div>
+<!-- Guarantee Footer Note -->
+<div class="grid grid-cols-3 gap-2 pt-6 border-t border-surface-variant/20 text-center text-xs text-surface-bright/70">
+<div class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-[#D4AF37]">verified_user</span>
+<span>Bảo hành toàn cầu 5 năm</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-[#D4AF37]">local_shipping</span>
+<span>Miễn phí vận chuyển bọc thép</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-[#D4AF37]">autorenew</span>
+<span>Đổi trả 1-1 trong 30 ngày</span>
+</div>
+</div>
+</div>
+</div>
+<!-- VIP Customer Reviews Highlight Section -->
+<div class="mb-20 bg-[#1A1A1A] rounded-2xl p-8 border border-primary-fixed/20 relative overflow-hidden">
+<div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[200px]" style="font-variation-settings: 'FILL' 1;">rate_review</span>
+</div>
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-8 pb-6 border-b border-surface-variant/20 gap-4">
+<div>
+<h2 class="font-headline font-bold text-2xl text-surface-bright mb-1">Đánh giá nổi bật từ khách hàng VIP</h2>
+<p class="text-sm text-surface-bright/60">Trải nghiệm thực tế từ các nhà sưu tập đồng hồ hàng đầu tại hệ thống E-COMMERCE.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<div class="text-2xl font-bold text-[#D4AF37]">5.0 / 5.0</div>
+<div class="text-xs text-surface-bright/60">Dựa trên 389 đánh giá xác thực</div>
+</div>
+<button class="px-4 py-2 bg-surface-variant/20 hover:bg-surface-variant/30 text-surface-bright text-sm font-semibold rounded-lg border border-primary-fixed/30 transition-all">
+                        Viết đánh giá
+                    </button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Review Card 1 -->
+<div class="bg-[#111111] p-6 rounded-xl border border-primary-fixed/10 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<img alt="Khách hàng VIP 1" class="w-10 h-10 rounded-full object-cover border border-[#D4AF37]" data-alt="Portrait of a successful businessman in an executive office wearing a luxury timepiece, smiling with confidence under professional indoor lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRdyJ56XVa8VhUXbnfbTKwR4CNq-vDboQhLmVacklJp_4u8Ho9H8XhodQrk52PWc7COkrVNTuvCttPjwdTv1pg16900BAHtIYl_jm4zlUOK_gyHsuvylKuAD-M5m2APp2Au6lVyRNgS1L-s3SfyWNyJP5OIMD7ObRMfOhnd9DSjPYDMMbjOIs9pY9h73CFl35UuDTXQZ0hDy87eUbrbUdTwUAG_lTU975pIX9oq2IAySo-7W7JeIu5fLW2E2-sG3ZE03-b-Kc9Mbqu"/>
+<div>
+<h4 class="font-semibold text-sm text-surface-bright">Ông Nguyễn Văn Minh</h4>
+<span class="text-xs text-[#D4AF37]">Thành viên VIP Diamond</span>
+</div>
+</div>
+<div class="flex text-[#D4AF37]">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="text-surface-bright/80 text-sm leading-relaxed mb-4">
+                            "Sản phẩm cực kỳ đẳng cấp, đúng chuẩn Rolex chính hãng Thụy Sỹ. Dịch vụ giao hàng bọc thép bảo mật của E-COMMERCE làm tôi rất an tâm. Sẽ tiếp tục ủng hộ các bộ sưu tập giới hạn tiếp theo."
+                        </p>
+</div>
+<div class="text-xs text-surface-bright/40 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-emerald-400" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                        Đã mua hàng xác thực ngày 12/02/2025
+                    </div>
+</div>
+<!-- Review Card 2 -->
+<div class="bg-[#111111] p-6 rounded-xl border border-primary-fixed/10 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<img alt="Khách hàng VIP 2" class="w-10 h-10 rounded-full object-cover border border-[#D4AF37]" data-alt="Portrait of an elegant woman executive wearing high-end jewelry and a luxury timepiece in a modern minimalist architectural lounge with soft warm illumination." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQBq2QgYv9jRzLs-fSl3cTIY9XoceqsKODlw3eJLjbJcF967IoD9qwFKM-9KhbNDVE0kX9p69iy76eZacb7XpJnyyofd2FQtY9ty4qTznLlV0O_QMu0pnt_dhg_dyXqABkP4k_pfc-nSbMOduADeHg_PxcvbM1WhFZiiLL5skmLJBfFDGVohzeoHn8Xpautvxr8rdgmTB_yWxPIzMT5OYxf1kHEyNeSjjgllIQ880qrGxiWQLmX_UHpHWaKb8QV0L9wVrPiJ14A_fS"/>
+<div>
+<h4 class="font-semibold text-sm text-surface-bright">Bà Hoàng Thu Hằng</h4>
+<span class="text-xs text-[#D4AF37]">Thành viên VIP Platinum</span>
+</div>
+</div>
+<div class="flex text-[#D4AF37]">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="text-surface-bright/80 text-sm leading-relaxed mb-4">
+                            "Mặt số đen bóng kết hợp vỏ vàng 18K ở ngoài đời đẹp hơn trong ảnh rất nhiều. Đóng gói hộp gỗ sang trọng kèm đầy đủ giấy chứng nhận Thụy Sỹ. Rất đáng giá tiền."
+                        </p>
+</div>
+<div class="text-xs text-surface-bright/40 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-emerald-400" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                        Đã mua hàng xác thực ngày 08/02/2025
+                    </div>
+</div>
+</div>
+</div>
+<!-- Related Products Section (4 Similar Products Grid) -->
+<div class="mb-12">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h2 class="font-headline font-bold text-2xl text-surface-bright mb-1">Sản phẩm tương tự</h2>
+<p class="text-sm text-surface-bright/60">Những phiên bản giới hạn cùng đẳng cấp dành riêng cho bạn.</p>
+</div>
+<a class="text-sm font-semibold text-[#D4AF37] hover:underline flex items-center gap-1" href="#">
+                    Xem tất cả
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Product Card 1 -->
+<div class="bg-[#1A1A1A] rounded-xl overflow-hidden border border-primary-fixed/20 group hover:border-[#D4AF37] transition-all duration-300">
+<div class="relative overflow-hidden h-64 bg-[#111111]">
+<div class="absolute top-3 left-3 z-10 bg-red-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase">
+                            -18%
+                        </div>
+<img alt="Patek Philippe Grandmaster" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Studio shot of an elite Patek Philippe luxury Swiss watch with a platinum case and deep blue sunburst dial against a dark backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArcxnEN5aMD88_6S7fE40iBLuK4ZLkHN_A_aJQS2JqqzTKXJFz9ni0qMDukLESO5f5WF_ZM6F5Yvhd-L_DqG0e_JSlqdaHVV_UeVqMrxqJr-HmjPuLL1aya9_PfqmUUDy78bBi2l4ZdH2SWQLoHFHiNqMwnNGjyo8fC9XU-sZez4sv1PEp0xje21CVCHN8WiG_87QYhgr0LUs5cKhyT2fBmH-1Fw0TvBzTA4u9eV90EP8kvz8a7DwMXAikORYd3zFFHE8DBKUo61Kd"/>
+</div>
+<div class="p-5">
+<span class="text-[10px] uppercase font-bold text-[#D4AF37] tracking-wider">Patek Philippe</span>
+<h3 class="font-headline font-bold text-base text-surface-bright mt-1 mb-3 line-clamp-1">Grandmaster Chime Platinum Edition</h3>
+<div class="flex items-center justify-between">
+<div>
+<div class="text-xs text-surface-bright/40 line-through">2.450.000.000 đ</div>
+<div class="text-lg font-extrabold text-red-600">1.990.000.000 đ</div>
+</div>
+<button aria-label="shopping_bag" class="w-10 h-10 rounded-lg bg-[#D4AF37]/10 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-[#1A1A1A] rounded-xl overflow-hidden border border-primary-fixed/20 group hover:border-[#D4AF37] transition-all duration-300">
+<div class="relative overflow-hidden h-64 bg-[#111111]">
+<div class="absolute top-3 left-3 z-10 bg-red-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase">
+                            -15%
+                        </div>
+<img alt="Audemars Piguet Royal Oak" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Studio shot of an Audemars Piguet Royal Oak Offshore chronograph in rose gold with a textured tapisserie dial and integrated bracelet." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0u29lcypXS8Ey8eIZB116FCzVz1pHPL3To6Hx1eau-S4BYCvLsO2xBfSP4W_CeJDcjkrg1EWvgLRcqQK9ziy6p2-0lDDq7etu68WwnxJxmKBVOvRG0Uv3gr5CO1WZ8qMn1CmovPzz9WkzOtm8z-n3KJL5jvu8NoSAievfqbN8a5B2ooqY3N0IplPEEIiakcZPPYBejZsr3NrTPdn4T5sQ8lDTMbhoR_qWVtqaTGhkfJe547qBKYxcjk_oQxmXZ2UwWo8eVaRcN_C7"/>
+</div>
+<div class="p-5">
+<span class="text-[10px] uppercase font-bold text-[#D4AF37] tracking-wider">Audemars Piguet</span>
+<h3 class="font-headline font-bold text-base text-surface-bright mt-1 mb-3 line-clamp-1">Royal Oak Offshore Rose Gold</h3>
+<div class="flex items-center justify-between">
+<div>
+<div class="text-xs text-surface-bright/40 line-through">1.650.000.000 đ</div>
+<div class="text-lg font-extrabold text-red-600">1.400.000.000 đ</div>
+</div>
+<button aria-label="shopping_bag" class="w-10 h-10 rounded-lg bg-[#D4AF37]/10 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-[#1A1A1A] rounded-xl overflow-hidden border border-primary-fixed/20 group hover:border-[#D4AF37] transition-all duration-300">
+<div class="relative overflow-hidden h-64 bg-[#111111]">
+<div class="absolute top-3 left-3 z-10 bg-red-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase">
+                            -20%
+                        </div>
+<img alt="Vacheron Constantin Overseas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Studio shot of a Vacheron Constantin Overseas automatic watch in stainless steel with a striking silver dial and multiple interchangeable straps." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1Sc03295HffjoQ0ssBnaAn4GzV4FzxjREKZ5Puiap1s27h8PBqdaScuHhTkJcHZRglkdvT3s0AQrU9oW1DPJPRQ-XIeSx6PqtcJtmDLxxomlmWcGlTkxzyEA7x4JtUszx3T5Hoo0ikr0QuMTzd5ga9jCGGXe5TDRRu0i5WasPjb-3mU6wfwaUOGhUI9Fh6zAEiZ6Bq1WsO0aXLvf9nS2uTaBlqj7Cx9v8QZzAox5kuVK8gbGeh6w9iuB73-lgrv8ovHJCu62doYVJ"/>
+</div>
+<div class="p-5">
+<span class="text-[10px] uppercase font-bold text-[#D4AF37] tracking-wider">Vacheron Constantin</span>
+<h3 class="font-headline font-bold text-base text-surface-bright mt-1 mb-3 line-clamp-1">Overseas Dual Time Automatic</h3>
+<div class="flex items-center justify-between">
+<div>
+<div class="text-xs text-surface-bright/40 line-through">980.000.000 đ</div>
+<div class="text-lg font-extrabold text-red-600">784.000.000 đ</div>
+</div>
+<button aria-label="shopping_bag" class="w-10 h-10 rounded-lg bg-[#D4AF37]/10 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-[#1A1A1A] rounded-xl overflow-hidden border border-primary-fixed/20 group hover:border-[#D4AF37] transition-all duration-300">
+<div class="relative overflow-hidden h-64 bg-[#111111]">
+<div class="absolute top-3 left-3 z-10 bg-red-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase">
+                            -25%
+                        </div>
+<img alt="Richard Mille Skeleton" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Studio shot of a Richard Mille skeletonized tonneau-shaped luxury sports watch with extreme lightweight carbon composite case and vibrant colored accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfJP16X-E96buy3moHsmvtzXbQ7qM4dCceUYo_RX22O0FSvSq1A3wCEo1Y8Is9SlubUS8haEi79Q9VTIiLHEmsy04mLlLu3ZKjq6X-opVKZrSKwdGcMAPON4-lB7rnvfLtgppOAXf53xRDV1u9qfnUmHYM_95zCZREDJ17xg4MIfUAgk2r5h9rnFgC1BLO51ufe4AxchYCyP_nouJssPOLN2-prpkXHORaAZLGANVIiM4U7VGFc1LlXZZuf6_JIRNegzXVW3bA8L4H"/>
+</div>
+<div class="p-5">
+<span class="text-[10px] uppercase font-bold text-[#D4AF37] tracking-wider">Richard Mille</span>
+<h3 class="font-headline font-bold text-base text-surface-bright mt-1 mb-3 line-clamp-1">RM 11-03 Automatic Flyback Chronograph</h3>
+<div class="flex items-center justify-between">
+<div>
+<div class="text-xs text-surface-bright/40 line-through">4.500.000.000 đ</div>
+<div class="text-lg font-extrabold text-red-600">3.375.000.000 đ</div>
+</div>
+<button aria-label="shopping_bag" class="w-10 h-10 rounded-lg bg-[#D4AF37]/10 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Component -->
+<footer class="bg-inverse-surface dark:bg-inverse-surface border-t border-primary-fixed/20 dark:border-primary-fixed/20 shadow-inner w-full">
+<div class="w-full max-w-7xl mx-auto px-6 py-12">
+<div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8 pb-8 border-b border-primary-fixed/10">
+<div class="font-headline font-extrabold text-2xl tracking-wider text-primary-fixed dark:text-primary-fixed flex items-center gap-2">
+<span class="material-symbols-outlined text-[#D4AF37]" style="font-variation-settings: 'FILL' 1;">diamond</span>
+                    E-COMMERCE
+                </div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="text-surface-bright/70 dark:text-surface-bright/70 hover:text-primary-fixed transition-colors duration-200 text-sm" href="#">Chính sách bảo hành vàng</a>
+<a class="text-surface-bright/70 dark:text-surface-bright/70 hover:text-primary-fixed transition-colors duration-200 text-sm" href="#">Quy định đổi trả 1-1</a>
+<a class="text-surface-bright/70 dark:text-surface-bright/70 hover:text-primary-fixed transition-colors duration-200 text-sm" href="#">Hệ thống showroom VIP</a>
+<a class="text-surface-bright/70 dark:text-surface-bright/70 hover:text-primary-fixed transition-colors duration-200 text-sm" href="#">Dịch vụ khách hàng 24/7</a>
+<a class="text-surface-bright/70 dark:text-surface-bright/70 hover:text-primary-fixed transition-colors duration-200 text-sm" href="#">Cam kết chính hãng 100%</a>
+<a class="text-surface-bright/70 dark:text-surface-bright/70 hover:text-primary-fixed transition-colors duration-200 text-sm" href="#">Điều khoản &amp; Điều kiện</a>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row items-center justify-between text-xs text-surface-bright/60 gap-4">
+<p>© 2025 E-COMMERCE. Đỉnh cao công nghệ - Đẳng cấp mua sắm. Bản quyền được bảo lưu.</p>
+<div class="flex items-center gap-4">
+<span class="text-primary-fixed font-semibold">Hotline VIP: 1900 9999</span>
+<span>|</span>
+<span>support@ecommerce.luxury</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

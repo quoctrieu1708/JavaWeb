@@ -1,0 +1,367 @@
+@charset "UTF-8";
+/**
+ * ==========================================================================
+ * E-COMMERCE — STITCH DESIGN SYSTEM TOKENS (assets/5508266315984636317)
+ * Generated from DESIGN.md & Stitch Project 16866206833056503532
+ * Theme: Luxury Corporate Black & Gold (#111111 & #D4AF37)
+ * Typography: Plus Jakarta Sans (Headline/Display) & Be Vietnam Pro (Body/Label)
+ * ==========================================================================
+ */
+
+:root {
+    /* 1. Core Brand Tokens (Luxury Black & Gold) */
+    --gold-primary: #D4AF37;
+    --gold-light: #F5D77F;
+    --gold-dark: #996515;
+    --gold-gradient: linear-gradient(135deg, #F3C644 0%, #D4AF37 50%, #B8860B 100%);
+    --gold-gradient-hover: linear-gradient(135deg, #FFD700 0%, #E5C158 50%, #C69500 100%);
+
+    --bg-dark: #111111;
+    --bg-dark-surface: #1A1A1A;
+    --bg-dark-card: #222222;
+    --dark-gradient: linear-gradient(145deg, #1C1C1C 0%, #0E0E0E 100%);
+
+    /* 2. Stitch Dynamic Color Tokens (Light Canvas + Gold/Dark Accents) */
+    --ds-primary: #705900;
+    --ds-primary-dim: #624d00;
+    --ds-primary-container: #f5ce53;
+    --ds-on-primary: #fff1d4;
+    --ds-on-primary-container: #584500;
+    --ds-primary-fixed: #f5ce53;
+    --ds-primary-fixed-dim: #e6c047;
+    --ds-inverse-primary: #f5ce53;
+
+    --ds-secondary: #5c5b5b;
+    --ds-secondary-dim: #504f4f;
+    --ds-secondary-container: #e5e2e1;
+    --ds-on-secondary: #f5f2f1;
+    --ds-on-secondary-container: #525151;
+
+    --ds-tertiary: #ba0012;
+    --ds-tertiary-dim: #a4000e;
+    --ds-tertiary-container: #ff9287;
+    --ds-on-tertiary: #ffefed;
+    --ds-on-tertiary-container: #690006;
+
+    --ds-surface: #f6f6f6;
+    --ds-surface-bright: #f6f6f6;
+    --ds-surface-dim: #d3d5d5;
+    --ds-surface-container-lowest: #ffffff;
+    --ds-surface-container-low: #f0f1f1;
+    --ds-surface-container: #e7e8e8;
+    --ds-surface-container-high: #e1e3e3;
+    --ds-surface-container-highest: #dbdddd;
+    --ds-on-surface: #2d2f2f;
+    --ds-on-surface-variant: #5a5c5c;
+    --ds-inverse-surface: #0c0f0f;
+    --ds-inverse-on-surface: #9c9d9d;
+
+    --ds-outline: #767777;
+    --ds-outline-variant: #acadad;
+    --ds-error: #b02500;
+    --ds-error-container: #f95630;
+    --ds-on-error: #ffefec;
+
+    /* 3. Typography Tokens */
+    --font-headline: 'Plus Jakarta Sans', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Plus Jakarta Sans', 'Be Vietnam Pro', sans-serif;
+    --font-body: 'Be Vietnam Pro', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-label: 'Be Vietnam Pro', sans-serif;
+
+    --type-display-lg-size: 2.5rem;
+    --type-display-lg-weight: 800;
+    --type-display-lg-lh: 1.2;
+
+    --type-headline-md-size: 1.75rem;
+    --type-headline-md-weight: 700;
+    --type-headline-md-lh: 1.3;
+
+    --type-title-md-size: 1.125rem;
+    --type-title-md-weight: 700;
+    --type-title-md-lh: 1.4;
+
+    --type-body-md-size: 0.95rem;
+    --type-body-md-weight: 400;
+    --type-body-md-lh: 1.6;
+
+    --type-label-sm-size: 0.82rem;
+    --type-label-sm-weight: 600;
+    --type-label-sm-lh: 1.4;
+
+    /* 4. Shape & Corner Roundness Tokens (ROUND_TWELVE+) */
+    --radius-xs: 6px;
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 18px;
+    --radius-xl: 24px;
+    --radius-pill: 9999px;
+
+    /* 5. Elevation & Luxury Gold Glow Tokens */
+    --elevation-1: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --elevation-2: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.02);
+    --elevation-gold-hover: 0 20px 35px -8px rgba(212, 175, 55, 0.22), 0 8px 16px rgba(0, 0, 0, 0.06);
+    --elevation-dark: 0 20px 40px rgba(0, 0, 0, 0.4);
+
+    /* 6. Spacing Scale (8px baseline) */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.5rem;
+    --space-6: 2rem;
+    --space-8: 3rem;
+}
+
+/* Reusable Design System Utility Classes */
+.ds-surface-dark {
+    background: var(--dark-gradient);
+    color: #FFFFFF;
+    border: 1px solid rgba(212, 175, 55, 0.28);
+}
+
+.ds-surface-card {
+    background: var(--ds-surface-container-lowest);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--elevation-2);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.ds-surface-card:hover {
+    box-shadow: var(--elevation-gold-hover);
+    border-color: rgba(212, 175, 55, 0.45);
+}
+
+.ds-headline {
+    font-family: var(--font-headline);
+    font-weight: var(--type-headline-md-weight);
+    letter-spacing: -0.02em;
+}
+
+.ds-badge-gold {
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--gold-primary);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-label);
+    font-size: var(--type-label-sm-size);
+    font-weight: var(--type-label-sm-weight);
+    padding: 0.25rem 0.75rem;
+}
+
+/* ==========================================================================
+   STITCH COMPONENT SYSTEM (Applied from stitch-designs/*.html)
+   ========================================================================== */
+
+/* 1. Luxury Split Auth Card (06-auth-login.html & 07-auth-register.html) */
+.ds-auth-split-card {
+    background: #FFFFFF;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(212, 175, 55, 0.22);
+    border: none;
+}
+
+.ds-auth-banner {
+    background-color: #111111;
+    background-image:
+        radial-gradient(rgba(212, 175, 55, 0.20) 1px, transparent 1px),
+        linear-gradient(155deg, #161616 0%, #0A0A0A 100%);
+    background-size: 24px 24px, 100% 100%;
+    color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+    border-right: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.ds-auth-banner::before {
+    content: "";
+    position: absolute;
+    top: -120px;
+    left: -120px;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.22) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.ds-auth-banner::after {
+    content: "";
+    position: absolute;
+    bottom: -100px;
+    right: -100px;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.16) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.ds-auth-feature-item {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(212, 175, 55, 0.22);
+    border-radius: var(--radius-md);
+    padding: 0.85rem 1rem;
+    transition: all 0.25s ease;
+}
+
+.ds-auth-feature-item:hover {
+    background: rgba(212, 175, 55, 0.09);
+    border-color: rgba(212, 175, 55, 0.45);
+    transform: translateX(4px);
+}
+
+/* 2. Stitch Luxury Breadcrumb Bar (03-view-product.html & 04-user-cart.html) */
+.ds-breadcrumb-bar {
+    background: #FFFFFF;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 0.75rem 0;
+    margin-bottom: 1.5rem;
+}
+
+.ds-breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.ds-breadcrumb a {
+    color: var(--ds-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.ds-breadcrumb a:hover {
+    color: var(--gold-dark);
+}
+
+.ds-breadcrumb .ds-breadcrumb-sep {
+    color: #CBD5E1;
+    font-size: 0.75rem;
+}
+
+.ds-breadcrumb .ds-breadcrumb-current {
+    color: #111111;
+    font-weight: 700;
+}
+
+/* 3. Animated Status Pulse Indicator (03-view-product.html & 14-admin-live-chat.html) */
+.ds-pulse-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.32rem 0.85rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.ds-pulse-badge-success {
+    background: rgba(16, 185, 129, 0.12);
+    color: #059669;
+    border: 1px solid rgba(16, 185, 129, 0.28);
+}
+
+.ds-pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #10B981;
+    box-shadow: 0 0 0 rgba(16, 185, 129, 0.6);
+    animation: dsPulseEmerald 1.8s infinite;
+}
+
+@keyframes dsPulseEmerald {
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.65);
+    }
+    70% {
+        box-shadow: 0 0 0 7px rgba(16, 185, 129, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+/* 4. Stitch VIP Dark-Gold Price Box (03-view-product.html) */
+.ds-vip-price-box {
+    background: linear-gradient(135deg, #161616 0%, #0D0D0D 100%);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: var(--radius-lg);
+    padding: 1.35rem 1.5rem;
+    color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+}
+
+.ds-vip-price-box::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.18) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* 5. Stitch Luxury Page Header Banner (User & Admin Consoles) */
+.ds-page-header {
+    background: linear-gradient(135deg, #141414 0%, #0A0A0A 100%);
+    border: 1px solid rgba(212, 175, 55, 0.32);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 2rem;
+    color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.14);
+}
+
+.ds-page-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: var(--gold-gradient);
+}
+
+/* 6. Stitch Hero Guarantee Pill Bar (01-index.html) */
+.ds-hero-stats-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-top: 1.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.ds-hero-stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(212, 175, 55, 0.22);
+    border-radius: var(--radius-md);
+    padding: 0.6rem 1rem;
+}
+
+.ds-hero-stat-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--gold-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+

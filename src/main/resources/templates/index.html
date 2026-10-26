@@ -36,6 +36,29 @@
 										Xem Smartphone
 									</a>
 								</div>
+								<div class="ds-hero-stats-bar d-none d-lg-flex">
+									<div class="ds-hero-stat-item">
+										<div class="ds-hero-stat-icon"><i class="fa-solid fa-shield-halved"></i></div>
+										<div>
+											<div class="fw-bold text-white small">100% Chính hãng</div>
+											<div class="text-white-50" style="font-size: 0.75rem;">Độc quyền phân phối</div>
+										</div>
+									</div>
+									<div class="ds-hero-stat-item">
+										<div class="ds-hero-stat-icon"><i class="fa-solid fa-headset"></i></div>
+										<div>
+											<div class="fw-bold text-white small">24/7 Hỗ trợ VIP</div>
+											<div class="text-white-50" style="font-size: 0.75rem;">Chăm sóc đặc quyền</div>
+										</div>
+									</div>
+									<div class="ds-hero-stat-item">
+										<div class="ds-hero-stat-icon"><i class="fa-solid fa-award"></i></div>
+										<div>
+											<div class="fw-bold text-white small">Bảo hành 24 Tháng</div>
+											<div class="text-white-50" style="font-size: 0.75rem;">Tiêu chuẩn vàng</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -176,7 +199,7 @@
 
 							<!-- Thumbnail -->
 							<div class="product-thumb-wrap">
-								<img th:src="@{'/img/product_img/'+${p.image}}" th:alt="${p.title}">
+								<img th:src="@{'/img/product_img/'+${p.image}}" th:alt="${p.title}" loading="lazy">
 								<div th:if="${p.stock <= 0}" class="position-absolute top-50 start-50 translate-middle badge bg-dark bg-opacity-75 text-white px-3 py-2">
 									TẠM HẾT HÀNG
 								</div>
@@ -223,7 +246,7 @@
 				<div class="col-lg-2 col-md-4 col-6" th:each="c:${category}">
 					<a th:href="@{'/products?category=' + ${c.encodedName}}" class="category-card-modern">
 						<div class="category-img-box">
-							<img th:src="@{'/img/category_img/'+${c.imageName}}" th:alt="${c.name}">
+							<img th:src="@{'/img/category_img/'+${c.imageName}}" th:alt="${c.name}" loading="lazy">
 						</div>
 						<p class="category-name">[[${c.name}]]</p>
 					</a>
@@ -280,7 +303,7 @@
 
 						<!-- Thumbnail -->
 						<div class="product-thumb-wrap">
-							<img th:src="@{'/img/product_img/'+${p.image}}" th:alt="${p.title}">
+							<img th:src="@{'/img/product_img/'+${p.image}}" th:alt="${p.title}" loading="lazy">
 							<div th:if="${p.stock <= 0}" class="position-absolute top-50 start-50 translate-middle badge bg-dark bg-opacity-75 text-white px-3 py-2">
 								HẾT HÀNG
 							</div>

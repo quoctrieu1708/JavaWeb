@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ecom.model.Cart;
 import com.ecom.model.Product;
@@ -17,6 +18,7 @@ import com.ecom.repository.ProductRepository;
 import com.ecom.service.CartService;
 
 @SpringBootTest
+@Transactional
 class ShoppingCartApplicationTests {
 
 	@Autowired

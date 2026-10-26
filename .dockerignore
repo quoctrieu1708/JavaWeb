@@ -1,0 +1,12 @@
+target/
+.git/
+.gitignore
+.idea/
+*.iml
+.vscode/
+.agent/
+stitch-designs/
+run-workflow-tests.ps1
+TEST_DOCUMENTATION.md
+*.log
+uploads/

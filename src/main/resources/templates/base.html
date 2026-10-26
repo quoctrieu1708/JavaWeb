@@ -12,7 +12,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<!-- Custom Luxury Black & Gold Theme CSS -->
+<!-- Stitch Design System Tokens & Custom Luxury Black & Gold Theme CSS -->
+<link rel="stylesheet" th:href="@{/css/design-system.css}">
 <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
@@ -62,11 +63,11 @@
 					</li>
 				</ul>
 
-				<!-- Quick Search in Navbar with Live Autocomplete Dropdown (Scrollable if > 5 items) -->
-				<div class="d-none d-lg-block nav-search-bar me-lg-3 my-2 my-lg-0 position-relative">
+				<!-- Quick Search in Navbar with Live Autocomplete Dropdown (Mobile & Desktop) -->
+				<div class="nav-search-bar me-lg-3 my-2 my-lg-0 position-relative">
 					<form action="/products" method="get" class="m-0" id="navSearchForm">
 						<i class="fa-solid fa-magnifying-glass search-icon"></i>
-						<input type="text" id="navSearchInput" name="ch" placeholder="Tìm kiếm sản phẩm..." class="form-control" autocomplete="off" oninput="handleLiveSearch(this, 'navSearchDropdown')">
+						<input type="text" id="navSearchInput" name="ch" placeholder="Tìm kiếm sản phẩm..." class="form-control" autocomplete="off" data-search-target="navSearchDropdown">
 					</form>
 					<div id="navSearchDropdown" class="search-autocomplete-dropdown d-none"></div>
 				</div>
@@ -221,7 +222,7 @@
 				<div class="col-lg-3 col-md-6">
 					<h6 class="footer-title">Đăng ký nhận ưu đãi</h6>
 					<p class="text-secondary small mb-3">Nhận thông tin khuyến mãi Flash Sale và mã giảm giá sớm nhất:</p>
-					<form onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã đăng ký nhận bản tin ưu đãi từ Ecom Store!');" class="mb-3">
+					<form id="newsletter-form" class="mb-3">
 						<div class="input-group">
 							<input type="email" class="form-control form-control-sm bg-dark text-white border-secondary" placeholder="Nhập email của bạn..." required>
 							<button class="btn btn-gold btn-sm px-3" type="submit">
@@ -252,7 +253,8 @@
 	<!-- End Footer -->
 
 	<!-- Floating 1-on-1 Live Chat Widget -->
-	<div id="chat-widget" class="position-fixed bottom-0 end-0 m-4" style="z-index: 9999;">
+	<div id="chat-widget" class="position-fixed bottom-0 end-0 m-4" style="z-index: 9999;"
+		th:attr="data-user-email=${user != null ? user.email : ''}, data-user-name=${user != null ? user.name : ''}, data-user-role=${user != null ? user.role : 'GUEST'}">
 		<!-- Chat Box -->
 		<div id="chat-box" class="card shadow-lg d-none mb-3" style="width: 360px; height: 480px; border-radius: 20px; border: 1px solid rgba(212, 175, 55, 0.35); overflow: hidden;">
 			<!-- Header -->
@@ -266,7 +268,7 @@
 						<small class="text-warning" style="font-size: 0.72rem;"><i class="fa-solid fa-circle me-1" style="font-size: 0.5rem;"></i>Hỗ trợ viên sẵn sàng</small>
 					</div>
 				</div>
-				<button type="button" class="btn-close btn-close-white" onclick="toggleChatBox()"></button>
+				<button type="button" id="chat-close-btn" class="btn-close btn-close-white" aria-label="Đóng"></button>
 			</div>
 
 			<!-- Messages window -->
@@ -282,7 +284,7 @@
 
 			<!-- Input Footer -->
 			<div class="card-footer bg-white border-top p-2">
-				<form id="chat-form" onsubmit="sendChatMessage(event)" class="d-flex gap-2">
+				<form id="chat-form" class="d-flex gap-2">
 					<input type="text" id="chat-input" class="form-control form-control-sm rounded-pill" placeholder="Nhập câu hỏi hỗ trợ..." autocomplete="off" required>
 					<button type="submit" class="btn btn-gold btn-sm rounded-circle px-2" style="width: 34px; height: 34px;">
 						<i class="fa-solid fa-paper-plane" style="font-size: 0.8rem;"></i>
@@ -294,7 +296,7 @@
 		<!-- Chat Floating Trigger Button -->
 		<div class="d-flex justify-content-end">
 			<button id="chat-toggle-btn" class="btn rounded-circle shadow-lg p-3 d-flex align-items-center justify-content-center"
-					onclick="toggleChatBox()" title="Chat trực tiếp với CSKH">
+					title="Chat trực tiếp với CSKH">
 				<i class="fa-solid fa-headset fs-3 text-warning"></i>
 			</button>
 		</div>
@@ -303,238 +305,10 @@
 	<!-- Scripts -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
-	<script th:src="@{/js/script.js}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-	
 	<!-- SockJS & STOMP for Realtime 1-on-1 Chat -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-	<script th:inline="javascript">
-		// Initialize toasts
-		var toastElList = [].slice.call(document.querySelectorAll('.toast'));
-		var toastList = toastElList.map(function(toastEl) {
-			return new bootstrap.Toast(toastEl, { autohide: true, delay: 3500 });
-		});
-
-		// Navbar scroll effect (Transparent to Solid)
-		window.addEventListener('scroll', function() {
-			var nav = document.getElementById('mainNavbar');
-			if (window.scrollY > 40) {
-				nav.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.45)';
-				nav.style.borderBottomColor = 'rgba(212, 175, 55, 0.55)';
-			} else {
-				nav.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.25)';
-				nav.style.borderBottomColor = 'rgba(212, 175, 55, 0.28)';
-			}
-		});
-
-		// Chat 1-on-1 WebSocket logic
-		var loggedInEmail = /*[[${user != null ? user.email : ''}]]*/ '';
-		var loggedInName = /*[[${user != null ? user.name : ''}]]*/ '';
-		var userRole = /*[[${user != null ? user.role : 'GUEST'}]]*/ 'GUEST';
-
-		var customerId = loggedInEmail;
-		if (!customerId) {
-			customerId = localStorage.getItem('ecom_guest_chat_id');
-			if (!customerId) {
-				customerId = 'guest_' + Math.random().toString(36).substring(2, 9);
-				localStorage.setItem('ecom_guest_chat_id', customerId);
-			}
-		}
-		var customerName = loggedInName ? loggedInName : ('Khách (' + customerId.substring(customerId.length - 4) + ')');
-
-		var stompClient = null;
-		var chatConnected = false;
-
-		function toggleChatBox() {
-			var box = document.getElementById('chat-box');
-			box.classList.toggle('d-none');
-			if (!box.classList.contains('d-none')) {
-				if (!chatConnected) {
-					connectChat();
-				} else {
-					loadChatHistory();
-				}
-			}
-		}
-
-		function connectChat() {
-			var socket = new SockJS('/ws');
-			stompClient = Stomp.over(socket);
-			stompClient.debug = null;
-			stompClient.connect({}, function (frame) {
-				chatConnected = true;
-				stompClient.subscribe('/topic/chat/' + customerId, function (message) {
-					var msg = JSON.parse(message.body);
-					showMessage(msg);
-				});
-				loadChatHistory();
-			}, function(err) {
-				console.error("Chat connection failed:", err);
-			});
-		}
-
-		function loadChatHistory() {
-			fetch('/api/chat/history?customerId=' + encodeURIComponent(customerId))
-				.then(function(res) { return res.json(); })
-				.then(function(messages) {
-					var container = document.getElementById('chat-messages');
-					container.innerHTML = '<div class="text-center text-muted small my-2">Trò chuyện trực tiếp với CSKH</div>';
-					if (messages && messages.length > 0) {
-						messages.forEach(function(m) {
-							renderMessage(m.role === 'USER' || m.sender === customerName, m.sender, m.role, m.content, m.formattedTime);
-						});
-					} else {
-						var welcomeDiv = document.createElement('div');
-						welcomeDiv.className = 'd-flex mb-2';
-						welcomeDiv.innerHTML = '<div class="p-2 rounded bg-white shadow-sm border" style="max-width: 85%;">'
-							+ '<small class="fw-bold text-warning d-block">Hỗ trợ viên CSKH</small>'
-							+ '<span>Xin chào ' + customerName + '! Chúng tôi có thể hỗ trợ gì cho bạn hôm nay?</span></div>';
-						container.appendChild(welcomeDiv);
-					}
-					container.scrollTop = container.scrollHeight;
-				})
-				.catch(function(err) {
-					console.error("Failed to fetch chat history:", err);
-				});
-		}
-
-		function sendChatMessage(event) {
-			event.preventDefault();
-			var input = document.getElementById('chat-input');
-			var messageContent = input.value.trim();
-			if (messageContent && stompClient) {
-				var chatMessage = {
-					customerId: customerId,
-					customerName: customerName,
-					sender: customerName,
-					content: messageContent,
-					type: 'CHAT',
-					role: 'USER'
-				};
-				stompClient.send("/app/chat.sendToAdmin", {}, JSON.stringify(chatMessage));
-				input.value = '';
-			}
-		}
-
-		function showMessage(msg) {
-			if (msg.type === 'JOIN' || msg.type === 'LEAVE') return;
-			var isMe = (msg.role === 'USER' || msg.sender === customerName);
-			renderMessage(isMe, msg.sender, msg.role, msg.content, msg.timestamp);
-		}
-
-		function renderMessage(isMe, sender, role, content, time) {
-			var container = document.getElementById('chat-messages');
-			var wrapper = document.createElement('div');
-			wrapper.className = 'd-flex mb-2 ' + (isMe ? 'justify-content-end' : 'justify-content-start');
-
-			var bubble = document.createElement('div');
-			bubble.className = 'p-2 rounded-3 shadow-sm ' + (isMe ? 'bg-dark text-white border border-secondary' : 'bg-white border text-dark');
-			bubble.style.maxWidth = '85%';
-
-			var nameTag = document.createElement('small');
-			nameTag.className = 'd-block fw-bold ' + (isMe ? 'text-warning' : 'text-primary');
-			nameTag.innerText = (isMe ? 'Bạn' : 'Hỗ trợ viên CSKH') + (time ? (' • ' + time) : '');
-
-			var contentTag = document.createElement('span');
-			contentTag.innerText = content;
-
-			bubble.appendChild(nameTag);
-			bubble.appendChild(contentTag);
-			wrapper.appendChild(bubble);
-			container.appendChild(wrapper);
-			container.scrollTop = container.scrollHeight;
-		}
-
-		// Live Search Autocomplete (Limit visible to 5 items, scrollable for more)
-		var searchDebounceTimer = null;
-
-		function handleLiveSearch(input, dropdownId) {
-			clearTimeout(searchDebounceTimer);
-			var query = input.value.trim();
-			var dropdown = document.getElementById(dropdownId);
-			if (!dropdown) return;
-
-			if (query.length < 1) {
-				dropdown.innerHTML = '';
-				dropdown.classList.add('d-none');
-				return;
-			}
-
-			searchDebounceTimer = setTimeout(function() {
-				fetch('/api/products/search?q=' + encodeURIComponent(query))
-					.then(function(res) { return res.json(); })
-					.then(function(data) {
-						renderSearchResults(data, query, dropdown);
-					})
-					.catch(function(err) {
-						console.error("Live search failed:", err);
-					});
-			}, 200);
-		}
-
-		function renderSearchResults(items, query, dropdown) {
-			if (!items || items.length === 0) {
-				dropdown.innerHTML = '<div class="p-3 text-center text-muted small"><i class="fa-solid fa-magnifying-glass me-1 opacity-50"></i>Không tìm thấy sản phẩm cho "<strong>' + escapeHtml(query) + '</strong>"</div>';
-				dropdown.classList.remove('d-none');
-				return;
-			}
-
-			var html = '';
-			items.forEach(function(item) {
-				var priceFormatted = Number(item.discountPrice || item.price).toLocaleString('vi-VN') + 'đ';
-				var oldPriceFormatted = item.discount > 0 ? (Number(item.price).toLocaleString('vi-VN') + 'đ') : '';
-				var discountBadge = item.discount > 0 ? '<span class="badge bg-danger rounded-pill ms-1">-' + item.discount + '%</span>' : '';
-				var stockNotice = item.stock <= 0 ? '<span class="badge bg-secondary ms-1">Hết hàng</span>' : '';
-
-				html += '<a href="/product/' + item.id + '" class="search-result-item">'
-					+ '<div class="search-result-thumb"><img src="/img/product_img/' + (item.image || 'default.png') + '" alt="' + escapeHtml(item.title) + '"></div>'
-					+ '<div class="search-result-info">'
-					+ '<div class="search-result-title" title="' + escapeHtml(item.title) + '">' + escapeHtml(item.title) + '</div>'
-					+ '<div class="search-result-meta">'
-					+ '<span class="badge bg-light text-secondary border small">' + escapeHtml(item.category || 'Sản phẩm') + '</span>'
-					+ '<span class="search-result-price">' + priceFormatted + '</span>'
-					+ (oldPriceFormatted ? '<span class="text-decoration-line-through text-muted small">' + oldPriceFormatted + '</span>' : '')
-					+ discountBadge
-					+ stockNotice
-					+ '</div>'
-					+ '</div>'
-					+ '<i class="fa-solid fa-chevron-right text-muted small ms-auto"></i>'
-					+ '</a>';
-			});
-
-			html += '<a href="/products?ch=' + encodeURIComponent(query) + '" class="search-result-footer">'
-				+ 'Xem tất cả ' + items.length + '+ kết quả cho "<strong>' + escapeHtml(query) + '</strong>" <i class="fa-solid fa-arrow-right ms-1"></i>'
-				+ '</a>';
-
-			dropdown.innerHTML = html;
-			dropdown.classList.remove('d-none');
-		}
-
-		function escapeHtml(text) {
-			if (!text) return '';
-			return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-		}
-
-		// Close search dropdown when clicking outside
-		document.addEventListener('click', function(e) {
-			var containers = document.querySelectorAll('.nav-search-bar');
-			containers.forEach(function(container) {
-				if (!container.contains(e.target)) {
-					var dd = container.querySelector('.search-autocomplete-dropdown');
-					if (dd) dd.classList.add('d-none');
-				}
-			});
-		});
-
-		// Close on Escape key
-		document.addEventListener('keydown', function(e) {
-			if (e.key === 'Escape') {
-				document.querySelectorAll('.search-autocomplete-dropdown').forEach(function(dd) {
-					dd.classList.add('d-none');
-				});
-			}
-		});
-	</script>
+	<script th:src="@{/js/script.js}"></script>
 </body>
 </html>

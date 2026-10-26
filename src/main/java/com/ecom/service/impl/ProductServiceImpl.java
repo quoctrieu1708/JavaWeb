@@ -1,14 +1,8 @@
 package com.ecom.service.impl;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ecom.model.Product;
 import com.ecom.repository.ProductRepository;
+import com.ecom.service.FileStorageService;
 import com.ecom.service.ProductService;
 
 @Service
@@ -25,6 +20,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
+
+	@Autowired
+	private FileStorageService fileStorageService;
 
 	@Override
 	public Product saveProduct(Product product) {
@@ -64,7 +62,14 @@ public class ProductServiceImpl implements ProductService {
 
 		Product dbProduct = getProductById(product.getId());
 
-		String imageName = image.isEmpty() ? dbProduct.getImage() : image.getOriginalFilename();
+		// Lưu ảnh mới (nếu có) vào thư mục upload ngoài, an toàn khi chạy dưới dạng JAR
+		String savedName = null;
+		try {
+			savedName = fileStorageService.saveFile(image, "product_img");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String imageName = savedName == null ? dbProduct.getImage() : savedName;
 
 		dbProduct.setTitle(product.getTitle());
 		dbProduct.setDescription(product.getDescription());
@@ -83,20 +88,6 @@ public class ProductServiceImpl implements ProductService {
 		Product updateProduct = productRepository.save(dbProduct);
 
 		if (!ObjectUtils.isEmpty(updateProduct)) {
-
-			if (!image.isEmpty()) {
-
-				try {
-					File saveFile = new ClassPathResource("static/img").getFile();
-
-					Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "product_img" + File.separator
-							+ image.getOriginalFilename());
-					Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
 			return product;
 		}
 		return null;
@@ -184,6 +175,17 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Long countOutOfStock() {
 		return productRepository.countByStockEquals(0);
+	}
+
+	@Override
+	public Long countProducts() {
+		return productRepository.count();
+	}
+
+	@Override
+	public List<Product> getLatestActiveProducts(int limit) {
+		Pageable pageable = PageRequest.of(0, limit, org.springframework.data.domain.Sort.by("id").descending());
+		return productRepository.findByIsActiveTrue(pageable).getContent();
 	}
 
 }

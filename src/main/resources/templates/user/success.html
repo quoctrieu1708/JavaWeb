@@ -3,20 +3,37 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>Đặt hàng thành công</title>
+<title>Đặt hàng thành công — E-COMMERCE</title>
 </head>
 <body>
-	<section>
-		<div class="container mt-5 p-5">
+	<section class="mt-4 pt-3 pb-5">
+		<div class="container">
 			<div class="row justify-content-center">
-				<div class="col-md-8 text-center p-5 bg-white shadow-sm rounded">
-					<i class="fa-solid fa-circle-check text-success mb-4" style="font-size: 100px;"></i>
-					<h2 class="display-5 fw-bold text-success mb-3">Đặt hàng thành công!</h2>
-					<p class="fs-4 text-secondary mb-5">Đơn hàng sẽ được giao trong vòng 3 - 5 ngày tới.</p>
-					
-					<div class="d-flex justify-content-center gap-3">
-						<a href="/" class="btn btn-outline-primary px-4 py-2 fs-5 fw-bold rounded-pill"><i class="fa-solid fa-house me-2"></i>Về trang chủ</a> 
-						<a href="/user/user-orders" class="btn btn-primary px-4 py-2 fs-5 fw-bold rounded-pill"><i class="fa-solid fa-box-open me-2"></i>Đơn hàng của bạn</a>
+				<div class="col-lg-7">
+					<div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white text-center">
+						<div class="py-4 text-white" style="background: var(--dark-gradient); border-bottom: 2px solid var(--gold-primary);">
+							<span class="ds-badge-gold mb-2 d-inline-block"><i class="fa-solid fa-crown me-1"></i>XÁC NHẬN ĐƠN HÀNG VIP</span>
+							<h4 class="fw-bold mb-0 ds-headline">CẢM ƠN BẠN ĐÃ MUA SẮM TẠI E-COMMERCE</h4>
+						</div>
+						<div class="card-body p-4 p-md-5">
+							<div class="mx-auto mb-4 d-flex align-items-center justify-content-center rounded-circle"
+								 style="width: 96px; height: 96px; background: rgba(16, 185, 129, 0.12); border: 2px solid rgba(16, 185, 129, 0.35);">
+								<i class="fa-solid fa-circle-check text-success" style="font-size: 3.5rem;"></i>
+							</div>
+							<h2 class="fw-extrabold text-dark mb-2 ds-headline">Đặt hàng thành công!</h2>
+							<p class="text-secondary mb-4" style="max-width: 480px; margin: 0 auto;">
+								Hệ thống đã ghi nhận đơn đặt hàng của bạn và gửi email xác nhận. Đơn hàng sẽ được đóng gói tiêu chuẩn vàng và giao trong vòng <strong>2 - 4 ngày</strong> tới.
+							</p>
+
+							<div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
+								<a href="/" class="btn btn-outline-dark px-4 py-2 fw-bold rounded-pill">
+									<i class="fa-solid fa-house me-2"></i>Về trang chủ
+								</a>
+								<a href="/user/user-orders" class="btn btn-gold px-4 py-2 fw-bold shadow">
+									<i class="fa-solid fa-box-open me-2"></i>Theo dõi đơn hàng
+								</a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

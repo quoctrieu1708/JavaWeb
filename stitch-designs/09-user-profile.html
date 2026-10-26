@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>E-COMMERCE - Hồ Sơ Cá Nhân &amp; Bảo Mật</title>
+<!-- Tailwind CSS Configuration -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-fixed": "#f5ce53",
+            "on-surface": "#2d2f2f",
+            "secondary": "#5c5b5b",
+            "tertiary-fixed": "#ff9287",
+            "inverse-surface": "#0c0f0f",
+            "surface": "#f6f6f6",
+            "on-primary-fixed": "#413200",
+            "surface-variant": "#dbdddd",
+            "on-secondary-fixed": "#403f3f",
+            "on-primary": "#fff1d4",
+            "error-dim": "#b92902",
+            "surface-container": "#e7e8e8",
+            "on-secondary": "#f5f2f1",
+            "outline": "#767777",
+            "inverse-on-surface": "#9c9d9d",
+            "tertiary": "#ba0012",
+            "on-tertiary-fixed": "#3a0002",
+            "on-secondary-container": "#525151",
+            "on-tertiary": "#ffefed",
+            "on-background": "#2d2f2f",
+            "surface-container-highest": "#dbdddd",
+            "surface-container-lowest": "#ffffff",
+            "primary-fixed-dim": "#e6c047",
+            "on-secondary-fixed-variant": "#5c5b5b",
+            "primary-dim": "#624d00",
+            "tertiary-dim": "#a4000e",
+            "error-container": "#f95630",
+            "surface-container-high": "#e1e3e3",
+            "tertiary-fixed-dim": "#ff7b6f",
+            "surface-dim": "#d3d5d5",
+            "error": "#b02500",
+            "on-tertiary-container": "#690006",
+            "on-error": "#ffefec",
+            "primary": "#705900",
+            "on-tertiary-fixed-variant": "#7a0008",
+            "inverse-primary": "#f5ce53",
+            "secondary-dim": "#504f4f",
+            "primary-container": "#f5ce53",
+            "on-primary-fixed-variant": "#634e00",
+            "on-error-container": "#520c00",
+            "surface-container-low": "#f0f1f1",
+            "secondary-fixed": "#e5e2e1",
+            "secondary-container": "#e5e2e1",
+            "background": "#f6f6f6",
+            "outline-variant": "#acadad",
+            "on-primary-container": "#584500",
+            "surface-tint": "#705900",
+            "tertiary-container": "#ff9287",
+            "secondary-fixed-dim": "#d7d4d3",
+            "on-surface-variant": "#5a5c5c",
+            "surface-bright": "#f6f6f6"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "headline": ["Plus Jakarta Sans"],
+            "display": ["Plus Jakarta Sans"],
+            "body": ["Be Vietnam Pro"],
+            "label": ["Be Vietnam Pro"]
+          }
+        },
+      },
+    }
+  </script>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+      background-color: #111111;
+      color: #f5f2f1;
+      font-family: 'Be Vietnam Pro', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-[#111111] text-[#f5f2f1] min-h-screen flex flex-col justify-between">
+<!-- TopNavBar (JSON compliant with style mappings) -->
+<header class="bg-inverse-surface dark:bg-inverse-surface border-b border-outline-variant shadow-sm sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<!-- Brand Logo -->
+<a class="text-xl font-extrabold text-primary-fixed dark:text-primary-fixed tracking-wider font-headline" href="#">E-COMMERCE</a>
+<!-- Navigation Links (Desktop) -->
+<nav class="hidden md:flex items-center space-x-8 text-label-sm font-label">
+<a class="text-inverse-on-surface hover:text-primary-fixed-dim transition-all duration-200" href="#">Trang chủ</a>
+<a class="text-inverse-on-surface hover:text-primary-fixed-dim transition-all duration-200" href="#">Sản phẩm</a>
+<a class="text-inverse-on-surface hover:text-primary-fixed-dim transition-all duration-200" href="#">Đơn hàng</a>
+</nav>
+<!-- Search Bar & Actions -->
+<div class="flex items-center space-x-4">
+<div class="hidden lg:flex items-center bg-[#1a1a1a] border border-outline-variant rounded-xl px-3 py-1.5">
+<span class="material-symbols-outlined text-inverse-on-surface text-sm mr-2">search</span>
+<input class="bg-transparent border-none text-xs text-on-primary-fixed focus:outline-none w-48 placeholder-inverse-on-surface" placeholder="Tìm kiếm sản phẩm..." type="text"/>
+</div>
+<button class="text-inverse-on-surface hover:text-primary-fixed-dim transition-all duration-200 relative p-1">
+<span class="material-symbols-outlined">shopping_bag</span>
+</button>
+<button class="text-inverse-on-surface hover:text-primary-fixed-dim transition-all duration-200 relative p-1">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<!-- Profile Active Link -->
+<a class="text-primary-fixed font-bold flex items-center space-x-2 pl-2 border-l border-outline-variant" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+<span class="hidden sm:inline text-xs">Đăng nhập</span>
+</a>
+</div>
+</div>
+</header>
+<!-- Main Canvas Content -->
+<main class="flex-grow max-w-7xl w-full mx-auto px-6 py-10">
+<!-- Page Header -->
+<div class="mb-10 text-center md:text-left">
+<h1 class="text-3xl md:text-4xl font-extrabold font-headline text-primary-fixed tracking-wide mb-2">HỒ SƠ CÁ NHÂN &amp; BẢO MẬT</h1>
+<p class="text-inverse-on-surface text-sm">Quản lý thông tin tài khoản và thiết lập bảo mật cấp cao cho trải nghiệm mua sắm độc quyền của bạn.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Avatar & VIP Status -->
+<div class="bg-[#1a1a1a] border border-[#333333] rounded-xl p-6 flex flex-col items-center text-center shadow-lg justify-between">
+<div class="w-full">
+<div class="relative w-32 h-32 mx-auto mb-6 rounded-full p-1 bg-gradient-to-tr from-[#D4AF37] to-[#996515]">
+<div class="w-full h-full bg-cover bg-center rounded-full" data-alt="A professional studio portrait of a confident luxury VIP customer against a dark moody background with subtle warm gold rim lighting. The subject has an elegant expression, wearing sophisticated attire. The overall aesthetic is ultra-modern, high-end e-commerce profile style with rich blacks and gold accents." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCvOJTYKxr6JDhA1-1KWZcHxvZf9bdfNo1idUw8vem6D1Pqp05YMxwPRvgEcjiiaTW4AEy02FLM9W9US7M9Y2zlRXBZwKmi0xOxjcCY9kYalGFls4qFDChsQ3uPBnb02AfpY2_o8siRPpupilne7FYxMz0UVh8D8dkTsgPLRxZBAoG9OM9TFok5MNRJeNbV8FneungpAMUcfBFDocS3QB6GjG5tcNg9VrnOfiapMLDUaxpfvgkOSq5OY6BfeuZHFEp9Q_WbdnY1iDyY')"></div>
+<span class="absolute bottom-0 right-0 bg-[#D4AF37] text-[#111111] p-1.5 rounded-full shadow-md flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+</span>
+</div>
+<h2 class="text-xl font-bold font-headline text-white mb-1">Nguyễn Văn Hoàng</h2>
+<p class="text-xs text-[#D4AF37] font-semibold tracking-widest uppercase mb-4">VIP Diamond Member</p>
+<div class="bg-[#111111] rounded-lg p-4 mb-6 border border-[#262626] text-left">
+<div class="flex justify-between text-xs mb-2">
+<span class="text-inverse-on-surface">Điểm tích lũy:</span>
+<span class="text-primary-fixed font-bold">25,840 Pts</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-inverse-on-surface">Đặc quyền:</span>
+<span class="text-white font-medium">Miễn phí vận chuyển toàn cầu</span>
+</div>
+</div>
+</div>
+<button class="w-full py-3 bg-transparent border border-primary-fixed text-primary-fixed hover:bg-primary-fixed hover:text-[#111111] transition-all duration-200 rounded-lg text-sm font-bold font-label flex items-center justify-center space-x-2">
+<span class="material-symbols-outlined text-sm">upload</span>
+<span>Đổi Ảnh Đại Diện</span>
+</button>
+</div>
+<!-- Right Column: Forms (Account Details & Password Change) -->
+<div class="lg:col-span-2 space-y-8">
+<!-- Account Information Form -->
+<div class="bg-[#1a1a1a] border border-[#333333] rounded-xl p-6 sm:p-8 shadow-lg">
+<h3 class="text-lg font-bold font-headline text-white mb-6 flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">badge</span>
+<span>Thông Tin Tài Khoản</span>
+</h3>
+<form class="space-y-5">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+<div>
+<label class="block text-xs font-medium text-inverse-on-surface mb-2">Họ và tên</label>
+<input class="w-full bg-[#111111] border border-outline-variant rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-primary-fixed transition-all" type="text" value="Nguyễn Văn Hoàng"/>
+</div>
+<div>
+<label class="block text-xs font-medium text-inverse-on-surface mb-2">Địa chỉ Email</label>
+<input class="w-full bg-[#111111] border border-outline-variant rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-primary-fixed transition-all" type="email" value="hoang.nguyen@luxury.vn"/>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+<div>
+<label class="block text-xs font-medium text-inverse-on-surface mb-2">Số điện thoại</label>
+<input class="w-full bg-[#111111] border border-outline-variant rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-primary-fixed transition-all" type="tel" value="+84 901 234 567"/>
+</div>
+<div>
+<label class="block text-xs font-medium text-inverse-on-surface mb-2">Địa chỉ VIP giao hàng</label>
+<input class="w-full bg-[#111111] border border-outline-variant rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-primary-fixed transition-all" type="text" value="The Landmark 81, 72A Điện Biên Phủ, Phường 22, Bình Thạnh, TP.HCM"/>
+</div>
+</div>
+<div class="flex justify-end pt-2">
+<button class="px-6 py-3 bg-primary-fixed text-[#111111] font-bold font-label rounded-lg hover:bg-primary-fixed-dim transition-all duration-200 text-sm shadow-md" type="button">
+                Lưu Thay Đổi
+              </button>
+</div>
+</form>
+</div>
+<!-- Password Change Form -->
+<div class="bg-[#1a1a1a] border border-[#333333] rounded-xl p-6 sm:p-8 shadow-lg">
+<h3 class="text-lg font-bold font-headline text-white mb-6 flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">lock</span>
+<span>Đổi Mật Khẩu</span>
+</h3>
+<form class="space-y-5">
+<div>
+<label class="block text-xs font-medium text-inverse-on-surface mb-2">Mật khẩu hiện tại</label>
+<input class="w-full bg-[#111111] border border-outline-variant rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-primary-fixed transition-all" placeholder="••••••••••••" type="password"/>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+<div>
+<label class="block text-xs font-medium text-inverse-on-surface mb-2">Mật khẩu mới</label>
+<input class="w-full bg-[#111111] border border-outline-variant rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-primary-fixed transition-all" placeholder="••••••••••••" type="password"/>
+</div>
+<div>
+<label class="block text-xs font-medium text-inverse-on-surface mb-2">Xác nhận mật khẩu mới</label>
+<input class="w-full bg-[#111111] border border-outline-variant rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-primary-fixed transition-all" placeholder="••••••••••••" type="password"/>
+</div>
+</div>
+<div class="flex justify-end pt-2">
+<button class="px-6 py-3 bg-transparent border border-primary-fixed text-primary-fixed hover:bg-primary-fixed hover:text-[#111111] font-bold font-label rounded-lg transition-all duration-200 text-sm shadow-md" type="button">
+                Cập Nhật Mật Khẩu
+              </button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (JSON compliant with style mappings) -->
+<footer class="bg-inverse-surface dark:bg-inverse-surface border-t border-outline-variant mt-16">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-8 py-6 max-w-7xl mx-auto gap-4">
+<!-- Brand Logo / Copyright -->
+<div class="text-lg font-bold text-primary-fixed font-headline">
+        E-COMMERCE
+      </div>
+<p class="text-inverse-on-surface text-xs font-label">
+        © 2023 E-COMMERCE. Bản quyền được bảo lưu.
+      </p>
+<!-- Footer Links -->
+<div class="flex flex-wrap justify-center gap-6 text-label-sm font-label">
+<a class="text-inverse-on-surface hover:text-primary-fixed-dim transition-all duration-200" href="#">Chính sách bảo mật</a>
+<a class="text-inverse-on-surface hover:text-primary-fixed-dim transition-all duration-200" href="#">Điều khoản dịch vụ</a>
+<a class="text-inverse-on-surface hover:text-primary-fixed-dim transition-all duration-200" href="#">Liên hệ</a>
+<a class="text-inverse-on-surface hover:text-primary-fixed-dim transition-all duration-200" href="#">Hỗ trợ</a>
+</div>
+</div>
+</footer>
+</body></html>

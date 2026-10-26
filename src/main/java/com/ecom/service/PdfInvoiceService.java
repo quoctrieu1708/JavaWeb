@@ -54,23 +54,23 @@ public class PdfInvoiceService {
 		DecimalFormat df = new DecimalFormat("#,###");
 
 		// Header
-		Font titleFont = getFont(20, Font.BOLD, new Color(30, 60, 114));
+		Font titleFont = getFont(20, Font.BOLD, new Color(17, 17, 17));
 		Font subTitleFont = getFont(10, Font.NORMAL, Color.GRAY);
 		Font boldFont = getFont(11, Font.BOLD, Color.BLACK);
 		Font normalFont = getFont(10, Font.NORMAL, Color.BLACK);
-		Font tableHeaderFont = getFont(10, Font.BOLD, Color.WHITE);
+		Font tableHeaderFont = getFont(10, Font.BOLD, new Color(212, 175, 55));
 
-		Paragraph storeTitle = new Paragraph("ECOM STORE", titleFont);
+		Paragraph storeTitle = new Paragraph("E-COMMERCE", titleFont);
 		storeTitle.setAlignment(Element.ALIGN_CENTER);
 		document.add(storeTitle);
 
-		Paragraph storeSubtitle = new Paragraph("Địa chỉ: Toà nhà Innovation, Cầu Giấy, Hà Nội | Hotline: 0123 456 789\nWebsite: http://localhost:8080", subTitleFont);
+		Paragraph storeSubtitle = new Paragraph("Địa chỉ: Toà nhà Innovation, Cầu Giấy, Hà Nội | Hotline: 1900 6868\nWebsite: http://localhost:8080", subTitleFont);
 		storeSubtitle.setAlignment(Element.ALIGN_CENTER);
 		storeSubtitle.setSpacingAfter(15);
 		document.add(storeSubtitle);
 
 		// Line separator
-		Paragraph invoiceTitle = new Paragraph("HÓA ĐƠN BÁN HÀNG", getFont(16, Font.BOLD, new Color(42, 82, 152)));
+		Paragraph invoiceTitle = new Paragraph("HÓA ĐƠN BÁN HÀNG", getFont(16, Font.BOLD, new Color(153, 101, 21)));
 		invoiceTitle.setAlignment(Element.ALIGN_CENTER);
 		invoiceTitle.setSpacingAfter(15);
 		document.add(invoiceTitle);
@@ -111,7 +111,7 @@ public class PdfInvoiceService {
 		itemTable.setWidths(new float[]{1, 5, 2, 2.5f, 2.5f});
 		itemTable.setSpacingAfter(15);
 
-		Color headerBg = new Color(30, 60, 114);
+		Color headerBg = new Color(17, 17, 17);
 
 		String[] headers = {"STT", "Tên sản phẩm", "Số lượng", "Đơn giá", "Thành tiền"};
 		for (String h : headers) {
@@ -187,7 +187,7 @@ public class PdfInvoiceService {
 		document.add(summaryTable);
 
 		// Footer note
-		Paragraph thanks = new Paragraph("Cảm ơn quý khách đã tin tưởng và mua sắm tại Ecom Store!\nMọi thắc mắc xin vui lòng liên hệ hotline 0123 456 789 để được hỗ trợ.", getFont(10, Font.ITALIC, Color.DARK_GRAY));
+		Paragraph thanks = new Paragraph("Cảm ơn quý khách đã tin tưởng và mua sắm tại E-COMMERCE!\nMọi thắc mắc xin vui lòng liên hệ hotline 1900 6868 để được hỗ trợ.", getFont(10, Font.ITALIC, Color.DARK_GRAY));
 		thanks.setAlignment(Element.ALIGN_CENTER);
 		document.add(thanks);
 

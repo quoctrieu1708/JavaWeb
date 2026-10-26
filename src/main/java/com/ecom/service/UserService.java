@@ -36,4 +36,6 @@ public interface UserService {
 
 	public Boolean existsEmail(String email);
 
+	public Long countByRole(String role);
+
 }

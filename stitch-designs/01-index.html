@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>E-COMMERCE - Trang chủ</title>
+<!-- Tailwind CSS Configuration -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#f6f6f6",
+            "on-surface": "#2d2f2f",
+            "on-error": "#ffefec",
+            "tertiary-fixed-dim": "#ff7b6f",
+            "inverse-on-surface": "#9c9d9d",
+            "surface-container-lowest": "#ffffff",
+            "error": "#b02500",
+            "primary-container": "#f5ce53",
+            "tertiary": "#ba0012",
+            "on-tertiary-fixed": "#3a0002",
+            "outline": "#767777",
+            "surface-bright": "#f6f6f6",
+            "secondary": "#5c5b5b",
+            "primary-dim": "#624d00",
+            "primary-fixed": "#f5ce53",
+            "on-secondary": "#f5f2f1",
+            "error-dim": "#b92902",
+            "on-secondary-fixed-variant": "#5c5b5b",
+            "on-error-container": "#520c00",
+            "on-primary-fixed-variant": "#634e00",
+            "on-background": "#2d2f2f",
+            "surface-container": "#e7e8e8",
+            "inverse-surface": "#0c0f0f",
+            "tertiary-dim": "#a4000e",
+            "on-secondary-fixed": "#403f3f",
+            "surface-dim": "#d3d5d5",
+            "error-container": "#f95630",
+            "surface-tint": "#705900",
+            "secondary-fixed": "#e5e2e1",
+            "primary-fixed-dim": "#e6c047",
+            "background": "#f6f6f6",
+            "tertiary-fixed": "#ff9287",
+            "outline-variant": "#acadad",
+            "on-primary": "#fff1d4",
+            "surface-container-low": "#f0f1f1",
+            "surface-variant": "#dbdddd",
+            "primary": "#705900",
+            "on-primary-fixed": "#413200",
+            "on-tertiary-container": "#690006",
+            "on-primary-container": "#584500",
+            "inverse-primary": "#f5ce53",
+            "surface-container-highest": "#dbdddd",
+            "surface-container-high": "#e1e3e3",
+            "tertiary-container": "#ff9287",
+            "secondary-fixed-dim": "#d7d4d3",
+            "secondary-dim": "#504f4f",
+            "on-tertiary": "#ffefed",
+            "on-surface-variant": "#5a5c5c",
+            "on-secondary-container": "#525151",
+            "secondary-container": "#e5e2e1",
+            "on-tertiary-fixed-variant": "#7a0008"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px"
+          },
+          fontFamily: {
+            headline: ["Plus Jakarta Sans"],
+            display: ["Plus Jakarta Sans"],
+            body: ["Be Vietnam Pro"],
+            label: ["Be Vietnam Pro"]
+          }
+        }
+      }
+    }
+  </script>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    body {
+      font-family: 'Be Vietnam Pro', sans-serif;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-[#111111] text-[#FAFAFA] min-h-full flex flex-col antialiased selection:bg-[#D4AF37] selection:text-[#111111]">
+<!-- TopNavBar Component -->
+<header class="bg-[#111111] text-[#FAFAFA] docked full-width top sticky z-50 shadow-lg shadow-black/40 border-b border-[#222222]">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<!-- Brand Logo -->
+<div class="flex items-center space-x-8">
+<a class="text-xl font-black text-[#FAFAFA] tracking-widest hover:text-[#D4AF37] transition-colors" href="#">
+          E-COMMERCE
+        </a>
+<!-- Navigation Links (Desktop) -->
+<nav class="hidden md:flex items-center space-x-6 text-body-md font-body">
+<a class="text-[#D4AF37] font-semibold border-b-2 border-[#D4AF37] pb-1 transition-colors" href="#">Trang chủ</a>
+<a class="text-[#FAFAFA] opacity-80 hover:text-[#F5D77F] transition-colors" href="#">Sản phẩm</a>
+<a class="text-[#FAFAFA] opacity-80 hover:text-[#F5D77F] transition-colors" href="#">Voucher</a>
+<a class="text-[#FAFAFA] opacity-80 hover:text-[#F5D77F] transition-colors" href="#">Quản trị</a>
+</nav>
+</div>
+<!-- Search & Trailing Actions -->
+<div class="flex items-center space-x-6">
+<!-- Search bar with dropdown suggestions -->
+<div class="relative hidden lg:block w-72">
+<div class="relative flex items-center">
+<input class="w-full bg-[#1A1A1A] text-[#FAFAFA] text-sm rounded-lg pl-10 pr-4 py-2 border border-[#333333] focus:outline-none focus:border-[#D4AF37] transition-colors" id="searchInput" placeholder="Tìm kiếm sản phẩm cao cấp..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 text-[#D4AF37] text-lg">search</span>
+</div>
+<!-- Dropdown Suggestions -->
+<div class="hidden absolute left-0 right-0 mt-2 bg-[#1A1A1A] border border-[#333333] rounded-lg shadow-2xl overflow-hidden z-50" id="searchDropdown">
+<div class="p-2 text-xs font-semibold text-[#D4AF37] tracking-wider uppercase border-b border-[#262626]">Gợi ý tìm kiếm</div>
+<ul>
+<li><a class="flex items-center px-4 py-2.5 text-sm hover:bg-[#262626] text-[#FAFAFA] transition-colors" href="#"><span class="material-symbols-outlined text-sm mr-2.5 text-[#D4AF37]">trending_up</span>Rolex</a></li>
+<li><a class="flex items-center px-4 py-2.5 text-sm hover:bg-[#262626] text-[#FAFAFA] transition-colors" href="#"><span class="material-symbols-outlined text-sm mr-2.5 text-[#D4AF37]">trending_up</span>Vertu</a></li>
+<li><a class="flex items-center px-4 py-2.5 text-sm hover:bg-[#262626] text-[#FAFAFA] transition-colors" href="#"><span class="material-symbols-outlined text-sm mr-2.5 text-[#D4AF37]">trending_up</span>Loa Devialet</a></li>
+<li><a class="flex items-center px-4 py-2.5 text-sm hover:bg-[#262626] text-[#FAFAFA] transition-colors" href="#"><span class="material-symbols-outlined text-sm mr-2.5 text-[#D4AF37]">trending_up</span>MacBook</a></li>
+<li><a class="flex items-center px-4 py-2.5 text-sm hover:bg-[#262626] text-[#FAFAFA] transition-colors" href="#"><span class="material-symbols-outlined text-sm mr-2.5 text-[#D4AF37]">trending_up</span>Hermès</a></li>
+</ul>
+</div>
+</div>
+<!-- Trailing Icon Actions -->
+<div class="flex items-center space-x-4">
+<button aria-label="Tìm kiếm" class="text-[#FAFAFA] hover:text-[#D4AF37] transition-colors relative p-1">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button aria-label="Giỏ hàng" class="text-[#FAFAFA] hover:text-[#D4AF37] transition-colors relative p-1">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="absolute -top-1 -right-1 bg-[#D4AF37] text-[#111111] text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">3</span>
+</button>
+<button aria-label="Quản trị" class="text-[#FAFAFA] hover:text-[#D4AF37] transition-colors p-1">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+</button>
+</div>
+<!-- Trailing Primary Action -->
+<div class="hidden sm:block">
+<a class="inline-flex items-center justify-center bg-[#D4AF37] hover:bg-[#F5D77F] text-[#111111] font-semibold px-5 py-2 rounded-lg text-sm transition-transform duration-150 active:scale-95 shadow-md shadow-[#D4AF37]/20" href="#">
+            Đăng nhập
+          </a>
+</div>
+<!-- Mobile Menu Button -->
+<button class="md:hidden text-[#FAFAFA] hover:text-[#D4AF37] focus:outline-none" id="mobileMenuBtn">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
+</div>
+</div>
+<!-- Mobile Navigation Drawer -->
+<div class="hidden md:hidden bg-[#1A1A1A] border-b border-[#222222] px-6 py-4 space-y-4" id="mobileMenu">
+<div class="relative w-full mb-4">
+<input class="w-full bg-[#111111] text-[#FAFAFA] text-sm rounded-lg pl-10 pr-4 py-2 border border-[#333333] focus:outline-none focus:border-[#D4AF37]" placeholder="Tìm kiếm sản phẩm cao cấp..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-[#D4AF37] text-lg">search</span>
+</div>
+<a class="block text-[#D4AF37] font-semibold py-1" href="#">Trang chủ</a>
+<a class="block text-[#FAFAFA] opacity-80 py-1" href="#">Sản phẩm</a>
+<a class="block text-[#FAFAFA] opacity-80 py-1" href="#">Voucher</a>
+<a class="block text-[#FAFAFA] opacity-80 py-1" href="#">Quản trị</a>
+<div class="pt-2">
+<a class="block text-center bg-[#D4AF37] text-[#111111] font-semibold py-2 rounded-lg" href="#">Đăng nhập</a>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow bg-[#111111]">
+<!-- Hero Banner Công Nghệ Cao Cấp -->
+<section class="relative overflow-hidden bg-gradient-to-b from-[#111111] via-[#1A1A1A] to-[#111111] py-20 lg:py-32 border-b border-[#222222]">
+<div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+<div class="lg:col-span-7 space-y-8">
+<div class="inline-flex items-center space-x-2 bg-[#D4AF37]/1p border border-[#D4AF37]/30 px-3.5 py-1.5 rounded-full">
+<span class="material-symbols-outlined text-[#D4AF37] text-sm">workspace_premium</span>
+<span class="text-xs font-semibold text-[#D4AF37] uppercase tracking-wider">Bộ sưu tập giới hạn 2026</span>
+</div>
+<h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#FAFAFA] tracking-tight leading-tight">
+            Đỉnh Cao <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#F5D77F]">Công Nghệ</span> &amp; Xa Xỉ
+          </h1>
+<p class="text-body-lg text-[#FAFAFA]/70 max-w-xl text-lg">
+            Trải nghiệm các sản phẩm đỉnh cao từ những thương hiệu danh tiếng nhất thế giới. Biểu tượng của sự quyền lực, đẳng cấp và tinh xảo trong từng đường nét thiết kế.
+          </p>
+<div class="flex flex-wrap gap-4 pt-2">
+<a class="bg-[#D4AF37] hover:bg-[#F5D77F] text-[#111111] font-bold px-8 py-4 rounded-xl transition-all duration-200 shadow-xl shadow-[#D4AF37]/20 flex items-center space-x-2" href="#">
+<span>Khám phá ngay</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+<a class="bg-transparent hover:bg-white/5 text-[#FAFAFA] border border-[#333333] hover:border-[#D4AF37] font-semibold px-8 py-4 rounded-xl transition-all duration-200" href="#">
+              Xem bộ sưu tập
+            </a>
+</div>
+<div class="grid grid-cols-3 gap-6 pt-8 border-t border-[#262626]">
+<div>
+<p class="text-2xl lg:text-3xl font-extrabold text-[#D4AF37]">100%</p>
+<p class="text-xs text-[#FAFAFA]/60 mt-1 uppercase tracking-wider">Chính hãng độc quyền</p>
+</div>
+<div>
+<p class="text-2xl lg:text-3xl font-extrabold text-[#D4AF37]">24/7</p>
+<p class="text-xs text-[#FAFAFA]/60 mt-1 uppercase tracking-wider">Hỗ trợ đặc quyền</p>
+</div>
+<div>
+<p class="text-2xl lg:text-3xl font-extrabold text-[#D4AF37]">VIP</p>
+<p class="text-xs text-[#FAFAFA]/60 mt-1 uppercase tracking-wider">Bảo hành toàn cầu</p>
+</div>
+</div>
+</div>
+<div class="lg:col-span-5 relative">
+<div class="relative w-full h-[420px] lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl border border-[#333333]">
+<img class="w-full h-full object-cover" data-alt="A striking high-end luxury tech showcase featuring a gleaming gold-plated smartphone and mechanical watch resting on a dark obsidian reflective surface. The background is a sophisticated minimalist dark studio illuminated by warm amber spotlights and subtle golden neon traces. The aesthetic is ultra-modern, elite, and prestigious with a sharp focus on metallic textures and pristine reflections." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6bn7MEgL0dVgwr5c6_EBwjJc_v2FGonCkVfR7BQyotsS4l7lh3uiFW-giZ8elMu2wakGOREHGd86BPzsRaf7ad-gHsuXASr95VfG9JHUMKOgzBSavrbbtAA3eUkB9Bl1McgSCWDS652O8qmNO8owxORWVeMft4dkpxQALE4m9jj5cBcJPPdF18uK1uSoD7PPrHe-vBqosXeQlT1z30b5nxD3cSZ8-yLU8rX8caMX1eje9ybTTmqF4kyocYPBb6vGGsKv3RzMiwVZN"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent opacity-80"></div>
+<div class="absolute bottom-6 left-6 right-6 p-6 bg-[#1A1A1A]/80 backdrop-blur-md rounded-xl border border-[#333333]">
+<span class="text-xs font-semibold text-[#D4AF37] uppercase tracking-wider">Sản phẩm tiêu biểu</span>
+<h3 class="text-xl font-bold text-[#FAFAFA] mt-1">Vertu Meta Signature Gold Edition</h3>
+<p class="text-sm text-[#FAFAFA]/70 mt-1">Chế tác thủ công từ vàng nguyên khối và da cá sấu.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Flash Sale Giờ Vàng -->
+<section class="py-16 bg-[#161616] border-b border-[#222222]">
+<div class="max-w-7xl mx-auto px-6">
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
+<div class="flex items-center space-x-4">
+<div class="w-10 h-10 rounded-xl bg-[#DC2626]/20 flex items-center justify-center border border-[#DC2626]/40">
+<span class="material-symbols-outlined text-[#DC2626]">bolt</span>
+</div>
+<div>
+<h2 class="text-2xl lg:text-3xl font-extrabold text-[#FAFAFA]">Flash Sale Giờ Vàng</h2>
+<p class="text-sm text-[#FAFAFA]/60 mt-0.5">Ưu đãi độc quyền có hạn cho các tín đồ công nghệ</p>
+</div>
+</div>
+<!-- Countdown Timer -->
+<div class="flex items-center space-x-2 bg-[#1A1A1A] border border-[#333333] px-4 py-2.5 rounded-xl">
+<span class="text-xs text-[#FAFAFA]/70 font-semibold mr-2">Kết thúc trong:</span>
+<div class="flex items-center space-x-1 font-mono font-bold text-sm">
+<span class="bg-[#111111] text-[#D4AF37] px-2.5 py-1 rounded border border-[#333333]" id="hours">02</span>
+<span class="text-[#FAFAFA]/50">:</span>
+<span class="bg-[#111111] text-[#D4AF37] px-2.5 py-1 rounded border border-[#333333]" id="minutes">45</span>
+<span class="text-[#FAFAFA]/50">:</span>
+<span class="bg-[#111111] text-[#D4AF37] px-2.5 py-1 rounded border border-[#333333]" id="seconds">30</span>
+</div>
+</div>
+</div>
+<!-- Flash Sale Products Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Product Item 1 -->
+<div class="bg-[#1A1A1A] rounded-2xl border border-[#2A2A2A] overflow-hidden hover:border-[#D4AF37] transition-all duration-300 group flex flex-col">
+<div class="relative h-64 overflow-hidden bg-[#111111]">
+<span class="absolute top-3 left-3 z-10 bg-[#DC2626] text-white text-xs font-bold px-2.5 py-1 rounded-md">Giảm 25%</span>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A pristine luxury mechanical wristwatch with gold bezel and black leather strap displayed against a dark moody background with dramatic studio lighting casting soft golden highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2SEoluIfOZBmoJ90573haKfTXPjAZPRt6oXm2d42rZ13UhgjUNMYwyBJtew-CqEqxnvtKuNkVn5ZBnpUy0oASQaSxK836O5oSk99jHwXuQL4i8NZ7eVulin5PGjKtZ5dfmvWEu6p_VgpBd267gnDFwbisvF4skMMeXgpFc0yNulVQsZPo1tY15HMaWPG5x9p_bO4kmJNy5TsWBfdHkrtg-JHE5qGyTbO5zGdQzrc4xlZx1OHfUZKEkACTiQYo9g9raFEnNQ9oj7bb"/>
+</div>
+<div class="p-5 flex flex-col flex-grow">
+<span class="text-xs text-[#D4AF37] font-semibold uppercase tracking-wider mb-1">Đồng hồ</span>
+<h3 class="text-base font-bold text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors line-clamp-1">Rolex Cosmograph Daytona Gold</h3>
+<div class="mt-4 mt-auto flex items-baseline space-x-2">
+<span class="text-lg font-extrabold text-[#DC2626]">850.000.000 ₫</span>
+<span class="text-xs text-[#FAFAFA]/40 line-through">1.130.000.000 ₫</span>
+</div>
+<div class="w-full bg-[#262626] h-1.5 rounded-full mt-4 overflow-hidden">
+<div class="bg-[#D4AF37] h-full w-[75%]"></div>
+</div>
+<div class="flex justify-between items-center mt-2 text-[11px] text-[#FAFAFA]/60">
+<span>Đã bán 15 chiếc</span>
+<span class="text-[#D4AF37] font-semibold">Sắp hết hàng</span>
+</div>
+</div>
+</div>
+<!-- Product Item 2 -->
+<div class="bg-[#1A1A1A] rounded-2xl border border-[#2A2A2A] overflow-hidden hover:border-[#D4AF37] transition-all duration-300 group flex flex-col">
+<div class="relative h-64 overflow-hidden bg-[#111111]">
+<span class="absolute top-3 left-3 z-10 bg-[#DC2626] text-white text-xs font-bold px-2.5 py-1 rounded-md">Giảm 18%</span>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An ultra-luxury high-end acoustic speaker with sleek metallic gold accents and minimalist dark grille, positioned on a dark polished surface in a dimly lit high-end interior." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-eELqb7Ff5Way_EmF-Xem4iy1P40d9rGFR5jH5ZFUOBclfruzzctRllIOgVqOzuOXvSyQ0t8KmOAAeCzv_X_MA6SEgNDq0LimGTtQflPJrvpobT7_CGbBmzt9ovYn4aEbJ4rfQ18Oe2ATrkLLgRBc3R0NVwKPyknjCoqGZn6G6v-4fNDNQSRv9cttgVYC96n_jdupOIPXfYuWshwNM__oJULnKp3yGrbGkws5PNNd7j-T4mGCxNGigbcdrl6OWx50B44UOreYw7I-"/>
+</div>
+<div class="p-5 flex flex-col flex-grow">
+<span class="text-xs text-[#D4AF37] font-semibold uppercase tracking-wider mb-1">Âm thanh</span>
+<h3 class="text-base font-bold text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors line-clamp-1">Loa Devialet Phantom Gold</h3>
+<div class="mt-4 mt-auto flex items-baseline space-x-2">
+<span class="text-lg font-extrabold text-[#DC2626]">98.000.000 ₫</span>
+<span class="text-xs text-[#FAFAFA]/40 line-through">120.000.000 ₫</span>
+</div>
+<div class="w-full bg-[#262626] h-1.5 rounded-full mt-4 overflow-hidden">
+<div class="bg-[#D4AF37] h-full w-[45%]"></div>
+</div>
+<div class="flex justify-between items-center mt-2 text-[11px] text-[#FAFAFA]/60">
+<span>Đã bán 9 chiếc</span>
+<span class="text-[#FAFAFA]/70">Còn lại 11</span>
+</div>
+</div>
+</div>
+<!-- Product Item 3 -->
+<div class="bg-[#1A1A1A] rounded-2xl border border-[#2A2A2A] overflow-hidden hover:border-[#D4AF37] transition-all duration-300 group flex flex-col">
+<div class="relative h-64 overflow-hidden bg-[#111111]">
+<span class="absolute top-3 left-3 z-10 bg-[#DC2626] text-white text-xs font-bold px-2.5 py-1 rounded-md">Giảm 15%</span>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sleek high-performance luxury laptop in space gray with backlit keyboard open on a dark glass desk, highlighted by subtle warm rim lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCopKpLJEyE3pg6TYJQBDrg0Q6A2S7tGcY5skQQdWeHtJTgXV9gQv7_FW2zxCY2xIqXZG9QcFsh25iv7vO2Ix-wOy4U2k_3NkSxMptsnbUigLNlOZAGAb1qXneU4scNHT0mz0jElLo0-mKgp8ubCyy117FzdHqOt7wuTKROhQHj5y_bcxcYZ7Hv07AVI5asykdz41QcHiV_pdwoWOkFv-f3gxY2L9o29I1fDEqqKbvvd6MY3PfRsuh5rWD9gO-c_qeEVAalFdCBN7zN"/>
+</div>
+<div class="p-5 flex flex-col flex-grow">
+<span class="text-xs text-[#D4AF37] font-semibold uppercase tracking-wider mb-1">Laptop</span>
+<h3 class="text-base font-bold text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors line-clamp-1">MacBook Pro Max Custom Gold</h3>
+<div class="mt-4 mt-auto flex items-baseline space-x-2">
+<span class="text-lg font-extrabold text-[#DC2626]">85.000.000 ₫</span>
+<span class="text-xs text-[#FAFAFA]/40 line-through">100.000.000 ₫</span>
+</div>
+<div class="w-full bg-[#262626] h-1.5 rounded-full mt-4 overflow-hidden">
+<div class="bg-[#D4AF37] h-full w-[60%]"></div>
+</div>
+<div class="flex justify-between items-center mt-2 text-[11px] text-[#FAFAFA]/60">
+<span>Đã bán 12 chiếc</span>
+<span class="text-[#FAFAFA]/70">Còn lại 8</span>
+</div>
+</div>
+</div>
+<!-- Product Item 4 -->
+<div class="bg-[#1A1A1A] rounded-2xl border border-[#2A2A2A] overflow-hidden hover:border-[#D4AF37] transition-all duration-300 group flex flex-col">
+<div class="relative h-64 overflow-hidden bg-[#111111]">
+<span class="absolute top-3 left-3 z-10 bg-[#DC2626] text-white text-xs font-bold px-2.5 py-1 rounded-md">Giảm 20%</span>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An exquisite luxury leather handbag in deep rich colors with gold hardware displayed elegantly on a dark minimalist pedestal with soft dramatic spotlighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0rvwk0-wLloLEYjUergNRVGjzS4jWg6drq82H8dAgkJLdXBV5lQAI0pv69KI-SpkyAVrM9m2TJN3_Kbk6P7zwGgnufVPxBvRTMy4uHfV0O61LXm7Ck-7rIX7ZhzuCtSTIMMRa0QDSk8N6CQWeZbUVZawU975L3tFtAprO8ZhThFT0Aw-cdbElznknrYaYmg7hW7BKIAixF7zBljRQ4Z_fTt8cr4LtmJHJCdBQ7rZPJd0FrTeCCrDgyWw1HxQHrICQ8Taxj-WltEzu"/>
+</div>
+<div class="p-5 flex flex-col flex-grow">
+<span class="text-xs text-[#D4AF37] font-semibold uppercase tracking-wider mb-1">Thời trang</span>
+<h3 class="text-base font-bold text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors line-clamp-1">Hermès Birkin Limited Edition</h3>
+<div class="mt-4 mt-auto flex items-baseline space-x-2">
+<span class="text-lg font-extrabold text-[#DC2626]">450.000.000 ₫</span>
+<span class="text-xs text-[#FAFAFA]/40 line-through">560.000.000 ₫</span>
+</div>
+<div class="w-full bg-[#262626] h-1.5 rounded-full mt-4 overflow-hidden">
+<div class="bg-[#D4AF37] h-full w-[90%]"></div>
+</div>
+<div class="flex justify-between items-center mt-2 text-[11px] text-[#FAFAFA]/60">
+<span>Đã bán 18 chiếc</span>
+<span class="text-[#D4AF37] font-semibold">Sắp hết hàng</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 6 Danh mục sản phẩm nổi bật -->
+<section class="py-20 bg-[#111111]">
+<div class="max-w-7xl mx-auto px-6">
+<div class="text-center max-w-2xl mx-auto mb-16">
+<span class="text-xs font-semibold text-[#D4AF37] uppercase tracking-widest">Khám phá theo danh mục</span>
+<h2 class="text-3xl lg:text-4xl font-extrabold text-[#FAFAFA] mt-2">Danh Mục Sản Phẩm Nổi Bật</h2>
+<div class="w-16 h-1 bg-[#D4AF37] mx-auto mt-4 rounded-full"></div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+<!-- Category 1 -->
+<a class="group bg-[#1A1A1A] hover:bg-[#222222] border border-[#2A2A2A] hover:border-[#D4AF37] p-6 rounded-2xl text-center transition-all duration-300 flex flex-col items-center" href="#">
+<div class="w-16 h-16 rounded-2xl bg-[#111111] border border-[#333333] group-hover:border-[#D4AF37] flex items-center justify-center text-[#D4AF37] mb-4 transition-colors">
+<span class="material-symbols-outlined text-3xl">smartphone</span>
+</div>
+<h3 class="font-bold text-sm text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors">Smartphone</h3>
+<p class="text-xs text-[#FAFAFA]/50 mt-1">12 sản phẩm</p>
+</a>
+<!-- Category 2 -->
+<a class="group bg-[#1A1A1A] hover:bg-[#222222] border border-[#2A2A2A] hover:border-[#D4AF37] p-6 rounded-2xl text-center transition-all duration-300 flex flex-col items-center" href="#">
+<div class="w-16 h-16 rounded-2xl bg-[#111111] border border-[#333333] group-hover:border-[#D4AF37] flex items-center justify-center text-[#D4AF37] mb-4 transition-colors">
+<span class="material-symbols-outlined text-3xl">watch</span>
+</div>
+<h3 class="font-bold text-sm text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors">Đồng hồ</h3>
+<p class="text-xs text-[#FAFAFA]/50 mt-1">24 sản phẩm</p>
+</a>
+<!-- Category 3 -->
+<a class="group bg-[#1A1A1A] hover:bg-[#222222] border border-[#2A2A2A] hover:border-[#D4AF37] p-6 rounded-2xl text-center transition-all duration-300 flex flex-col items-center" href="#">
+<div class="w-16 h-16 rounded-2xl bg-[#111111] border border-[#333333] group-hover:border-[#D4AF37] flex items-center justify-center text-[#D4AF37] mb-4 transition-colors">
+<span class="material-symbols-outlined text-3xl">speaker</span>
+</div>
+<h3 class="font-bold text-sm text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors">Âm thanh</h3>
+<p class="text-xs text-[#FAFAFA]/50 mt-1">16 sản phẩm</p>
+</a>
+<!-- Category 4 -->
+<a class="group bg-[#1A1A1A] hover:bg-[#222222] border border-[#2A2A2A] hover:border-[#D4AF37] p-6 rounded-2xl text-center transition-all duration-300 flex flex-col items-center" href="#">
+<div class="w-16 h-16 rounded-2xl bg-[#111111] border border-[#333333] group-hover:border-[#D4AF37] flex items-center justify-center text-[#D4AF37] mb-4 transition-colors">
+<span class="material-symbols-outlined text-3xl">laptop_mac</span>
+</div>
+<h3 class="font-bold text-sm text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors">Laptop</h3>
+<p class="text-xs text-[#FAFAFA]/50 mt-1">10 sản phẩm</p>
+</a>
+<!-- Category 5 -->
+<a class="group bg-[#1A1A1A] hover:bg-[#222222] border border-[#2A2A2A] hover:border-[#D4AF37] p-6 rounded-2xl text-center transition-all duration-300 flex flex-col items-center" href="#">
+<div class="w-16 h-16 rounded-2xl bg-[#111111] border border-[#333333] group-hover:border-[#D4AF37] flex items-center justify-center text-[#D4AF37] mb-4 transition-colors">
+<span class="material-symbols-outlined text-3xl">checkroom</span>
+</div>
+<h3 class="font-bold text-sm text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors">Thời trang</h3>
+<p class="text-xs text-[#FAFAFA]/50 mt-1">30 sản phẩm</p>
+</a>
+<!-- Category 6 -->
+<a class="group bg-[#1A1A1A] hover:bg-[#222222] border border-[#2A2A2A] hover:border-[#D4AF37] p-6 rounded-2xl text-center transition-all duration-300 flex flex-col items-center" href="#">
+<div class="w-16 h-16 rounded-2xl bg-[#111111] border border-[#333333] group-hover:border-[#D4AF37] flex items-center justify-center text-[#D4AF37] mb-4 transition-colors">
+<span class="material-symbols-outlined text-3xl">diamond</span>
+</div>
+<h3 class="font-bold text-sm text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors">Đồ sưu tầm</h3>
+<p class="text-xs text-[#FAFAFA]/50 mt-1">8 sản phẩm</p>
+</a>
+</div>
+</div>
+</section>
+<!-- Lưới sản phẩm gợi ý cao cấp (Bento / Modern Grid) -->
+<section class="py-20 bg-[#161616] border-t border-[#222222]">
+<div class="max-w-7xl mx-auto px-6">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+<div>
+<span class="text-xs font-semibold text-[#D4AF37] uppercase tracking-widest">Đề xuất dành riêng cho bạn</span>
+<h2 class="text-3xl lg:text-4xl font-extrabold text-[#FAFAFA] mt-2">Lưới Sản Phẩm Gợi Ý Cao Cấp</h2>
+</div>
+<div class="flex items-center space-x-2">
+<button class="bg-[#1A1A1A] hover:bg-[#D4AF37] hover:text-[#111111] text-[#FAFAFA] border border-[#333333] px-4 py-2 rounded-lg text-sm font-semibold transition-colors">Tất cả</button>
+<button class="bg-[#1A1A1A] hover:bg-[#D4AF37] hover:text-[#111111] text-[#FAFAFA] border border-[#333333] px-4 py-2 rounded-lg text-sm font-semibold transition-colors">Mới nhất</button>
+<button class="bg-[#1A1A1A] hover:bg-[#D4AF37] hover:text-[#111111] text-[#FAFAFA] border border-[#333333] px-4 py-2 rounded-lg text-sm font-semibold transition-colors">Bán chạy</button>
+</div>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<div class="bg-[#1A1A1A] rounded-2xl border border-[#2A2A2A] overflow-hidden hover:border-[#D4AF37] transition-all duration-300 group flex flex-col">
+<div class="relative h-72 overflow-hidden bg-[#111111]">
+<span class="absolute top-3 right-3 z-10 bg-[#111111]/80 backdrop-blur-md text-[#D4AF37] text-xs font-bold px-3 py-1 rounded-full border border-[#D4AF37]/30">Phiên bản giới hạn</span>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A meticulously crafted luxury smartphone with gold chassis and dark sapphire glass back panel, photographed against a dark textured background with studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByDQdduLXO3aT6NLmhaalr-4cI8jAbBwSmWaOgAfW7tV3yp1EA5aE7xT-6uka_EkI4a3NqlNZKfmrkEI6x8EUToiZgsI5ogD3Gc8Czu_HDc3asssVvDxhLqO0iH6Er1sSCc50GyvA3J-GzuqwvS3n64KJTAQ1-XdxXzdJF6RugG8y_yF_SxNyafJaxsQwGrCpTmmY7cY2Vu2jyV93H79EBmIlPNsgy4jZHuD8ERqgt8aQvvB_5kxiPGIQW7AwiBGMkQ-ozEELr_I4G"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="text-xs text-[#D4AF37] font-semibold uppercase tracking-wider mb-1">Smartphone</span>
+<h3 class="text-lg font-bold text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors">Vertu Signature Touch Pure Gold</h3>
+<p class="text-sm text-[#FAFAFA]/60 mt-2 line-clamp-2">Tích hợp dịch vụ quản gia cao cấp 24/7 và chất liệu vàng nguyên khối 18K.</p>
+<div class="mt-6 mt-auto flex items-center justify-between pt-4 border-t border-[#262626]">
+<div>
+<span class="text-xs text-[#FAFAFA]/40 block">Giá niêm yết</span>
+<span class="text-xl font-extrabold text-[#D4AF37]">350.000.000 ₫</span>
+</div>
+<button class="bg-[#D4AF37] hover:bg-[#F5D77F] text-[#111111] p-3 rounded-xl transition-transform active:scale-95">
+<span class="material-symbols-outlined text-sm font-bold">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-[#1A1A1A] rounded-2xl border border-[#2A2A2A] overflow-hidden hover:border-[#D4AF37] transition-all duration-300 group flex flex-col">
+<div class="relative h-72 overflow-hidden bg-[#111111]">
+<span class="absolute top-3 right-3 z-10 bg-[#111111]/80 backdrop-blur-md text-[#D4AF37] text-xs font-bold px-3 py-1 rounded-full border border-[#D4AF37]/30">Hàng chính hãng</span>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An elite Swiss luxury wristwatch with an intricate skeleton dial and solid gold case, displayed on a dark velvet stand with dramatic overhead lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt3GeBdUwbejDzcrE34bAC9DzIcnwNUSChkmsx2SakT2qxfZImHh8Y1Zxd3EMtSrPG0-yTrTxH02SPQQHJKgrtGTb5EUbZGMOStM7OKj6wDsxtSmLzu-P9r89FRASQ2MvUKLH-UDhlY6WcKmHXV75ICUAEjaOZwJ4Jl3jNatMvgmWawmYJqQ-LPiwTp65QiLRmC2BZiSnovQyxt489RryoqmbuOG4lmBMPGOqe4JmpYfg7sHpapPXLRw6jgUbEZrAN5fRJzTcwY_sL"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="text-xs text-[#D4AF37] font-semibold uppercase tracking-wider mb-1">Đồng hồ</span>
+<h3 class="text-lg font-bold text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors">Patek Philippe Grandmaster Chime</h3>
+<p class="text-sm text-[#FAFAFA]/60 mt-2 line-clamp-2">Kiệt tác đồng hồ cơ khí phức tạp nhất thế giới với hai mặt số xoay độc lập.</p>
+<div class="mt-6 mt-auto flex items-center justify-between pt-4 border-t border-[#262626]">
+<div>
+<span class="text-xs text-[#FAFAFA]/40 block">Giá niêm yết</span>
+<span class="text-xl font-extrabold text-[#D4AF37]">2.400.000.000 ₫</span>
+</div>
+<button class="bg-[#D4AF37] hover:bg-[#F5D77F] text-[#111111] p-3 rounded-xl transition-transform active:scale-95">
+<span class="material-symbols-outlined text-sm font-bold">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-[#1A1A1A] rounded-2xl border border-[#2A2A2A] overflow-hidden hover:border-[#D4AF37] transition-all duration-300 group flex flex-col">
+<div class="relative h-72 overflow-hidden bg-[#111111]">
+<span class="absolute top-3 right-3 z-10 bg-[#111111]/80 backdrop-blur-md text-[#D4AF37] text-xs font-bold px-3 py-1 rounded-full border border-[#D4AF37]/30">Độc quyền</span>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A state-of-the-art wireless acoustic sound system with polished gold spherical enclosure resting in a modern high-end architectural living space." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAr7PD6pKa8AC7MKA6z-iTMka6-uYJMWAbRqZHA7T3aGtKJPjlh9jR2HY5PS2KE6MT_yp6wznMaSbRIXGg1zDhzNhh4ClyAIA2_WXo4FIxOCmIhT4_2WTKt7FF3wg_4iWrxlRrcqVyLtU2OBX80Xy4HRYjz2ncoxxWQTLW2ITU-X_FCxgUkv2ou_nWquXZyNEdAvgiCVlRHeUR5nPMs0ysc-v4nwCmDU0B1LeGGUmCXJx5Paemgkb0eldyE29t8ED0VsVlND_kJSXaA"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="text-xs text-[#D4AF37] font-semibold uppercase tracking-wider mb-1">Âm thanh</span>
+<h3 class="text-lg font-bold text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors">Devialet Expert 140 Pro</h3>
+<p class="text-sm text-[#FAFAFA]/60 mt-2 line-clamp-2">Hệ thống âm thanh đỉnh cao mang lại trải nghiệm thính giác thuần khiết và chân thực.</p>
+<div class="mt-6 mt-auto flex items-center justify-between pt-4 border-t border-[#262626]">
+<div>
+<span class="text-xs text-[#FAFAFA]/40 block">Giá niêm yết</span>
+<span class="text-xl font-extrabold text-[#D4AF37]">195.000.000 ₫</span>
+</div>
+<button class="bg-[#D4AF37] hover:bg-[#F5D77F] text-[#111111] p-3 rounded-xl transition-transform active:scale-95">
+<span class="material-symbols-outlined text-sm font-bold">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-[#1A1A1A] rounded-2xl border border-[#2A2A2A] overflow-hidden hover:border-[#D4AF37] transition-all duration-300 group flex flex-col">
+<div class="relative h-72 overflow-hidden bg-[#111111]">
+<span class="absolute top-3 right-3 z-10 bg-[#111111]/80 backdrop-blur-md text-[#D4AF37] text-xs font-bold px-3 py-1 rounded-full border border-[#D4AF37]/30">Mới ra mắt</span>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-end customized golden laptop featuring precision CNC-milled aluminum chassis on a dark executive desk." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5trapb51S6Pik0Ba5JsGCcEIixTUk74AbXBLRH2EL4qjdXa0y0ya9gBU8ALheWuEpUHSLb4mUFfkmi5vCZUHCuH9Zay-XABd0BasDPr5iqR43CkzBA33SH2ySIxTTWSCotbzdOiF9bfyQhGn2l42a73zMNetAW05Ai71xkQ52CcnVRf8CBeoCyxspW-ny3dtCwZXByEIBD-W1-_eZkwQuzzGU1EmZnyHVSfWCX02phYX_-1mxjAEVv1pMjX7hfX5qJBkakEfF8RWQ"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="text-xs text-[#D4AF37] font-semibold uppercase tracking-wider mb-1">Laptop</span>
+<h3 class="text-lg font-bold text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors">Goldgenie Customized MacBook Pro</h3>
+<p class="text-sm text-[#FAFAFA]/60 mt-2 line-clamp-2">Mạ vàng 24K thủ công toàn bộ thân máy, biểu tượng của sự thành đạt.</p>
+<div class="mt-6 mt-auto flex items-center justify-between pt-4 border-t border-[#262626]">
+<div>
+<span class="text-xs text-[#FAFAFA]/40 block">Giá niêm yết</span>
+<span class="text-xl font-extrabold text-[#D4AF37]">145.000.000 ₫</span>
+</div>
+<button class="bg-[#D4AF37] hover:bg-[#F5D77F] text-[#111111] p-3 rounded-xl transition-transform active:scale-95">
+<span class="material-symbols-outlined text-sm font-bold">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-[#1A1A1A] rounded-2xl border border-[#2A2A2A] overflow-hidden hover:border-[#D4AF37] transition-all duration-300 group flex flex-col">
+<div class="relative h-72 overflow-hidden bg-[#111111]">
+<span class="absolute top-3 right-3 z-10 bg-[#111111]/80 backdrop-blur-md text-[#D4AF37] text-xs font-bold px-3 py-1 rounded-full border border-[#D4AF37]/30">Phiên bản giới hạn</span>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An exquisite haute couture leather jacket with custom gold-plated hardware showcased in a high-end fashion boutique studio." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2reO7inXDt5rzOQqAXDuH1dQu1tMip9PN7V4kCDeLCDFSm9brPzATl9utWGHfIfjshjacuQUatl7kxz2S0u7t-Y1ACV2Wsb1F4i6wA83cIQshLJuvMmwT_G-9M5E_kadrIPcFwoqVYC-0IASbgDmYBIp04sOEvctZp4ZRBqpp4oC6lrblMny_4TuWz5XB_AdaC_M9SAoe5kDMOf_y2OhbSAyRmksuH5lXazyPHzb5SG65jlLCNAAAyH6U0FzOB7DKkbrPnfBdbfrK"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="text-xs text-[#D4AF37] font-semibold uppercase tracking-wider mb-1">Thời trang</span>
+<h3 class="text-lg font-bold text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors">Louis Vuitton Gold Hardware Jacket</h3>
+<p class="text-sm text-[#FAFAFA]/60 mt-2 line-clamp-2">Thiết kế thời trang cao cấp kết hợp chi tiết khóa mạ vàng tinh xảo.</p>
+<div class="mt-6 mt-auto flex items-center justify-between pt-4 border-t border-[#262626]">
+<div>
+<span class="text-xs text-[#FAFAFA]/40 block">Giá niêm yết</span>
+<span class="text-xl font-extrabold text-[#D4AF37]">110.000.000 ₫</span>
+</div>
+<button class="bg-[#D4AF37] hover:bg-[#F5D77F] text-[#111111] p-3 rounded-xl transition-transform active:scale-95">
+<span class="material-symbols-outlined text-sm font-bold">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="bg-[#1A1A1A] rounded-2xl border border-[#2A2A2A] overflow-hidden hover:border-[#D4AF37] transition-all duration-300 group flex flex-col">
+<div class="relative h-72 overflow-hidden bg-[#111111]">
+<span class="absolute top-3 right-3 z-10 bg-[#111111]/80 backdrop-blur-md text-[#D4AF37] text-xs font-bold px-3 py-1 rounded-full border border-[#D4AF37]/30">Độc quyền</span>
+<img class="v-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A rare collectible solid gold sculpture figurine displayed inside a glass museum case with specialized warm directional lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVvNOs8eJka30nQqbybQIpGEiNEDDaikGeavg0Zl0s28uG8aBPRHzLpK10-5Cdi7FMofzk3JCapb460jiAFtf1sl3v7yx7LvWMBhZOjRh9mfVKO8kNLSc6rwFfzQcA8YzA1u8UMOkBcoZ3S_eD_vnBTthu8TXOjAOJ7PsyxQoJk12_m4unU1HVgHmInHJPs8VieNO5-9tnTNFqIT6GTXAoERDvicJ6wWrKvBEX9GvdQegz8xGZEpUQWldk3IYkSsn2MP6iKAQ-55XV"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="text-xs text-[#D4AF37] font-semibold uppercase tracking-wider mb-1">Đồ sưu tầm</span>
+<h3 class="text-lg font-bold text-[#FAFAFA] group-hover:text-[#D4AF37] transition-colors">Tượng Sưu Tầm Vàng Nguyên Khối 24K</h3>
+<p class="text-sm text-[#FAFAFA]/60 mt-2 line-clamp-2">Tác phẩm nghệ thuật đúc nguyên khối thủ công dành riêng cho giới thượng lưu.</p>
+<div class="mt-6 mt-auto flex items-center justify-between pt-4 border-t border-[#262626]">
+<div>
+<span class="text-xs text-[#FAFAFA]/40 block">Giá niêm yết</span>
+<span class="text-xl font-extrabold text-[#D4AF37]">1.250.000.000 ₫</span>
+</div>
+<button class="bg-[#D4AF37] hover:bg-[#F5D77F] text-[#111111] p-3 rounded-xl transition-transform active:scale-95">
+<span class="material-symbols-outlined text-sm font-bold">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#111111] border-t border-[#222222] text-[#FAFAFA]/70 pt-16 pb-12">
+<div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+<div class="space-y-4">
+<a class="text-xl font-black text-[#FAFAFA] tracking-widest" href="#">E-COMMERCE</a>
+<p class="text-sm text-[#FAFAFA]/60">Nền tảng thương mại điện tử xa xỉ hàng đầu, mang đến trải nghiệm mua sắm đỉnh cao và độc quyền.</p>
+</div>
+<div>
+<h4 class="text-sm font-bold text-[#FAFAFA] uppercase tracking-wider mb-4">Danh mục</h4>
+<ul class="space-y-2 text-sm">
+<li><a class="hover:text-[#D4AF37] transition-colors" href="#">Smartphone cao cấp</a></li>
+<li><a class="hover:text-[#D4AF37] transition-colors" href="#">Đồng hồ danh tiếng</a></li>
+<li><a class="hover:text-[#D4AF37] transition-colors" href="#">Hệ thống âm thanh</a></li>
+<li><a class="hover:text-[#D4AF37] transition-colors" href="#">Thời trang thượng lưu</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-sm font-bold text-[#FAFAFA] uppercase tracking-wider mb-4">Chăm sóc khách hàng</h4>
+<ul class="space-y-2 text-sm">
+<li><a class="hover:text-[#D4AF37] transition-colors" href="#">Đặc quyền VIP</a></li>
+<li><a class="hover:text-[#D4AF37] transition-colors" href="#">Bảo hành toàn cầu</a></li>
+<li><a class="hover:text-[#D4AF37] transition-colors" href="#">Chính sách bảo mật</a></li>
+<li><a class="hover:text-[#D4AF37] transition-colors" href="#">Liên hệ chuyên gia</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-sm font-bold text-[#FAFAFA] uppercase tracking-wider mb-4">Bản tin độc quyền</h4>
+<p class="text-sm text-[#FAFAFA]/60 mb-4">Đăng ký để nhận thông tin về các bộ sưu tập giới hạn mới nhất.</p>
+<div class="flex">
+<input class="bg-[#1A1A1A] border border-[#333333] text-sm px-4 py-2 rounded-l-lg text-[#FAFAFA] focus:outline-none focus:border-[#D4AF37] w-full" placeholder="Email của bạn..." type="email"/>
+<button class="bg-[#D4AF37] text-[#111111] px-4 rounded-r-lg font-bold hover:bg-[#F5D77F] transition-colors">Gửi</button>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-6 pt-8 border-t border-[#1F1F1F] text-center text-xs text-[#FAFAFA]/40">
+      © 2026 E-COMMERCE. Bản quyền thuộc về E-COMMERCE Việt Nam.
+    </div>
+</footer>
+<!-- Micro-interactions Script -->
+<script>
+    // Search dropdown toggle
+    const searchInput = document.getElementById('searchInput');
+    const searchDropdown = document.getElementById('searchDropdown');
+
+    if (searchInput && searchDropdown) {
+      searchInput.addEventListener('focus', () => {
+        searchDropdown.classList.remove('hidden');
+      });
+      searchInput.addEventListener('blur', (e) => {
+        setTimeout(() => {
+          searchDropdown.classList.add('hidden');
+        }, 200);
+      });
+    }
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    // Flash sale countdown timer simulation
+    let totalSeconds = 2 * 3600 + 45 * 60 + 30;
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+
+    setInterval(() => {
+      if (totalSeconds > 0) {
+        totalSeconds--;
+        const h = Math.floor(totalSeconds / 3600);
+        const m = Math.floor((totalSeconds % 3600) / 60);
+        const s = totalSeconds % 60;
+
+        if(hoursEl) hoursEl.textContent = String(h).padStart(2, '0');
+        if(minutesEl) minutesEl.textContent = String(m).padStart(2, '0');
+        if(secondsEl) secondsEl.textContent = String(s).padStart(2, '0');
+      }
+    }, 1000);
+  </script>
+</body></html>

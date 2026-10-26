@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>E-COMMERCE - Trung tâm CSKH Live Chat</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "inverse-on-surface": "#9c9d9d",
+            "surface-dim": "#d3d5d5",
+            "on-tertiary": "#ffefed",
+            "on-surface-variant": "#5a5c5c",
+            "secondary-container": "#e5e2e1",
+            "on-secondary": "#f5f2f1",
+            "on-surface": "#2d2f2f",
+            "primary-fixed-dim": "#e6c047",
+            "on-primary-fixed-variant": "#634e00",
+            "surface-bright": "#f6f6f6",
+            "on-primary-fixed": "#413200",
+            "outline-variant": "#acadad",
+            "on-secondary-fixed": "#403f3f",
+            "tertiary-fixed-dim": "#ff7b6f",
+            "primary": "#705900",
+            "tertiary-container": "#ff9287",
+            "on-error-container": "#520c00",
+            "on-background": "#2d2f2f",
+            "error": "#b02500",
+            "on-primary-container": "#584500",
+            "surface-container-high": "#e1e3e3",
+            "primary-dim": "#624d00",
+            "surface-tint": "#705900",
+            "primary-fixed": "#f5ce53",
+            "on-tertiary-fixed-variant": "#7a0008",
+            "surface-container-lowest": "#ffffff",
+            "on-error": "#ffefec",
+            "inverse-surface": "#0c0f0f",
+            "on-secondary-container": "#525151",
+            "surface-container-low": "#f0f1f1",
+            "inverse-primary": "#f5ce53",
+            "secondary-dim": "#504f4f",
+            "background": "#f6f6f6",
+            "secondary-fixed-dim": "#d7d4d3",
+            "tertiary": "#ba0012",
+            "surface-variant": "#dbdddd",
+            "secondary": "#5c5b5b",
+            "surface-container-highest": "#dbdddd",
+            "secondary-fixed": "#e5e2e1",
+            "on-tertiary-fixed": "#3a0002",
+            "tertiary-fixed": "#ff9287",
+            "on-secondary-fixed-variant": "#5c5b5b",
+            "outline": "#767777",
+            "error-container": "#f95630",
+            "surface-container": "#e7e8e8",
+            "tertiary-dim": "#a4000e",
+            "primary-container": "#f5ce53",
+            "error-dim": "#b92902",
+            "on-primary": "#fff1d4",
+            "surface": "#f6f6f6",
+            "on-tertiary-container": "#690006"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px"
+          },
+          fontFamily: {
+            headline: ["Plus Jakarta Sans"],
+            display: ["Plus Jakarta Sans"],
+            body: ["Be Vietnam Pro"],
+            label: ["Be Vietnam Pro"]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="h-full bg-background text-on-background font-body flex overflow-hidden">
+<!-- SideNavBar -->
+<aside class="flex flex-col w-64 h-screen p-4 bg-surface-container dark:bg-inverse-surface border-r border-outline-variant shrink-0 z-20">
+<div class="flex items-center gap-3 px-2 py-4 mb-2">
+<div class="w-10 h-10 rounded-xl bg-inverse-surface flex items-center justify-center text-primary font-headline font-extrabold text-xl shadow-md">
+        E
+      </div>
+<div>
+<h1 class="text-lg font-bold font-headline text-primary">E-COMMERCE</h1>
+<p class="text-xs text-on-surface-variant font-body">Luxury Admin</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1 flex-1 mt-4">
+<a class="flex items-center gap-3 px-3 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">inventory</span>
+<span class="text-sm font-medium">Sản phẩm</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="text-sm font-medium">Đơn hàng</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Khách hàng</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 bg-primary-container text-on-primary-container font-bold rounded-lg transition-all duration-200 shadow-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat</span>
+<span class="text-sm font-medium">CSKH Chat</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Cài đặt</span>
+</a>
+</nav>
+<div class="pt-4 border-t border-outline-variant flex items-center gap-3 px-2">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Portrait of a professional luxury boutique customer service manager with a polished appearance, warm confident smile, wearing a sleek black blazer, soft studio lighting, high-end corporate office background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABfEsKLnHZEMD3b6qnlU8J3S9iy4jlgs-xlUwhopHiTCtiJtNTR6DedtBIN_J9sjrsUlILird6YBZtAsy7N5p68OKNXJuWa10pjONThRiQypdwb08bDRc4h882NrEvTJEy6vKiUzXKlEYh9HbHtqMKENGAqLLoOb0ea9sGQapCMd5dJj-a5xDI4uDTlmJbxvkyRBtVlVbxVomzo-zR_GIy2AcrCa2gNkKCYXLbPeqF-WUeAeME5sBhRKo14v6xb1pDhIBkr4xRtf3C"/>
+<div class="overflow-hidden">
+<h4 class="text-sm font-bold text-on-surface truncate">Thảo Nguyên</h4>
+<p class="text-xs text-on-surface-variant truncate">VIP Support Lead</p>
+</div>
+</div>
+</aside>
+<!-- Main Wrapper -->
+<div class="flex flex-col flex-1 h-screen overflow-hidden">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-6 py-3 bg-surface dark:bg-inverse-surface shadow-sm z-10">
+<div class="flex items-center gap-4">
+<span class="text-xl font-extrabold font-headline text-primary dark:text-inverse-primary">E-COMMERCE ADMIN</span>
+<span class="text-xs px-2.5 py-1 bg-surface-container-high text-on-surface rounded-full font-medium">Live Chat Desk</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-full hover:bg-surface-variant transition-all duration-200 text-on-surface-variant relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-variant transition-all duration-200 text-on-surface-variant">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-6 w-[1px] bg-outline-variant mx-1"></div>
+<div class="flex items-center gap-2">
+<img alt="Admin Avatar" class="w-8 h-8 rounded-full object-cover" data-alt="Admin avatar portrait in luxury executive style with warm lighting and professional attire." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDupB33ZoOYG82H2ODgPlr66yK8s_twHAQS_H5bRfm8-GgbW727cNHAOw-7IH2L96zpaPbd0w0xjknyid6zPQSa36RfrFNaLQMQ-b54-o_6jGNMoInRMyVAl0qEVJAKNds2lZu7zQrjtJgkUTbSBiOAWEHBZPXAqVRo8LVitAw_dbjUg1jL3WVrUWSurglcpu4gjwfhJk98QaT17FETh4y-teXoXkOatGTWUiggkIvZSMcA1NyMgz_kr9lAZ2PSRm-tDTeUK8ssZzKR"/>
+<span class="text-sm font-bold text-on-surface">Admin</span>
+</div>
+</div>
+</header>
+<!-- Content Canvas: Master-Detail Chat Interface -->
+<main class="flex flex-1 overflow-hidden">
+<!-- Cột bên trái: Danh sách hội thoại khách hàng VIP -->
+<section class="w-96 bg-surface-container-low border-r border-outline-variant flex flex-col h-full shrink-0">
+<div class="p-4 border-b border-outline-variant">
+<div class="flex items-center justify-between mb-3">
+<h2 class="font-headline font-bold text-base text-on-surface">Hội thoại VIP</h2>
+<span class="text-xs bg-primary-container text-on-primary-container px-2 py-0.5 rounded-full font-bold">12 Active</span>
+</div>
+<!-- Tìm kiếm khách hàng -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-sm">search</span>
+<input class="w-full pl-9 pr-4 py-2 bg-surface rounded-lg text-sm border border-outline-variant focus:outline-none focus:border-primary text-on-surface" placeholder="Tìm kiếm tên, SĐT, mã VIP..." type="text"/>
+</div>
+</div>
+<!-- Danh sách -->
+<div class="flex-1 overflow-y-auto">
+<!-- Conversation Item 1 (Active) -->
+<div class="p-4 bg-surface-container-high border-l-4 border-primary cursor-pointer transition-all duration-200">
+<div class="flex items-start gap-3">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Portrait of a distinguished Vietnamese gentleman in his late 40s wearing a tailored charcoal suit, sophisticated demeanor, soft elegant interior lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7PRL2qYps_lAKtuHHug8DOWMLfZf-MD9hDWegFqjsS4HsixMuYvYR9CvQEqywnyP0EBWYVzKcGoUaOl2gbUi4J8GpZxxhD6uFPnNXzLADegXvVVV0a0-4PVEHpv1y4Y-ku8f2QHT3yNCnZuJL17FKvwYZQ-hJYHjNohr-Iz8shi2-5QQVKbcbDohLhGE8x78wnzTS2B6BIVwtp5emS4J_LzXK6zcztrP6rpBy4jzJ3x0m9pEL891i_ETwZd9IzkxckLM1I3x2kb6H"/>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-success border-2 border-surface rounded-full"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-1">
+<h3 class="text-sm font-bold text-on-surface truncate">Ông Nguyễn Văn Minh</h3>
+<span class="text-xs text-on-surface-variant shrink-0">10:42</span>
+</div>
+<div class="flex items-center gap-1.5 mb-1">
+<span class="text-[10px] bg-primary text-on-primary px-1.5 py-0.5 rounded font-bold">VIP DIAMOND</span>
+<span class="text-xs text-error font-semibold">Rolex Daytona</span>
+</div>
+<p class="text-xs text-on-surface-variant truncate">Chào em, anh muốn kiểm tra tình trạng đơn hàng đồng hồ...</p>
+</div>
+</div>
+</div>
+<!-- Conversation Item 2 -->
+<div class="p-4 hover:bg-surface-container cursor-pointer transition-all duration-200 border-b border-outline-variant/50">
+<div class="flex items-start gap-3">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Portrait of an elegant Vietnamese businesswoman in luxury attire with graceful smile, professional executive styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaYPFNQiIHvJAngEjnEdr8ekX5iTJW3sYvzidc848OokRLAF9SwCQKgD6I8LingJQvouY9wwX2ApHrPwPCvupBVw7KRdp8eGnqjjd1mVKxVC6f0APbVAiA-mDjhrmJwer1PX3LGVVleBmTZX7pvamu6rNQrIK9Xwc-gUGUy69X6NLgKvSi8BuS_3Bau-P9pG1IkRFXoU3ppJj1-YA8K98Q-GTq8FFCrrbwfViN5afeJ4DriQvM3DJhd7mNMF2-l1xyn7Hu2w79SA0h"/>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-success border-2 border-surface rounded-full"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-1">
+<h3 class="text-sm font-bold text-on-surface truncate">Bà Trần Thị Mai</h3>
+<span class="text-xs text-on-surface-variant shrink-0">Hôm qua</span>
+</div>
+<div class="flex items-center gap-1.5 mb-1">
+<span class="text-[10px] bg-secondary-container text-on-secondary-container px-1.5 py-0.5 rounded font-bold">VIP PLATINUM</span>
+</div>
+<p class="text-xs text-on-surface-variant truncate">Cảm ơn shop, túi xách đã nhận được rất hoàn hảo.</p>
+</div>
+</div>
+</div>
+<!-- Conversation Item 3 -->
+<div class="p-4 hover:bg-surface-container cursor-pointer transition-all duration-200 border-b border-outline-variant/50">
+<div class="flex items-start gap-3">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Portrait of a successful young Vietnamese entrepreneur in modern minimalist setting, confident expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeT6-9LAY_PeWxol3V9mxr9vgIvPEFA2LfLy2HNKFrqkmS7cmYMo2w7SA86lf_gDAGY-LcrX9YSG161fSQ_h2qV2CUz0dcyQbpCq880G-zPJTyOgkfFlfSPYBT1lE7kPgowwUFj8GSppOeBxx2Z9_jR103lUox3VVbyU3QIu2TYPRUUPDs4VE9qz_N6Zip-kX4FenVQARvRYmpDhahHoszCcQvWZZKSqo3BPLEA46Oq4-8YetY5MbvdotIbkA0CChBN-_Ghw5VctDF"/>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-surface-dim border-2 border-surface rounded-full"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-1">
+<h3 class="text-sm font-bold text-on-surface truncate">Ông Hoàng Nam</h3>
+<span class="text-xs text-on-surface-variant shrink-0">15 Th5</span>
+</div>
+<div class="flex items-center gap-1.5 mb-1">
+<span class="text-[10px] bg-primary text-on-primary px-1.5 py-0.5 rounded font-bold">VIP DIAMOND</span>
+<span class="bg-primary text-on-primary-container text-[10px] px-1.5 rounded-full font-bold ml-auto">2</span>
+</div>
+<p class="text-xs text-on-surface font-semibold truncate">Tư vấn thêm cho anh mẫu kínhenza bản giới hạn.</p>
+</div>
+</div>
+</div>
+<!-- Conversation Item 4 -->
+<div class="p-4 hover:bg-surface-container cursor-pointer transition-all duration-200 border-b border-outline-variant/50">
+<div class="flex items-start gap-3">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Portrait of a stylish Vietnamese female collector in a high-end luxury showroom with soft ambient lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCk7jecAYaymLl1dZ3XJbnb7ggj-2sJ9m1_a5XPsOqmUEKhjIGZSw-YejD_RT7esMUio-iqaihSxWU-qqp52BHPKUCpsDv1bJiUl5ykjgDi2VK-gxq1UU9SaySxaCxqDyFn1IXzicAFtIPTv6rvP4l6rx01j3GyRwXALB27LvURQMBxFlJW2y5E8kzCcVsq7PZ4OgOh4EyZVHB9e0o9_H24L6F5ObKHijgDFww25Cn5mCYm5ltn1IQ0zqs2JcTd0y0BIBhyks-1WFjA"/>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-success border-2 border-surface rounded-full"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-1">
+<h3 class="text-sm font-bold text-on-surface truncate">Bà Lê Ngọc Thảo</h3>
+<span class="text-xs text-on-surface-variant shrink-0">12 Th5</span>
+</div>
+<div class="flex items-center gap-1.5 mb-1">
+<span class="text-[10px] bg-secondary-container text-on-secondary-container px-1.5 py-0.5 rounded font-bold">VIP GOLD</span>
+</div>
+<p class="text-xs text-on-surface-variant truncate">Đã thanh toán cọc đơn hàng nước hoa pháp.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Cột bên phải: Cửa sổ nhắn tin chính -->
+<section class="flex-1 flex flex-col bg-surface-bright h-full overflow-hidden">
+<!-- Header khung chat -->
+<div class="px-6 py-3.5 bg-surface border-b border-outline-variant flex items-center justify-between shrink-0 shadow-sm">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img class="w-11 h-11 rounded-full object-cover" data-alt="Portrait of a distinguished Vietnamese gentleman in his late 40s wearing a tailored charcoal suit, sophisticated demeanor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDonIK-kxoeWs1x5-6DjSfAMkMR13CYzdHh0yJnVmd5dVsOarYVOfln81glbjH6_x8DIWJ3sDC5aHZwt9jgGny1Hpc4-bKFa5hMtv5AmdLq4FqSMjwZt73zQfVEVM9R_tbLA4SparcNO08j5MK3wHsyh9nslQzq2xxz2AIQdr9Xgy1scuz60max1_5QNS4JAs-Y35Ua_-I_VXAaappgq2NYxwTSmCXoojGht0KfbMqp1yPeG6TkTt9SSNMWmWFBcENuj_OWMHWTGUwJ"/>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-success border-2 border-surface rounded-full"></span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-headline font-bold text-base text-on-surface">Ông Nguyễn Văn Minh</h3>
+<span class="text-[10px] bg-primary text-on-primary px-2 py-0.5 rounded-full font-bold">VIP DIAMOND</span>
+</div>
+<p class="text-xs text-success font-medium flex items-center gap-1 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-success inline-block"></span> Đang hoạt động trực tuyến
+              </p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-variant text-on-surface text-xs font-semibold transition-all duration-200 border border-outline-variant">
+<span class="material-symbols-outlined text-sm text-primary">shopping_bag</span>
+              Xem đơn hàng (3)
+            </button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-on-primary text-xs font-bold transition-all duration-200 hover:opacity-90 shadow-sm">
+<span class="material-symbols-outlined text-sm">call</span>
+              Gọi nhanh VIP
+            </button>
+<button class="p-2 rounded-lg hover:bg-surface-variant text-on-surface-variant transition-all duration-200">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Vùng hiển thị tin nhắn (Scrollable chat history) -->
+<div class="flex-1 overflow-y-auto p-6 space-y-6">
+<div class="text-center">
+<span class="text-xs bg-surface-container text-on-surface-variant px-3 py-1 rounded-full font-medium shadow-sm">Hôm nay, 18 Tháng 5</span>
+</div>
+<!-- Tin nhắn từ khách hàng -->
+<div class="flex items-start gap-3 max-w-xl">
+<img class="w-9 h-9 rounded-full object-cover shrink-0 mt-1" data-alt="Portrait of a distinguished Vietnamese gentleman in his late 40s wearing a tailored charcoal suit." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABWspNlwac6NxrQPrdLNaj74bBPjetwQN_AKkzf2siFCUcEH_YasffuBgxnuRT1C4Rkwx0sQQUUqXaXk3c1bQ9j91saV2H4-0bYfnWOWn3TigfEyOielcMJx1j7zQcd2OGkRyA2sKdItBTJN-zsueZ9CzMVRm0hk-hEp6BPn1IsZgyRzrxF6K6kEylYW5JjeKK8W-sCA6UK8_IJ3JOMaVbHOhniztNvlPglcaunD4dkYrAuqgfrm2Ej8ww9ghiTNYPvp6N2bIuGF1m"/>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-xs font-bold text-on-surface">Ông Nguyễn Văn Minh</span>
+<span class="text-[10px] text-on-surface-variant">10:35</span>
+</div>
+<div class="p-3.5 bg-surface rounded-2xl rounded-tl-none text-on-surface text-sm border border-outline-variant shadow-sm">
+                Chào em, anh vừa đặt đơn hàng đồng hồ cao cấp nhưng muốn xác nhận lại thời gian giao hàng tại Quận 1 có kịp vào chiều thứ Sáu không?
+              </div>
+</div>
+</div>
+<!-- Thẻ sản phẩm khách đang quan tâm -->
+<div class="flex ml-12 max-w-md">
+<div class="bg-surface rounded-xl p-3 border border-outline-variant shadow-sm flex items-center gap-4 w-full">
+<img class="w-20 h-20 rounded-lg object-cover" data-alt="Close up product shot of a luxury Rolex Cosmograph Daytona watch with gleaming gold and black bezel, studio professional lighting, elegant luxury background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMv8kOWO3nRDYrOEXNVD3-4D1QypmAjElRRw4sbbldeh0WB13dvGHUG5GwFUIscDPvxP4853VpeF4ohDjGIDxSFmhP0VMXMPj_OGKBNjYOy9PXoSN0KTgn5LISy1o0xmEV2uy2vEDlWBuf6fC8RSkBkBtG0yUapAMQh-Arw4UV0GQDc4ojQxvjo-669VLzEFhR5eey577mgFSpGcz95WGylv-bbdgjeZNxqZYUqVaP-50EAIrFWSD9WxhMzHtLO_PFbcYkvABFQj6r"/>
+<div class="flex-1 min-w-0">
+<span class="text-[10px] bg-error/10 text-error px-2 py-0.5 rounded font-bold">SẢN PHẨM QUAN TÂM</span>
+<h4 class="text-sm font-bold text-on-surface truncate mt-1">Rolex Cosmograph Daytona</h4>
+<p class="text-xs text-primary font-extrabold mt-0.5">890.000.000 đ</p>
+</div>
+<button class="px-3 py-1.5 bg-primary-container text-on-primary-container text-xs font-bold rounded-lg hover:opacity-90">Chi tiết</button>
+</div>
+</div>
+<!-- Trả lời từ Admin -->
+<div class="flex items-start gap-3 max-w-xl ml-auto flex-row-reverse">
+<img class="w-9 h-9 rounded-full object-cover shrink-0 mt-1" data-alt="Portrait of a professional luxury boutique customer service manager with a polished appearance, warm confident smile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABIiZxMW0AcQ1zt7H0DN2YRwinVQqR83oXt0jCKgEJfRm_ap8H1tweV-59obP-cVp3oelJQWSvFnVFAN6ZsP9Nwckk8l8ibs5B4mDG1WNr4_A5NyYTItCBTy0xXGt1zVOschOAYbxGClzABeaLud4TzjRgENWnxuWDcunWJpEqvtVhc7twWggDUzsmfqQ1C7hRSQhtD9skp3g9lHzM-VPK6rJW-T2WKHPApX5GbXPLNTNvMpYRirYrZ2fC4sFAMFs6jFS3fJxjcQFR"/>
+<div class="text-right">
+<div class="flex items-center gap-2 mb-1 justify-end">
+<span class="text-[10px] text-on-surface-variant">10:38</span>
+<span class="text-xs font-bold text-primary">Thảo Nguyên (Admin)</span>
+</div>
+<div class="p-3.5 bg-primary text-on-primary rounded-2xl rounded-tr-none text-sm text-left shadow-sm">
+                Dạ em chào Quý khách Ông Nguyễn Văn Minh! E-COMMERCE đã ghi nhận yêu cầu của anh. Đơn hàng Rolex Cosmograph Daytona của anh sẽ được đội ngũ vận chuyển đặc biệt giao tận tay tại Quận 1 vào lúc 14:00 chiều thứ Sáu ạ.
+              </div>
+</div>
+</div>
+<!-- Tin nhắn tiếp theo từ khách -->
+<div class="flex items-start gap-3 max-w-xl">
+<img class="w-9 h-9 rounded-full object-cover shrink-0 mt-1" data-alt="Portrait of a distinguished Vietnamese gentleman in his late 40s wearing a tailored charcoal suit." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt6Ub5_gEvSF3tAcesN-rQ7a6ajQFqAxtlboicrDGNtF8Zjms7niCpTdajBXl5WSqdREoQ8wq2MKyS3SIAoReqQTkL7BiaFJV0-99BxS_5RgoMoZn9prP-E2L3WUMrZf-Cv8Hz5gZg0DTMe93B8E8hVvvgxmTRMShF52UMrSdE3uhgT8YEtaO_BkMSPPC86qnqm2XFqgqWz3CiGzWCAsbSwY7mH0FcA8UoM-PVHlPkXvEcY0yfDMcVZ2UTBVf72eJF2XWMZpxbqzlo"/>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-xs font-bold text-on-surface">Ông Nguyễn Văn Minh</span>
+<span class="text-[10px] text-on-surface-variant">10:42</span>
+</div>
+<div class="p-3.5 bg-surface rounded-2xl rounded-tl-none text-on-surface text-sm border border-outline-variant shadow-sm">
+                Rất tuyệt vời, cảm ơn em đã hỗ trợ nhanh chóng.
+              </div>
+</div>
+</div>
+</div>
+<!-- Footer soạn tin nhắn -->
+<div class="p-4 bg-surface border-t border-outline-variant shrink-0">
+<!-- Quick reply mẫu -->
+<div class="flex items-center gap-2 mb-3 overflow-x-auto pb-1">
+<button class="px-3 py-1.5 bg-surface-container hover:bg-surface-variant text-on-surface text-xs font-medium rounded-full border border-outline-variant whitespace-nowrap transition-all duration-200">
+              "Chào Quý khách, E-COMMERCE xin hỗ trợ..."
+            </button>
+<button class="px-3 py-1.5 bg-surface-container hover:bg-surface-variant text-on-surface text-xs font-medium rounded-full border border-outline-variant whitespace-nowrap transition-all duration-200">
+              "Kiểm tra đơn hàng VIP"
+            </button>
+<button class="px-3 py-1.5 bg-surface-container hover:bg-surface-variant text-on-surface text-xs font-medium rounded-full border border-outline-variant whitespace-nowrap transition-all duration-200">
+              "Gửi báo giá sản phẩm"
+            </button>
+</div>
+<!-- Input area -->
+<div class="flex items-center gap-3">
+<button class="p-2.5 rounded-full hover:bg-surface-variant text-on-surface-variant transition-all duration-200">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<button class="p-2.5 rounded-full hover:bg-surface-variant text-on-surface-variant transition-all duration-200">
+<span class="material-symbols-outlined">image</span>
+</button>
+<div class="flex-1 relative">
+<input class="w-full pl-4 pr-12 py-3 bg-surface-container-low rounded-xl text-sm border border-outline-variant focus:outline-none focus:border-primary text-on-surface" placeholder="Nhập tin nhắn hỗ trợ Quý khách..." type="text"/>
+<button class="absolute right-2 top-2 p-1.5 bg-[#D4AF37] text-inverse-surface rounded-lg hover:opacity-90 transition-all duration-200 flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-sm font-bold">send</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

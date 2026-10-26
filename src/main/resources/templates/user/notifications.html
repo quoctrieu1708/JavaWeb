@@ -3,51 +3,67 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>Thông báo của bạn</title>
+<title>Thông báo của bạn — E-COMMERCE</title>
 </head>
 <body>
-	<section class="mt-5 pt-4">
-		<div class="container mt-4 mb-5">
+	<section class="pb-5">
+		<div class="ds-breadcrumb-bar">
+			<div class="container px-lg-4">
+				<ul class="ds-breadcrumb">
+					<li><a href="/"><i class="fa-solid fa-house me-1 text-warning"></i>Trang chủ</a></li>
+					<li class="ds-breadcrumb-sep"><i class="fa-solid fa-chevron-right"></i></li>
+					<li class="ds-breadcrumb-current">Trung tâm thông báo</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="container px-lg-4 mb-5">
 			<div class="row justify-content-center">
-				<div class="col-md-9 col-lg-8">
-					<div class="card shadow-sm border-0 rounded-4">
-						<div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
-							<h5 class="mb-0 fw-bold text-primary">
-								<i class="fa-solid fa-bell me-2"></i>Thông báo của bạn
-							</h5>
+				<div class="col-lg-9">
+					<div class="card shadow-sm border-0 rounded-4 overflow-hidden bg-white">
+						<div class="card-header py-4 px-4 text-white d-flex flex-wrap justify-content-between align-items-center gap-2" style="background: var(--dark-gradient); border-bottom: 2px solid var(--gold-primary);">
+							<div class="d-flex align-items-center gap-3">
+								<div class="brand-icon-box" style="width: 40px; height: 40px; font-size: 1.1rem;">
+									<i class="fa-solid fa-bell"></i>
+								</div>
+								<div>
+									<h5 class="mb-0 fw-bold text-white ds-headline">TRUNG TÂM THÔNG BÁO</h5>
+									<small class="text-white-50">Cập nhật trạng thái đơn hàng & ưu đãi đặc quyền từ E-COMMERCE</small>
+								</div>
+							</div>
 							<a th:if="${notifications != null and !notifications.isEmpty()}"
 							   href="/user/notifications-read-all"
-							   class="btn btn-sm btn-outline-secondary rounded-pill">
+							   class="btn btn-sm btn-gold rounded-pill px-3 fw-bold">
 								<i class="fa-solid fa-check-double me-1"></i>Đánh dấu tất cả đã đọc
 							</a>
 						</div>
 						<div class="card-body p-0">
 							<div th:if="${notifications == null or notifications.isEmpty()}" class="text-center py-5">
-								<i class="fa-regular fa-bell-slash fs-1 text-muted mb-3 d-block"></i>
-								<h6 class="text-muted">Bạn chưa có thông báo nào</h6>
-								<p class="text-muted small">Các cập nhật về đơn hàng và chương trình khuyến mãi sẽ hiển thị tại đây.</p>
+								<i class="fa-regular fa-bell-slash fs-1 text-warning mb-3 d-block opacity-75"></i>
+								<h6 class="fw-bold text-dark">Bạn chưa có thông báo nào</h6>
+								<p class="text-muted small mb-0">Các cập nhật về đơn hàng và chương trình khuyến mãi sẽ hiển thị tại đây.</p>
 							</div>
 
-							<div th:unless="${notifications == null or notifications.isEmpty()}" class="list-group list-group-flush rounded-bottom-4">
+							<div th:unless="${notifications == null or notifications.isEmpty()}" class="list-group list-group-flush">
 								<a th:each="n : ${notifications}"
 								   th:href="@{'/user/notification-read?id=' + ${n.id} + (${n.targetUrl != null} ? '&redirectUrl=' + ${n.targetUrl} : '')}"
-								   class="list-group-item list-group-item-action p-3 border-bottom d-flex align-items-start gap-3"
-								   th:classappend="${!n.isRead} ? 'bg-light fw-medium' : ''">
-									<div class="rounded-circle p-2 d-flex align-items-center justify-content-center mt-1"
-										 th:classappend="${n.type == 'ORDER'} ? 'bg-primary-subtle text-primary' : 'bg-warning-subtle text-warning'"
-										 style="width: 40px; height: 40px; min-width: 40px;">
+								   class="list-group-item list-group-item-action p-4 border-bottom d-flex align-items-start gap-3"
+								   th:classappend="${!n.isRead} ? 'bg-warning-subtle bg-opacity-10 fw-medium' : ''">
+									<div class="rounded-circle p-2 d-flex align-items-center justify-content-center mt-1 flex-shrink-0"
+										 th:classappend="${n.type == 'ORDER'} ? 'bg-dark text-warning border border-warning' : 'bg-warning-subtle text-dark'"
+										 style="width: 44px; height: 44px;">
 										<i th:if="${n.type == 'ORDER'}" class="fa-solid fa-bag-shopping"></i>
 										<i th:unless="${n.type == 'ORDER'}" class="fa-solid fa-gift"></i>
 									</div>
 									<div class="flex-grow-1">
-										<div class="d-flex justify-content-between align-items-center mb-1">
+										<div class="d-flex justify-content-between align-items-center mb-1 flex-wrap gap-1">
 											<h6 class="mb-0" th:classappend="${!n.isRead} ? 'fw-bold text-dark' : 'text-secondary'" th:text="${n.title}">Tiêu đề thông báo</h6>
-											<small class="text-muted" th:text="${#temporals.format(n.createdAt, 'dd/MM/yyyy HH:mm')}">Thời gian</small>
+											<small class="text-muted font-monospace" th:text="${#temporals.format(n.createdAt, 'dd/MM/yyyy HH:mm')}">Thời gian</small>
 										</div>
 										<p class="mb-0 text-secondary small" th:text="${n.message}">Nội dung thông báo</p>
 									</div>
 									<div th:if="${!n.isRead}" class="mt-2">
-										<span class="badge bg-primary rounded-pill p-1" title="Chưa đọc" style="width: 8px; height: 8px;"></span>
+										<span class="badge bg-warning rounded-pill p-1" title="Chưa đọc" style="width: 10px; height: 10px;"></span>
 									</div>
 								</a>
 							</div>

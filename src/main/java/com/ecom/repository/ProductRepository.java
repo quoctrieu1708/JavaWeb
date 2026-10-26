@@ -41,4 +41,19 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	Long countByStockLessThan(int threshold);
 
 	Long countByStockEquals(int stock);
+
+	/**
+	 * Trừ kho nguyên tử: chỉ cập nhật khi tồn kho còn đủ.
+	 * Trả về 0 nếu không đủ hàng -> chống bán vượt tồn kho (overselling) khi nhiều người mua đồng thời.
+	 */
+	@org.springframework.data.jpa.repository.Modifying
+	@org.springframework.data.jpa.repository.Query("UPDATE Product p SET p.stock = p.stock - :qty WHERE p.id = :id AND p.stock >= :qty")
+	int decreaseStock(@org.springframework.data.repository.query.Param("id") Integer id,
+			@org.springframework.data.repository.query.Param("qty") int qty);
+
+	/** Hoàn trả tồn kho (dùng khi hủy đơn hàng). */
+	@org.springframework.data.jpa.repository.Modifying
+	@org.springframework.data.jpa.repository.Query("UPDATE Product p SET p.stock = p.stock + :qty WHERE p.id = :id")
+	int increaseStock(@org.springframework.data.repository.query.Param("id") Integer id,
+			@org.springframework.data.repository.query.Param("qty") int qty);
 }

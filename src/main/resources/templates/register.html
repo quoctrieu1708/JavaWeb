@@ -9,83 +9,137 @@
 	<section class="mt-4 pt-2 pb-5">
 		<div class="container px-3">
 			<div class="row justify-content-center">
-				<div class="col-lg-8">
-					<div class="card auth-card shadow-lg" style="max-width: 780px;">
-						<!-- Header -->
-						<div class="card-header text-center">
-							<div class="brand-icon-box mx-auto mb-2" style="width: 44px; height: 44px; font-size: 1.25rem;">
-								<i class="fa-solid fa-crown"></i>
+				<div class="col-xl-11">
+					<div class="card ds-auth-split-card">
+						<div class="row g-0">
+							<!-- Left Column: Stitch VIP Member Privileges Showcase -->
+							<div class="col-lg-4 ds-auth-banner p-4 p-xl-5 d-flex flex-column justify-content-between">
+								<div class="position-relative" style="z-index: 1;">
+									<div class="d-inline-flex align-items-center gap-2 ds-badge-gold mb-4">
+										<i class="fa-solid fa-crown"></i>
+										<span>THẺ HỘI VIÊN VIP</span>
+									</div>
+									<h2 class="fw-extrabold mb-3 ds-headline" style="font-size: 1.75rem; line-height: 1.25;">
+										GIA NHẬP CỘNG ĐỒNG<br>
+										<span class="text-gold">E-COMMERCE</span>
+									</h2>
+									<p class="text-white-50 small mb-4" style="line-height: 1.7;">
+										Khởi tạo tài khoản chỉ trong 30 giây để mở khóa toàn bộ đặc quyền mua sắm công nghệ và thời trang thượng lưu.
+									</p>
+
+									<div class="d-flex flex-column gap-3">
+										<div class="ds-auth-feature-item d-flex align-items-center gap-3">
+											<div class="ds-hero-stat-icon flex-shrink-0">
+												<i class="fa-solid fa-ticket"></i>
+											</div>
+											<div>
+												<div class="fw-bold small text-white">Ưu đãi thành viên mới</div>
+												<div class="text-white-50" style="font-size: 0.78rem;">Nhận ngay mã giảm giá cho đơn hàng đầu tiên</div>
+											</div>
+										</div>
+										<div class="ds-auth-feature-item d-flex align-items-center gap-3">
+											<div class="ds-hero-stat-icon flex-shrink-0">
+												<i class="fa-solid fa-truck-fast"></i>
+											</div>
+											<div>
+												<div class="fw-bold small text-white">Giao hàng hỏa tốc</div>
+												<div class="text-white-50" style="font-size: 0.78rem;">Theo dõi trạng thái đơn hàng theo thời gian thực</div>
+											</div>
+										</div>
+										<div class="ds-auth-feature-item d-flex align-items-center gap-3">
+											<div class="ds-hero-stat-icon flex-shrink-0">
+												<i class="fa-solid fa-rotate-left"></i>
+											</div>
+											<div>
+												<div class="fw-bold small text-white">Đổi trả dễ dàng 30 ngày</div>
+												<div class="text-white-50" style="font-size: 0.78rem;">Bảo hành vàng chính hãng trên toàn quốc</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="pt-4 mt-4 border-top border-secondary border-opacity-25 small text-white-50 position-relative" style="z-index: 1;">
+									<i class="fa-solid fa-lock text-gold me-1"></i>Thông tin cá nhân được mã hóa & bảo vệ nghiêm ngặt.
+								</div>
 							</div>
-							<p>ĐĂNG KÝ TÀI KHOẢN MỚI</p>
-							<small>Trở thành hội viên để nhận ngay hàng ngàn ưu đãi hấp dẫn</small>
-						</div>
 
-						<!-- Body -->
-						<div class="card-body p-4 p-md-5">
-							<form action="/saveUser" enctype="multipart/form-data" id="userRegister" novalidate method="post">
-								<div class="row mb-3">
-									<div class="col-md-6 mb-3 mb-md-0">
-										<label class="form-label fw-bold small text-secondary">Họ và tên</label> 
-										<input required class="form-control" name="name" type="text" placeholder="Nguyễn Văn A">
+							<!-- Right Column: Registration Form -->
+							<div class="col-lg-8 bg-white d-flex flex-column justify-content-between">
+								<div class="card-body p-4 p-md-5">
+									<div class="mb-4">
+										<span class="badge bg-dark text-gold border border-warning border-opacity-50 px-3 py-1 rounded-pill small mb-2">
+											<i class="fa-solid fa-user-plus me-1"></i>Đăng Ký Tài Khoản Mới
+										</span>
+										<h3 class="fw-extrabold text-dark mb-1 ds-headline">Thông tin đăng ký hội viên</h3>
+										<p class="text-muted small mb-0">Điền đầy đủ thông tin bên dưới để nhận thông báo đơn hàng và ưu đãi chính xác nhất.</p>
 									</div>
 
-									<div class="col-md-6">
-										<label class="form-label fw-bold small text-secondary">Số điện thoại</label> 
-										<input required class="form-control" name="mobileNumber" type="text" placeholder="0987654321">
-									</div>
+									<form action="/saveUser" enctype="multipart/form-data" id="userRegister" novalidate method="post">
+										<div class="row mb-3">
+											<div class="col-md-6 mb-3 mb-md-0">
+												<label class="form-label fw-bold small text-secondary">Họ và tên</label>
+												<input required class="form-control" name="name" type="text" placeholder="Nguyễn Văn A">
+											</div>
+
+											<div class="col-md-6">
+												<label class="form-label fw-bold small text-secondary">Số điện thoại</label>
+												<input required class="form-control" name="mobileNumber" type="text" placeholder="0987654321">
+											</div>
+										</div>
+
+										<div class="mb-3">
+											<label class="form-label fw-bold small text-secondary">Địa chỉ Email</label>
+											<input required class="form-control" name="email" type="email" placeholder="example@gmail.com">
+										</div>
+
+										<div class="row mb-3">
+											<div class="col-md-12 mb-3">
+												<label class="form-label fw-bold small text-secondary">Địa chỉ chi tiết</label>
+												<input required class="form-control" name="address" type="text" placeholder="Số nhà, tên đường, khu dân cư...">
+											</div>
+
+											<div class="col-md-4 mb-2 mb-md-0">
+												<label class="form-label fw-bold small text-secondary">Tỉnh/Thành phố</label>
+												<input required class="form-control" name="city" type="text" placeholder="Hà Nội">
+											</div>
+											<div class="col-md-4 mb-2 mb-md-0">
+												<label class="form-label fw-bold small text-secondary">Quận/Huyện</label>
+												<input required class="form-control" name="state" type="text" placeholder="Cầu Giấy">
+											</div>
+											<div class="col-md-4">
+												<label class="form-label fw-bold small text-secondary">Mã bưu chính</label>
+												<input required class="form-control" name="pincode" type="number" placeholder="100000">
+											</div>
+										</div>
+
+										<div class="row mb-3">
+											<div class="col-md-6 mb-3 mb-md-0">
+												<label class="form-label fw-bold small text-secondary">Mật khẩu</label>
+												<input required class="form-control" name="password" type="password" id="pass" placeholder="Tối thiểu 6 ký tự">
+											</div>
+
+											<div class="col-md-6">
+												<label class="form-label fw-bold small text-secondary">Xác nhận mật khẩu</label>
+												<input required class="form-control" name="confirmpassword" type="password" placeholder="Nhập lại mật khẩu">
+											</div>
+										</div>
+
+										<div class="mb-4">
+											<label class="form-label fw-bold small text-secondary">Ảnh đại diện (Tùy chọn)</label>
+											<input class="form-control" name="img" type="file" accept="image/*">
+										</div>
+
+										<button type="submit" class="btn btn-gold w-100 py-3 fs-6 fw-bold shadow">
+											<i class="fa-solid fa-user-plus me-2"></i>HOÀN TẤT ĐĂNG KÝ THÀNH VIÊN
+										</button>
+									</form>
 								</div>
 
-								<div class="mb-3">
-									<label class="form-label fw-bold small text-secondary">Địa chỉ Email</label> 
-									<input required class="form-control" name="email" type="email" placeholder="example@gmail.com">
+								<!-- Footer -->
+								<div class="card-footer text-center bg-light py-3 border-top small">
+									Đã có tài khoản? <a href="/signin" class="text-decoration-none fw-bold text-dark">Đăng nhập ngay <i class="fa-solid fa-arrow-right ms-1 text-warning"></i></a>
 								</div>
-
-								<div class="row mb-3">
-									<div class="col-md-12 mb-3">
-										<label class="form-label fw-bold small text-secondary">Địa chỉ chi tiết</label> 
-										<input required class="form-control" name="address" type="text" placeholder="Số nhà, tên đường, khu dân cư...">
-									</div>
-
-									<div class="col-md-4 mb-2 mb-md-0">
-										<label class="form-label fw-bold small text-secondary">Tỉnh/Thành phố</label> 
-										<input required class="form-control" name="city" type="text" placeholder="Hà Nội">
-									</div>
-									<div class="col-md-4 mb-2 mb-md-0">
-										<label class="form-label fw-bold small text-secondary">Quận/Huyện</label> 
-										<input required class="form-control" name="state" type="text" placeholder="Cầu Giấy">
-									</div>
-									<div class="col-md-4">
-										<label class="form-label fw-bold small text-secondary">Mã bưu chính</label> 
-										<input required class="form-control" name="pincode" type="number" placeholder="100000">
-									</div>
-								</div>
-
-								<div class="row mb-3">
-									<div class="col-md-6 mb-3 mb-md-0">
-										<label class="form-label fw-bold small text-secondary">Mật khẩu</label> 
-										<input required class="form-control" name="password" type="password" id="pass" placeholder="Tối thiểu 6 ký tự">
-									</div>
-
-									<div class="col-md-6">
-										<label class="form-label fw-bold small text-secondary">Xác nhận mật khẩu</label> 
-										<input required class="form-control" name="confirmpassword" type="password" placeholder="Nhập lại mật khẩu">
-									</div>
-								</div>
-
-								<div class="mb-4">
-									<label class="form-label fw-bold small text-secondary">Ảnh đại diện (Tùy chọn)</label> 
-									<input class="form-control" name="img" type="file" accept="image/*">
-								</div>
-
-								<button type="submit" class="btn btn-gold w-100 py-3 fs-5 fw-bold shadow">
-									<i class="fa-solid fa-user-plus me-2"></i>Đăng ký thành viên
-								</button>
-							</form>
-						</div>
-
-						<!-- Footer -->
-						<div class="card-footer text-center bg-light py-3 border-top small">
-							Đã có tài khoản? <a href="/signin" class="text-decoration-none fw-bold text-dark">Đăng nhập ngay</a>
+							</div>
 						</div>
 					</div>
 				</div>

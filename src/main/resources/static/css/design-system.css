@@ -547,20 +547,32 @@ div[style*="var(--dark-gradient)"] .text-white-50 {
     box-shadow: 0 2px 6px rgba(212, 175, 55, 0.15) !important;
 }
 
-/* White & Gold Footer */
+/* White & Gold Compact Footer */
 .luxury-footer {
     background: #FFFFFF !important;
     color: #4B5563 !important;
     border-top: 2px solid #D4AF37 !important;
+    padding-top: 1.35rem !important;
+    padding-bottom: 0.9rem !important;
+    font-size: 0.8rem !important;
 }
 
 .luxury-footer .footer-title,
 .luxury-footer .text-white {
     color: #111827 !important;
+    font-size: 0.88rem !important;
+    margin-bottom: 0.65rem !important;
+}
+
+.luxury-footer .footer-title::after {
+    bottom: -4px !important;
+    width: 24px !important;
 }
 
 .luxury-footer a {
     color: #4B5563 !important;
+    margin-bottom: 0.25rem !important;
+    font-size: 0.8rem !important;
 }
 
 .luxury-footer a:hover {
@@ -568,6 +580,10 @@ div[style*="var(--dark-gradient)"] .text-white-50 {
 }
 
 .footer-social-btn {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 0.78rem !important;
+    margin-right: 0.2rem !important;
     background: #FDF8E7 !important;
     color: #996515 !important;
     border-color: rgba(212, 175, 55, 0.4) !important;
@@ -576,6 +592,9 @@ div[style*="var(--dark-gradient)"] .text-white-50 {
 .footer-bottom {
     border-top: 1px solid #E5E7EB !important;
     color: #6B7280 !important;
+    padding-top: 0.65rem !important;
+    margin-top: 0.85rem !important;
+    font-size: 0.76rem !important;
 }
 
 .footer-bottom .badge.bg-dark {

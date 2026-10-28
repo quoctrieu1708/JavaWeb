@@ -13,8 +13,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <!-- Stitch Design System Tokens & Custom Luxury Black & Gold Theme CSS -->
-<link rel="stylesheet" th:href="@{/css/design-system.css}">
 <link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/design-system.css}">
 </head>
 <body>
 	<!-- Start Luxury Navbar -->
@@ -166,78 +166,50 @@
 		<div th:replace="${content}"></div>
 	</main>
 
-	<!-- Compact Luxury Footer -->
-	<footer class="luxury-footer mt-4">
+	<!-- Ultra-Compact Luxury Footer -->
+	<footer class="luxury-footer mt-4 py-2 bg-white border-top border-warning-subtle">
 		<div class="container">
-			<div class="row g-3 align-items-start">
-				<!-- Column 1: Brand & Contact -->
-				<div class="col-lg-4 col-md-6">
-					<div class="d-flex align-items-center gap-2 mb-2">
-						<div class="brand-icon-box" style="width: 26px; height: 26px; font-size: 0.82rem;">
+			<div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+				<!-- Brand & Hotline -->
+				<div class="d-flex align-items-center gap-3">
+					<a href="/" class="d-flex align-items-center gap-2 text-decoration-none">
+						<div class="brand-icon-box" style="width: 22px; height: 22px; font-size: 0.72rem;">
 							<i class="fa-solid fa-crown"></i>
 						</div>
-						<h6 class="mb-0 fw-bold"><span class="brand-gold-text">E-COMMERCE</span></h6>
-					</div>
-					<p class="text-secondary mb-2" style="font-size: 0.8rem; line-height: 1.5;">
-						Hệ thống bán lẻ công nghệ & thiết bị chính hãng. Bảo hành tận tâm, giao nhanh toàn quốc.
-					</p>
-					<div class="d-flex flex-wrap gap-3 text-secondary" style="font-size: 0.78rem;">
-						<span><i class="fa-solid fa-phone text-warning me-1"></i><strong class="text-dark">1900 8888</strong></span>
-						<span><i class="fa-solid fa-envelope text-warning me-1"></i>hotro@ecomluxury.vn</span>
-						<span><i class="fa-solid fa-location-dot text-warning me-1"></i>Ba Đình, Hà Nội</span>
-					</div>
+						<span class="brand-gold-text fw-bold" style="font-size: 0.92rem;">E-COMMERCE</span>
+					</a>
+					<span class="text-secondary d-none d-sm-inline" style="font-size: 0.76rem;">|</span>
+					<span class="text-secondary d-none d-sm-inline" style="font-size: 0.76rem;">
+						<i class="fa-solid fa-phone text-warning me-1"></i>Hotline: <strong class="text-dark">1900 8888</strong>
+					</span>
 				</div>
 
-				<!-- Column 2: Quick Links -->
-				<div class="col-lg-2 col-md-3 col-6">
-					<h6 class="footer-title">Liên kết</h6>
-					<ul class="list-unstyled mb-0">
-						<li><a href="/">Trang chủ</a></li>
-						<li><a href="/products">Sản phẩm</a></li>
-						<li><a href="/user/cart">Giỏ hàng</a></li>
-						<li><a href="/signin">Tài khoản</a></li>
-					</ul>
-				</div>
+				<!-- Quick Links -->
+				<ul class="nav gap-2 gap-md-3 footer-inline-nav mb-0" style="font-size: 0.78rem;">
+					<li class="nav-item"><a href="/" class="nav-link p-0 text-secondary">Trang chủ</a></li>
+					<li class="nav-item"><a href="/products" class="nav-link p-0 text-secondary">Sản phẩm</a></li>
+					<li class="nav-item"><a href="/user/cart" class="nav-link p-0 text-secondary">Giỏ hàng</a></li>
+					<li class="nav-item"><a href="/signin" class="nav-link p-0 text-secondary">Tài khoản</a></li>
+					<li class="nav-item d-none d-lg-inline"><a href="#" class="nav-link p-0 text-secondary">Chính sách bảo hành</a></li>
+				</ul>
 
-				<!-- Column 3: Customer Care & Policies -->
-				<div class="col-lg-3 col-md-3 col-6">
-					<h6 class="footer-title">Chính sách & Hỗ trợ</h6>
-					<ul class="list-unstyled mb-0">
-						<li><a href="#">Giao hàng & Đổi trả 7 ngày</a></li>
-						<li><a href="#">Bảo hành chính hãng 100%</a></li>
-						<li><a href="#">Bảo mật thông tin KH</a></li>
-						<li><a href="#">Câu hỏi thường gặp (FAQ)</a></li>
-					</ul>
-				</div>
-
-				<!-- Column 4: Newsletter & Social Connect -->
-				<div class="col-lg-3 col-md-12">
-					<h6 class="footer-title">Nhận tin ưu đãi</h6>
-					<form id="newsletter-form" class="mb-2">
-						<div class="input-group input-group-sm">
-							<input type="email" class="form-control form-control-sm bg-light text-dark border" placeholder="Email nhận mã giảm giá..." required style="font-size: 0.78rem;">
-							<button class="btn btn-gold btn-sm px-2.5" type="submit">
-								<i class="fa-solid fa-paper-plane"></i>
-							</button>
-						</div>
-					</form>
-					<div class="d-flex align-items-center gap-2 pt-1">
-						<span class="text-secondary" style="font-size: 0.76rem;">Kết nối:</span>
+				<!-- Social Mini Icons & Badges -->
+				<div class="d-flex align-items-center gap-2">
+					<div class="d-flex align-items-center gap-1">
 						<a href="#" class="footer-social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
 						<a href="#" class="footer-social-btn" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
 						<a href="#" class="footer-social-btn" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
 						<a href="#" class="footer-social-btn" title="Zalo"><i class="fa-solid fa-comment-dots"></i></a>
 					</div>
+					<span class="badge bg-light text-secondary border d-none d-xl-inline" style="font-size: 0.65rem;">
+						<i class="fa-solid fa-shield-halved text-success me-1"></i>Chính hãng 100%
+					</span>
 				</div>
 			</div>
 
-			<!-- Bottom Copyright -->
-			<div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
-				<p class="mb-1 mb-md-0">© 2026 E-COMMERCE. Bảo lưu mọi quyền.</p>
-				<div class="d-flex gap-2">
-					<span class="badge bg-dark border border-secondary text-secondary" style="font-size: 0.7rem;"><i class="fa-solid fa-shield-halved text-success me-1"></i>SSL Bảo mật</span>
-					<span class="badge bg-dark border border-secondary text-secondary" style="font-size: 0.7rem;"><i class="fa-solid fa-certificate text-warning me-1"></i>100% Chính hãng</span>
-				</div>
+			<!-- Micro Copyright line -->
+			<div class="footer-bottom text-center pt-1 mt-1 border-top" style="font-size: 0.72rem; color: #9CA3AF;">
+				© 2026 E-COMMERCE. Bảo lưu mọi quyền.
 			</div>
 		</div>
 	</footer>

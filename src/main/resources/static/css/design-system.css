@@ -547,57 +547,69 @@ div[style*="var(--dark-gradient)"] .text-white-50 {
     box-shadow: 0 2px 6px rgba(212, 175, 55, 0.15) !important;
 }
 
-/* White & Gold Compact Footer */
+/* White & Gold Ultra-Compact Footer */
 .luxury-footer {
     background: #FFFFFF !important;
     color: #4B5563 !important;
-    border-top: 2px solid #D4AF37 !important;
-    padding-top: 1.35rem !important;
-    padding-bottom: 0.9rem !important;
-    font-size: 0.8rem !important;
+    border-top: 1px solid #E5E7EB !important;
+    border-top-color: rgba(212, 175, 55, 0.35) !important;
+    padding-top: 0.6rem !important;
+    padding-bottom: 0.4rem !important;
+    font-size: 0.78rem !important;
 }
 
 .luxury-footer .footer-title,
 .luxury-footer .text-white {
     color: #111827 !important;
-    font-size: 0.88rem !important;
-    margin-bottom: 0.65rem !important;
+    font-size: 0.82rem !important;
+    margin-bottom: 0.4rem !important;
 }
 
 .luxury-footer .footer-title::after {
-    bottom: -4px !important;
-    width: 24px !important;
+    bottom: -3px !important;
+    width: 20px !important;
 }
 
 .luxury-footer a {
     color: #4B5563 !important;
-    margin-bottom: 0.25rem !important;
-    font-size: 0.8rem !important;
+    margin-bottom: 0 !important;
+    font-size: 0.78rem !important;
 }
 
 .luxury-footer a:hover {
     color: #996515 !important;
 }
 
-.footer-social-btn {
-    width: 30px !important;
-    height: 30px !important;
+.footer-inline-nav .nav-link {
+    color: #4B5563 !important;
     font-size: 0.78rem !important;
-    margin-right: 0.2rem !important;
+    transition: color 0.15s ease-in-out;
+}
+
+.footer-inline-nav .nav-link:hover {
+    color: #996515 !important;
+}
+
+.footer-social-btn {
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 0.7rem !important;
+    margin-right: 0.15rem !important;
     background: #FDF8E7 !important;
     color: #996515 !important;
     border-color: rgba(212, 175, 55, 0.4) !important;
 }
 
 .footer-bottom {
-    border-top: 1px solid #E5E7EB !important;
-    color: #6B7280 !important;
-    padding-top: 0.65rem !important;
-    margin-top: 0.85rem !important;
-    font-size: 0.76rem !important;
+    border-top: 1px solid #F3F4F6 !important;
+    color: #9CA3AF !important;
+    padding-top: 0.35rem !important;
+    margin-top: 0.35rem !important;
+    font-size: 0.7rem !important;
 }
 
-.footer-bottom .badge.bg-dark {
+.footer-bottom .badge.bg-dark,
+.footer-bottom .badge.bg-light {
     background: #F9FAFB !important;
     color: #374151 !important;
     border-color: #E5E7EB !important;

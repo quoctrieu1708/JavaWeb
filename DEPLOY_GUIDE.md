@@ -71,7 +71,33 @@ git push origin master
 
 ---
 
-## BƯỚC 4: BÍ QUYẾT TỐI ƯU GÓI FREE RENDER (TRÁNH BỊ SLEEP)
+## BƯỚC 4: XỬ LÝ LỖI DEPLOY THƯỜNG GẶP TRÊN RENDER
+
+### Lỗi 1: Port scan timeout reached (Render không phát hiện cổng)
+* **Nguyên nhân:** Render tự động cấp một cổng ngẫu nhiên qua biến `$PORT` (ví dụ `10000`). Nếu ứng dụng chỉ lắng nghe ở cổng cố định `8080`, Render sẽ chờ và báo timeout.
+* **Cách xử lý:** `Dockerfile` đã được cấu hình cờ `-Dserver.port=${PORT:-8080}` tự động lắng nghe cổng của Render.
+
+### Lỗi 2: Lỗi Build Maven / Wrapper (mvnw bad interpreter)
+* **Nguyên nhân:** Do chạy Docker từ file wrapper Windows có ký tự `\r\n` (CRLF).
+* **Cách xử lý:** `Dockerfile` hiện tại đã dùng image chính thức `maven:3.9.6-eclipse-temurin-17-alpine` có sẵn Maven 3.9, không cần tải wrapper, build siêu nhanh và ổn định 100%.
+
+### Lỗi 3: Communications link failure / UnknownHostException (Không kết nối được Database)
+* **Dấu hiệu:** Log Render ghi `Communications link failure` hoặc `java.net.UnknownHostException: mysql-...aivencloud.com`.
+* **Nguyên nhân:** 
+  1. Service MySQL trên Aiven.io bị tạm dừng (STOPPED/POWEROFF) hoặc hết hạn dùng thử (hãy vào [console.aiven.io](https://console.aiven.io/) kiểm tra và bấm **Resume** / **Start**).
+  2. Chưa cấu hình hoặc cấu hình sai 3 biến môi trường `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, `SPRING_DATASOURCE_PASSWORD` trong tab **Environment** của Render.
+* **Cấu hình chuẩn biến môi trường trên Render:**
+  * `SPRING_DATASOURCE_URL`: `jdbc:mysql://<HOST>:<PORT>/defaultdb?sslmode=REQUIRED&useUnicode=true&characterEncoding=UTF-8`
+  * `SPRING_DATASOURCE_USERNAME`: `avnadmin`
+  * `SPRING_DATASOURCE_PASSWORD`: `<Mật_khẩu_Aiven>`
+
+### Lỗi 4: Nếu bạn chọn Runtime Java thay vì Docker trên Render
+* **Build Command:** `./mvnw clean package -DskipTests` *(BẮT BUỘC có `-DskipTests` vì máy build của Render không có MySQL nội bộ)*
+* **Start Command:** `java -Dserver.port=$PORT -jar target/Shopping_Cart-0.0.1-SNAPSHOT.jar`
+
+---
+
+## BƯỚC 5: BÍ QUYẾT TỐI ƯU GÓI FREE RENDER (TRÁNH BỊ SLEEP)
 
 * Trên gói Free của Render, server sẽ tự động "ngủ đông" (sleep) nếu không có truy cập trong 15 phút.
 * **Cách khắc phục miễn phí 100%:**

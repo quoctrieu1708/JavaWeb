@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>E-COMMERCE — Hệ Thống Quản Trị Luxury</title>
+<title>ecom. — Hệ Thống Quản Trị</title>
 
 <!-- Bootstrap 5 CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -15,9 +15,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 
-<!-- Stitch Design System Tokens & Custom Luxury Theme CSS -->
-<link rel="stylesheet" th:href="@{/css/design-system.css}">
+<!-- Figma Design System 2.0 CSS -->
 <link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/design-system.css}">
 
 <!-- Tailwind CSS CDN -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -29,14 +29,14 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        "primary": "#D4AF37",
-        "primary-dark": "#996515",
-        "background": "#F8FAFC",
-        "surface": "#FFFFFF",
-        "surface-border": "#E5E7EB"
+        "brand": "#f2542d",
+        "ink": "#17181f",
+        "page": "#faf8f5",
+        "surface": "#ffffff",
+        "border-color": "#e9e3d9"
       },
       fontFamily: {
-        headline: ["Plus Jakarta Sans", "sans-serif"],
+        headline: ["Be Vietnam Pro", "Plus Jakarta Sans", "sans-serif"],
         body: ["Be Vietnam Pro", "sans-serif"]
       }
     }
@@ -47,118 +47,93 @@ tailwind.config = {
 <style>
 body.admin-luxury-body {
   padding-top: 0 !important;
-  background-color: #F8FAFC !important;
-  color: #111827 !important;
+  background-color: #faf8f5 !important;
+  color: #17181f !important;
   font-family: 'Be Vietnam Pro', sans-serif;
 }
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
-/* White & Gold Luxury Theme Overrides for Inner Admin Pages */
 .admin-luxury-canvas .card {
-  background-color: #FFFFFF !important;
-  border: 1px solid #E5E7EB !important;
-  color: #111827 !important;
+  background-color: #ffffff !important;
+  border: 1px solid #e9e3d9 !important;
+  border-radius: 1rem !important;
+  color: #17181f !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
 }
-.admin-luxury-canvas .card-header[style*="var(--dark-gradient)"],
-.admin-luxury-canvas .ds-page-header {
-  background: #FFFFFF !important;
-  color: #111827 !important;
-  border-bottom: 2px solid #D4AF37 !important;
+.admin-luxury-canvas .card-header {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e9e3d9 !important;
+  color: #17181f !important;
+  padding: 1rem 1.25rem !important;
 }
-.admin-luxury-canvas .card-header[style*="var(--dark-gradient)"] h5,
-.admin-luxury-canvas .card-header[style*="var(--dark-gradient)"] h6,
-.admin-luxury-canvas .card-header[style*="var(--dark-gradient)"] p,
-.admin-luxury-canvas .ds-page-header h3,
-.admin-luxury-canvas .ds-page-header h4 {
-  color: #111827 !important;
+.admin-luxury-canvas .btn-primary {
+  background-color: #f2542d !important;
+  border-color: #f2542d !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  border-radius: 0.5rem !important;
 }
-.admin-luxury-canvas .card-header[style*="var(--dark-gradient)"] .text-white-50,
-.admin-luxury-canvas .ds-page-header .text-white-50 {
-  color: #6B7280 !important;
-}
-.admin-luxury-canvas .card-header .btn-outline-light,
-.admin-luxury-canvas .ds-page-header .btn-outline-light {
-  color: #374151 !important;
-  border-color: #D1D5DB !important;
-  background-color: #F9FAFB !important;
-}
-.admin-luxury-canvas .card-header .btn-outline-light:hover,
-.admin-luxury-canvas .ds-page-header .btn-outline-light:hover {
-  background-color: #FDF8E7 !important;
-  border-color: #D4AF37 !important;
-  color: #996515 !important;
+.admin-luxury-canvas .btn-primary:hover {
+  background-color: #d9431f !important;
+  border-color: #d9431f !important;
 }
 .admin-nav-link {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.75rem 0.875rem;
+  padding: 0.65rem 0.85rem;
   border-radius: 0.75rem;
-  color: #4B5563;
+  color: #b4b7c4;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.875rem;
-  transition: all 0.2s ease;
-}
-.admin-nav-link .material-symbols-outlined {
-  color: #996515;
+  transition: all 0.15s ease;
 }
 .admin-nav-link:hover {
-  color: #111827;
-  background-color: #FDF8E7;
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.08);
 }
 .admin-nav-link.active {
-  background-color: #D4AF37 !important;
-  color: #111111 !important;
-  font-weight: 700;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25);
+  background-color: #262833 !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  border-left: 3px solid #f2542d;
 }
 .admin-nav-link.active .material-symbols-outlined {
-  color: #111111 !important;
-}
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #F8FAFC;
-}
-::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 9999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #D4AF37;
+  color: #f2542d !important;
 }
 </style>
 </head>
 <body class="admin-luxury-body h-screen flex flex-col md:flex-row overflow-hidden">
 
-  <!-- 1. LEFT SIDEBAR (White & Gold Luxury Admin Sidebar) -->
-  <aside class="hidden md:flex flex-col w-64 h-screen p-4 bg-white border-r border-[#E5E7EB] shrink-0 justify-between shadow-sm z-20">
+  <!-- 1. LEFT SIDEBAR (Deep Ink #17181f) -->
+  <aside class="hidden md:flex flex-col w-64 h-screen p-4 bg-[#17181f] text-white shrink-0 justify-between z-20">
     <div>
       <!-- Brand Header -->
-      <a href="/admin/" class="flex items-center gap-3 px-2 py-3 mb-4 border-b border-[#F1F5F9] text-decoration-none">
-        <div class="w-10 h-10 rounded-xl bg-[#D4AF37] flex items-center justify-center text-[#111111] font-headline font-extrabold text-xl shadow-sm">
-          E
-        </div>
-        <div>
-          <h1 class="text-base font-extrabold font-headline text-[#111827] tracking-wider mb-0 leading-tight">E-COMMERCE</h1>
-          <p class="text-xs text-[#996515] font-semibold mb-0">Luxury Admin</p>
-        </div>
+      <a href="/admin/" class="flex items-center gap-2.5 px-3 py-3 mb-4 text-decoration-none">
+        <span class="text-2xl font-extrabold tracking-tight text-white font-headline">ecom<span class="inline-block w-2 h-2 bg-[#f2542d] rounded-full ml-0.5"></span></span>
+        <span class="px-2 py-0.5 text-[10px] font-extrabold text-white bg-[#f2542d] rounded-full uppercase tracking-wider">ADMIN</span>
       </a>
 
+      <!-- Category Header -->
+      <div class="px-3 mb-2 text-[11px] font-bold text-[#5a5d6a] tracking-wider uppercase">
+        QUẢN LÝ
+      </div>
+
       <!-- Navigation Menu Items -->
-      <nav class="flex flex-col gap-1.5" id="adminSidebarNav">
+      <nav class="flex flex-col gap-1" id="adminSidebarNav">
         <a class="admin-nav-link" href="/admin/" data-match="/admin/">
           <span class="material-symbols-outlined text-xl">dashboard</span>
-          <span>Dashboard</span>
+          <span>Tổng quan</span>
         </a>
         <a class="admin-nav-link" href="/admin/products" data-match="/admin/products,/admin/loadAddProduct,/admin/editProduct">
           <span class="material-symbols-outlined text-xl">inventory_2</span>
           <span>Sản phẩm</span>
+        </a>
+        <a class="admin-nav-link" href="/admin/category" data-match="/admin/category,/admin/loadEditCategory">
+          <span class="material-symbols-outlined text-xl">category</span>
+          <span>Danh mục</span>
         </a>
         <a class="admin-nav-link" href="/admin/orders" data-match="/admin/orders,/admin/search-order">
           <span class="material-symbols-outlined text-xl">shopping_bag</span>
@@ -166,105 +141,76 @@ body.admin-luxury-body {
         </a>
         <a class="admin-nav-link" href="/admin/users?type=1" data-match="/admin/users,/admin/add-admin">
           <span class="material-symbols-outlined text-xl">group</span>
-          <span>Khách hàng</span>
-        </a>
-        <a class="admin-nav-link" href="/admin/chat" data-match="/admin/chat">
-          <span class="material-symbols-outlined text-xl">chat</span>
-          <span>CSKH Chat</span>
+          <span>Người dùng</span>
         </a>
         <a class="admin-nav-link" href="/admin/vouchers" data-match="/admin/vouchers">
           <span class="material-symbols-outlined text-xl">local_offer</span>
-          <span>Mã Voucher</span>
+          <span>Voucher</span>
         </a>
-        <a class="admin-nav-link" href="/admin/category" data-match="/admin/category,/admin/loadEditCategory">
-          <span class="material-symbols-outlined text-xl">category</span>
-          <span>Danh mục</span>
-        </a>
-        <a class="admin-nav-link" href="/admin/profile" data-match="/admin/profile">
-          <span class="material-symbols-outlined text-xl">settings</span>
-          <span>Cài đặt</span>
+        <a class="admin-nav-link" href="/admin/chat" data-match="/admin/chat">
+          <span class="material-symbols-outlined text-xl">chat</span>
+          <span>Tin nhắn</span>
         </a>
       </nav>
     </div>
 
-    <!-- Bottom Store Link & Version -->
-    <div class="pt-4 border-t border-[#F1F5F9] flex flex-col gap-2">
-      <a href="/" class="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-[#996515] bg-[#FDF8E7] hover:bg-[#F5E6B3] rounded-lg transition-all text-decoration-none">
-        <span class="material-symbols-outlined text-sm">storefront</span>
-        <span>Xem Cửa Hàng (Storefront)</span>
-      </a>
-      <div class="text-[11px] text-[#9CA3AF] text-center font-mono">
-        v2.4.0 Luxury Edition
+    <!-- Bottom User Card -->
+    <div class="pt-3 border-t border-[#262833] flex items-center justify-between px-2">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-full bg-[#f2542d] text-white flex items-center justify-center font-bold text-xs shadow-sm">
+          AE
+        </div>
+        <div>
+          <div class="text-xs font-bold text-white leading-tight" th:text="${user != null ? user.name : 'Admin Ecom'}">Admin Ecom</div>
+          <div class="text-[11px] text-[#9194a1]">Quản trị viên</div>
+        </div>
       </div>
+      <a href="/logout" class="p-1.5 text-[#9194a1] hover:text-white transition-colors" title="Đăng xuất">
+        <span class="material-symbols-outlined text-lg">logout</span>
+      </a>
     </div>
   </aside>
 
   <!-- 2. MAIN WRAPPER -->
-  <div class="flex-1 flex flex-col h-screen overflow-hidden bg-[#F8FAFC]">
+  <div class="flex-1 flex flex-col h-screen overflow-hidden bg-[#faf8f5]">
 
     <!-- TopNavBar Header (White) -->
-    <header class="flex justify-between items-center w-full px-6 py-3.5 bg-white border-b border-[#E5E7EB] shrink-0 z-30 shadow-xs">
+    <header class="flex justify-between items-center w-full px-6 py-3.5 bg-white border-b border-[#e9e3d9] shrink-0 z-30">
       <div class="flex items-center gap-3">
         <a href="/admin/" class="md:hidden flex items-center gap-2 text-decoration-none">
-          <div class="w-8 h-8 rounded-lg bg-[#D4AF37] flex items-center justify-center text-[#111111] font-extrabold text-sm">E</div>
-          <span class="text-base font-extrabold font-headline text-[#111827]">E-COMMERCE</span>
+          <span class="text-xl font-extrabold text-[#17181f]">ecom<span class="inline-block w-1.5 h-1.5 bg-[#f2542d] rounded-full"></span></span>
+          <span class="px-1.5 py-0.5 text-[9px] font-bold text-white bg-[#f2542d] rounded-full">ADMIN</span>
         </a>
-        <h2 class="text-lg font-headline font-bold text-[#111827] hidden sm:block mb-0" id="adminHeaderTitle">Bảng điều khiển</h2>
+        <h2 class="text-lg font-headline font-bold text-[#17181f] hidden sm:block mb-0" id="adminHeaderTitle">Hệ thống Quản trị</h2>
       </div>
 
       <!-- Right Controls -->
-      <div class="flex items-center gap-4">
-        <a href="/admin/orders" class="p-2 rounded-full hover:bg-[#FDF8E7] text-[#996515] transition-all duration-200 relative text-decoration-none" title="Đơn hàng & Thông báo">
-          <span class="material-symbols-outlined text-xl">notifications</span>
-          <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
+      <div class="flex items-center gap-3">
+        <a href="/admin/orders" class="w-9 h-9 rounded-full bg-[#f3efe8] hover:bg-[#e9e3d9] text-[#17181f] flex items-center justify-center transition-all relative text-decoration-none" title="Thông báo">
+          <span class="material-symbols-outlined text-lg">notifications</span>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-[#f2542d] rounded-full"></span>
         </a>
-        <a href="/admin/profile" class="p-2 rounded-full hover:bg-[#FDF8E7] text-[#996515] transition-all duration-200 text-decoration-none" title="Cài đặt">
-          <span class="material-symbols-outlined text-xl">settings</span>
+        <a href="/" class="w-9 h-9 rounded-full bg-[#f3efe8] hover:bg-[#e9e3d9] text-[#17181f] flex items-center justify-center transition-all text-decoration-none" title="Xem Cửa hàng">
+          <span class="material-symbols-outlined text-lg">storefront</span>
         </a>
-
-        <!-- Profile Avatar & Dropdown -->
-        <div class="dropdown pl-3 border-l border-[#E5E7EB]">
-          <a href="#" class="flex items-center gap-2.5 text-decoration-none dropdown-toggle text-[#111827]" data-bs-toggle="dropdown" aria-expanded="false">
-            <img class="w-9 h-9 rounded-full object-cover border-2 border-[#D4AF37] shadow-sm"
-                 th:src="${user != null and user.profileImage != null ? '/img/profile_img/' + user.profileImage : '/img/profile_img/ecom.png'}"
-                 onerror="this.onerror=null;this.src='/img/profile_img/ecom.png';"
-                 alt="Admin VIP Avatar"/>
-            <span class="text-sm font-bold text-[#111827] hidden sm:inline" th:text="${user != null ? user.name : 'Admin VIP'}">Admin VIP</span>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end bg-white border border-[#E5E7EB] rounded-xl shadow-lg py-2">
-            <li>
-              <a class="dropdown-item text-xs text-dark py-2" href="/admin/profile">
-                <i class="fa-solid fa-user-gear me-2 text-warning"></i>Hồ sơ quản trị
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item text-xs text-dark py-2" href="/">
-                <i class="fa-solid fa-store me-2 text-warning"></i>Trang mua sắm
-              </a>
-            </li>
-            <li><hr class="dropdown-divider"></li>
-            <li>
-              <a class="dropdown-item text-xs text-danger py-2" href="/logout">
-                <i class="fa-solid fa-right-from-bracket me-2"></i>Đăng xuất
-              </a>
-            </li>
-          </ul>
-        </div>
+        <a href="/admin/profile" class="w-9 h-9 rounded-full bg-[#f2542d] text-white flex items-center justify-center font-bold text-xs text-decoration-none shadow-xs">
+          AE
+        </a>
       </div>
     </header>
 
-    <!-- 3. MAIN CONTENT CANVAS (White / Light Luxury Canvas) -->
-    <main class="admin-luxury-canvas flex-1 overflow-y-auto p-4 md:p-6 bg-[#F8FAFC]">
+    <!-- 3. MAIN CONTENT CANVAS -->
+    <main class="admin-luxury-canvas flex-1 overflow-y-auto p-4 md:p-6 bg-[#faf8f5]">
       <div th:replace="${content}"></div>
     </main>
 
-    <!-- 4. FOOTER (White Ultra-Compact) -->
-    <footer class="flex justify-between items-center w-full px-6 py-1 bg-white border-t border-[#E5E7EB] shrink-0 text-[10px] text-[#6B7280]">
-      <p class="mb-0">© 2026 E-COMMERCE. All rights reserved.</p>
+    <!-- 4. FOOTER (Admin) -->
+    <footer class="flex justify-between items-center w-full px-6 py-2 bg-white border-t border-[#e9e3d9] shrink-0 text-[11px] text-[#9194a1]">
+      <p class="mb-0">© 2026 ecom. Mọi quyền được bảo lưu.</p>
       <div class="flex items-center gap-3">
-        <a class="hover:text-[#996515] transition-all text-[#6B7280] text-decoration-none" href="/admin/chat">Hỗ trợ</a>
-        <a class="hover:text-[#996515] transition-all text-[#6B7280] text-decoration-none" href="/admin/profile">Bảo mật</a>
-        <a class="hover:text-[#996515] transition-all text-[#6B7280] text-decoration-none" href="/">Điều khoản</a>
+        <a class="hover:text-[#f2542d] transition-all text-[#9194a1] text-decoration-none" href="/admin/chat">Hỗ trợ</a>
+        <a class="hover:text-[#f2542d] transition-all text-[#9194a1] text-decoration-none" href="/admin/profile">Cài đặt</a>
+        <a class="hover:text-[#f2542d] transition-all text-[#9194a1] text-decoration-none" href="/">Cửa hàng</a>
       </div>
     </footer>
 

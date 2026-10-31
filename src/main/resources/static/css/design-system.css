@@ -1,618 +1,916 @@
 @charset "UTF-8";
 /**
  * ==========================================================================
- * E-COMMERCE — STITCH DESIGN SYSTEM TOKENS (assets/5508266315984636317)
- * Generated from DESIGN.md & Stitch Project 16866206833056503532
- * Theme: Luxury Corporate Black & Gold (#111111 & #D4AF37)
- * Typography: Plus Jakarta Sans (Headline/Display) & Be Vietnam Pro (Body/Label)
+ * E-COMMERCE (ecom.) — FIGMA DESIGN SYSTEM TOKENS (Version 2.0)
+ * Updated to match Figma file: 2Dq0a3iBOFqkoSOr4urbYM
+ * Brand Palette: Warm Vermilion Coral (#f2542d), Deep Ink (#17181f), Soft Canvas (#faf8f5)
+ * Typography: Be Vietnam Pro & Plus Jakarta Sans
  * ==========================================================================
  */
 
 :root {
-    /* 1. Core Brand Tokens (Luxury Black & Gold) */
-    --gold-primary: #D4AF37;
-    --gold-light: #F5D77F;
-    --gold-dark: #996515;
-    --gold-gradient: linear-gradient(135deg, #F3C644 0%, #D4AF37 50%, #B8860B 100%);
-    --gold-gradient-hover: linear-gradient(135deg, #FFD700 0%, #E5C158 50%, #C69500 100%);
+    /* 1. Brand Tokens */
+    --brand-primary: #f2542d;
+    --brand-primary-hover: #d9431f;
+    --brand-soft: #ffede6;
+    --brand-deep: #8a2a12;
+    --brand-tint: #fff1eb;
 
-    --bg-dark: #111111;
-    --bg-dark-surface: #1A1A1A;
-    --bg-dark-card: #222222;
-    --dark-gradient: linear-gradient(145deg, #1C1C1C 0%, #0E0E0E 100%);
+    /* 2. Neutral & Canvas Tokens */
+    --bg-page: #faf8f5;
+    --bg-surface: #ffffff;
+    --bg-subtle: #f3efe8;
+    --bg-ink: #17181f;
+    --bg-ink-2: #262833;
 
-    /* 2. Stitch Dynamic Color Tokens (Light Canvas + Gold/Dark Accents) */
-    --ds-primary: #705900;
-    --ds-primary-dim: #624d00;
-    --ds-primary-container: #f5ce53;
-    --ds-on-primary: #fff1d4;
-    --ds-on-primary-container: #584500;
-    --ds-primary-fixed: #f5ce53;
-    --ds-primary-fixed-dim: #e6c047;
-    --ds-inverse-primary: #f5ce53;
+    /* 3. Border Tokens */
+    --border-default: #e9e3d9;
+    --border-strong: #d3cbbb;
 
-    --ds-secondary: #5c5b5b;
-    --ds-secondary-dim: #504f4f;
-    --ds-secondary-container: #e5e2e1;
-    --ds-on-secondary: #f5f2f1;
-    --ds-on-secondary-container: #525151;
+    /* 4. Text Tokens */
+    --text-primary: #17181f;
+    --text-secondary: #5a5d6a;
+    --text-muted: #9194a1;
+    --text-inverse: #ffffff;
+    --text-inverse-muted: #b4b7c4;
 
-    --ds-tertiary: #ba0012;
-    --ds-tertiary-dim: #a4000e;
-    --ds-tertiary-container: #ff9287;
-    --ds-on-tertiary: #ffefed;
-    --ds-on-tertiary-container: #690006;
+    /* 5. Functional & Feedback Tokens */
+    --success-default: #12a150;
+    --success-soft: #e3f6ea;
+    --warning-default: #c77d00;
+    --warning-soft: #fef3d7;
+    --danger-default: #e5484d;
+    --danger-soft: #fde8e8;
+    --info-default: #2f6fed;
+    --info-soft: #e6eeff;
+    --accent-gold: #f5a524;
 
-    --ds-surface: #f6f6f6;
-    --ds-surface-bright: #f6f6f6;
-    --ds-surface-dim: #d3d5d5;
-    --ds-surface-container-lowest: #ffffff;
-    --ds-surface-container-low: #f0f1f1;
-    --ds-surface-container: #e7e8e8;
-    --ds-surface-container-high: #e1e3e3;
-    --ds-surface-container-highest: #dbdddd;
-    --ds-on-surface: #2d2f2f;
-    --ds-on-surface-variant: #5a5c5c;
-    --ds-inverse-surface: #0c0f0f;
-    --ds-inverse-on-surface: #9c9d9d;
+    /* 6. Pastel Category Tints */
+    --tint-peach: #ffe3d6;
+    --tint-mint: #d9f2e6;
+    --tint-sky: #dcebff;
+    --tint-lilac: #e9e1fa;
+    --tint-sand: #f1e7d3;
+    --tint-rose: #fbdde5;
+    --tint-lemon: #fff1bf;
 
-    --ds-outline: #767777;
-    --ds-outline-variant: #acadad;
-    --ds-error: #b02500;
-    --ds-error-container: #f95630;
-    --ds-on-error: #ffefec;
+    /* 7. Typography */
+    --font-main: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-heading: 'Be Vietnam Pro', 'Plus Jakarta Sans', sans-serif;
 
-    /* 3. Typography Tokens */
-    --font-headline: 'Plus Jakarta Sans', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-display: 'Plus Jakarta Sans', 'Be Vietnam Pro', sans-serif;
-    --font-body: 'Be Vietnam Pro', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-label: 'Be Vietnam Pro', sans-serif;
-
-    --type-display-lg-size: 2.5rem;
-    --type-display-lg-weight: 800;
-    --type-display-lg-lh: 1.2;
-
-    --type-headline-md-size: 1.75rem;
-    --type-headline-md-weight: 700;
-    --type-headline-md-lh: 1.3;
-
-    --type-title-md-size: 1.125rem;
-    --type-title-md-weight: 700;
-    --type-title-md-lh: 1.4;
-
-    --type-body-md-size: 0.95rem;
-    --type-body-md-weight: 400;
-    --type-body-md-lh: 1.6;
-
-    --type-label-sm-size: 0.82rem;
-    --type-label-sm-weight: 600;
-    --type-label-sm-lh: 1.4;
-
-    /* 4. Shape & Corner Roundness Tokens (ROUND_TWELVE+) */
-    --radius-xs: 6px;
+    /* 8. Radii */
     --radius-sm: 8px;
-    --radius-md: 14px;
-    --radius-lg: 18px;
-    --radius-xl: 24px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-2xl: 24px;
     --radius-pill: 9999px;
 
-    /* 5. Elevation & Luxury Gold Glow Tokens */
-    --elevation-1: 0 2px 8px rgba(0, 0, 0, 0.04);
-    --elevation-2: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.02);
-    --elevation-gold-hover: 0 20px 35px -8px rgba(212, 175, 55, 0.22), 0 8px 16px rgba(0, 0, 0, 0.06);
-    --elevation-dark: 0 20px 40px rgba(0, 0, 0, 0.4);
+    /* 9. Shadows */
+    --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-card: 0 4px 16px rgba(23, 24, 31, 0.04);
+    --shadow-card-hover: 0 12px 30px rgba(23, 24, 31, 0.08);
+    --shadow-dropdown: 0 10px 30px rgba(0, 0, 0, 0.12);
 
-    /* 6. Spacing Scale (8px baseline) */
-    --space-1: 0.25rem;
-    --space-2: 0.5rem;
-    --space-3: 0.75rem;
-    --space-4: 1rem;
-    --space-5: 1.5rem;
-    --space-6: 2rem;
-    --space-8: 3rem;
-}
-
-/* Reusable Design System Utility Classes */
-.ds-surface-dark {
-    background: var(--dark-gradient);
-    color: #FFFFFF;
-    border: 1px solid rgba(212, 175, 55, 0.28);
-}
-
-.ds-surface-card {
-    background: var(--ds-surface-container-lowest);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--elevation-2);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.ds-surface-card:hover {
-    box-shadow: var(--elevation-gold-hover);
-    border-color: rgba(212, 175, 55, 0.45);
-}
-
-.ds-headline {
-    font-family: var(--font-headline);
-    font-weight: var(--type-headline-md-weight);
-    letter-spacing: -0.02em;
-}
-
-.ds-badge-gold {
-    background: rgba(212, 175, 55, 0.15);
-    color: var(--gold-primary);
-    border: 1px solid rgba(212, 175, 55, 0.35);
-    border-radius: var(--radius-pill);
-    font-family: var(--font-label);
-    font-size: var(--type-label-sm-size);
-    font-weight: var(--type-label-sm-weight);
-    padding: 0.25rem 0.75rem;
+    /* Compatibility variables */
+    --gold-primary: var(--brand-primary);
+    --gold-light: var(--brand-soft);
+    --gold-dark: var(--brand-deep);
+    --gold-gradient: linear-gradient(135deg, #f2542d 0%, #ff7b54 100%);
+    --bg-dark: var(--bg-ink);
+    --bg-dark-surface: var(--bg-ink-2);
+    --dark-gradient: linear-gradient(145deg, #17181f 0%, #262833 100%);
+    --price-color: var(--brand-primary);
 }
 
 /* ==========================================================================
-   STITCH COMPONENT SYSTEM (Applied from stitch-designs/*.html)
+   Base & Resets
    ========================================================================== */
+body {
+    font-family: var(--font-main) !important;
+    background-color: var(--bg-page) !important;
+    color: var(--text-primary) !important;
+    line-height: 1.6;
+    padding-top: 0 !important;
+    -webkit-font-smoothing: antialiased;
+}
 
-/* 1. Luxury Split Auth Card (06-auth-login.html & 07-auth-register.html) */
-.ds-auth-split-card {
-    background: #FFFFFF;
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(212, 175, 55, 0.22);
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading) !important;
+    color: var(--text-primary);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+/* ==========================================================================
+   Announcement Bar (Top Header)
+   ========================================================================== */
+.announcement-bar {
+    background-color: var(--bg-ink);
+    color: #ffffff;
+    font-size: 0.78rem;
+    padding: 0.5rem 0;
+    letter-spacing: 0.01em;
+}
+
+.announcement-bar a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.announcement-bar a:hover {
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   Brand Logo
+   ========================================================================== */
+.brand-logo-text {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.65rem;
+    color: var(--text-primary);
+    letter-spacing: -0.04em;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.brand-logo-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--brand-primary);
+    border-radius: 50%;
+    margin-left: 2px;
+    margin-bottom: -4px;
+}
+
+/* ==========================================================================
+   Header & Navigation
+   ========================================================================== */
+.luxury-navbar {
+    background: #ffffff !important;
+    border-bottom: 1px solid var(--border-default) !important;
+    box-shadow: var(--shadow-subtle) !important;
+    padding: 0.75rem 0 !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1030 !important;
+}
+
+.sub-navbar {
+    background: #ffffff;
+    border-bottom: 1px solid var(--border-default);
+    padding: 0.45rem 0;
+    font-size: 0.88rem;
+}
+
+.btn-category-menu {
+    background: var(--bg-ink);
+    color: #ffffff !important;
+    font-weight: 600;
+    font-size: 0.84rem;
+    padding: 0.4rem 1rem;
+    border-radius: var(--radius-pill);
     border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    transition: background 0.15s;
 }
 
-.ds-auth-banner {
-    background-color: #111111;
-    background-image:
-        radial-gradient(rgba(212, 175, 55, 0.20) 1px, transparent 1px),
-        linear-gradient(155deg, #161616 0%, #0A0A0A 100%);
-    background-size: 24px 24px, 100% 100%;
-    color: #FFFFFF;
+.btn-category-menu:hover {
+    background: var(--bg-ink-2);
+}
+
+.sub-nav-link {
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0.35rem 0.65rem;
+    border-radius: var(--radius-sm);
+    transition: all 0.15s;
+}
+
+.sub-nav-link:hover, .sub-nav-link.active {
+    color: var(--text-primary);
+    background: var(--bg-subtle);
+}
+
+.hot-promo-link {
+    color: var(--brand-primary) !important;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    text-decoration: none;
+}
+
+.hot-promo-link:hover {
+    color: var(--brand-primary-hover) !important;
+}
+
+/* Search bar */
+.nav-search-bar {
+    width: 100%;
+    max-width: 540px;
     position: relative;
-    overflow: hidden;
-    border-right: 1px solid rgba(212, 175, 55, 0.25);
 }
 
-.ds-auth-banner::before {
-    content: "";
+.nav-search-bar input {
+    background: var(--bg-subtle) !important;
+    border: 1px solid transparent !important;
+    border-radius: var(--radius-pill) !important;
+    padding: 0.6rem 1.2rem 0.6rem 2.6rem !important;
+    font-size: 0.88rem !important;
+    color: var(--text-primary) !important;
+    transition: all 0.2s ease !important;
+}
+
+.nav-search-bar input:focus {
+    background: #ffffff !important;
+    border-color: var(--brand-primary) !important;
+    box-shadow: 0 0 0 3px rgba(242, 84, 45, 0.15) !important;
+}
+
+.nav-search-bar .search-icon {
     position: absolute;
-    top: -120px;
-    left: -120px;
-    width: 320px;
-    height: 320px;
-    background: radial-gradient(circle, rgba(212, 175, 55, 0.22) 0%, transparent 70%);
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 0.9rem;
     pointer-events: none;
 }
 
-.ds-auth-banner::after {
-    content: "";
+/* Header icon buttons */
+.header-icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    background: transparent;
+    border: 1px solid transparent;
+    position: relative;
+    text-decoration: none;
+    transition: all 0.15s;
+}
+
+.header-icon-btn:hover {
+    background: var(--bg-subtle);
+    color: var(--brand-primary);
+}
+
+.header-badge {
     position: absolute;
-    bottom: -100px;
-    right: -100px;
-    width: 280px;
-    height: 280px;
-    background: radial-gradient(circle, rgba(212, 175, 55, 0.16) 0%, transparent 70%);
-    pointer-events: none;
-}
-
-.ds-auth-feature-item {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(212, 175, 55, 0.22);
-    border-radius: var(--radius-md);
-    padding: 0.85rem 1rem;
-    transition: all 0.25s ease;
-}
-
-.ds-auth-feature-item:hover {
-    background: rgba(212, 175, 55, 0.09);
-    border-color: rgba(212, 175, 55, 0.45);
-    transform: translateX(4px);
-}
-
-/* 2. Stitch Luxury Breadcrumb Bar (03-view-product.html & 04-user-cart.html) */
-.ds-breadcrumb-bar {
-    background: #FFFFFF;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-    padding: 0.75rem 0;
-    margin-bottom: 1.5rem;
-}
-
-.ds-breadcrumb {
+    top: 2px;
+    right: 2px;
+    background: var(--brand-primary);
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    font-size: 0.85rem;
-    font-weight: 500;
+    justify-content: center;
+    border: 2px solid #ffffff;
 }
 
-.ds-breadcrumb a {
-    color: var(--ds-secondary);
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.btn-brand, .btn-gold {
+    background: var(--brand-primary) !important;
+    border-color: var(--brand-primary) !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    border-radius: var(--radius-md) !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn-brand:hover, .btn-gold:hover {
+    background: var(--brand-primary-hover) !important;
+    border-color: var(--brand-primary-hover) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(242, 84, 45, 0.25) !important;
+}
+
+.btn-brand-outline, .btn-outline-gold {
+    background: transparent !important;
+    border: 1.5px solid var(--border-strong) !important;
+    color: var(--text-primary) !important;
+    font-weight: 600 !important;
+    border-radius: var(--radius-md) !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn-brand-outline:hover, .btn-outline-gold:hover {
+    background: var(--bg-subtle) !important;
+    border-color: var(--text-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+.btn-dark-brand {
+    background: var(--bg-ink) !important;
+    border-color: var(--bg-ink) !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    border-radius: var(--radius-md) !important;
+}
+
+.btn-dark-brand:hover {
+    background: var(--bg-ink-2) !important;
+    color: #ffffff !important;
+}
+
+/* ==========================================================================
+   Cards & Product Grid
+   ========================================================================== */
+.product-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+    box-shadow: var(--shadow-subtle);
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--border-strong);
+}
+
+.product-thumb-wrap {
+    aspect-ratio: 1 / 1;
+    background: var(--bg-subtle);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 1.25rem;
+}
+
+.product-thumb-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-thumb-wrap img {
+    transform: scale(1.05);
+}
+
+.ribbon-discount {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--brand-primary);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.72rem;
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    z-index: 5;
+    letter-spacing: -0.01em;
+}
+
+.card-wishlist-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--border-default);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    z-index: 5;
+    transition: all 0.15s;
     text-decoration: none;
-    transition: color 0.2s ease;
 }
 
-.ds-breadcrumb a:hover {
-    color: var(--gold-dark);
+.card-wishlist-btn:hover {
+    color: var(--brand-primary);
+    background: #ffffff;
+    transform: scale(1.1);
 }
 
-.ds-breadcrumb .ds-breadcrumb-sep {
-    color: #CBD5E1;
+.product-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 0.4rem;
+}
+
+.product-title:hover {
+    color: var(--brand-primary);
+}
+
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.6rem;
+}
+
+.product-rating .fa-star {
+    color: var(--accent-gold);
     font-size: 0.75rem;
 }
 
-.ds-breadcrumb .ds-breadcrumb-current {
-    color: #111111;
-    font-weight: 700;
+.price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
-/* 3. Animated Status Pulse Indicator (03-view-product.html & 14-admin-live-chat.html) */
-.ds-pulse-badge {
+.price-current {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--brand-primary);
+    font-family: var(--font-heading);
+}
+
+.price-old {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    text-decoration: line-through;
+}
+
+/* ==========================================================================
+   Bento Hero Section
+   ========================================================================== */
+.hero-bento-card-main {
+    background: var(--bg-ink);
+    border-radius: var(--radius-2xl);
+    color: #ffffff;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero-bento-badge {
+    color: var(--brand-primary);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.hero-bento-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    max-width: 520px;
+}
+
+.hero-bento-desc {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    max-width: 480px;
+}
+
+.hero-circle-deco {
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 320px;
+    height: 320px;
+    background: var(--brand-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 20px 50px rgba(242, 84, 45, 0.35);
+}
+
+.hero-side-card {
+    border-radius: var(--radius-xl);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px;
+    transition: transform 0.2s;
+    text-decoration: none;
+}
+
+.hero-side-card:hover {
+    transform: translateY(-3px);
+}
+
+.hero-side-card.bg-laptop {
+    background: var(--tint-sky);
+    color: #17181f;
+}
+
+.hero-side-card.bg-freeship {
+    background: var(--tint-mint);
+    color: #17181f;
+}
+
+.hero-side-tag {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 0.35rem;
+}
+
+.hero-side-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.hero-side-link {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-primary);
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
-    padding: 0.32rem 0.85rem;
-    border-radius: var(--radius-pill);
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
+    gap: 0.3rem;
 }
 
-.ds-pulse-badge-success {
-    background: rgba(16, 185, 129, 0.12);
-    color: #059669;
-    border: 1px solid rgba(16, 185, 129, 0.28);
-}
-
-.ds-pulse-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #10B981;
-    box-shadow: 0 0 0 rgba(16, 185, 129, 0.6);
-    animation: dsPulseEmerald 1.8s infinite;
-}
-
-@keyframes dsPulseEmerald {
-    0% {
-        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.65);
-    }
-    70% {
-        box-shadow: 0 0 0 7px rgba(16, 185, 129, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-    }
-}
-
-/* 4. Stitch VIP Dark-Gold Price Box (03-view-product.html) */
-.ds-vip-price-box {
-    background: linear-gradient(135deg, #161616 0%, #0D0D0D 100%);
-    border: 1px solid rgba(212, 175, 55, 0.35);
-    border-radius: var(--radius-lg);
-    padding: 1.35rem 1.5rem;
-    color: #FFFFFF;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
-}
-
-.ds-vip-price-box::after {
-    content: "";
-    position: absolute;
-    top: -50%;
-    right: -10%;
-    width: 180px;
-    height: 180px;
-    background: radial-gradient(circle, rgba(212, 175, 55, 0.18) 0%, transparent 70%);
-    pointer-events: none;
-}
-
-/* 5. Stitch Luxury Page Header Banner (User & Admin Consoles) */
-.ds-page-header {
-    background: linear-gradient(135deg, #141414 0%, #0A0A0A 100%);
-    border: 1px solid rgba(212, 175, 55, 0.32);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem 2rem;
-    color: #FFFFFF;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.14);
-}
-
-.ds-page-header::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 5px;
-    height: 100%;
-    background: var(--gold-gradient);
-}
-
-/* 6. Stitch Hero Guarantee Pill Bar (01-index.html) */
-.ds-hero-stats-bar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.25rem;
+/* ==========================================================================
+   Trust Bar
+   ========================================================================== */
+.trust-bar {
     margin-top: 1.75rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.ds-hero-stat-item {
+.trust-item {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-xl);
+    padding: 1.2rem 1.4rem;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(212, 175, 55, 0.22);
-    border-radius: var(--radius-md);
-    padding: 0.6rem 1rem;
+    gap: 1rem;
+    box-shadow: var(--shadow-subtle);
+    transition: transform 0.2s;
 }
 
-.ds-hero-stat-icon {
+.trust-item:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-strong);
+}
+
+.trust-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--bg-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--brand-primary);
+    flex-shrink: 0;
+}
+
+.trust-title {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--text-primary);
+    margin-bottom: 0.15rem;
+}
+
+.trust-desc {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   Flash Sale Section
+   ========================================================================== */
+.flash-sale-box {
+    background: var(--brand-tint);
+    border: 1px solid rgba(242, 84, 45, 0.2);
+    border-radius: var(--radius-2xl);
+    padding: 2rem 2.25rem;
+    margin-top: 2.5rem;
+}
+
+.flash-sale-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.flash-title {
+    font-size: 1.45rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--text-primary);
+}
+
+.flash-title .flash-icon-box {
     width: 36px;
     height: 36px;
-    border-radius: 10px;
-    background: rgba(212, 175, 55, 0.15);
-    color: var(--gold-primary);
+    border-radius: 50%;
+    background: var(--brand-primary);
+    color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1rem;
 }
 
-/* ==========================================================================
-   7. WHITE & GOLD LUXURY THEME OVERRIDES (NỀN TRẮNG SANG TRỌNG ĐỒNG BỘ)
-   ========================================================================== */
-:root {
-    --bg-canvas: #FFFFFF !important;
-    --bg-surface: #FFFFFF !important;
-    --dark-gradient: linear-gradient(145deg, #FFFFFF 0%, #FDF8E7 100%) !important;
-}
-
-body {
-    background-color: #FFFFFF !important;
-    color: #111827 !important;
-}
-
-/* White & Gold Luxury Navbar */
-.luxury-navbar {
-    background: rgba(255, 255, 255, 0.97) !important;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.38) !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
-}
-
-.luxury-navbar .navbar-brand {
-    color: #111827 !important;
-}
-
-.luxury-navbar .nav-link {
-    color: #374151 !important;
-    font-weight: 600 !important;
-}
-
-.luxury-navbar .nav-link:hover,
-.luxury-navbar .nav-link.active {
-    color: #996515 !important;
-    background: #FDF8E7 !important;
-}
-
-.luxury-navbar .dropdown-menu {
-    background: #FFFFFF !important;
-    border: 1px solid #E5E7EB !important;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1) !important;
-}
-
-.luxury-navbar .dropdown-item {
-    color: #374151 !important;
-}
-
-.luxury-navbar .dropdown-item:hover {
-    background: #FDF8E7 !important;
-    color: #996515 !important;
-}
-
-.luxury-navbar .dropdown-divider {
-    border-color: #F1F5F9 !important;
-}
-
-.nav-search-bar input {
-    background: #F8FAFC !important;
-    border: 1px solid #D1D5DB !important;
-    color: #111827 !important;
-}
-
-.nav-search-bar input::placeholder {
-    color: #6B7280 !important;
-}
-
-.nav-search-bar input:focus {
-    background: #FFFFFF !important;
-    border-color: #D4AF37 !important;
-    color: #111827 !important;
-}
-
-/* White & Gold Page Header & Card Headers */
-.ds-page-header,
-.ds-surface-dark,
-.card-header[style*="var(--dark-gradient)"],
-div[style*="var(--dark-gradient)"] {
-    background: #FFFFFF !important;
-    color: #111827 !important;
-    border: 1px solid #E5E7EB !important;
-    border-bottom: 2px solid #D4AF37 !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
-}
-
-.ds-page-header h3,
-.ds-page-header h4,
-.ds-page-header h5,
-.ds-page-header .text-white,
-.card-header[style*="var(--dark-gradient)"] h4,
-.card-header[style*="var(--dark-gradient)"] h5,
-.card-header[style*="var(--dark-gradient)"] h6,
-.card-header[style*="var(--dark-gradient)"] p,
-.card-header[style*="var(--dark-gradient)"] .text-white,
-div[style*="var(--dark-gradient)"] h4,
-div[style*="var(--dark-gradient)"] h5,
-div[style*="var(--dark-gradient)"] .text-white {
-    color: #111827 !important;
-}
-
-.ds-page-header .text-white-50,
-.card-header[style*="var(--dark-gradient)"] .text-white-50,
-div[style*="var(--dark-gradient)"] .text-white-50 {
-    color: #6B7280 !important;
-}
-
-.ds-page-header .btn-outline-light,
-.card-header .btn-outline-light {
-    color: #374151 !important;
-    border-color: #D1D5DB !important;
-    background: #F9FAFB !important;
-}
-
-.ds-page-header .btn-outline-light:hover,
-.card-header .btn-outline-light:hover {
-    background: #FDF8E7 !important;
-    border-color: #D4AF37 !important;
-    color: #996515 !important;
-}
-
-/* White & Gold Auth Split Banner (Login & Register) */
-.ds-auth-banner {
-    background: linear-gradient(155deg, #FFFDF7 0%, #FDF8E7 100%) !important;
-    color: #111827 !important;
-    border-right: 1px solid rgba(212, 175, 55, 0.3) !important;
-}
-
-.ds-auth-banner h2,
-.ds-auth-banner .text-white,
-.ds-auth-banner strong.text-white {
-    color: #111827 !important;
-}
-
-.ds-auth-banner .text-white-50 {
-    color: #4B5563 !important;
-}
-
-.ds-auth-feature-item {
-    background: #FFFFFF !important;
-    border: 1px solid rgba(212, 175, 55, 0.3) !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
-}
-
-/* White & Gold VIP Price Box (Product Detail) */
-.ds-vip-price-box {
-    background: #FFFDF7 !important;
-    border: 1px solid rgba(212, 175, 55, 0.45) !important;
-    color: #111827 !important;
-    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.1) !important;
-}
-
-.ds-vip-price-box .text-white,
-.ds-vip-price-box .text-white-50 {
-    color: #4B5563 !important;
-}
-
-/* White & Gold Flash Sale & Promo Section */
-.flash-sale-box,
-.promo-banner-section {
-    background: linear-gradient(135deg, #FFFFFF 0%, #FDF8E7 100%) !important;
-    border: 1px solid rgba(212, 175, 55, 0.45) !important;
-    color: #111827 !important;
-    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.12) !important;
-}
-
-.flash-title,
-.promo-title,
-.promo-banner-section .text-white,
-.flash-sale-box .text-white {
-    color: #111827 !important;
-}
-
-.promo-banner-section .text-white-50,
-.flash-sale-box .text-white-50 {
-    color: #4B5563 !important;
-}
-
 .countdown-box {
-    background: #FFFFFF !important;
-    border: 1px solid #D4AF37 !important;
-    color: #996515 !important;
-    box-shadow: 0 2px 6px rgba(212, 175, 55, 0.15) !important;
+    background: var(--bg-ink);
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1rem;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* White & Gold Ultra-Compact Footer */
+.countdown-sep {
+    font-weight: 800;
+    color: var(--text-primary);
+    padding: 0 4px;
+}
+
+/* ==========================================================================
+   Featured Categories
+   ========================================================================== */
+.category-card-modern {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    box-shadow: var(--shadow-subtle);
+    transition: all 0.2s ease;
+}
+
+.category-card-modern:hover {
+    transform: translateY(-4px);
+    border-color: var(--brand-primary);
+    box-shadow: var(--shadow-card-hover);
+}
+
+.category-img-box {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: var(--bg-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+    font-size: 1.6rem;
+    transition: transform 0.2s;
+}
+
+.category-card-modern:hover .category-img-box {
+    transform: scale(1.08);
+}
+
+.category-name {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* ==========================================================================
+   Membership CTA Banner
+   ========================================================================== */
+.membership-cta-banner {
+    background: var(--brand-primary);
+    border-radius: var(--radius-2xl);
+    padding: 3rem 3.5rem;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    box-shadow: 0 12px 36px rgba(242, 84, 45, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+.membership-cta-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.membership-cta-sub {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 580px;
+    margin: 0;
+}
+
+/* ==========================================================================
+   Footer (Deep Dark Ink #17181f)
+   ========================================================================== */
 .luxury-footer {
-    background: #FFFFFF !important;
-    color: #4B5563 !important;
-    border-top: 1px solid #E5E7EB !important;
-    border-top-color: rgba(212, 175, 55, 0.35) !important;
-    padding-top: 0.6rem !important;
-    padding-bottom: 0.4rem !important;
-    font-size: 0.78rem !important;
+    background: var(--bg-ink) !important;
+    color: #b4b7c4 !important;
+    border-top: none !important;
+    padding-top: 4rem !important;
+    padding-bottom: 2rem !important;
+    font-size: 0.88rem !important;
+    margin-top: 4rem !important;
 }
 
-.luxury-footer .footer-title,
-.luxury-footer .text-white {
-    color: #111827 !important;
-    font-size: 0.82rem !important;
-    margin-bottom: 0.4rem !important;
-}
-
-.luxury-footer .footer-title::after {
-    bottom: -3px !important;
-    width: 20px !important;
+.luxury-footer .footer-title {
+    color: #ffffff !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 1.25rem !important;
+    text-transform: none !important;
 }
 
 .luxury-footer a {
-    color: #4B5563 !important;
-    margin-bottom: 0 !important;
-    font-size: 0.78rem !important;
+    color: #b4b7c4 !important;
+    text-decoration: none !important;
+    display: block !important;
+    margin-bottom: 0.5rem !important;
+    font-size: 0.86rem !important;
+    transition: color 0.15s !important;
 }
 
 .luxury-footer a:hover {
-    color: #996515 !important;
-}
-
-.footer-inline-nav .nav-link {
-    color: #4B5563 !important;
-    font-size: 0.78rem !important;
-    transition: color 0.15s ease-in-out;
-}
-
-.footer-inline-nav .nav-link:hover {
-    color: #996515 !important;
+    color: #ffffff !important;
 }
 
 .footer-social-btn {
-    width: 26px !important;
-    height: 26px !important;
-    font-size: 0.7rem !important;
-    margin-right: 0.15rem !important;
-    background: #FDF8E7 !important;
-    color: #996515 !important;
-    border-color: rgba(212, 175, 55, 0.4) !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    background: #262833 !important;
+    color: #ffffff !important;
+    border: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-right: 0.4rem !important;
+    transition: all 0.2s !important;
+}
+
+.footer-social-btn:hover {
+    background: var(--brand-primary) !important;
+    color: #ffffff !important;
+    transform: translateY(-2px);
 }
 
 .footer-bottom {
-    border-top: 1px solid #F3F4F6 !important;
-    color: #9CA3AF !important;
-    padding-top: 0.35rem !important;
-    margin-top: 0.35rem !important;
-    font-size: 0.7rem !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #7a7d8d !important;
+    padding-top: 1.5rem !important;
+    margin-top: 3rem !important;
+    font-size: 0.82rem !important;
 }
 
-.footer-bottom .badge.bg-dark,
-.footer-bottom .badge.bg-light {
-    background: #F9FAFB !important;
-    color: #374151 !important;
-    border-color: #E5E7EB !important;
+/* ==========================================================================
+   Admin Console Layout Tokens
+   ========================================================================== */
+.admin-sidebar {
+    background: var(--bg-ink) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff;
 }
 
+.admin-sidebar-header {
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
 
+.admin-badge-pill {
+    background: var(--brand-primary);
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: var(--radius-pill);
+    letter-spacing: 0.05em;
+}
+
+.admin-nav-link {
+    color: #b4b7c4 !important;
+    font-weight: 500;
+    font-size: 0.88rem;
+    padding: 0.7rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-radius: var(--radius-md);
+    margin: 0.15rem 0.75rem;
+    text-decoration: none;
+    transition: all 0.15s;
+}
+
+.admin-nav-link:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff !important;
+}
+
+.admin-nav-link.active {
+    background: var(--bg-ink-2) !important;
+    color: #ffffff !important;
+    font-weight: 600;
+    border-left: 3px solid var(--brand-primary);
+}
+
+.admin-nav-link.active i {
+    color: var(--brand-primary) !important;
+}
+
+.admin-header {
+    background: #ffffff !important;
+    border-bottom: 1px solid var(--border-default) !important;
+    padding: 1rem 1.75rem !important;
+}
+
+.admin-canvas {
+    background: var(--bg-page) !important;
+}
+
+.admin-kpi-card {
+    background: #ffffff;
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-subtle);
+    transition: transform 0.2s;
+}
+
+.admin-kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
+}
+
+.admin-kpi-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>E-COMMERCE — Bảng điều khiển Quản trị Luxury</title>
+<title>ecom. — Hệ thống Quản trị Bán hàng</title>
 
 <!-- Google Fonts & Material Symbols & FontAwesome -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,18 +22,20 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        "primary": "#D4AF37",
-        "primary-dark": "#996515",
-        "background": "#F8FAFC",
-        "surface": "#FFFFFF",
-        "surface-border": "#E5E7EB"
+        "brand": "#f2542d",
+        "brand-hover": "#d9431f",
+        "ink": "#17181f",
+        "ink-light": "#262833",
+        "page": "#faf8f5",
+        "surface": "#ffffff",
+        "border-color": "#e9e3d9"
       },
       borderRadius: {
         "xl": "1rem",
         "2xl": "1.25rem"
       },
       fontFamily: {
-        headline: ["Plus Jakarta Sans", "sans-serif"],
+        headline: ["Be Vietnam Pro", "Plus Jakarta Sans", "sans-serif"],
         body: ["Be Vietnam Pro", "sans-serif"]
       }
     }
@@ -50,424 +52,366 @@ tailwind.config = {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F8FAFC;
+  background: #faf8f5;
 }
 ::-webkit-scrollbar-thumb {
   background: #CBD5E1;
   border-radius: 9999px;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: #D4AF37;
-}
 </style>
 </head>
-<body class="bg-[#F8FAFC] text-[#111827] font-body h-full flex flex-col md:flex-row overflow-hidden selection:bg-[#D4AF37] selection:text-[#111111]">
+<body class="bg-[#faf8f5] text-[#17181f] font-body h-full flex flex-col md:flex-row overflow-hidden selection:bg-[#f2542d] selection:text-white">
 
-<!-- 1. LEFT SIDEBAR (White & Gold Luxury Admin Sidebar) -->
-<aside class="hidden md:flex flex-col w-64 h-screen p-4 bg-white border-r border-[#E5E7EB] shrink-0 justify-between shadow-sm z-20">
+<!-- 1. LEFT SIDEBAR (Deep Ink #17181f - Figma Spec) -->
+<aside class="hidden md:flex flex-col w-64 h-screen p-4 bg-[#17181f] text-white shrink-0 justify-between z-20">
   <div>
     <!-- Brand Header -->
-    <a href="/admin/" class="flex items-center gap-3 px-2 py-3 mb-5 border-b border-[#F1F5F9] no-underline">
-      <div class="w-10 h-10 rounded-xl bg-[#D4AF37] flex items-center justify-center text-[#111111] font-headline font-extrabold text-xl shadow-sm">
-        E
-      </div>
-      <div>
-        <h1 class="text-base font-extrabold font-headline text-[#111827] tracking-wider mb-0 leading-tight">E-COMMERCE</h1>
-        <p class="text-xs text-[#996515] font-semibold mb-0">Luxury Admin</p>
-      </div>
+    <a href="/admin/" class="flex items-center gap-2.5 px-3 py-3 mb-4 no-underline">
+      <span class="text-2xl font-extrabold tracking-tight text-white font-headline">ecom<span class="inline-block w-2 h-2 bg-[#f2542d] rounded-full ml-0.5"></span></span>
+      <span class="px-2 py-0.5 text-[10px] font-extrabold text-white bg-[#f2542d] rounded-full uppercase tracking-wider">ADMIN</span>
     </a>
 
+    <!-- Category Header -->
+    <div class="px-3 mb-2 text-[11px] font-bold text-[#5a5d6a] tracking-wider uppercase">
+      QUẢN LÝ
+    </div>
+
     <!-- Navigation Menu Items -->
-    <nav class="flex flex-col gap-1.5">
-      <!-- Dashboard (Active) -->
-      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl bg-[#D4AF37] text-[#111111] font-headline font-bold shadow-sm transition-all duration-200 no-underline" href="/admin/">
-        <span class="material-symbols-outlined text-xl">dashboard</span>
-        <span class="text-sm">Dashboard</span>
+    <nav class="flex flex-col gap-1">
+      <!-- Tổng quan (Active) -->
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-[#262833] text-white font-semibold shadow-xs transition-all no-underline" href="/admin/">
+        <span class="material-symbols-outlined text-xl text-[#f2542d]">dashboard</span>
+        <span class="text-sm">Tổng quan</span>
       </a>
 
       <!-- Sản phẩm -->
-      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#4B5563] hover:text-[#111827] hover:bg-[#FDF8E7] transition-all duration-200 no-underline font-medium" href="/admin/products">
-        <span class="material-symbols-outlined text-xl text-[#996515]">inventory_2</span>
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[#b4b7c4] hover:text-white hover:bg-[#262833]/60 transition-all no-underline font-medium" href="/admin/products">
+        <span class="material-symbols-outlined text-xl">inventory_2</span>
         <span class="text-sm">Sản phẩm</span>
       </a>
 
-      <!-- Đơn hàng -->
-      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#4B5563] hover:text-[#111827] hover:bg-[#FDF8E7] transition-all duration-200 no-underline font-medium" href="/admin/orders">
-        <span class="material-symbols-outlined text-xl text-[#996515]">shopping_bag</span>
-        <span class="text-sm">Đơn hàng</span>
-      </a>
-
-      <!-- Khách hàng -->
-      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#4B5563] hover:text-[#111827] hover:bg-[#FDF8E7] transition-all duration-200 no-underline font-medium" href="/admin/users?type=1">
-        <span class="material-symbols-outlined text-xl text-[#996515]">group</span>
-        <span class="text-sm">Khách hàng</span>
-      </a>
-
-      <!-- CSKH Chat -->
-      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#4B5563] hover:text-[#111827] hover:bg-[#FDF8E7] transition-all duration-200 no-underline font-medium" href="/admin/chat">
-        <span class="material-symbols-outlined text-xl text-[#996515]">chat</span>
-        <span class="text-sm">CSKH Chat</span>
-      </a>
-
-      <!-- Mã Voucher -->
-      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#4B5563] hover:text-[#111827] hover:bg-[#FDF8E7] transition-all duration-200 no-underline font-medium" href="/admin/vouchers">
-        <span class="material-symbols-outlined text-xl text-[#996515]">local_offer</span>
-        <span class="text-sm">Mã Voucher</span>
-      </a>
-
       <!-- Danh mục -->
-      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#4B5563] hover:text-[#111827] hover:bg-[#FDF8E7] transition-all duration-200 no-underline font-medium" href="/admin/category">
-        <span class="material-symbols-outlined text-xl text-[#996515]">category</span>
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[#b4b7c4] hover:text-white hover:bg-[#262833]/60 transition-all no-underline font-medium" href="/admin/category">
+        <span class="material-symbols-outlined text-xl">category</span>
         <span class="text-sm">Danh mục</span>
       </a>
 
-      <!-- Cài đặt -->
-      <a class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-[#4B5563] hover:text-[#111827] hover:bg-[#FDF8E7] transition-all duration-200 no-underline font-medium" href="/admin/profile">
-        <span class="material-symbols-outlined text-xl text-[#996515]">settings</span>
-        <span class="text-sm">Cài đặt</span>
+      <!-- Đơn hàng -->
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[#b4b7c4] hover:text-white hover:bg-[#262833]/60 transition-all no-underline font-medium" href="/admin/orders">
+        <span class="material-symbols-outlined text-xl">shopping_bag</span>
+        <span class="text-sm">Đơn hàng</span>
+      </a>
+
+      <!-- Người dùng -->
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[#b4b7c4] hover:text-white hover:bg-[#262833]/60 transition-all no-underline font-medium" href="/admin/users?type=1">
+        <span class="material-symbols-outlined text-xl">group</span>
+        <span class="text-sm">Người dùng</span>
+      </a>
+
+      <!-- Voucher -->
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[#b4b7c4] hover:text-white hover:bg-[#262833]/60 transition-all no-underline font-medium" href="/admin/vouchers">
+        <span class="material-symbols-outlined text-xl">local_offer</span>
+        <span class="text-sm">Voucher</span>
+      </a>
+
+      <!-- Tin nhắn -->
+      <a class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[#b4b7c4] hover:text-white hover:bg-[#262833]/60 transition-all no-underline font-medium" href="/admin/chat">
+        <span class="material-symbols-outlined text-xl">chat</span>
+        <span class="text-sm">Tin nhắn</span>
       </a>
     </nav>
   </div>
 
-  <!-- Bottom Version & Store Link -->
-  <div class="pt-4 border-t border-[#F1F5F9] flex flex-col gap-2">
-    <a href="/" class="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-[#996515] bg-[#FDF8E7] hover:bg-[#F5E6B3] rounded-lg transition-all no-underline">
-      <span class="material-symbols-outlined text-sm">storefront</span>
-      <span>Xem Cửa Hàng (Storefront)</span>
-    </a>
-    <div class="text-[11px] text-[#9CA3AF] text-center font-mono">
-      v2.4.0 Luxury Edition
+  <!-- Bottom Admin User Profile Card -->
+  <div class="pt-3 border-t border-[#262833] flex items-center justify-between px-2">
+    <div class="flex items-center gap-2.5">
+      <div class="w-9 h-9 rounded-full bg-[#f2542d] text-white flex items-center justify-center font-bold text-xs shadow-sm">
+        AE
+      </div>
+      <div>
+        <div class="text-xs font-bold text-white leading-tight" th:text="${user != null ? user.name : 'Admin Ecom'}">Admin Ecom</div>
+        <div class="text-[11px] text-[#9194a1]">Quản trị viên</div>
+      </div>
     </div>
+    <a href="/logout" class="p-1.5 text-[#9194a1] hover:text-white transition-colors" title="Đăng xuất">
+      <span class="material-symbols-outlined text-lg">logout</span>
+    </a>
   </div>
 </aside>
 
 <!-- 2. MAIN WRAPPER -->
-<div class="flex-1 flex flex-col h-screen overflow-hidden bg-[#F8FAFC]">
+<div class="flex-1 flex flex-col h-screen overflow-hidden bg-[#faf8f5]">
 
-  <!-- TopNavBar Header (White) -->
-  <header class="flex justify-between items-center w-full px-6 py-3.5 bg-white border-b border-[#E5E7EB] shrink-0 z-30 shadow-xs">
-    <div class="flex items-center gap-3">
-      <!-- Mobile Brand Logo -->
-      <a href="/admin/" class="md:hidden flex items-center gap-2 no-underline">
-        <div class="w-8 h-8 rounded-lg bg-[#D4AF37] flex items-center justify-center text-[#111111] font-extrabold text-sm">E</div>
-        <span class="text-base font-extrabold font-headline text-[#111827]">E-COMMERCE</span>
-      </a>
-      <h2 class="text-lg font-headline font-bold text-[#111827] hidden sm:block mb-0">Bảng điều khiển</h2>
+  <!-- TopNavBar Header (White - Figma Spec) -->
+  <header class="flex justify-between items-center w-full px-6 py-3.5 bg-white border-b border-[#e9e3d9] shrink-0 z-30">
+    <div>
+      <h2 class="text-xl font-headline font-bold text-[#17181f] mb-0.5">Tổng quan</h2>
+      <p class="text-xs text-[#5a5d6a] mb-0">Theo dõi hiệu quả kinh doanh của cửa hàng trong 7 ngày qua.</p>
     </div>
 
     <!-- Right Controls -->
-    <div class="flex items-center gap-4">
-      <!-- Notifications -->
-      <a href="/admin/orders" class="p-2 rounded-full hover:bg-[#FDF8E7] text-[#996515] transition-all duration-200 relative no-underline" title="Đơn hàng & Thông báo">
-        <span class="material-symbols-outlined text-xl">notifications</span>
-        <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-      </a>
-
-      <!-- Settings -->
-      <a href="/admin/profile" class="p-2 rounded-full hover:bg-[#FDF8E7] text-[#996515] transition-all duration-200 no-underline" title="Cài đặt">
-        <span class="material-symbols-outlined text-xl">settings</span>
-      </a>
-
-      <!-- Profile Avatar & Name -->
-      <div class="flex items-center gap-3 pl-3 border-l border-[#E5E7EB]">
-        <div class="relative group cursor-pointer">
-          <div class="flex items-center gap-2.5">
-            <img class="w-9 h-9 rounded-full object-cover border-2 border-[#D4AF37] shadow-sm"
-                 th:src="${user != null and user.profileImage != null ? '/img/profile_img/' + user.profileImage : '/img/profile_img/ecom.png'}"
-                 onerror="this.onerror=null;this.src='/img/profile_img/ecom.png';"
-                 alt="Admin VIP Avatar"/>
-            <span class="text-sm font-bold text-[#111827] hidden sm:inline" th:text="${user != null ? user.name : 'Admin VIP'}">Admin VIP</span>
-            <span class="material-symbols-outlined text-sm text-[#6B7280]">expand_more</span>
-          </div>
-
-          <!-- Dropdown Menu -->
-          <div class="absolute right-0 mt-2 w-48 bg-white border border-[#E5E7EB] rounded-xl shadow-xl py-2 hidden group-hover:block z-50">
-            <a href="/admin/profile" class="flex items-center gap-2 px-4 py-2 text-xs text-[#374151] hover:bg-[#FDF8E7] hover:text-[#996515] no-underline font-medium">
-              <span class="material-symbols-outlined text-sm">person</span>
-              <span>Hồ sơ quản trị</span>
-            </a>
-            <a href="/" class="flex items-center gap-2 px-4 py-2 text-xs text-[#374151] hover:bg-[#FDF8E7] hover:text-[#996515] no-underline font-medium">
-              <span class="material-symbols-outlined text-sm">store</span>
-              <span>Trang mua sắm</span>
-            </a>
-            <div class="border-t border-[#F1F5F9] my-1"></div>
-            <a href="/logout" class="flex items-center gap-2 px-4 py-2 text-xs text-red-600 hover:bg-red-50 no-underline font-medium">
-              <span class="material-symbols-outlined text-sm">logout</span>
-              <span>Đăng xuất</span>
-            </a>
-          </div>
-        </div>
+    <div class="flex items-center gap-3">
+      <!-- Search Input Pill -->
+      <div class="relative hidden sm:block w-64">
+        <span class="material-symbols-outlined text-base absolute left-3 top-1/2 -translate-y-1/2 text-[#9194a1]">search</span>
+        <input type="text" placeholder="Tìm kiếm..." class="w-full bg-[#f3efe8] border-0 rounded-full pl-9 pr-4 py-1.5 text-xs text-[#17181f] focus:outline-none focus:ring-1 focus:ring-[#f2542d]">
       </div>
+
+      <!-- Notifications -->
+      <a href="/admin/orders" class="w-9 h-9 rounded-full bg-[#f3efe8] hover:bg-[#e9e3d9] text-[#17181f] flex items-center justify-center transition-all relative no-underline" title="Thông báo">
+        <span class="material-symbols-outlined text-lg">notifications</span>
+        <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-[#f2542d] rounded-full"></span>
+      </a>
+
+      <!-- Avatar Pill -->
+      <a href="/admin/profile" class="w-9 h-9 rounded-full bg-[#f2542d] text-white flex items-center justify-center font-bold text-xs no-underline shadow-xs">
+        AE
+      </a>
     </div>
   </header>
 
-  <!-- 3. MAIN CONTENT CANVAS (White / Alabaster Background) -->
-  <main class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 bg-[#F8FAFC]">
+  <!-- 3. MAIN CONTENT CANVAS -->
+  <main class="flex-1 overflow-y-auto p-6 space-y-6 bg-[#faf8f5]">
 
-    <!-- 1. Header Chào Mừng Quản Trị Viên VIP Banner -->
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-6 rounded-2xl border border-[#E5E7EB] border-l-4 border-l-[#D4AF37] shadow-sm">
-      <div>
-        <h2 class="text-2xl font-extrabold font-headline text-[#111827] tracking-tight mb-1">
-          Xin chào, <span class="text-[#996515]">Quản trị viên VIP</span>
-        </h2>
-        <p class="text-sm text-[#6B7280] mb-0">
-          Hôm nay là một ngày tuyệt vời. Hệ thống ghi nhận mức tăng trưởng ổn định ở phân khúc cao cấp.
-        </p>
-      </div>
-      <div class="flex items-center gap-3">
-        <button onclick="window.print()" class="px-5 py-2.5 bg-[#D4AF37] text-[#111111] font-headline font-bold rounded-xl text-sm hover:bg-[#C5A028] transition-all shadow-sm flex items-center gap-2 cursor-pointer">
-          <span class="material-symbols-outlined text-base">download</span>
-          <span>Xuất Báo Cáo</span>
-        </button>
-      </div>
-    </div>
+    <!-- 1. 4 Thẻ Thống Kê KPI (Figma Design Spec) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
-    <!-- 2. 6 Thẻ Thống Kê KPI (2 Rows x 3 Cols - White Cards) -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-      <!-- KPI 1: Tổng doanh thu -->
-      <div class="bg-white p-6 rounded-2xl border border-[#E5E7EB] hover:border-[#D4AF37] transition-all duration-200 shadow-sm">
+      <!-- KPI 1: Doanh thu -->
+      <div class="bg-white p-5 rounded-2xl border border-[#e9e3d9] shadow-xs">
         <div class="flex justify-between items-start">
-          <div>
-            <p class="text-xs text-[#6B7280] font-semibold uppercase tracking-wider mb-0">Tổng doanh thu</p>
-            <h3 class="text-2xl font-extrabold font-headline text-[#996515] mt-2 mb-0">
-              [[${#numbers.formatDecimal(totalRevenue, 0, 'POINT', 0, 'COMMA')}]] đ
-            </h3>
+          <div class="w-10 h-10 rounded-xl bg-[#ffede6] text-[#f2542d] flex items-center justify-center font-bold text-lg">
+            $
           </div>
-          <div class="w-12 h-12 rounded-xl bg-[#FDF8E7] border border-[#D4AF37]/30 flex items-center justify-center text-[#996515]">
-            <span class="material-symbols-outlined text-2xl">payments</span>
-          </div>
+          <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-[#e3f6ea] text-[#12a150]">
+            +12,5%
+          </span>
         </div>
-        <div class="mt-4 flex items-center gap-1.5 text-xs text-emerald-600 font-semibold">
-          <span class="material-symbols-outlined text-sm">trending_up</span>
-          <span>+12.5% so với tháng trước</span>
-        </div>
-      </div>
-
-      <!-- KPI 2: Tổng đơn hàng -->
-      <div class="bg-white p-6 rounded-2xl border border-[#E5E7EB] hover:border-[#D4AF37] transition-all duration-200 shadow-sm">
-        <div class="flex justify-between items-start">
-          <div>
-            <p class="text-xs text-[#6B7280] font-semibold uppercase tracking-wider mb-0">Tổng đơn hàng</p>
-            <h3 class="text-2xl font-extrabold font-headline text-[#111827] mt-2 mb-0">
-              [[${totalOrders}]]
-            </h3>
-          </div>
-          <div class="w-12 h-12 rounded-xl bg-[#FDF8E7] border border-[#D4AF37]/30 flex items-center justify-center text-[#996515]">
-            <span class="material-symbols-outlined text-2xl">shopping_cart</span>
-          </div>
-        </div>
-        <div class="mt-4 flex items-center gap-1.5 text-xs text-emerald-600 font-semibold">
-          <span class="material-symbols-outlined text-sm">trending_up</span>
-          <span>+8.2% tuần này</span>
+        <div class="mt-4">
+          <p class="text-xs text-[#5a5d6a] mb-1">Doanh thu</p>
+          <h3 class="text-2xl font-bold font-headline text-[#17181f] mb-0">
+            [[${#numbers.formatDecimal(totalRevenue, 0, 'POINT', 0, 'COMMA')}]]₫
+          </h3>
         </div>
       </div>
 
-      <!-- KPI 3: Đơn chờ xử lý -->
-      <div class="bg-white p-6 rounded-2xl border border-[#E5E7EB] hover:border-[#D4AF37] transition-all duration-200 shadow-sm">
+      <!-- KPI 2: Đơn hàng -->
+      <div class="bg-white p-5 rounded-2xl border border-[#e9e3d9] shadow-xs">
         <div class="flex justify-between items-start">
-          <div>
-            <p class="text-xs text-[#6B7280] font-semibold uppercase tracking-wider mb-0">Đơn chờ xử lý</p>
-            <h3 class="text-2xl font-extrabold font-headline text-[#111827] mt-2 mb-0">
-              [[${pendingOrders}]]
-            </h3>
+          <div class="w-10 h-10 rounded-xl bg-[#dcebff] text-[#2f6fed] flex items-center justify-center">
+            <span class="material-symbols-outlined text-lg">shopping_bag</span>
           </div>
-          <div class="w-12 h-12 rounded-xl bg-[#FDF8E7] border border-[#D4AF37]/30 flex items-center justify-center text-[#996515]">
-            <span class="material-symbols-outlined text-2xl">pending_actions</span>
-          </div>
+          <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-[#e3f6ea] text-[#12a150]">
+            +8,2%
+          </span>
         </div>
-        <div class="mt-4 flex items-center gap-1.5 text-xs text-amber-600 font-semibold">
-          <span class="material-symbols-outlined text-sm">schedule</span>
-          <span>Cần xử lý ngay</span>
+        <div class="mt-4">
+          <p class="text-xs text-[#5a5d6a] mb-1">Đơn hàng</p>
+          <h3 class="text-2xl font-bold font-headline text-[#17181f] mb-0">
+            [[${totalOrders}]]
+          </h3>
         </div>
       </div>
 
-      <!-- KPI 4: Tổng sản phẩm -->
-      <div class="bg-white p-6 rounded-2xl border border-[#E5E7EB] hover:border-[#D4AF37] transition-all duration-200 shadow-sm">
+      <!-- KPI 3: Khách hàng mới -->
+      <div class="bg-white p-5 rounded-2xl border border-[#e9e3d9] shadow-xs">
         <div class="flex justify-between items-start">
-          <div>
-            <p class="text-xs text-[#6B7280] font-semibold uppercase tracking-wider mb-0">Tổng sản phẩm</p>
-            <h3 class="text-2xl font-extrabold font-headline text-[#111827] mt-2 mb-0">
-              [[${totalProducts}]]
-            </h3>
+          <div class="w-10 h-10 rounded-xl bg-[#d9f2e6] text-[#12a150] flex items-center justify-center">
+            <span class="material-symbols-outlined text-lg">group</span>
           </div>
-          <div class="w-12 h-12 rounded-xl bg-[#FDF8E7] border border-[#D4AF37]/30 flex items-center justify-center text-[#996515]">
-            <span class="material-symbols-outlined text-2xl">inventory_2</span>
-          </div>
+          <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-[#e3f6ea] text-[#12a150]">
+            +5,1%
+          </span>
         </div>
-        <div class="mt-4 flex items-center gap-1.5 text-xs text-[#6B7280] font-medium">
-          <span class="material-symbols-outlined text-sm text-emerald-600">check_circle</span>
-          <span>Đang hoạt động ổn định</span>
+        <div class="mt-4">
+          <p class="text-xs text-[#5a5d6a] mb-1">Khách hàng mới</p>
+          <h3 class="text-2xl font-bold font-headline text-[#17181f] mb-0">
+            [[${totalUsers}]]
+          </h3>
         </div>
       </div>
 
-      <!-- KPI 5: Sắp hết hàng -->
-      <div class="bg-white p-6 rounded-2xl border border-[#E5E7EB] hover:border-red-400 transition-all duration-200 shadow-sm">
+      <!-- KPI 4: Sản phẩm đang bán -->
+      <div class="bg-white p-5 rounded-2xl border border-[#e9e3d9] shadow-xs">
         <div class="flex justify-between items-start">
-          <div>
-            <p class="text-xs text-[#6B7280] font-semibold uppercase tracking-wider mb-0">Sắp hết hàng</p>
-            <h3 class="text-2xl font-extrabold font-headline text-red-600 mt-2 mb-0">
-              [[${lowStockCount}]]
-            </h3>
+          <div class="w-10 h-10 rounded-xl bg-[#e9e1fa] text-[#7048e8] flex items-center justify-center">
+            <span class="material-symbols-outlined text-lg">inventory_2</span>
           </div>
-          <div class="w-12 h-12 rounded-xl bg-red-50 border border-red-200 flex items-center justify-center text-red-600">
-            <span class="material-symbols-outlined text-2xl">warning</span>
-          </div>
+          <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-[#e3f6ea] text-[#12a150]">
+            +1,4%
+          </span>
         </div>
-        <div class="mt-4 flex items-center gap-1.5 text-xs text-red-600 font-semibold">
-          <span class="material-symbols-outlined text-sm">error</span>
-          <span>Cần nhập thêm kho</span>
-        </div>
-      </div>
-
-      <!-- KPI 6: Khách hàng VIP -->
-      <div class="bg-white p-6 rounded-2xl border border-[#E5E7EB] hover:border-[#D4AF37] transition-all duration-200 shadow-sm">
-        <div class="flex justify-between items-start">
-          <div>
-            <p class="text-xs text-[#6B7280] font-semibold uppercase tracking-wider mb-0">Khách hàng VIP</p>
-            <h3 class="text-2xl font-extrabold font-headline text-[#996515] mt-2 mb-0">
-              [[${totalUsers}]]
-            </h3>
-          </div>
-          <div class="w-12 h-12 rounded-xl bg-[#FDF8E7] border border-[#D4AF37]/30 flex items-center justify-center text-[#996515]">
-            <span class="material-symbols-outlined text-2xl">diamond</span>
-          </div>
-        </div>
-        <div class="mt-4 flex items-center gap-1.5 text-xs text-emerald-600 font-semibold">
-          <span class="material-symbols-outlined text-sm">trending_up</span>
-          <span>+45 thành viên mới</span>
+        <div class="mt-4">
+          <p class="text-xs text-[#5a5d6a] mb-1">Sản phẩm đang bán</p>
+          <h3 class="text-2xl font-bold font-headline text-[#17181f] mb-0">
+            [[${totalProducts}]]
+          </h3>
         </div>
       </div>
 
     </div>
 
-    <!-- 3. Khu Vực Biểu Đồ (Grid 2/3 và 1/3 - White Cards) -->
+    <!-- 2. Khu Vực Biểu Đồ Doanh Thu & Sản Phẩm Bán Chạy -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-      <!-- Left: Biểu đồ doanh thu theo ngày (Bar Chart) -->
-      <div class="lg:col-span-2 bg-white p-6 rounded-2xl border border-[#E5E7EB] flex flex-col justify-between shadow-sm">
-        <div class="flex justify-between items-center mb-4">
+      <!-- Left: Doanh thu 7 ngày (2/3 width) -->
+      <div class="lg:col-span-2 bg-white p-6 rounded-2xl border border-[#e9e3d9] shadow-xs">
+        <div class="flex justify-between items-center mb-6">
           <div>
-            <h3 class="text-lg font-bold font-headline text-[#111827] mb-0.5">Biểu đồ doanh thu theo ngày</h3>
-            <p class="text-xs text-[#6B7280] mb-0">Thống kê 7 ngày gần nhất</p>
+            <h3 class="text-lg font-bold font-headline text-[#17181f] mb-0.5">Doanh thu 7 ngày</h3>
+            <p class="text-xs text-[#5a5d6a] mb-0">Đơn vị: triệu đồng</p>
           </div>
-          <select id="revenueRange" class="bg-[#F9FAFB] text-xs text-[#374151] font-medium rounded-lg px-3 py-1.5 border border-[#D1D5DB] focus:outline-none focus:border-[#D4AF37]">
-            <option>7 ngày qua</option>
-            <option>30 ngày qua</option>
-          </select>
+          <div class="flex items-center gap-1 bg-[#f3efe8] p-1 rounded-xl text-xs font-semibold">
+            <button class="px-3 py-1 bg-white rounded-lg text-[#17181f] shadow-xs">7 ngày</button>
+            <button class="px-3 py-1 text-[#5a5d6a] hover:text-[#17181f]">30 ngày</button>
+            <button class="px-3 py-1 text-[#5a5d6a] hover:text-[#17181f]">Năm nay</button>
+          </div>
         </div>
 
-        <!-- Chart Canvas -->
-        <div class="relative w-full h-64 pt-2">
+        <!-- Bar Chart Canvas -->
+        <div class="relative w-full h-64">
           <canvas id="revenueBarChart"></canvas>
         </div>
       </div>
 
-      <!-- Right: Trạng thái đơn hàng (Donut Chart) -->
-      <div class="bg-white p-6 rounded-2xl border border-[#E5E7EB] flex flex-col justify-between shadow-sm">
+      <!-- Right: Sản phẩm bán chạy (1/3 width) -->
+      <div class="bg-white p-6 rounded-2xl border border-[#e9e3d9] shadow-xs flex flex-col justify-between">
         <div>
-          <h3 class="text-lg font-bold font-headline text-[#111827] mb-0.5">Trạng thái đơn hàng</h3>
-          <p class="text-xs text-[#6B7280] mb-0">Tỷ lệ phân bổ hiện tại</p>
-        </div>
+          <h3 class="text-lg font-bold font-headline text-[#17181f] mb-4">Sản phẩm bán chạy</h3>
+          <div class="space-y-4">
+            <!-- Item 1 -->
+            <div class="flex items-center gap-3">
+              <span class="font-bold text-sm text-[#f2542d] w-4">1</span>
+              <div class="w-10 h-10 rounded-xl bg-[#dcebff] flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-lg text-[#2f6fed]">devices</span>
+              </div>
+              <div class="flex-grow min-w-0">
+                <div class="text-sm font-semibold text-[#17181f] truncate">iPhone 14 128GB</div>
+                <div class="text-xs text-[#5a5d6a]">2.314 đã bán</div>
+              </div>
+            </div>
 
-        <!-- Donut Canvas with Center Text -->
-        <div class="relative my-4 flex items-center justify-center">
-          <div class="w-48 h-48 relative">
-            <canvas id="orderStatusChart"></canvas>
-            <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span class="text-xs text-[#6B7280]">Tổng</span>
-              <span class="text-xl font-headline font-extrabold text-[#996515]" th:text="${totalOrders}">420</span>
+            <!-- Item 2 -->
+            <div class="flex items-center gap-3">
+              <span class="font-bold text-sm text-[#5a5d6a] w-4">2</span>
+              <div class="w-10 h-10 rounded-xl bg-[#ffede6] flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-lg text-[#f2542d]">laptop</span>
+              </div>
+              <div class="flex-grow min-w-0">
+                <div class="text-sm font-semibold text-[#17181f] truncate">Laptop HP 15s Ryzen 5</div>
+                <div class="text-xs text-[#5a5d6a]">1.208 đã bán</div>
+              </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="flex items-center gap-3">
+              <span class="font-bold text-sm text-[#5a5d6a] w-4">3</span>
+              <div class="w-10 h-10 rounded-xl bg-[#e9e1fa] flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-lg text-[#7048e8]">monitor</span>
+              </div>
+              <div class="flex-grow min-w-0">
+                <div class="text-sm font-semibold text-[#17181f] truncate">Màn hình Dell 27" 2K</div>
+                <div class="text-xs text-[#5a5d6a]">986 đã bán</div>
+              </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="flex items-center gap-3">
+              <span class="font-bold text-sm text-[#5a5d6a] w-4">4</span>
+              <div class="w-10 h-10 rounded-xl bg-[#d9f2e6] flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-lg text-[#12a150]">styler</span>
+              </div>
+              <div class="flex-grow min-w-0">
+                <div class="text-sm font-semibold text-[#17181f] truncate">Giày sneaker trắng</div>
+                <div class="text-xs text-[#5a5d6a]">874 đã bán</div>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Legend Items -->
-        <div class="grid grid-cols-2 gap-2.5 text-xs pt-3 border-t border-[#F1F5F9]">
-          <div class="flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-emerald-500 shrink-0"></span>
-            <span class="text-[#4B5563] font-medium">Hoàn thành ([[${completedPct != null ? completedPct : 65}]]%)</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-[#D4AF37] shrink-0"></span>
-            <span class="text-[#4B5563] font-medium">Đang giao ([[${shippingPct != null ? shippingPct : 20}]]%)</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-amber-500 shrink-0"></span>
-            <span class="text-[#4B5563] font-medium">Chờ xử lý ([[${pendingPct != null ? pendingPct : 10}]]%)</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-red-500 shrink-0"></span>
-            <span class="text-[#4B5563] font-medium">Đã hủy ([[${cancelledPct != null ? cancelledPct : 5}]]%)</span>
-          </div>
-        </div>
+        <a href="/admin/products" class="mt-4 text-center text-xs font-semibold text-[#f2542d] hover:underline no-underline block">
+          Xem toàn bộ sản phẩm →
+        </a>
       </div>
 
     </div>
 
-    <!-- 4. Danh Sách Đơn Hàng Mới Nhất Table (White Card) -->
-    <div class="bg-white rounded-2xl border border-[#E5E7EB] overflow-hidden shadow-sm">
-      <div class="p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#F1F5F9]">
-        <div>
-          <h3 class="text-lg font-bold font-headline text-[#111827] mb-0.5">Danh sách đơn hàng mới nhất</h3>
-          <p class="text-xs text-[#6B7280] mb-0">Các giao dịch phát sinh gần đây nhất trong hệ thống</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <a href="/admin/orders" class="px-4 py-2 bg-[#FDF8E7] text-[#996515] font-semibold rounded-xl text-xs hover:bg-[#F5E6B3] transition-all border border-[#D4AF37]/30 flex items-center gap-2 no-underline">
-            <span class="material-symbols-outlined text-sm">visibility</span>
-            <span>Xem tất cả đơn</span>
-          </a>
-        </div>
+    <!-- 3. Đơn Hàng Mới Nhất Table -->
+    <div class="bg-white rounded-2xl border border-[#e9e3d9] overflow-hidden shadow-xs">
+      <div class="p-5 flex justify-between items-center border-b border-[#e9e3d9]">
+        <h3 class="text-lg font-bold font-headline text-[#17181f] mb-0">Đơn hàng mới nhất</h3>
+        <a href="/admin/orders" class="px-4 py-1.5 rounded-full border border-[#e9e3d9] text-xs font-semibold text-[#17181f] hover:bg-[#f3efe8] transition-all no-underline">
+          Xem tất cả
+        </a>
       </div>
 
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
           <thead>
-            <tr class="bg-[#F9FAFB] border-b border-[#E5E7EB] text-xs text-[#6B7280] uppercase font-semibold">
-              <th class="p-4">Mã đơn</th>
-              <th class="p-4">Khách hàng</th>
-              <th class="p-4">Sản phẩm</th>
-              <th class="p-4">Tổng tiền</th>
-              <th class="p-4">Trạng thái</th>
-              <th class="p-4 text-right">Thao tác</th>
+            <tr class="bg-[#f3efe8] text-[11px] text-[#5a5d6a] uppercase font-bold tracking-wider">
+              <th class="py-3 px-5">MÃ ĐƠN</th>
+              <th class="py-3 px-5">KHÁCH HÀNG</th>
+              <th class="py-3 px-5">NGÀY ĐẶT</th>
+              <th class="py-3 px-5">TỔNG TIỀN</th>
+              <th class="py-3 px-5">TRẠNG THÁI</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-[#F1F5F9] text-sm">
-            <!-- Thymeleaf dynamic loop if orders exist -->
+          <tbody class="divide-y divide-[#e9e3d9] text-sm">
             <th:block th:if="${recentOrders != null and !#lists.isEmpty(recentOrders)}">
-              <tr th:each="ord : ${recentOrders}" class="hover:bg-[#FDFBF4] transition-all">
-                <td class="p-4 font-bold text-[#996515] font-mono" th:text="${'#' + ord.orderId}">#ORD-9821</td>
-                <td class="p-4 text-[#111827] font-semibold" th:text="${ord.orderAddress != null ? ord.orderAddress.fullName : 'Khách hàng'}">Nguyễn Văn An</td>
-                <td class="p-4 text-[#4B5563]" th:text="${ord.product != null ? ord.product.title : 'Sản phẩm cao cấp'}">Đồng hồ Rolex Submariner</td>
-                <td class="p-4 font-bold text-[#111827] font-mono" th:text="${#numbers.formatDecimal(ord.price * ord.quantity, 0, 'POINT', 0, 'COMMA') + ' đ'}">450.000.000 đ</td>
-                <td class="p-4">
-                  <span th:if="${ord.status == 'Đã giao hàng'}" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">Hoàn thành</span>
-                  <span th:if="${ord.status == 'Đang giao hàng' or ord.status == 'Đã đóng gói'}" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#FDF8E7] text-[#996515] border border-[#D4AF37]/40">Đang giao</span>
-                  <span th:if="${ord.status == 'Đang xử lý' or ord.status == 'Đã tiếp nhận'}" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">Chờ xử lý</span>
-                  <span th:if="${ord.status == 'Đã hủy'}" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-200">Đã hủy</span>
+              <tr th:each="ord : ${recentOrders}" class="hover:bg-[#faf8f5] transition-colors">
+                <td class="py-4 px-5 font-bold font-mono text-xs text-[#17181f]" th:text="${'#' + ord.orderId}">#EC2610482</td>
+                <td class="py-4 px-5">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#f3efe8] text-xs font-bold flex items-center justify-center text-[#5a5d6a]">
+                      <span th:text="${ord.orderAddress != null ? #strings.substring(ord.orderAddress.fullName, 0, 1) : 'K'}">N</span>
+                    </div>
+                    <div>
+                      <div class="font-semibold text-xs text-[#17181f]" th:text="${ord.orderAddress != null ? ord.orderAddress.fullName : 'Khách hàng'}">Nguyễn Minh Anh</div>
+                      <div class="text-[11px] text-[#9194a1]" th:text="${ord.orderAddress != null ? ord.orderAddress.email : ''}">minhanh@email.com</div>
+                    </div>
+                  </div>
                 </td>
-                <td class="p-4 text-right">
-                  <a th:href="@{'/admin/search-order?orderId=' + ${ord.orderId}}" class="p-1.5 hover:bg-[#FDF8E7] rounded-lg text-[#996515] inline-flex items-center transition-all no-underline" title="Chi tiết đơn">
-                    <span class="material-symbols-outlined text-base">visibility</span>
-                  </a>
+                <td class="py-4 px-5 text-xs text-[#5a5d6a]" th:text="${#dates.format(ord.orderDate, 'dd/MM/yyyy')}">28/10/2026</td>
+                <td class="py-4 px-5 font-bold text-xs text-[#17181f]" th:text="${#numbers.formatDecimal(ord.price * ord.quantity, 0, 'POINT', 0, 'COMMA') + '₫'}">19.280.000₫</td>
+                <td class="py-4 px-5">
+                  <span th:if="${ord.status == 'Đã giao hàng'}" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#e3f6ea] text-[#12a150]">Hoàn thành</span>
+                  <span th:if="${ord.status == 'Đang giao hàng' or ord.status == 'Đã đóng gói'}" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#dcebff] text-[#2f6fed]">Đang giao</span>
+                  <span th:if="${ord.status == 'Đang xử lý' or ord.status == 'Đã tiếp nhận'}" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#fef3d7] text-[#c77d00]">Chờ xác nhận</span>
+                  <span th:if="${ord.status == 'Đã hủy'}" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#fde8e8] text-[#e5484d]">Đã hủy</span>
                 </td>
               </tr>
             </th:block>
 
-            <!-- Fallback Static Mock rows if recentOrders is empty -->
+            <!-- Fallback Static Mock rows if empty -->
             <th:block th:if="${recentOrders == null or #lists.isEmpty(recentOrders)}">
-              <tr class="hover:bg-[#FDFBF4] transition-all">
-                <td class="p-4 font-bold text-[#996515] font-mono">#ORD-9821</td>
-                <td class="p-4 text-[#111827] font-semibold">Nguyễn Văn An</td>
-                <td class="p-4 text-[#4B5563]">Đồng hồ Rolex Submariner Gold</td>
-                <td class="p-4 font-bold text-[#111827] font-mono">450.000.000 đ</td>
-                <td class="p-4">
-                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">Hoàn thành</span>
+              <tr class="hover:bg-[#faf8f5] transition-colors">
+                <td class="py-4 px-5 font-bold font-mono text-xs text-[#17181f]">#EC2610482</td>
+                <td class="py-4 px-5">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#f3efe8] text-xs font-bold flex items-center justify-center text-[#5a5d6a]">MA</div>
+                    <div>
+                      <div class="font-semibold text-xs text-[#17181f]">Nguyễn Minh Anh</div>
+                      <div class="text-[11px] text-[#9194a1]">minhanh@email.com</div>
+                    </div>
+                  </div>
                 </td>
-                <td class="p-4 text-right">
-                  <a href="/admin/orders" class="p-1.5 hover:bg-[#FDF8E7] rounded-lg text-[#996515] inline-flex items-center transition-all">
-                    <span class="material-symbols-outlined text-base">visibility</span>
-                  </a>
+                <td class="py-4 px-5 text-xs text-[#5a5d6a]">28/10/2026</td>
+                <td class="py-4 px-5 font-bold text-xs text-[#17181f]">19.280.000₫</td>
+                <td class="py-4 px-5"><span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#dcebff] text-[#2f6fed]">Đang giao</span></td>
+              </tr>
+              <tr class="hover:bg-[#faf8f5] transition-colors">
+                <td class="py-4 px-5 font-bold font-mono text-xs text-[#17181f]">#EC2610481</td>
+                <td class="py-4 px-5">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-[#f3efe8] text-xs font-bold flex items-center justify-center text-[#5a5d6a]">TH</div>
+                    <div>
+                      <div class="font-semibold text-xs text-[#17181f]">Trần Hoàng</div>
+                      <div class="text-[11px] text-[#9194a1]">hoang.tran@email.com</div>
+                    </div>
+                  </div>
                 </td>
+                <td class="py-4 px-5 text-xs text-[#5a5d6a]">28/10/2026</td>
+                <td class="py-4 px-5 font-bold text-xs text-[#17181f]">4.290.000₫</td>
+                <td class="py-4 px-5"><span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#fef3d7] text-[#c77d00]">Chờ xác nhận</span></td>
               </tr>
             </th:block>
           </tbody>
@@ -477,50 +421,41 @@ tailwind.config = {
 
   </main>
 
-  <!-- 5. FOOTER (White Ultra-Compact) -->
-  <footer class="flex justify-between items-center w-full px-6 py-1 bg-white border-t border-[#E5E7EB] shrink-0 text-[10px] text-[#6B7280]">
-    <p class="mb-0">© 2026 E-COMMERCE. All rights reserved.</p>
+  <!-- 4. Footer (Admin) -->
+  <footer class="flex justify-between items-center w-full px-6 py-2 bg-white border-t border-[#e9e3d9] shrink-0 text-[11px] text-[#9194a1]">
+    <p class="mb-0">© 2026 ecom. Mọi quyền được bảo lưu.</p>
     <div class="flex items-center gap-3">
-      <a class="hover:text-[#996515] transition-all text-[#6B7280] no-underline" href="/admin/chat">Hỗ trợ</a>
-      <a class="hover:text-[#996515] transition-all text-[#6B7280] no-underline" href="/admin/profile">Bảo mật</a>
-      <a class="hover:text-[#996515] transition-all text-[#6B7280] no-underline" href="/">Điều khoản</a>
+      <a class="hover:text-[#f2542d] transition-all text-[#9194a1] no-underline" href="/admin/chat">Hỗ trợ</a>
+      <a class="hover:text-[#f2542d] transition-all text-[#9194a1] no-underline" href="/admin/profile">Cài đặt</a>
+      <a class="hover:text-[#f2542d] transition-all text-[#9194a1] no-underline" href="/">Cửa hàng</a>
     </div>
   </footer>
 
 </div>
 
-<!-- 6. CHART.JS INITIALIZATION SCRIPT (Light Theme) -->
+<!-- 5. CHART.JS BAR CHART SCRIPT -->
 <script th:inline="javascript">
 document.addEventListener("DOMContentLoaded", function() {
-  /*<![CDATA[*/
-  var serverDates = /*[[${chartDates}]]*/ [];
-  var serverRevenues = /*[[${chartRevenues}]]*/ [];
-  var cPct = /*[[${completedPct != null ? completedPct : 65}]]*/ 65;
-  var sPct = /*[[${shippingPct != null ? shippingPct : 20}]]*/ 20;
-  var pPct = /*[[${pendingPct != null ? pendingPct : 10}]]*/ 10;
-  var xPct = /*[[${cancelledPct != null ? cancelledPct : 5}]]*/ 5;
-  /*]]>*/
-
-  var barLabels = (serverDates && serverDates.length >= 2) ? serverDates : ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'CN'];
-  var barValues = (serverRevenues && serverRevenues.length >= 2) ? serverRevenues : [45, 65, 50, 80, 60, 90, 75];
-
-  // Bar Chart: Biểu đồ doanh thu theo ngày (Light Theme + Gold Bars)
-  var barCtx = document.getElementById('revenueBarChart');
-  if (barCtx) {
-    new Chart(barCtx, {
+  var ctx = document.getElementById('revenueBarChart');
+  if (ctx) {
+    new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: barLabels,
+        labels: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'],
         datasets: [{
-          label: 'Doanh thu',
-          data: barValues,
-          backgroundColor: 'rgba(212, 175, 55, 0.78)',
-          hoverBackgroundColor: '#996515',
-          borderColor: '#D4AF37',
-          borderWidth: 1,
+          data: [62, 85, 70, 110, 96, 140, 120],
+          backgroundColor: [
+            '#ffe3d6',
+            '#ffe3d6',
+            '#ffe3d6',
+            '#ffe3d6',
+            '#ffe3d6',
+            '#f2542d', // Highlight peak on Saturday
+            '#ffe3d6'
+          ],
           borderRadius: 8,
-          barPercentage: 0.6,
-          categoryPercentage: 0.75
+          borderSkipped: false,
+          barPercentage: 0.55
         }]
       },
       options: {
@@ -529,79 +464,24 @@ document.addEventListener("DOMContentLoaded", function() {
         plugins: {
           legend: { display: false },
           tooltip: {
-            backgroundColor: '#FFFFFF',
-            titleColor: '#111827',
-            bodyColor: '#996515',
-            borderColor: '#E5E7EB',
-            borderWidth: 1,
+            backgroundColor: '#17181f',
+            titleColor: '#ffffff',
+            bodyColor: '#ffffff',
             padding: 10,
-            displayColors: false,
+            cornerRadius: 8,
             callbacks: {
-              label: function(context) {
-                return new Intl.NumberFormat('vi-VN').format(context.raw) + ' đ';
-              }
+              label: function(c) { return c.parsed.y + ' triệu VNĐ'; }
             }
           }
         },
         scales: {
           x: {
             grid: { display: false },
-            ticks: {
-              color: '#4B5563',
-              font: { family: 'Be Vietnam Pro', size: 11, weight: '500' }
-            }
+            ticks: { color: '#5a5d6a', font: { family: 'Be Vietnam Pro', size: 11, weight: '500' } }
           },
           y: {
-            grid: {
-              color: '#F1F5F9',
-              drawBorder: false
-            },
-            ticks: {
-              color: '#6B7280',
-              font: { family: 'Be Vietnam Pro', size: 10 },
-              callback: function(val) {
-                return val >= 1000000 ? (val / 1000000) + 'M' : val;
-              }
-            }
-          }
-        }
-      }
-    });
-  }
-
-  // Donut Chart: Trạng thái đơn hàng (Light Theme)
-  var donutCtx = document.getElementById('orderStatusChart');
-  if (donutCtx) {
-    new Chart(donutCtx, {
-      type: 'doughnut',
-      data: {
-        labels: ['Hoàn thành', 'Đang giao', 'Chờ xử lý', 'Đã hủy'],
-        datasets: [{
-          data: [cPct, sPct, pPct, xPct],
-          backgroundColor: [
-            '#10B981', // Emerald green
-            '#D4AF37', // Gold
-            '#F59E0B', // Amber
-            '#EF4444'  // Red
-          ],
-          borderColor: '#FFFFFF',
-          borderWidth: 3,
-          hoverOffset: 4
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: '75%',
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            backgroundColor: '#FFFFFF',
-            titleColor: '#111827',
-            bodyColor: '#374151',
-            borderColor: '#E5E7EB',
-            borderWidth: 1,
-            padding: 8
+            display: false,
+            grid: { display: false }
           }
         }
       }
@@ -609,6 +489,5 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 </script>
-
 </body>
 </html>

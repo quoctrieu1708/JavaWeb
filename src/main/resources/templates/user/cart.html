@@ -3,160 +3,223 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>Giỏ hàng của bạn — E-COMMERCE</title>
+<title>Giỏ hàng của bạn — ecom.</title>
 </head>
 <body>
-	<section class="pb-5">
-		<!-- Stitch Luxury Breadcrumb Navigation Bar -->
-		<div class="ds-breadcrumb-bar">
-			<div class="container px-lg-4">
-				<ul class="ds-breadcrumb">
-					<li><a href="/"><i class="fa-solid fa-house me-1 text-warning"></i>Trang chủ</a></li>
-					<li class="ds-breadcrumb-sep"><i class="fa-solid fa-chevron-right"></i></li>
-					<li class="ds-breadcrumb-current">Giỏ hàng của bạn ([[${carts != null ? carts.size() : 0}]] sản phẩm)</li>
-				</ul>
-			</div>
+	<section class="pb-5 pt-3">
+		<!-- Figma 2.0 Clean Breadcrumb Navigation -->
+		<div class="container px-lg-4 mb-3">
+			<ul class="ds-breadcrumb">
+				<li><a href="/"><i class="fa-solid fa-house me-1"></i>Trang chủ</a></li>
+				<li class="ds-breadcrumb-sep"><i class="fa-solid fa-chevron-right"></i></li>
+				<li class="ds-breadcrumb-current">Giỏ hàng ([[${carts != null ? carts.size() : 0}]] sản phẩm)</li>
+			</ul>
 		</div>
 
 		<div class="container px-lg-4">
-			<div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white mb-5">
-				<!-- Header -->
-				<div class="card-header py-4 text-white text-center" style="background: var(--dark-gradient); border-bottom: 2px solid var(--gold-primary);">
-					<span class="ds-badge-gold d-inline-block mb-2"><i class="fa-solid fa-crown me-1"></i>GIỎ HÀNG THƯỢNG LƯU E-COMMERCE</span>
-					<h3 class="fw-bold mb-1 ds-headline"><i class="fa-solid fa-bag-shopping text-warning me-2"></i>GIỎ HÀNG CỦA BẠN</h3>
-					<small class="text-white-50">Kiểm tra thông tin sản phẩm trước khi tiến hành thanh toán</small>
+			<!-- Free shipping banner matching Figma -->
+			<div class="alert rounded-4 d-flex align-items-center gap-3 py-3 px-4 mb-4 border-0" 
+				 style="background: #e3f6ea; color: #166534;">
+				<div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0" 
+					 style="width: 36px; height: 36px; background: #166534; color: #fff;">
+					<i class="fa-solid fa-truck-fast" style="font-size: 0.95rem;"></i>
 				</div>
-
-				<div class="card-body p-4 p-md-5">
-					<th:block th:if="${session.succMsg}">
-						<div class="alert alert-success rounded-4 text-center mb-4">[[${session.succMsg}]]</div>
-						<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
-					</th:block>
-
-					<th:block th:if="${session.errorMsg}">
-						<div class="alert alert-danger rounded-4 text-center mb-4">[[${session.errorMsg}]]</div>
-						<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
-					</th:block>
-					
-					<th:block th:if="${carts != null and carts.size() > 0}">
-						<div class="row g-4">
-							<!-- Cart Items Table Column -->
-							<div class="col-lg-8">
-								<div class="table-responsive rounded-4 border overflow-hidden">
-									<table class="table table-hover align-middle mb-0">
-										<thead class="bg-light text-secondary text-uppercase small text-center">
-											<tr>
-												<th scope="col" class="py-3">Sản phẩm</th>
-												<th scope="col" class="py-3">Đơn giá</th>
-												<th scope="col" class="py-3 text-center">Số lượng</th>
-												<th scope="col" class="py-3 text-end pe-4">Thành tiền</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr th:each="cart,c:${carts}">
-												<td class="p-3">
-													<div class="d-flex align-items-center gap-3">
-														<div class="p-1 border rounded-3 bg-white flex-shrink-0" style="width: 72px; height: 72px;">
-															<img th:src="@{'/img/product_img/'+${cart.product.image}}" class="w-100 h-100 object-fit-contain">
-														</div>
-														<div>
-															<a th:href="@{'/product/'+${cart.product.id}}" class="fw-bold text-dark text-decoration-none d-block mb-1">
-																[[${cart.product.title}]]
-															</a>
-															<small class="text-muted">Danh mục: [[${cart.product.category}]]</small>
-														</div>
-													</div>
-												</td>
-												<td class="text-center font-monospace fw-medium">
-													[[${#numbers.formatDecimal(cart.product.discountPrice, 0, 'POINT', 0, 'COMMA')}]]đ
-												</td>
-												<td class="text-center" style="min-width: 170px;">
-													<div class="d-flex justify-content-center align-items-center gap-1">
-														<a th:href="@{'/user/cartQuantityUpdate?sy=de&cid='+${cart.id}}" class="qty-btn" title="Giảm số lượng">
-															<i class="fa-solid fa-minus" style="font-size: 0.7rem;"></i>
-														</a> 
-														<input type="number" class="form-control form-control-sm text-center fw-bold px-1 cart-qty-input" 
-															   style="width: 58px; height: 32px;"
-															   th:value="${cart.quantity}" min="1" th:max="${cart.product.stock}"
-															   th:data-cart-id="${cart.id}" th:data-max-stock="${cart.product.stock}">
-														<a th:href="@{'/user/cartQuantityUpdate?sy=in&cid='+${cart.id}}" class="qty-btn" title="Tăng số lượng">
-															<i class="fa-solid fa-plus" style="font-size: 0.7rem;"></i>
-														</a>
-													</div>
-													<small class="text-muted d-block mt-1" style="font-size: 0.72rem;">Kho còn: <strong>[[${cart.product.stock}]]</strong></small>
-												</td>
-												<td class="text-end pe-4 fw-bold text-danger fs-6 font-monospace">
-													[[${#numbers.formatDecimal(cart.totalPrice, 0, 'POINT', 0, 'COMMA')}]]đ
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-
-								<div class="mt-3">
-									<a href="/products" class="btn btn-outline-dark rounded-pill btn-sm px-4">
-										<i class="fa-solid fa-arrow-left me-1"></i>Tiếp tục mua sắm
-									</a>
-								</div>
-							</div>
-
-							<!-- Order Summary Sidebar Column -->
-							<div class="col-lg-4">
-								<div class="card border rounded-4 shadow-sm p-4 bg-light">
-									<h5 class="fw-bold text-dark mb-3">Tóm tắt đơn hàng</h5>
-									
-									<div class="d-flex justify-content-between mb-2">
-										<span class="text-muted">Tổng số lượng:</span>
-										<span class="fw-bold">[[${carts.size()}]] sản phẩm</span>
-									</div>
-									<div class="d-flex justify-content-between mb-2">
-										<span class="text-muted">Phí vận chuyển:</span>
-										<span class="text-success fw-bold"><i class="fa-solid fa-bolt me-1"></i>Miễn phí</span>
-									</div>
-									<div class="d-flex justify-content-between mb-3">
-										<span class="text-muted">Bảo hành chính hãng:</span>
-										<span class="fw-bold">24 tháng</span>
-									</div>
-
-									<hr>
-
-									<div class="d-flex justify-content-between align-items-baseline mb-4">
-										<span class="fs-6 fw-bold text-dark">Tổng thanh toán:</span>
-										<span class="fs-3 fw-bold text-danger">[[${#numbers.formatDecimal(totalOrderPrice, 0, 'POINT', 0, 'COMMA')}]]đ</span>
-									</div>
-
-									<a href="/user/orders" class="btn btn-gold py-3 fs-5 fw-bold w-100 shadow">
-										<i class="fa-solid fa-credit-card me-2"></i>Tiến hành đặt hàng
-									</a>
-
-									<div class="mt-4 p-3 bg-white border rounded-3 small text-muted">
-										<div class="d-flex align-items-center gap-2 mb-1">
-											<i class="fa-solid fa-shield-halved text-warning"></i>
-											<strong class="text-dark">Thanh toán an toàn 100%</strong>
-										</div>
-										<p class="mb-0" style="font-size: 0.78rem;">Hỗ trợ kiểm tra hàng trước khi thanh toán (COD), đổi trả miễn phí trong 7 ngày.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</th:block>
-					
-					<!-- Empty Cart State -->
-					<th:block th:unless="${carts != null and carts.size() > 0}">
-						<div class="text-center py-5">
-							<div class="brand-icon-box mx-auto mb-3" style="width: 70px; height: 70px; font-size: 2rem;">
-								<i class="fa-solid fa-bag-shopping"></i>
-							</div>
-							<h4 class="fw-bold text-dark mb-2">Giỏ hàng của bạn đang trống</h4>
-							<p class="text-muted small mb-4">Hãy dạo quanh cửa hàng và chọn những sản phẩm công nghệ tuyệt vời bạn ưng ý nhất.</p>
-							<a href="/products" class="btn btn-gold px-5 py-2 fw-bold">
-								<i class="fa-solid fa-cart-shopping me-1"></i>Bắt đầu mua sắm ngay
-							</a>
-						</div>
-					</th:block>
+				<div class="flex-grow-1">
+					<div class="fw-bold" style="font-size: 0.95rem;">Chúc mừng! Đơn hàng của bạn đủ điều kiện FREESHIP toàn quốc</div>
+					<div class="small opacity-75">Áp dụng tự động cho giỏ hàng có giá trị từ 0đ trong chương trình Siêu Sale hôm nay.</div>
 				</div>
 			</div>
+
+			<th:block th:if="${session.succMsg}">
+				<div class="alert alert-success rounded-4 text-center mb-4">[[${session.succMsg}]]</div>
+				<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
+			</th:block>
+
+			<th:block th:if="${session.errorMsg}">
+				<div class="alert alert-danger rounded-4 text-center mb-4">[[${session.errorMsg}]]</div>
+				<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
+			</th:block>
+
+			<th:block th:if="${carts != null and carts.size() > 0}">
+				<div class="row g-4">
+					<!-- Cart Items Table Column -->
+					<div class="col-lg-8">
+						<div class="card border rounded-4 overflow-hidden bg-white shadow-sm">
+							<div class="card-header py-3 px-4 bg-white border-bottom d-flex justify-content-between align-items-center">
+								<h5 class="fw-bold mb-0 text-dark">
+									Danh sách sản phẩm <span class="badge rounded-pill bg-light text-dark border ms-1 fw-medium">[[${carts.size()}]] món</span>
+								</h5>
+								<a href="/products" class="btn btn-sm btn-outline-dark rounded-pill px-3">
+									<i class="fa-solid fa-plus me-1"></i>Thêm sản phẩm
+								</a>
+							</div>
+							<div class="table-responsive">
+								<table class="table table-hover align-middle mb-0">
+									<thead class="text-secondary text-uppercase small" style="background: #f3efe8; font-size: 0.76rem; letter-spacing: 0.04em;">
+										<tr>
+											<th scope="col" class="py-3 ps-4">Sản phẩm</th>
+											<th scope="col" class="py-3 text-center">Đơn giá</th>
+											<th scope="col" class="py-3 text-center">Số lượng</th>
+											<th scope="col" class="py-3 text-end pe-4">Thành tiền</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="cart,c:${carts}">
+											<td class="p-3 ps-4">
+												<div class="d-flex align-items-center gap-3">
+													<div class="p-1 rounded-3 flex-shrink-0 d-flex align-items-center justify-content-center" 
+														 style="width: 76px; height: 76px; background: #f3efe8; border: 1px solid #e9e3d9;">
+														<img th:src="@{'/img/product_img/'+${cart.product.image}}" class="w-100 h-100 object-fit-contain">
+													</div>
+													<div>
+														<a th:href="@{'/product/'+${cart.product.id}}" class="fw-bold text-dark text-decoration-none d-block mb-1" style="font-size: 0.95rem;">
+															[[${cart.product.title}]]
+														</a>
+														<span class="badge text-secondary rounded-pill px-2 py-1" style="background: #f3efe8; font-size: 0.72rem;">
+															[[${cart.product.category}]]
+														</span>
+													</div>
+												</div>
+											</td>
+											<td class="text-center fw-semibold text-dark font-monospace" style="font-size: 0.95rem;">
+												[[${#numbers.formatDecimal(cart.product.discountPrice, 0, 'POINT', 0, 'COMMA')}]]đ
+											</td>
+											<td class="text-center" style="min-width: 170px;">
+												<div class="d-flex justify-content-center align-items-center gap-1">
+													<a th:href="@{'/user/cartQuantityUpdate?sy=de&cid='+${cart.id}}" class="qty-btn" title="Giảm số lượng">
+														<i class="fa-solid fa-minus" style="font-size: 0.7rem;"></i>
+													</a> 
+													<input type="number" class="form-control form-control-sm text-center fw-bold px-1 cart-qty-input" 
+														   style="width: 58px; height: 32px; border: 1px solid #e9e3d9; border-radius: 8px;"
+														   th:value="${cart.quantity}" min="1" th:max="${cart.product.stock}"
+														   th:data-cart-id="${cart.id}" th:data-max-stock="${cart.product.stock}">
+													<a th:href="@{'/user/cartQuantityUpdate?sy=in&cid='+${cart.id}}" class="qty-btn" title="Tăng số lượng">
+														<i class="fa-solid fa-plus" style="font-size: 0.7rem;"></i>
+													</a>
+												</div>
+												<small class="text-muted d-block mt-1" style="font-size: 0.72rem;">Kho còn: <strong>[[${cart.product.stock}]]</strong></small>
+											</td>
+											<td class="text-end pe-4 fw-bold font-monospace" style="color: #f2542d; font-size: 1.05rem;">
+												[[${#numbers.formatDecimal(cart.totalPrice, 0, 'POINT', 0, 'COMMA')}]]đ
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<div class="card-footer bg-white border-top py-3 px-4 d-flex justify-content-between align-items-center">
+								<a href="/products" class="text-decoration-none text-secondary small fw-medium">
+									<i class="fa-solid fa-arrow-left me-1"></i>Tiếp tục tìm kiếm sản phẩm khác
+								</a>
+								<span class="small text-muted">Giá đã bao gồm VAT và áp dụng mã giảm giá ở bước tiếp theo</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Order Summary Sidebar Column -->
+					<div class="col-lg-4">
+						<div class="card border rounded-4 shadow-sm p-4 bg-white" style="border-color: #e9e3d9 !important;">
+							<h5 class="fw-bold text-dark mb-3">Tóm tắt đơn hàng</h5>
+							
+							<div class="d-flex justify-content-between mb-2">
+								<span class="text-muted">Tổng số lượng:</span>
+								<span class="fw-semibold text-dark">[[${carts.size()}]] sản phẩm</span>
+							</div>
+							<div class="d-flex justify-content-between mb-2">
+								<span class="text-muted">Phí vận chuyển:</span>
+								<span class="text-success fw-bold"><i class="fa-solid fa-bolt me-1"></i>Miễn phí</span>
+							</div>
+							<div class="d-flex justify-content-between mb-3">
+								<span class="text-muted">Cam kết dịch vụ:</span>
+								<span class="fw-semibold text-dark">Đổi trả 30 ngày</span>
+							</div>
+
+							<hr style="border-color: #e9e3d9;">
+
+							<div class="d-flex justify-content-between align-items-baseline mb-4">
+								<span class="fs-6 fw-bold text-dark">Tạm tính:</span>
+								<span class="fs-3 fw-bold font-monospace" style="color: #f2542d;">[[${#numbers.formatDecimal(totalOrderPrice, 0, 'POINT', 0, 'COMMA')}]]đ</span>
+							</div>
+
+							<a href="/user/orders" class="btn btn-coral py-3 fs-5 fw-bold w-100 rounded-pill shadow-sm">
+								<i class="fa-solid fa-credit-card me-2"></i>Tiến hành đặt hàng
+							</a>
+
+							<div class="mt-4 p-3 rounded-3 small text-muted" style="background: #faf8f5; border: 1px solid #e9e3d9;">
+								<div class="d-flex align-items-center gap-2 mb-2">
+									<i class="fa-solid fa-shield-halved text-success"></i>
+									<strong class="text-dark">Thanh toán an toàn & minh bạch</strong>
+								</div>
+								<p class="mb-0" style="font-size: 0.78rem; line-height: 1.5;">
+									Hỗ trợ kiểm tra hàng trước khi nhận (COD), giao diện thanh toán an toàn, bảo mật dữ liệu tuyệt đối theo tiêu chuẩn ecom.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</th:block>
+			
+			<!-- Empty Cart State -->
+			<th:block th:unless="${carts != null and carts.size() > 0}">
+				<div class="card border-0 rounded-4 shadow-sm bg-white p-5 text-center my-4">
+					<div class="d-inline-flex align-items-center justify-content-center rounded-circle mx-auto mb-3" 
+						 style="width: 80px; height: 80px; background: #ffede6; color: #f2542d; font-size: 2rem;">
+						<i class="fa-solid fa-bag-shopping"></i>
+					</div>
+					<h4 class="fw-bold text-dark mb-2">Giỏ hàng của bạn đang trống</h4>
+					<p class="text-muted small mb-4" style="max-width: 480px; margin: 0 auto;">
+						Khám phá hàng nghìn sản phẩm điện tử, gia dụng và phong cách sống chính hãng tại ecom. ngay hôm nay!
+					</p>
+					<div>
+						<a href="/products" class="btn btn-coral px-5 py-2 fw-bold rounded-pill">
+							<i class="fa-solid fa-cart-shopping me-1"></i>Bắt đầu mua sắm ngay
+						</a>
+					</div>
+				</div>
+			</th:block>
 		</div>
+
+		<!-- Script for Cart Quantity Management with Stock Constraints -->
+		<script>
+			document.addEventListener('DOMContentLoaded', function() {
+				document.querySelectorAll('.cart-qty-input').forEach(function(input) {
+					var maxStock = parseInt(input.getAttribute('data-max-stock')) || 999999;
+					var cartId = input.getAttribute('data-cart-id');
+
+					function commitChange() {
+						var val = parseInt(input.value);
+						if (isNaN(val) || val < 1) val = 1;
+						if (val > maxStock) {
+							val = maxStock;
+							alert('Đã điều chỉnh về số lượng tối đa trong kho: ' + maxStock + ' sản phẩm');
+						}
+						input.value = val;
+						window.location.href = '/user/cart/update-quantity-direct?cid=' + cartId + '&quantity=' + val;
+					}
+
+					input.addEventListener('input', function() {
+						var val = parseInt(input.value);
+						if (val > maxStock) {
+							input.value = maxStock;
+							alert('Số lượng không thể vượt quá ' + maxStock + ' sản phẩm hiện còn trong kho!');
+						}
+					});
+
+					input.addEventListener('change', commitChange);
+
+					input.addEventListener('keydown', function(e) {
+						if (e.key === 'Enter') {
+							e.preventDefault();
+							commitChange();
+						}
+					});
+				});
+			});
+		</script>
+	</section>
+</body>
+</html>
+
 
 		<!-- Script for Cart Quantity Management with Stock Constraints -->
 		<script>

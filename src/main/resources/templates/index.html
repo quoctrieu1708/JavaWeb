@@ -3,162 +3,125 @@
 	th:replace="~{base::layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>E-COMMERCE — Đỉnh Cao Công Nghệ & Mua Sắm</title>
+<title>ecom. — Đỉnh Cao Công Nghệ & Mua Sắm Chính Hãng</title>
 </head>
 <body>
 	<section class="pb-5">
-		<!-- 1. Hero Luxury Carousel Slider -->
-		<div class="container-fluid px-lg-4 pt-3">
-			<div id="heroCarousel" class="carousel slide carousel-fade hero-slider" data-bs-ride="carousel" data-bs-interval="4500">
-				<!-- Indicators -->
-				<div class="carousel-indicators">
-					<button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true"></button>
-					<button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
-					<button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
-				</div>
-
-				<div class="carousel-inner">
-					<!-- Slide 1 -->
-					<div class="carousel-item active position-relative">
-						<img src="/img/ecom1.png" class="d-block w-100" alt="Ecom Banner 1">
-						<div class="hero-overlay-content">
-							<div style="max-width: 620px;">
-								<span class="hero-badge"><i class="fa-solid fa-bolt me-1"></i>Xu hướng công nghệ 2026</span>
-								<h1 class="hero-title">ĐỈNH CAO <span>CÔNG NGHỆ</span> ĐẲNG CẤP MUA SẮM</h1>
-								<p class="text-white-50 fs-6 mb-4 d-none d-md-block">
-									Khám phá hệ sinh thái Smartphone, Laptop và phụ kiện chính hãng với ưu đãi giảm giá độc quyền đến 40%.
-								</p>
-								<div class="d-flex gap-3">
-									<a href="/products" class="btn btn-gold px-4 py-2">
-										<i class="fa-solid fa-cart-shopping me-1"></i> Khám phá ngay
-									</a>
-									<a href="/products?category=Điện thoại & Tablet" class="btn btn-dark-gold px-4 py-2 d-none d-sm-inline-flex">
-										Xem Smartphone
-									</a>
-								</div>
-								<div class="ds-hero-stats-bar d-none d-lg-flex">
-									<div class="ds-hero-stat-item">
-										<div class="ds-hero-stat-icon"><i class="fa-solid fa-shield-halved"></i></div>
-										<div>
-											<div class="fw-bold text-white small">100% Chính hãng</div>
-											<div class="text-white-50" style="font-size: 0.75rem;">Độc quyền phân phối</div>
-										</div>
-									</div>
-									<div class="ds-hero-stat-item">
-										<div class="ds-hero-stat-icon"><i class="fa-solid fa-headset"></i></div>
-										<div>
-											<div class="fw-bold text-white small">24/7 Hỗ trợ VIP</div>
-											<div class="text-white-50" style="font-size: 0.75rem;">Chăm sóc đặc quyền</div>
-										</div>
-									</div>
-									<div class="ds-hero-stat-item">
-										<div class="ds-hero-stat-icon"><i class="fa-solid fa-award"></i></div>
-										<div>
-											<div class="fw-bold text-white small">Bảo hành 24 Tháng</div>
-											<div class="text-white-50" style="font-size: 0.75rem;">Tiêu chuẩn vàng</div>
-										</div>
-									</div>
-								</div>
-							</div>
+		<!-- 1. Hero Bento Grid (Figma Design 2.0 Spec) -->
+		<div class="container-fluid px-lg-5 pt-3">
+			<div class="row g-4 align-items-stretch">
+				<!-- Left Big Hero Card (2/3 width) -->
+				<div class="col-lg-8">
+					<div class="hero-bento-card-main h-100">
+						<span class="hero-bento-badge">
+							<i class="fa-solid fa-bolt me-1"></i>SIÊU SALE CUỐI NĂM
+						</span>
+						<h1 class="hero-bento-title">
+							Giảm đến 50% mọi ngành hàng
+						</h1>
+						<p class="hero-bento-desc">
+							Hàng nghìn sản phẩm chính hãng, giao nhanh trong 2 giờ tại TP. Hồ Chí Minh & Hà Nội.
+						</p>
+						<div class="d-flex align-items-center gap-3">
+							<a href="/products" class="btn btn-brand px-4 py-2.5 rounded-pill">
+								Mua ngay
+							</a>
+							<a href="/products?category=Điện thoại & Tablet" class="btn btn-brand-outline text-white border-white px-4 py-2.5 rounded-pill">
+								Khám phá thêm
+							</a>
 						</div>
-					</div>
 
-					<!-- Slide 2 -->
-					<div class="carousel-item position-relative">
-						<img src="/img/ecom3.jpg" class="d-block w-100" alt="Ecom Banner 2">
-						<div class="hero-overlay-content">
-							<div style="max-width: 620px;">
-								<span class="hero-badge"><i class="fa-solid fa-laptop me-1"></i>Hiệu năng vượt trội</span>
-								<h1 class="hero-title">LAPTOP & <span>MÁY TÍNH</span> CHÍNH HÃNG 100%</h1>
-								<p class="text-white-50 fs-6 mb-4 d-none d-md-block">
-									Sức mạnh xử lý đột phá cho mọi nhu cầu làm việc, sáng tạo nội dung và giải trí đỉnh cao.
-								</p>
-								<div class="d-flex gap-3">
-									<a href="/products?category=Laptop & Máy tính" class="btn btn-gold px-4 py-2">
-										<i class="fa-solid fa-fire me-1"></i> Mua ngay giá sốc
-									</a>
+						<!-- Decorative Circle Graphic on Right -->
+						<div class="hero-circle-deco d-none d-md-flex">
+							<div class="text-center text-white">
+								<div class="badge bg-white text-danger fw-bold rounded-pill px-3 py-1 mb-2 shadow-sm" style="font-size: 0.95rem;">
+									-50%
 								</div>
-							</div>
-						</div>
-					</div>
-
-					<!-- Slide 3 -->
-					<div class="carousel-item position-relative">
-						<img src="/img/ecom2.jpg" class="d-block w-100" alt="Ecom Banner 3">
-						<div class="hero-overlay-content">
-							<div style="max-width: 620px;">
-								<span class="hero-badge"><i class="fa-solid fa-certificate me-1"></i>Bảo hành 24 tháng</span>
-								<h1 class="hero-title">TIỆN ÍCH THÔNG MINH <span>GIÁ ƯU ĐÃI</span></h1>
-								<p class="text-white-50 fs-6 mb-4 d-none d-md-block">
-									Hệ thống phụ kiện cao cấp, hỗ trợ xuất hóa đơn VAT điện tử và giao hàng nhanh toàn quốc.
-								</p>
-								<div class="d-flex gap-3">
-									<a href="/products" class="btn btn-gold px-4 py-2">
-										Tất cả sản phẩm
-									</a>
+								<div class="fs-1 my-2">
+									<i class="fa-solid fa-mobile-screen-button"></i>
 								</div>
+								<span class="badge bg-dark rounded-pill px-3 py-1 text-white small" style="font-size: 0.75rem;">
+									<i class="fa-solid fa-bolt text-warning me-1"></i>Freeship
+								</span>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<!-- Controls -->
-				<button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-					<span class="carousel-control-prev-icon p-3 bg-dark bg-opacity-50 rounded-circle" aria-hidden="true"></span>
-					<span class="visually-hidden">Trước</span>
-				</button>
-				<button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-					<span class="carousel-control-next-icon p-3 bg-dark bg-opacity-50 rounded-circle" aria-hidden="true"></span>
-					<span class="visually-hidden">Tiếp</span>
-				</button>
+				<!-- Right Stacked Promo Cards (1/3 width) -->
+				<div class="col-lg-4 d-flex flex-column gap-4 justify-content-between">
+					<!-- Top Card: Laptop -->
+					<a href="/products?category=Laptop & Máy tính" class="hero-side-card bg-laptop flex-grow-1">
+						<div>
+							<div class="hero-side-tag">FLASH SALE</div>
+							<h3 class="hero-side-title">Laptop chỉ từ 9,9 triệu</h3>
+						</div>
+						<div class="d-flex justify-content-between align-items-end">
+							<span class="hero-side-link">Xem ngay <i class="fa-solid fa-arrow-right"></i></span>
+							<i class="fa-solid fa-laptop fs-1 opacity-25"></i>
+						</div>
+					</a>
+
+					<!-- Bottom Card: Freeship -->
+					<a href="/products" class="hero-side-card bg-freeship flex-grow-1">
+						<div>
+							<div class="hero-side-tag">MIỄN PHÍ VẬN CHUYỂN</div>
+							<h3 class="hero-side-title">Đơn từ 500K giao tận nhà</h3>
+						</div>
+						<div class="d-flex justify-content-between align-items-end">
+							<span class="hero-side-link">Xem ngay <i class="fa-solid fa-arrow-right"></i></span>
+							<i class="fa-solid fa-truck-fast fs-1 opacity-25"></i>
+						</div>
+					</a>
+				</div>
 			</div>
 		</div>
 
-		<!-- 2. Trust & Highlights Bar (Thế Giới Di Động corporate style) -->
-		<div class="container px-lg-4">
+		<!-- 2. Trust Badges Row (4 Items) -->
+		<div class="container-fluid px-lg-5">
 			<div class="trust-bar">
-				<div class="row g-4 align-items-center">
-					<div class="col-lg-3 col-6">
+				<div class="row g-3">
+					<div class="col-xl-3 col-md-6">
 						<div class="trust-item">
-							<div class="trust-icon-wrap">
-								<i class="fa-solid fa-certificate"></i>
-							</div>
-							<div>
-								<div class="trust-title">100% Chính hãng</div>
-								<div class="trust-desc">Bảo hành chính thức</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-6">
-						<div class="trust-item">
-							<div class="trust-icon-wrap">
+							<div class="trust-icon-wrap" style="background: var(--tint-peach);">
 								<i class="fa-solid fa-truck-fast"></i>
 							</div>
 							<div>
-								<div class="trust-title">Giao nhanh 2 Giờ</div>
-								<div class="trust-desc">Miễn phí nội thành</div>
+								<div class="trust-title">Giao nhanh 2 giờ</div>
+								<div class="trust-desc">Nội thành TP. HCM & Hà Nội</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-3 col-6">
+					<div class="col-xl-3 col-md-6">
 						<div class="trust-item">
-							<div class="trust-icon-wrap">
-								<i class="fa-solid fa-arrows-rotate"></i>
+							<div class="trust-icon-wrap" style="background: var(--tint-mint);">
+								<i class="fa-solid fa-shield-halved"></i>
 							</div>
 							<div>
-								<div class="trust-title">Đổi trả 7 ngày</div>
-								<div class="trust-desc">1 đổi 1 nếu lỗi NSX</div>
+								<div class="trust-title">Chính hãng 100%</div>
+								<div class="trust-desc">Hoàn tiền nếu phát hiện hàng giả</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-3 col-6">
+					<div class="col-xl-3 col-md-6">
 						<div class="trust-item">
-							<div class="trust-icon-wrap">
-								<i class="fa-solid fa-headset"></i>
+							<div class="trust-icon-wrap" style="background: var(--tint-sky);">
+								<i class="fa-solid fa-rotate-left"></i>
 							</div>
 							<div>
-								<div class="trust-title">Hỗ trợ 24/7</div>
-								<div class="trust-desc">Tư vấn viên tận tình</div>
+								<div class="trust-title">Đổi trả 30 ngày</div>
+								<div class="trust-desc">Miễn phí, không cần lý do</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-md-6">
+						<div class="trust-item">
+							<div class="trust-icon-wrap" style="background: var(--tint-lilac);">
+								<i class="fa-solid fa-credit-card"></i>
+							</div>
+							<div>
+								<div class="trust-title">Thanh toán an toàn</div>
+								<div class="trust-desc">Thẻ, ví điện tử hoặc COD</div>
 							</div>
 						</div>
 					</div>
@@ -166,87 +129,20 @@
 			</div>
 		</div>
 
-		<!-- 3. Flash Sale Section with Countdown Timer (Questionnaire A7) -->
-		<div class="container px-lg-4 mt-5">
-			<div class="flash-sale-box">
-				<div class="flash-sale-header mb-4">
-					<div class="flash-title">
-						<i class="fa-solid fa-bolt-lightning"></i>
-						<span>FLASH SALE GIỜ VÀNG</span>
-						<span class="badge bg-danger rounded-pill ms-2 text-uppercase fs-6">Giảm đến 40%</span>
-					</div>
-					<div class="d-flex align-items-center gap-2">
-						<span class="small text-white-50 me-2 d-none d-sm-inline">Kết thúc trong:</span>
-						<div class="countdown-wrap">
-							<div class="countdown-box" id="flash-hours">04</div>
-							<div class="countdown-sep">:</div>
-							<div class="countdown-box" id="flash-minutes">38</div>
-							<div class="countdown-sep">:</div>
-							<div class="countdown-box" id="flash-seconds">52</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Flash Sale Products Grid (Top 4 products) -->
-				<div class="row g-3">
-					<div class="col-xl-3 col-lg-3 col-sm-6" th:each="p, iterStat : ${products}" th:if="${iterStat.index < 4}">
-						<div class="product-card h-100">
-							<!-- Vertical Ribbon Discount Badge (Questionnaire A4) -->
-							<div class="ribbon-discount" th:if="${p.discount > 0}">
-								<small>GIẢM</small>
-								[[${p.discount}]]%
-							</div>
-
-							<!-- Thumbnail -->
-							<div class="product-thumb-wrap">
-								<img th:src="@{'/img/product_img/'+${p.image}}" th:alt="${p.title}" loading="lazy">
-								<div th:if="${p.stock <= 0}" class="position-absolute top-50 start-50 translate-middle badge bg-dark bg-opacity-75 text-white px-3 py-2">
-									TẠM HẾT HÀNG
-								</div>
-							</div>
-
-							<!-- Body -->
-							<div class="card-body">
-								<a th:href="@{'/product/'+${p.id}}" class="product-title" th:title="${p.title}">[[${p.title}]]</a>
-
-								<div class="product-rating">
-									<i class="fa-solid fa-star"></i>
-									<span class="score">[[${p.rating}]]</span>
-									<span class="reviews-count">([[${p.reviewCount}]] đánh giá)</span>
-								</div>
-
-								<div class="price-row">
-									<span class="price-current">[[${#numbers.formatDecimal(p.discountPrice, 0, 'POINT', 0, 'COMMA')}]]đ</span>
-									<span th:if="${p.discount > 0}" class="price-old">[[${#numbers.formatDecimal(p.price, 0, 'POINT', 0, 'COMMA')}]]đ</span>
-								</div>
-
-								<a th:href="@{'/product/'+${p.id}}" class="btn btn-gold btn-sm w-100">
-									<i class="fa-solid fa-cart-plus me-1"></i> Mua ngay
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- 4. Featured Categories Module -->
-		<div class="container px-lg-4 mt-5 pt-3">
-			<div class="d-flex justify-content-between align-items-end mb-4">
-				<div>
-					<h3 class="fw-bold mb-1">DANH MỤC NỔI BẬT</h3>
-					<p class="text-muted small mb-0">Khám phá các ngành hàng công nghệ & thiết bị được quan tâm nhất</p>
-				</div>
-				<a href="/products" class="btn btn-outline-gold btn-sm d-none d-sm-inline-flex">
-					Xem tất cả danh mục <i class="fa-solid fa-arrow-right ms-1"></i>
+		<!-- 3. Featured Categories (Danh mục nổi bật) -->
+		<div class="container-fluid px-lg-5 mt-5 pt-2">
+			<div class="d-flex justify-content-between align-items-center mb-4">
+				<h3 class="fw-bold fs-4 mb-0">Danh mục nổi bật</h3>
+				<a href="/products" class="text-decoration-none fw-semibold small" style="color: var(--brand-primary);">
+					Xem tất cả <i class="fa-solid fa-arrow-right ms-1"></i>
 				</a>
 			</div>
 
 			<div class="row g-3">
-				<div class="col-lg-2 col-md-4 col-6" th:each="c:${category}">
-					<a th:href="@{'/products?category=' + ${c.encodedName}}" class="category-card-modern">
-						<div class="category-img-box">
-							<img th:src="@{'/img/category_img/'+${c.imageName}}" th:alt="${c.name}" loading="lazy">
+				<div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl" th:each="c, iterStat : ${category}">
+					<a th:href="@{'/products?category=' + ${c.encodedName}}" class="category-card-modern h-100">
+						<div class="category-img-box" th:style="'background: ' + (${iterStat.index % 7 == 0 ? 'var(--tint-sky)' : (iterStat.index % 7 == 1 ? 'var(--tint-lilac)' : (iterStat.index % 7 == 2 ? 'var(--tint-mint)' : (iterStat.index % 7 == 3 ? 'var(--tint-sand)' : (iterStat.index % 7 == 4 ? 'var(--tint-rose)' : (iterStat.index % 7 == 5 ? 'var(--tint-peach)' : 'var(--tint-lemon)')))))}">
+							<img th:src="@{'/img/category_img/'+${c.imageName}}" th:alt="${c.name}" style="max-height: 40px; max-width: 40px; object-fit: contain;">
 						</div>
 						<p class="category-name">[[${c.name}]]</p>
 					</a>
@@ -254,55 +150,103 @@
 			</div>
 		</div>
 
-		<!-- 5. Promotional Mid-Page Banner (Questionnaire A7) -->
-		<div class="container px-lg-4 mt-5 pt-3">
-			<div class="promo-banner-section">
-				<div class="row align-items-center">
-					<div class="col-lg-7">
-						<span class="badge bg-warning text-dark fw-bold px-3 py-2 rounded-pill mb-3">ĐẶC QUYỀN MUA SẮM</span>
-						<h2 class="promo-title mb-3">NÂNG CẤP TRẢI NGHIỆM <span>CÔNG NGHỆ 2026</span></h2>
-						<p class="text-white-50 mb-4" style="line-height: 1.8;">
-							Áp dụng hàng ngàn voucher giảm trực tiếp tại giỏ hàng. Miễn phí vận chuyển toàn quốc cho đơn hàng từ 500.000đ và đổi trả miễn phí trong 7 ngày.
-						</p>
-						<div class="d-flex gap-3">
-							<a href="/products" class="btn btn-gold px-4 py-2">
-								<i class="fa-solid fa-bag-shopping me-1"></i> Mua sắm ngay
-							</a>
-							<a href="/user/cart" class="btn btn-outline-light rounded-pill px-4 py-2">
-								Xem giỏ hàng
-							</a>
+		<!-- 4. Flash Sale Section with Countdown -->
+		<div class="container-fluid px-lg-5 mt-5">
+			<div class="flash-sale-box">
+				<div class="flash-sale-header">
+					<div class="flash-title">
+						<div class="flash-icon-box">
+							<i class="fa-solid fa-bolt"></i>
+						</div>
+						<span>Flash Sale</span>
+						<div class="d-inline-flex align-items-center ms-3">
+							<span class="text-secondary small me-2">Kết thúc sau</span>
+							<div class="countdown-box" id="flash-hours">02</div>
+							<span class="countdown-sep">:</span>
+							<div class="countdown-box" id="flash-minutes">14</div>
+							<span class="countdown-sep">:</span>
+							<div class="countdown-box" id="flash-seconds">36</div>
 						</div>
 					</div>
-					<div class="col-lg-5 text-center mt-4 mt-lg-0 d-none d-lg-block">
-						<i class="fa-solid fa-gem text-warning display-1 opacity-75"></i>
+					<a href="/products" class="text-decoration-none fw-semibold small" style="color: var(--brand-primary);">
+						Xem tất cả <i class="fa-solid fa-arrow-right ms-1"></i>
+					</a>
+				</div>
+
+				<!-- Flash Sale Products Grid (Top 4 products) -->
+				<div class="row g-3">
+					<div class="col-xl-3 col-lg-3 col-sm-6" th:each="p, iterStat : ${products}" th:if="${iterStat.index < 4}">
+						<div class="product-card h-100">
+							<!-- Discount Badge -->
+							<div class="ribbon-discount" th:if="${p.discount > 0}">
+								-[[${p.discount}]]%
+							</div>
+
+							<!-- Wishlist Heart Button -->
+							<a href="/products" class="card-wishlist-btn" title="Yêu thích">
+								<i class="fa-regular fa-heart"></i>
+							</a>
+
+							<!-- Thumbnail with Pastel Tint -->
+							<div class="product-thumb-wrap" th:style="'background: ' + (${iterStat.index % 4 == 0 ? 'var(--tint-sky)' : (iterStat.index % 4 == 1 ? 'var(--tint-lilac)' : (iterStat.index % 4 == 2 ? 'var(--tint-mint)' : 'var(--tint-sand)'))})">
+								<img th:src="@{'/img/product_img/'+${p.image}}" th:alt="${p.title}" loading="lazy">
+								<div th:if="${p.stock <= 0}" class="position-absolute top-50 start-50 translate-middle badge bg-dark bg-opacity-75 text-white px-3 py-2">
+									TẠM HẾT HÀNG
+								</div>
+							</div>
+
+							<!-- Body -->
+							<div class="card-body p-3 d-flex flex-column justify-content-between">
+								<div>
+									<a th:href="@{'/product/'+${p.id}}" class="product-title" th:title="${p.title}">[[${p.title}]]</a>
+
+									<div class="product-rating">
+										<i class="fa-solid fa-star"></i>
+										<span class="fw-semibold">[[${p.rating}]]</span>
+										<span class="text-muted">· Đã bán [[${p.reviewCount * 12 + 15}]]</span>
+									</div>
+								</div>
+
+								<div class="price-row mt-2">
+									<span class="price-current">[[${#numbers.formatDecimal(p.discountPrice, 0, 'POINT', 0, 'COMMA')}]]₫</span>
+									<span th:if="${p.discount > 0}" class="price-old">[[${#numbers.formatDecimal(p.price, 0, 'POINT', 0, 'COMMA')}]]₫</span>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<!-- 6. All Latest & Recommended Products Grid (Questionnaire A7) -->
-		<div class="container px-lg-4 mt-5 pt-3">
-			<div class="d-flex justify-content-between align-items-end mb-4">
-				<div>
-					<h3 class="fw-bold mb-1">GỢI Ý DÀNH CHO BẠN</h3>
-					<p class="text-muted small mb-0">Sản phẩm chính hãng với mức giá cạnh tranh nhất thị trường</p>
+		<!-- 5. Gợi ý cho bạn (Recommended Products) -->
+		<div class="container-fluid px-lg-5 mt-5 pt-3">
+			<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+				<h3 class="fw-bold fs-4 mb-0">Gợi ý cho bạn</h3>
+				<div class="d-flex flex-wrap gap-2">
+					<a href="/products" class="btn btn-dark-brand btn-sm px-3 rounded-pill">Tất cả</a>
+					<a href="/products?category=Điện thoại & Tablet" class="btn btn-brand-outline btn-sm px-3 rounded-pill">Điện thoại</a>
+					<a href="/products?category=Laptop & Máy tính" class="btn btn-brand-outline btn-sm px-3 rounded-pill">Laptop</a>
+					<a href="/products?category=Thời trang" class="btn btn-brand-outline btn-sm px-3 rounded-pill">Thời trang</a>
+					<a href="/products?category=Gia dụng" class="btn btn-brand-outline btn-sm px-3 rounded-pill">Gia dụng</a>
 				</div>
-				<a href="/products" class="btn btn-outline-gold btn-sm">
-					Xem tất cả [[${products.size()}]]+ sản phẩm <i class="fa-solid fa-arrow-right ms-1"></i>
-				</a>
 			</div>
 
+			<!-- Product Grid (8 items) -->
 			<div class="row g-3">
-				<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6" th:each="p:${products}">
+				<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6" th:each="p, iterStat : ${products}" th:if="${iterStat.index < 8}">
 					<div class="product-card h-100">
-						<!-- Vertical Ribbon Discount Badge (Questionnaire A4) -->
+						<!-- Discount Badge -->
 						<div class="ribbon-discount" th:if="${p.discount > 0}">
-							<small>GIẢM</small>
-							[[${p.discount}]]%
+							-[[${p.discount}]]%
 						</div>
 
-						<!-- Thumbnail -->
-						<div class="product-thumb-wrap">
+						<!-- Wishlist Heart Button -->
+						<a href="/products" class="card-wishlist-btn" title="Yêu thích">
+							<i class="fa-regular fa-heart"></i>
+						</a>
+
+						<!-- Thumbnail with Pastel Background Tint -->
+						<div class="product-thumb-wrap" th:style="'background: ' + (${iterStat.index % 4 == 0 ? 'var(--tint-sky)' : (iterStat.index % 4 == 1 ? 'var(--tint-lilac)' : (iterStat.index % 4 == 2 ? 'var(--tint-mint)' : 'var(--tint-rose)'))})">
 							<img th:src="@{'/img/product_img/'+${p.image}}" th:alt="${p.title}" loading="lazy">
 							<div th:if="${p.stock <= 0}" class="position-absolute top-50 start-50 translate-middle badge bg-dark bg-opacity-75 text-white px-3 py-2">
 								HẾT HÀNG
@@ -310,30 +254,45 @@
 						</div>
 
 						<!-- Body -->
-						<div class="card-body">
-							<a th:href="@{'/product/'+${p.id}}" class="product-title" th:title="${p.title}">[[${p.title}]]</a>
+						<div class="card-body p-3 d-flex flex-column justify-content-between">
+							<div>
+								<a th:href="@{'/product/'+${p.id}}" class="product-title" th:title="${p.title}">[[${p.title}]]</a>
 
-							<div class="product-rating">
-								<i class="fa-solid fa-star"></i>
-								<span class="score">[[${p.rating}]]</span>
-								<span class="reviews-count">([[${p.reviewCount}]] đánh giá)</span>
+								<div class="product-rating">
+									<i class="fa-solid fa-star"></i>
+									<span class="fw-semibold">[[${p.rating}]]</span>
+									<span class="text-muted">· Đã bán [[${p.reviewCount * 15 + 23}]]</span>
+								</div>
 							</div>
 
-							<div class="price-row">
-								<span class="price-current">[[${#numbers.formatDecimal(p.discountPrice, 0, 'POINT', 0, 'COMMA')}]]đ</span>
-								<span th:if="${p.discount > 0}" class="price-old">[[${#numbers.formatDecimal(p.price, 0, 'POINT', 0, 'COMMA')}]]đ</span>
+							<div class="price-row mt-2">
+								<span class="price-current">[[${#numbers.formatDecimal(p.discountPrice, 0, 'POINT', 0, 'COMMA')}]]₫</span>
+								<span th:if="${p.discount > 0}" class="price-old">[[${#numbers.formatDecimal(p.price, 0, 'POINT', 0, 'COMMA')}]]₫</span>
 							</div>
-
-							<a th:href="@{'/product/'+${p.id}}" class="btn btn-outline-gold btn-sm w-100">
-								Xem chi tiết
-							</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<!-- Simple Countdown JS -->
+		<!-- 6. Membership CTA Banner (Figma 2.0 Spec) -->
+		<div class="container-fluid px-lg-5">
+			<div class="membership-cta-banner">
+				<div>
+					<h2 class="membership-cta-title">
+						Thành viên mới nhận ngay 50.000₫
+					</h2>
+					<p class="membership-cta-sub">
+						Đăng ký tài khoản hôm nay để mở khoá voucher chào mừng và theo dõi đơn hàng dễ dàng.
+					</p>
+				</div>
+				<a href="/register" class="btn btn-dark-brand px-4 py-2.5 rounded-pill shadow-sm">
+					Đăng ký ngay
+				</a>
+			</div>
+		</div>
+
+		<!-- Countdown JS -->
 		<script>
 			function updateCountdown() {
 				var now = new Date();

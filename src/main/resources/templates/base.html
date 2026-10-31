@@ -3,146 +3,174 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>E-COMMERCE — Đỉnh Cao Công Nghệ & Mua Sắm</title>
+<title>ecom. — Nền tảng thương mại điện tử công nghệ chính hãng</title>
 <!-- Bootstrap 5 CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <!-- FontAwesome 6 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<!-- Google Fonts (Plus Jakarta Sans & Be Vietnam Pro) -->
+<!-- Google Fonts (Be Vietnam Pro & Plus Jakarta Sans) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<!-- Stitch Design System Tokens & Custom Luxury Black & Gold Theme CSS -->
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<!-- Figma Design System 2.0 CSS -->
 <link rel="stylesheet" th:href="@{/css/style.css}">
 <link rel="stylesheet" th:href="@{/css/design-system.css}">
 </head>
 <body>
-	<!-- Start Luxury Navbar -->
-	<nav class="navbar navbar-expand-lg fixed-top luxury-navbar" id="mainNavbar">
-		<div class="container-fluid px-lg-4">
-			<!-- Brand Logo -->
-			<a class="navbar-brand me-3" href="/">
-				<div class="brand-icon-box">
-					<i class="fa-solid fa-crown"></i>
+	<!-- 1. Top Announcement Bar (Figma Design 2.0) -->
+	<div class="announcement-bar d-none d-md-block">
+		<div class="container-fluid px-lg-5">
+			<div class="d-flex justify-content-between align-items-center">
+				<div class="d-flex align-items-center gap-2">
+					<i class="fa-solid fa-truck-fast text-warning" style="font-size: 0.8rem;"></i>
+					<span>Miễn phí vận chuyển cho đơn từ 500.000đ</span>
+					<span class="opacity-50">·</span>
+					<span>Đổi trả trong 30 ngày</span>
 				</div>
-				<span class="brand-gold-text">E-COMMERCE</span>
+				<div class="d-flex align-items-center gap-3">
+					<a href="#"><i class="fa-solid fa-circle-question me-1 opacity-75"></i>Trung tâm hỗ trợ</a>
+					<span class="opacity-50">·</span>
+					<a href="/user/user-orders"><i class="fa-solid fa-box me-1 opacity-75"></i>Theo dõi đơn hàng</a>
+					<span class="opacity-50">·</span>
+					<span><i class="fa-solid fa-globe me-1 opacity-75"></i>Tiếng Việt <i class="fa-solid fa-chevron-down ms-1" style="font-size: 0.65rem;"></i></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 2. Main Navbar -->
+	<nav class="navbar navbar-expand-lg luxury-navbar" id="mainNavbar">
+		<div class="container-fluid px-lg-5">
+			<!-- Brand Logo: ecom. -->
+			<a class="navbar-brand me-4" href="/">
+				<span class="brand-logo-text">ecom<span class="brand-logo-dot"></span></span>
 			</a>
 
+			<!-- Quick Search Bar (Pill Shape with auto-complete) -->
+			<div class="nav-search-bar flex-grow-1 me-lg-4 my-2 my-lg-0">
+				<form action="/products" method="get" class="m-0" id="navSearchForm">
+					<i class="fa-solid fa-magnifying-glass search-icon"></i>
+					<input type="text" id="navSearchInput" name="ch" placeholder="Tìm kiếm sản phẩm, thương hiệu, danh mục..." class="form-control" autocomplete="off" data-search-target="navSearchDropdown">
+				</form>
+				<div id="navSearchDropdown" class="search-autocomplete-dropdown d-none"></div>
+			</div>
+
 			<!-- Mobile Toggler -->
-			<button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<i class="fa-solid fa-bars fs-4 text-warning"></i>
+			<button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<i class="fa-solid fa-bars fs-4 text-dark"></i>
 			</button>
 
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<!-- Navigation Links -->
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-lg-center">
+			<!-- Right Action Controls -->
+			<div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
+				<div class="d-flex align-items-center gap-2 py-2 py-lg-0">
+					<!-- Wishlist Heart Button -->
+					<a href="/products" class="header-icon-btn d-none d-sm-inline-flex" title="Sản phẩm yêu thích">
+						<i class="fa-regular fa-heart fs-5"></i>
+					</a>
+
+					<!-- Notification Bell -->
+					<a href="/user/notifications" class="header-icon-btn position-relative" title="Thông báo">
+						<i class="fa-regular fa-bell fs-5"></i>
+						<span th:if="${countNotification != null and countNotification > 0}" class="header-badge">
+							[[${countNotification}]]
+						</span>
+					</a>
+
+					<!-- Shopping Cart Bag -->
+					<a href="/user/cart" class="header-icon-btn position-relative me-2" title="Giỏ hàng">
+						<i class="fa-solid fa-bag-shopping fs-5"></i>
+						<span class="header-badge" th:text="${countCart != null ? countCart : 0}">0</span>
+					</a>
+
+					<!-- Guest Authentication Buttons -->
 					<th:block th:if="${user==null}">
-						<li class="nav-item"><a class="nav-link" aria-current="page" href="/"><i class="fa-solid fa-house me-1"></i> Trang chủ</a></li>
-					</th:block>
-
-					<th:block th:unless="${user==null}">
-						<li class="nav-item" th:if="${user.role=='ROLE_ADMIN'}"><a class="nav-link" aria-current="page" href="/admin/"><i class="fa-solid fa-gauge me-1"></i> Bảng điều khiển</a></li>
-						<li class="nav-item" th:if="${user.role=='ROLE_USER'}"><a class="nav-link" aria-current="page" href="/"><i class="fa-solid fa-house me-1"></i> Trang chủ</a></li>
-					</th:block>
-
-					<li class="nav-item"><a class="nav-link" aria-current="page" href="/products"><i class="fa-solid fa-boxes-stacked me-1"></i> Sản phẩm</a></li>
-
-					<!-- Category Dropdown -->
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							<i class="fa-solid fa-layer-group me-1"></i> Danh mục
+						<a class="btn btn-brand-outline btn-sm px-3.5 py-1.5" href="/signin">
+							Đăng nhập
 						</a>
-						<ul class="dropdown-menu">
-							<li th:each="c:${categorys}">
-								<a class="dropdown-item d-flex align-items-center justify-content-between" th:href="@{'/products?category=' + ${c.encodedName}}">
-									<span>[[${c.name}]]</span>
-									<i class="fa-solid fa-chevron-right text-muted small ms-2" style="font-size: 0.7rem;"></i>
-								</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-
-				<!-- Quick Search in Navbar with Live Autocomplete Dropdown (Mobile & Desktop) -->
-				<div class="nav-search-bar me-lg-3 my-2 my-lg-0 position-relative">
-					<form action="/products" method="get" class="m-0" id="navSearchForm">
-						<i class="fa-solid fa-magnifying-glass search-icon"></i>
-						<input type="text" id="navSearchInput" name="ch" placeholder="Tìm kiếm sản phẩm..." class="form-control" autocomplete="off" data-search-target="navSearchDropdown">
-					</form>
-					<div id="navSearchDropdown" class="search-autocomplete-dropdown d-none"></div>
-				</div>
-
-				<!-- Right Navigation (Auth / User / Cart / Notifications) -->
-				<ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-1">
-					<th:block th:if="${user==null}">
-						<li class="nav-item">
-							<a class="nav-link px-3" href="/signin">
-								<i class="fa-solid fa-right-to-bracket me-1"></i> Đăng nhập
-							</a>
-						</li>
-						<li class="nav-item ms-lg-2">
-							<a class="btn btn-gold btn-sm px-3" href="/register">
-								<i class="fa-solid fa-user-plus me-1"></i> Đăng ký
-							</a>
-						</li>
+						<a class="btn btn-brand btn-sm px-3.5 py-1.5" href="/register">
+							Đăng ký
+						</a>
 					</th:block>
 
+					<!-- Logged-in User Profile Dropdown -->
 					<th:block th:if="${user!=null}">
-						<!-- Notification Bell -->
-						<li class="nav-item position-relative me-2">
-							<a class="nav-link" href="/user/notifications" title="Thông báo">
-								<i class="fa-solid fa-bell fs-5"></i>
-								<span th:if="${countNotification != null and countNotification > 0}" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.65rem;">
-									[[${countNotification}]]
-								</span>
-							</a>
-						</li>
-
-						<!-- Shopping Cart -->
-						<th:block th:if="${user.role=='ROLE_USER'}">
-							<li class="nav-item me-2">
-								<a class="nav-link d-inline-flex align-items-center gap-1" href="/user/cart">
-									<i class="fa-solid fa-bag-shopping fs-5"></i>
-									<span class="d-none d-xl-inline">Giỏ hàng</span>
-									<span class="badge nav-badge-pill rounded-pill ms-1">[[${countCart}]]</span>
-								</a>
-							</li>
-						</th:block>
-
-						<!-- User Profile Dropdown -->
-						<li class="nav-item dropdown ms-lg-2">
-							<a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								<div class="rounded-circle bg-warning text-dark fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 0.85rem;">
+						<div class="dropdown">
+							<button class="btn btn-brand-outline btn-sm d-flex align-items-center gap-2 rounded-pill px-3 py-1 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<div class="rounded-circle bg-dark text-white fw-bold d-flex align-items-center justify-content-center" style="width: 26px; height: 26px; font-size: 0.75rem;">
 									<i class="fa-solid fa-user"></i>
 								</div>
-								<span class="fw-bold text-white text-truncate" style="max-width: 140px;">[[${user.name}]]</span>
-							</a>
-							<ul class="dropdown-menu dropdown-menu-end">
-								<li class="px-3 py-2 border-bottom mb-1">
-									<small class="text-muted d-block">Đăng nhập với tư cách</small>
-									<span class="fw-bold text-warning small">[[${user.email}]]</span>
+								<span class="fw-semibold text-truncate" style="max-width: 120px;">[[${user.name}]]</span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 mt-2" style="min-width: 220px;">
+								<li class="px-3 py-2 border-bottom">
+									<small class="text-muted d-block" style="font-size: 0.72rem;">Tài khoản đăng nhập</small>
+									<span class="fw-bold small text-dark">[[${user.email}]]</span>
 								</li>
-								<li th:if="${user.role=='ROLE_USER'}"><a class="dropdown-item" href="/user/profile"><i class="fa-solid fa-id-card me-2"></i>Hồ sơ cá nhân</a></li>
-								<li th:if="${user.role=='ROLE_USER'}"><a class="dropdown-item" href="/user/user-orders"><i class="fa-solid fa-box-open me-2"></i>Đơn hàng của tôi</a></li>
-								<li th:if="${user.role=='ROLE_USER'}"><a class="dropdown-item" href="/user/notifications"><i class="fa-solid fa-bell me-2"></i>Thông báo ưu đãi</a></li>
-								<li th:if="${user.role=='ROLE_ADMIN'}"><a class="dropdown-item" href="/admin/"><i class="fa-solid fa-chart-line me-2"></i>Bảng điều khiển</a></li>
-								<li th:if="${user.role=='ROLE_ADMIN'}"><a class="dropdown-item" href="/admin/profile"><i class="fa-solid fa-user-shield me-2"></i>Hồ sơ Quản trị</a></li>
-								<li th:if="${user.role=='ROLE_ADMIN'}"><a class="dropdown-item" href="/admin/vouchers"><i class="fa-solid fa-ticket me-2"></i>Quản lý Voucher</a></li>
-								<li th:if="${user.role=='ROLE_ADMIN'}"><a class="dropdown-item" href="/admin/chat"><i class="fa-solid fa-comments me-2"></i>Trung tâm CSKH Live Chat</a></li>
-								<li><hr class="dropdown-divider"></li>
-								<li><a class="dropdown-item text-danger fw-bold" href="/logout"><i class="fa-solid fa-right-from-bracket me-2"></i>Đăng xuất</a></li>
+								<li th:if="${user.role=='ROLE_USER'}"><a class="dropdown-item py-2" href="/user/profile"><i class="fa-regular fa-id-badge me-2 text-muted"></i>Hồ sơ cá nhân</a></li>
+								<li th:if="${user.role=='ROLE_USER'}"><a class="dropdown-item py-2" href="/user/user-orders"><i class="fa-solid fa-box-archive me-2 text-muted"></i>Đơn hàng của tôi</a></li>
+								<li th:if="${user.role=='ROLE_USER'}"><a class="dropdown-item py-2" href="/user/notifications"><i class="fa-regular fa-bell me-2 text-muted"></i>Thông báo</a></li>
+								<li th:if="${user.role=='ROLE_ADMIN'}"><a class="dropdown-item py-2 text-danger fw-semibold" href="/admin/"><i class="fa-solid fa-gauge-high me-2"></i>Bảng quản trị</a></li>
+								<li th:if="${user.role=='ROLE_ADMIN'}"><a class="dropdown-item py-2" href="/admin/profile"><i class="fa-solid fa-user-shield me-2 text-muted"></i>Hồ sơ Quản trị</a></li>
+								<li th:if="${user.role=='ROLE_ADMIN'}"><a class="dropdown-item py-2" href="/admin/vouchers"><i class="fa-solid fa-ticket me-2 text-muted"></i>Quản lý Voucher</a></li>
+								<li th:if="${user.role=='ROLE_ADMIN'}"><a class="dropdown-item py-2" href="/admin/chat"><i class="fa-solid fa-comments me-2 text-muted"></i>Live Chat CSKH</a></li>
+								<li><hr class="dropdown-divider my-1"></li>
+								<li><a class="dropdown-item py-2 text-danger" href="/logout"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Đăng xuất</a></li>
 							</ul>
-						</li>
+						</div>
 					</th:block>
-				</ul>
+				</div>
 			</div>
 		</div>
 	</nav>
-	<!-- End Luxury Navbar -->
+
+	<!-- 3. Sub-Navbar (Categories & Quick Links) -->
+	<div class="sub-navbar d-none d-lg-block">
+		<div class="container-fluid px-lg-5">
+			<div class="d-flex justify-content-between align-items-center">
+				<div class="d-flex align-items-center gap-3">
+					<!-- Category Dropdown Button -->
+					<div class="dropdown">
+						<button class="btn-category-menu dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="fa-solid fa-bars-staggered"></i>
+							<span>Danh mục</span>
+						</button>
+						<ul class="dropdown-menu shadow-lg border-0 rounded-3 mt-1" style="min-width: 240px;">
+							<li th:each="c:${categorys}">
+								<a class="dropdown-item d-flex align-items-center justify-content-between py-2" th:href="@{'/products?category=' + ${c.encodedName}}">
+									<span>[[${c.name}]]</span>
+									<i class="fa-solid fa-chevron-right text-muted" style="font-size: 0.7rem;"></i>
+								</a>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Quick Links -->
+					<div class="d-flex align-items-center gap-1">
+						<a href="/products?category=Điện thoại & Tablet" class="sub-nav-link">Điện thoại</a>
+						<a href="/products?category=Laptop & Máy tính" class="sub-nav-link">Laptop</a>
+						<a href="/products?category=Màn hình" class="sub-nav-link">Màn hình</a>
+						<a href="/products?category=Gia dụng" class="sub-nav-link">Gia dụng</a>
+						<a href="/products?category=Thời trang" class="sub-nav-link">Thời trang</a>
+						<a href="/products?category=Làm đẹp" class="sub-nav-link">Làm đẹp</a>
+						<a href="/products?category=Sách" class="sub-nav-link">Sách</a>
+						<a href="/products" class="sub-nav-link">Tất cả sản phẩm</a>
+					</div>
+				</div>
+
+				<!-- Hot Promotions Link -->
+				<div>
+					<a href="/products" class="hot-promo-link">
+						<i class="fa-solid fa-fire-flame-curved"></i>
+						<span>Khuyến mãi hot</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- Toast Notification -->
 	<div aria-live="polite" aria-atomic="true" class="position-relative">
-		<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999; margin-top: 75px;">
+		<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999; margin-top: 20px;">
 			<div th:if="${session.succMsg}" class="toast align-items-center text-bg-success border-0 show shadow-lg rounded-4 overflow-hidden" role="alert" aria-live="assertive" aria-atomic="true">
 				<div class="d-flex">
 					<div class="toast-body fw-medium" th:text="${session.succMsg}"></div>
@@ -159,71 +187,103 @@
 			</div>
 		</div>
 	</div>
-	<!-- End Toast -->
 
 	<!-- Main Page Content Insertion -->
 	<main>
 		<div th:replace="${content}"></div>
 	</main>
 
-	<!-- Ultra-Compact Luxury Footer -->
-	<footer class="luxury-footer mt-4 py-2 bg-white border-top border-warning-subtle">
-		<div class="container">
-			<div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
-				<!-- Brand & Hotline -->
-				<div class="d-flex align-items-center gap-3">
-					<a href="/" class="d-flex align-items-center gap-2 text-decoration-none">
-						<div class="brand-icon-box" style="width: 22px; height: 22px; font-size: 0.72rem;">
-							<i class="fa-solid fa-crown"></i>
-						</div>
-						<span class="brand-gold-text fw-bold" style="font-size: 0.92rem;">E-COMMERCE</span>
+	<!-- 4. Footer (Deep Dark Ink #17181f - Figma 2.0 Spec) -->
+	<footer class="luxury-footer">
+		<div class="container-fluid px-lg-5">
+			<div class="row g-4 justify-content-between">
+				<!-- Col 1: Brand & Contacts -->
+				<div class="col-lg-3 col-md-6">
+					<a href="/" class="text-decoration-none d-inline-block mb-3">
+						<span class="brand-logo-text text-white">ecom<span class="brand-logo-dot"></span></span>
 					</a>
-					<span class="text-secondary d-none d-sm-inline" style="font-size: 0.76rem;">|</span>
-					<span class="text-secondary d-none d-sm-inline" style="font-size: 0.76rem;">
-						<i class="fa-solid fa-phone text-warning me-1"></i>Hotline: <strong class="text-dark">1900 8888</strong>
-					</span>
+					<p class="text-white-50 small mb-4" style="line-height: 1.7;">
+						Mua sắm thông minh, giao hàng nhanh. Hàng nghìn sản phẩm chính hãng từ điện thoại, thời trang đến đồ gia dụng.
+					</p>
+					<div class="d-flex flex-column gap-2 text-white-50 small">
+						<div><i class="fa-solid fa-envelope me-2 text-warning"></i>hotro@ecom.vn</div>
+						<div><i class="fa-solid fa-phone me-2 text-warning"></i>1900 6868 · 8:00 – 22:00</div>
+						<div><i class="fa-solid fa-location-dot me-2 text-warning"></i>Quận 1, TP. Hồ Chí Minh</div>
+					</div>
 				</div>
 
-				<!-- Quick Links -->
-				<ul class="nav gap-2 gap-md-3 footer-inline-nav mb-0" style="font-size: 0.78rem;">
-					<li class="nav-item"><a href="/" class="nav-link p-0 text-secondary">Trang chủ</a></li>
-					<li class="nav-item"><a href="/products" class="nav-link p-0 text-secondary">Sản phẩm</a></li>
-					<li class="nav-item"><a href="/user/cart" class="nav-link p-0 text-secondary">Giỏ hàng</a></li>
-					<li class="nav-item"><a href="/signin" class="nav-link p-0 text-secondary">Tài khoản</a></li>
-					<li class="nav-item d-none d-lg-inline"><a href="#" class="nav-link p-0 text-secondary">Chính sách bảo hành</a></li>
-				</ul>
+				<!-- Col 2: Mua sắm -->
+				<div class="col-lg-2 col-md-3 col-6">
+					<h6 class="footer-title">Mua sắm</h6>
+					<ul class="list-unstyled mb-0">
+						<li><a href="/products?category=Điện thoại & Tablet">Điện thoại</a></li>
+						<li><a href="/products?category=Laptop & Máy tính">Laptop & Màn hình</a></li>
+						<li><a href="/products?category=Gia dụng">Gia dụng</a></li>
+						<li><a href="/products?category=Thời trang">Thời trang</a></li>
+						<li><a href="/products?category=Làm đẹp">Làm đẹp</a></li>
+					</ul>
+				</div>
 
-				<!-- Social Mini Icons & Badges -->
-				<div class="d-flex align-items-center gap-2">
-					<div class="d-flex align-items-center gap-1">
+				<!-- Col 3: Hỗ trợ -->
+				<div class="col-lg-2 col-md-3 col-6">
+					<h6 class="footer-title">Hỗ trợ</h6>
+					<ul class="list-unstyled mb-0">
+						<li><a href="#">Trung tâm trợ giúp</a></li>
+						<li><a href="#">Chính sách đổi trả</a></li>
+						<li><a href="#">Vận chuyển</a></li>
+						<li><a href="#">Thanh toán</a></li>
+						<li><a href="#">Liên hệ</a></li>
+					</ul>
+				</div>
+
+				<!-- Col 4: Nhận ưu đãi -->
+				<div class="col-lg-4 col-md-12">
+					<h6 class="footer-title">Nhận ưu đãi</h6>
+					<p class="text-white-50 small mb-3">Đăng ký để nhận voucher 50.000đ cho đơn đầu tiên:</p>
+					<form id="newsletter-form" class="mb-3">
+						<div class="input-group">
+							<input type="email" class="form-control form-control-sm border-0 text-white" placeholder="Email của bạn" required style="background: #262833; font-size: 0.88rem; padding: 0.65rem 1rem;">
+							<button class="btn btn-brand btn-sm px-3.5" type="submit">
+								Đăng ký
+							</button>
+						</div>
+					</form>
+					<div class="d-flex align-items-center gap-2 pt-2">
 						<a href="#" class="footer-social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
 						<a href="#" class="footer-social-btn" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
 						<a href="#" class="footer-social-btn" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
 						<a href="#" class="footer-social-btn" title="Zalo"><i class="fa-solid fa-comment-dots"></i></a>
 					</div>
-					<span class="badge bg-light text-secondary border d-none d-xl-inline" style="font-size: 0.65rem;">
-						<i class="fa-solid fa-shield-halved text-success me-1"></i>Chính hãng 100%
-					</span>
 				</div>
 			</div>
 
-			<!-- Micro Copyright line -->
-			<div class="footer-bottom text-center pt-1 mt-1 border-top" style="font-size: 0.72rem; color: #9CA3AF;">
-				© 2026 E-COMMERCE. Bảo lưu mọi quyền.
+			<!-- Bottom Copyright & Payment Badges -->
+			<div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+				<p class="mb-0">© 2026 ecom. Mọi quyền được bảo lưu.</p>
+				<div class="d-flex align-items-center gap-3 text-white-50 small">
+					<span>Visa</span>
+					<span>·</span>
+					<span>Mastercard</span>
+					<span>·</span>
+					<span>MoMo</span>
+					<span>·</span>
+					<span>ZaloPay</span>
+					<span>·</span>
+					<span>COD</span>
+				</div>
 			</div>
 		</div>
 	</footer>
-	<!-- End Footer -->
 
 	<!-- Floating 1-on-1 Live Chat Widget -->
 	<div id="chat-widget" class="position-fixed bottom-0 end-0 m-4" style="z-index: 9999;"
 		th:attr="data-user-email=${user != null ? user.email : ''}, data-user-name=${user != null ? user.name : ''}, data-user-role=${user != null ? user.role : 'GUEST'}">
 		<!-- Chat Box -->
-		<div id="chat-box" class="card shadow-lg d-none mb-3" style="width: 360px; height: 480px; border-radius: 20px; border: 1px solid rgba(212, 175, 55, 0.35); overflow: hidden;">
+		<div id="chat-box" class="card shadow-lg d-none mb-3" style="width: 360px; height: 480px; border-radius: 20px; border: 1px solid var(--border-default); overflow: hidden;">
 			<!-- Header -->
-			<div class="card-header text-white d-flex justify-content-between align-items-center py-3">
+			<div class="card-header text-white d-flex justify-content-between align-items-center py-3" style="background: var(--bg-ink);">
 				<div class="d-flex align-items-center gap-2">
-					<div class="rounded-circle bg-warning text-dark d-flex align-items-center justify-content-center" style="width: 34px; height: 34px;">
+					<div class="rounded-circle text-white d-flex align-items-center justify-content-center" style="width: 34px; height: 34px; background: var(--brand-primary);">
 						<i class="fa-solid fa-headset fs-6"></i>
 					</div>
 					<div>
@@ -235,11 +295,11 @@
 			</div>
 
 			<!-- Messages window -->
-			<div class="card-body p-3 overflow-auto" id="chat-messages" style="height: 340px; background-color: #FAFAFA;">
+			<div class="card-body p-3 overflow-auto" id="chat-messages" style="height: 340px; background-color: var(--bg-subtle);">
 				<div class="text-center text-muted small my-2">Trò chuyện trực tiếp với CSKH</div>
 				<div class="d-flex mb-2">
 					<div class="p-2 rounded-3 bg-white shadow-sm border" style="max-width: 85%;">
-						<small class="fw-bold text-warning d-block">Hỗ trợ viên CSKH</small>
+						<small class="fw-bold d-block text-danger">Hỗ trợ viên CSKH</small>
 						<span>Xin chào! Chúng tôi có thể hỗ trợ gì cho bạn hôm nay?</span>
 					</div>
 				</div>
@@ -249,7 +309,7 @@
 			<div class="card-footer bg-white border-top p-2">
 				<form id="chat-form" class="d-flex gap-2">
 					<input type="text" id="chat-input" class="form-control form-control-sm rounded-pill" placeholder="Nhập câu hỏi hỗ trợ..." autocomplete="off" required>
-					<button type="submit" class="btn btn-gold btn-sm rounded-circle px-2" style="width: 34px; height: 34px;">
+					<button type="submit" class="btn btn-brand btn-sm rounded-circle px-2" style="width: 34px; height: 34px;">
 						<i class="fa-solid fa-paper-plane" style="font-size: 0.8rem;"></i>
 					</button>
 				</form>
@@ -259,8 +319,8 @@
 		<!-- Chat Floating Trigger Button -->
 		<div class="d-flex justify-content-end">
 			<button id="chat-toggle-btn" class="btn rounded-circle shadow-lg p-3 d-flex align-items-center justify-content-center"
-					title="Chat trực tiếp với CSKH">
-				<i class="fa-solid fa-headset fs-3 text-warning"></i>
+					title="Chat trực tiếp với CSKH" style="background: var(--bg-ink); border: 2px solid var(--brand-primary); width: 56px; height: 56px;">
+				<i class="fa-solid fa-headset fs-4" style="color: var(--brand-primary);"></i>
 			</button>
 		</div>
 	</div>

@@ -1,0 +1,231 @@
+{
+	"info": {
+		"_postman_id": "a9b8c7d6-e5f4-4321-abcd-100products001",
+		"name": "E-Commerce System - 100 Products Seeder & API",
+		"description": "Postman Collection cung cấp đầy đủ các API để nạp 100 sản phẩm phân bổ đều cho 8 danh mục chuẩn Figma 2.0 (Điện thoại, Laptop, Màn hình, Gia dụng, Thời trang, Làm đẹp, Sách, Thực phẩm). Hỗ trợ nạp 1-click, nạp theo danh sách Bulk, hoặc chạy tự động qua Postman Collection Runner với data file.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "1. Nạp nhanh 100 sản phẩm (One-Click Seed)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/products/seed-100",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"seed-100"
+					]
+				},
+				"description": "Gọi 1 request duy nhất để hệ thống tự động sinh và lưu 100 sản phẩm chia đều cho 8 danh mục chuẩn Figma 2.0 vào database. Tự động kiểm tra trùng lặp."
+			},
+			"response": []
+		},
+		{
+			"name": "2. Làm mới & Nạp lại 100 sản phẩm (Reset & Seed)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/products/seed-100?reset=true",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"seed-100"
+					],
+					"query": [
+						{
+							"key": "reset",
+							"value": "true",
+							"description": "Xóa các sản phẩm đã seed cũ để làm mới lại toàn bộ 100 sản phẩm"
+						}
+					]
+				},
+				"description": "Đặt lại danh sách và nạp lại toàn bộ 100 sản phẩm mẫu vào database."
+			},
+			"response": []
+		},
+		{
+			"name": "3. Thống kê số lượng theo danh mục (Products Summary)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/products/summary",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"summary"
+					]
+				},
+				"description": "Kiểm tra tổng số sản phẩm và số lượng sản phẩm chia theo từng danh mục."
+			},
+			"response": []
+		},
+		{
+			"name": "4. Thêm sản phẩm đơn lẻ (Create Product - Dùng với Collection Runner)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"{{title}}\",\n    \"description\": \"{{description}}\",\n    \"category\": \"{{category}}\",\n    \"price\": {{price}},\n    \"discount\": {{discount}},\n    \"stock\": {{stock}},\n    \"image\": \"{{image}}\",\n    \"rating\": {{rating}},\n    \"reviewCount\": {{reviewCount}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/products",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				},
+				"description": "Thêm 1 sản phẩm. Có thể dùng trong Postman Collection Runner với file dữ liệu 'postman/products_100.json' để lặp qua 100 dòng."
+			},
+			"response": []
+		},
+		{
+			"name": "5. Thêm hàng loạt từ mảng JSON (Bulk Insert Products)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"title\": \"iPhone 15 Pro Max 256GB Titan Tự Nhiên\",\n        \"description\": \"Thiết kế titan siêu nhẹ, chip A17 Pro mạnh mẽ.\",\n        \"category\": \"Điện thoại\",\n        \"price\": 31990000.0,\n        \"discount\": 5,\n        \"stock\": 25,\n        \"image\": \"iphone 14.jpg\"\n    },\n    {\n        \"title\": \"Apple MacBook Pro 14 M3 Pro\",\n        \"description\": \"CPU 11 nhân, GPU 14 nhân, màn hình Liquid Retina XDR.\",\n        \"category\": \"Laptop\",\n        \"price\": 49990000.0,\n        \"discount\": 4,\n        \"stock\": 15,\n        \"image\": \"laptop.jpg\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/products/bulk",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"bulk"
+					]
+				},
+				"description": "Thêm danh sách nhiều sản phẩm cùng lúc trong 1 request body dạng JSON Array."
+			},
+			"response": []
+		},
+		{
+			"name": "6. Tìm kiếm sản phẩm (Search Products Ajax)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/products/search?q=iPhone",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "iPhone",
+							"description": "Từ khóa tìm kiếm sản phẩm"
+						}
+					]
+				},
+				"description": "Tìm kiếm sản phẩm nhanh dạng Ajax."
+			},
+			"response": []
+		},
+		{
+			"name": "7. Xuất file 100 sản phẩm mẫu (Export 100 Products JSON)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/products/export-100",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"export-100"
+					]
+				},
+				"description": "Lấy toàn bộ dữ liệu 100 sản phẩm mẫu dạng JSON chuẩn để lưu trữ hoặc dùng cho các hệ thống khác."
+			},
+			"response": []
+		}
+	]
+}

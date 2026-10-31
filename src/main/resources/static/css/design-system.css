@@ -83,6 +83,30 @@
     --price-color: var(--brand-primary);
 }
 
+/* Tint Helpers */
+.tint-sky { background-color: var(--tint-sky) !important; }
+.tint-lilac { background-color: var(--tint-lilac) !important; }
+.tint-mint { background-color: var(--tint-mint) !important; }
+.tint-sand { background-color: var(--tint-sand) !important; }
+.tint-rose { background-color: var(--tint-rose) !important; }
+.tint-peach { background-color: var(--tint-peach) !important; }
+.tint-lemon { background-color: var(--tint-lemon) !important; }
+
+.tint-0 { background-color: var(--tint-sky) !important; }
+.tint-1 { background-color: var(--tint-lilac) !important; }
+.tint-2 { background-color: var(--tint-mint) !important; }
+.tint-3 { background-color: var(--tint-sand) !important; }
+.tint-4 { background-color: var(--tint-rose) !important; }
+.tint-5 { background-color: var(--tint-peach) !important; }
+.tint-6 { background-color: var(--tint-lemon) !important; }
+
+/* Pagination active pill */
+.page-link.page-active {
+  background: var(--bg-ink) !important;
+  border-color: var(--bg-ink) !important;
+  color: #ffffff !important;
+}
+
 /* ==========================================================================
    Base & Resets
    ========================================================================== */

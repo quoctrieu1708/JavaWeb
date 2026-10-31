@@ -141,7 +141,7 @@
 			<div class="row g-3">
 				<div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl" th:each="c, iterStat : ${category}">
 					<a th:href="@{'/products?category=' + ${c.encodedName}}" class="category-card-modern h-100">
-						<div class="category-img-box" th:style="'background: ' + (${iterStat.index % 7 == 0 ? 'var(--tint-sky)' : (iterStat.index % 7 == 1 ? 'var(--tint-lilac)' : (iterStat.index % 7 == 2 ? 'var(--tint-mint)' : (iterStat.index % 7 == 3 ? 'var(--tint-sand)' : (iterStat.index % 7 == 4 ? 'var(--tint-rose)' : (iterStat.index % 7 == 5 ? 'var(--tint-peach)' : 'var(--tint-lemon)')))))}">
+						<div class="category-img-box" th:classappend="'tint-' + ${iterStat.index % 7}">
 							<img th:src="@{'/img/category_img/'+${c.imageName}}" th:alt="${c.name}" style="max-height: 40px; max-width: 40px; object-fit: contain;">
 						</div>
 						<p class="category-name">[[${c.name}]]</p>
@@ -188,7 +188,7 @@
 							</a>
 
 							<!-- Thumbnail with Pastel Tint -->
-							<div class="product-thumb-wrap" th:style="'background: ' + (${iterStat.index % 4 == 0 ? 'var(--tint-sky)' : (iterStat.index % 4 == 1 ? 'var(--tint-lilac)' : (iterStat.index % 4 == 2 ? 'var(--tint-mint)' : 'var(--tint-sand)'))})">
+							<div class="product-thumb-wrap" th:classappend="'tint-' + ${iterStat.index % 4}">
 								<img th:src="@{'/img/product_img/'+${p.image}}" th:alt="${p.title}" loading="lazy">
 								<div th:if="${p.stock <= 0}" class="position-absolute top-50 start-50 translate-middle badge bg-dark bg-opacity-75 text-white px-3 py-2">
 									TẠM HẾT HÀNG
@@ -202,8 +202,8 @@
 
 									<div class="product-rating">
 										<i class="fa-solid fa-star"></i>
-										<span class="fw-semibold">[[${p.rating}]]</span>
-										<span class="text-muted">· Đã bán [[${p.reviewCount * 12 + 15}]]</span>
+										<span class="fw-semibold">[[${p.rating != null ? p.rating : 5.0}]]</span>
+										<span class="text-muted">· Đã bán [[${(p.reviewCount != null ? p.reviewCount : 0) * 12 + 15}]]</span>
 									</div>
 								</div>
 
@@ -246,7 +246,7 @@
 						</a>
 
 						<!-- Thumbnail with Pastel Background Tint -->
-						<div class="product-thumb-wrap" th:style="'background: ' + (${iterStat.index % 4 == 0 ? 'var(--tint-sky)' : (iterStat.index % 4 == 1 ? 'var(--tint-lilac)' : (iterStat.index % 4 == 2 ? 'var(--tint-mint)' : 'var(--tint-rose)'))})">
+						<div class="product-thumb-wrap" th:classappend="'tint-' + ${iterStat.index % 4}">
 							<img th:src="@{'/img/product_img/'+${p.image}}" th:alt="${p.title}" loading="lazy">
 							<div th:if="${p.stock <= 0}" class="position-absolute top-50 start-50 translate-middle badge bg-dark bg-opacity-75 text-white px-3 py-2">
 								HẾT HÀNG
@@ -260,8 +260,8 @@
 
 								<div class="product-rating">
 									<i class="fa-solid fa-star"></i>
-									<span class="fw-semibold">[[${p.rating}]]</span>
-									<span class="text-muted">· Đã bán [[${p.reviewCount * 15 + 23}]]</span>
+									<span class="fw-semibold">[[${p.rating != null ? p.rating : 5.0}]]</span>
+									<span class="text-muted">· Đã bán [[${(p.reviewCount != null ? p.reviewCount : 0) * 15 + 23}]]</span>
 								</div>
 							</div>
 

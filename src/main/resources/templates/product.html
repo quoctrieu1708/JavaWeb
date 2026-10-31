@@ -101,7 +101,7 @@
 								<button type="submit" class="btn btn-dark-brand btn-sm py-2 rounded-xl fw-bold">
 									Áp dụng bộ lọc
 								</button>
-								<a th:href="@{'/products' + (${paramValue != null and paramValue != ''} ? '?category=' + ${encodedParamValue} : '')}" class="btn btn-outline-secondary btn-sm rounded-pill text-secondary" style="font-size: 0.78rem;">
+								<a th:href="${paramValue != null and paramValue != '' ? '/products?category=' + encodedParamValue : '/products'}" class="btn btn-outline-secondary btn-sm rounded-pill text-secondary" style="font-size: 0.78rem;">
 									Đặt lại bộ lọc
 								</a>
 							</div>
@@ -125,7 +125,7 @@
 								</a>
 
 								<!-- Thumbnail with Pastel Background Tint -->
-								<div class="product-thumb-wrap" th:style="'background: ' + (${iterStat.index % 4 == 0 ? 'var(--tint-sky)' : (iterStat.index % 4 == 1 ? 'var(--tint-peach)' : (iterStat.index % 4 == 2 ? 'var(--tint-mint)' : 'var(--tint-lilac)'))})">
+								<div class="product-thumb-wrap" th:classappend="'tint-' + ${iterStat.index % 4}">
 									<img th:src="@{'/img/product_img/'+${p.image}}" th:alt="${p.title}" loading="lazy">
 									<div th:if="${p.stock <= 0}" class="position-absolute top-50 start-50 translate-middle badge bg-dark bg-opacity-75 text-white px-3 py-2">
 										HẾT HÀNG
@@ -139,8 +139,8 @@
 
 										<div class="product-rating">
 											<i class="fa-solid fa-star"></i>
-											<span class="fw-semibold">[[${p.rating}]]</span>
-											<span class="text-muted">· Đã bán [[${p.reviewCount * 18 + 12}]]</span>
+											<span class="fw-semibold">[[${p.rating != null ? p.rating : 5.0}]]</span>
+											<span class="text-muted">· Đã bán [[${(p.reviewCount != null ? p.reviewCount : 0) * 18 + 12}]]</span>
 										</div>
 									</div>
 
@@ -171,21 +171,25 @@
 							<ul class="pagination pagination-sm gap-1">
 								<!-- Prev -->
 								<li class="page-item" th:classappend="${isFirst} ? 'disabled'">
-									<a class="page-link rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" th:href="@{'/products?pageNo=' + ${pageNo - 1} + (${paramValue != null and paramValue != ''} ? '&category=' + ${encodedParamValue} : '') + (${ch != null and ch != ''} ? '&ch=' + ${ch} : '') + (${minPrice != null} ? '&minPrice=' + ${minPrice} : '') + (${maxPrice != null} ? '&maxPrice=' + ${maxPrice} : '') + (${sortBy != null} ? '&sortBy=' + ${sortBy} : '')}">
+									<a class="page-link rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" 
+									   th:href="@{/products(pageNo=${pageNo - 1}, category=${paramValue != '' ? paramValue : null}, ch=${ch != '' ? ch : null}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy=${sortBy})}">
 										<i class="fa-solid fa-chevron-left" style="font-size: 0.75rem;"></i>
 									</a>
 								</li>
 
 								<!-- Numbers -->
 								<li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}" th:classappend="${pageNo + 1 == i} ? 'active'">
-									<a class="page-link rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 36px; height: 36px;" th:style="${pageNo + 1 == i} ? 'background: #17181f; border-color: #17181f; color: #ffffff;' : 'background: #ffffff; color: #17181f;'" th:href="@{'/products?pageNo=' + ${i - 1} + (${paramValue != null and paramValue != ''} ? '&category=' + ${encodedParamValue} : '') + (${ch != null and ch != ''} ? '&ch=' + ${ch} : '') + (${minPrice != null} ? '&minPrice=' + ${minPrice} : '') + (${maxPrice != null} ? '&maxPrice=' + ${maxPrice} : '') + (${sortBy != null} ? '&sortBy=' + ${sortBy} : '')}">
+									<a class="page-link rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 36px; height: 36px;" 
+									   th:classappend="${pageNo + 1 == i} ? 'page-active' : ''"
+									   th:href="@{/products(pageNo=${i - 1}, category=${paramValue != '' ? paramValue : null}, ch=${ch != '' ? ch : null}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy=${sortBy})}">
 										[[${i}]]
 									</a>
 								</li>
 
 								<!-- Next -->
 								<li class="page-item" th:classappend="${isLast} ? 'disabled'">
-									<a class="page-link rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" th:href="@{'/products?pageNo=' + ${pageNo + 1} + (${paramValue != null and paramValue != ''} ? '&category=' + ${encodedParamValue} : '') + (${ch != null and ch != ''} ? '&ch=' + ${ch} : '') + (${minPrice != null} ? '&minPrice=' + ${minPrice} : '') + (${maxPrice != null} ? '&maxPrice=' + ${maxPrice} : '') + (${sortBy != null} ? '&sortBy=' + ${sortBy} : '')}">
+									<a class="page-link rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" 
+									   th:href="@{/products(pageNo=${pageNo + 1}, category=${paramValue != '' ? paramValue : null}, ch=${ch != '' ? ch : null}, minPrice=${minPrice}, maxPrice=${maxPrice}, sortBy=${sortBy})}">
 										<i class="fa-solid fa-chevron-right" style="font-size: 0.75rem;"></i>
 									</a>
 								</li>

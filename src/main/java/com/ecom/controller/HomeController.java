@@ -148,6 +148,9 @@ public class HomeController {
 	@GetMapping("/product/{id}")
 	public String product(@PathVariable int id, Model m, Principal p) {
 		Product productById = productService.getProductById(id);
+		if (productById == null) {
+			return "redirect:/products";
+		}
 		m.addAttribute("product", productById);
 
 		// Reviews & Ratings

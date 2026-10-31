@@ -74,9 +74,9 @@
 								<i class="fa-solid fa-star"></i>
 								<span class="fw-bold text-dark ms-1">[[${avgRating}]]</span>
 							</div>
-							<span>([[${reviewCount}]] đánh giá)</span>
+							<span>([[${reviewCount != null ? reviewCount : 0}]] đánh giá)</span>
 							<span>·</span>
-							<span>Đã bán [[${reviewCount * 25 + 50}]]</span>
+							<span>Đã bán [[${(reviewCount != null ? reviewCount : 0) * 25 + 50}]]</span>
 						</div>
 
 						<!-- Price Box (Figma Spec) -->

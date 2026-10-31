@@ -79,7 +79,7 @@ public class HomeController {
 	public String index(Model m) {
 
 		List<Category> allActiveCategory = categoryService.getAllActiveCategory().stream()
-				.sorted((c1, c2) -> c2.getId().compareTo(c1.getId())).limit(6).toList();
+				.limit(8).toList();
 		// Truy vấn phân trang trực tiếp dưới DB thay vì tải toàn bộ sản phẩm lên RAM
 		List<Product> flashSaleProducts = productService.getFlashSaleProducts(4);
 		List<Product> allActiveProducts = productService.getLatestActiveProducts(8);
@@ -110,10 +110,20 @@ public class HomeController {
 			@RequestParam(name = "sortBy", defaultValue = "latest") String sortBy,
 			jakarta.servlet.http.HttpServletRequest request) {
 
-		if ("Điện thoại".equals(category.trim()) && request.getParameter("Tablet") != null) {
-			category = "Điện thoại & Tablet";
-		} else if ("Laptop".equals(category.trim()) && request.getParameter("Máy tính") != null) {
-			category = "Laptop & Máy tính";
+		if ("Điện thoại & Tablet".equalsIgnoreCase(category.trim())) {
+			category = "Điện thoại";
+		} else if ("Laptop & Máy tính".equalsIgnoreCase(category.trim())) {
+			category = "Laptop";
+		} else if ("Đồ gia dụng".equalsIgnoreCase(category.trim())) {
+			category = "Gia dụng";
+		} else if ("Thời trang nam nữ".equalsIgnoreCase(category.trim())) {
+			category = "Thời trang";
+		} else if ("Mỹ phẩm & Làm đẹp".equalsIgnoreCase(category.trim())) {
+			category = "Làm đẹp";
+		} else if ("Sách & VPP".equalsIgnoreCase(category.trim())) {
+			category = "Sách";
+		} else if ("Phụ kiện công nghệ".equalsIgnoreCase(category.trim())) {
+			category = "Phụ kiện";
 		}
 
 		List<Category> categories = categoryService.getAllActiveCategory();

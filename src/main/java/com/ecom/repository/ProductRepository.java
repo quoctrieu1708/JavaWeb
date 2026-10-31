@@ -59,4 +59,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@org.springframework.data.jpa.repository.Query("UPDATE Product p SET p.stock = p.stock + :qty WHERE p.id = :id")
 	int increaseStock(@org.springframework.data.repository.query.Param("id") Integer id,
 			@org.springframework.data.repository.query.Param("qty") int qty);
+
+	@org.springframework.data.jpa.repository.Modifying
+	@org.springframework.data.jpa.repository.Query("UPDATE Product p SET p.category = :newCat WHERE p.category = :oldCat")
+	int updateProductCategory(@org.springframework.data.repository.query.Param("oldCat") String oldCat,
+			@org.springframework.data.repository.query.Param("newCat") String newCat);
 }

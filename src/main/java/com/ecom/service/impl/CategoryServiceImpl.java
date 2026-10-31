@@ -51,9 +51,26 @@ public class CategoryServiceImpl implements CategoryService {
 		return category;
 	}
 
+	private static final List<String> FIGMA_CATEGORY_ORDER = List.of(
+			"Điện thoại", "Laptop", "Màn hình", "Gia dụng",
+			"Thời trang", "Làm đẹp", "Sách", "Thực phẩm"
+	);
+
 	@Override
 	public List<Category> getAllActiveCategory() {
-		List<Category> categories = categoryRepository.findByIsActiveTrue();
+		List<Category> categories = new java.util.ArrayList<>(categoryRepository.findByIsActiveTrue());
+		categories.sort((c1, c2) -> {
+			int idx1 = FIGMA_CATEGORY_ORDER.indexOf(c1.getName());
+			int idx2 = FIGMA_CATEGORY_ORDER.indexOf(c2.getName());
+			if (idx1 != -1 && idx2 != -1) {
+				return Integer.compare(idx1, idx2);
+			} else if (idx1 != -1) {
+				return -1;
+			} else if (idx2 != -1) {
+				return 1;
+			}
+			return Integer.compare(c1.getId(), c2.getId());
+		});
 		return categories;
 	}
 

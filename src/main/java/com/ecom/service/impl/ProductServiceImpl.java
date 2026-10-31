@@ -188,4 +188,14 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findByIsActiveTrue(pageable).getContent();
 	}
 
+	@Override
+	public List<Product> getFlashSaleProducts(int limit) {
+		Pageable pageable = PageRequest.of(0, limit);
+		List<Product> flashSale = productRepository.findFlashSaleProducts(pageable);
+		if (flashSale == null || flashSale.isEmpty()) {
+			return getLatestActiveProducts(limit);
+		}
+		return flashSale;
+	}
+
 }

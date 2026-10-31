@@ -42,4 +42,7 @@ public interface ProductService {
 	/** Lấy N sản phẩm đang bán mới nhất bằng truy vấn phân trang dưới DB. */
 	public List<Product> getLatestActiveProducts(int limit);
 
+	/** Lấy N sản phẩm Flash Sale có giảm giá cao nhất. */
+	public List<Product> getFlashSaleProducts(int limit);
+
 }

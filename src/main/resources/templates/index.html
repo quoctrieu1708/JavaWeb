@@ -175,7 +175,7 @@
 
 				<!-- Flash Sale Products Grid (Top 4 products) -->
 				<div class="row g-3">
-					<div class="col-xl-3 col-lg-3 col-sm-6" th:each="p, iterStat : ${products}" th:if="${iterStat.index < 4}">
+					<div class="col-xl-3 col-lg-3 col-sm-6" th:each="p, iterStat : ${flashSaleProducts}" th:if="${iterStat.index < 4}">
 						<div class="product-card h-100">
 							<!-- Discount Badge -->
 							<div class="ribbon-discount" th:if="${p.discount > 0}">
@@ -224,10 +224,9 @@
 				<h3 class="fw-bold fs-4 mb-0">Gợi ý cho bạn</h3>
 				<div class="d-flex flex-wrap gap-2">
 					<a href="/products" class="btn btn-dark-brand btn-sm px-3 rounded-pill">Tất cả</a>
-					<a href="/products?category=Điện thoại & Tablet" class="btn btn-brand-outline btn-sm px-3 rounded-pill">Điện thoại</a>
-					<a href="/products?category=Laptop & Máy tính" class="btn btn-brand-outline btn-sm px-3 rounded-pill">Laptop</a>
-					<a href="/products?category=Thời trang" class="btn btn-brand-outline btn-sm px-3 rounded-pill">Thời trang</a>
-					<a href="/products?category=Gia dụng" class="btn btn-brand-outline btn-sm px-3 rounded-pill">Gia dụng</a>
+					<a th:each="c, cStat : ${category}" th:if="${cStat.index < 4}" 
+					   th:href="@{'/products?category=' + ${c.encodedName}}" 
+					   class="btn btn-brand-outline btn-sm px-3 rounded-pill">[[${c.name}]]</a>
 				</div>
 			</div>
 

@@ -81,8 +81,10 @@ public class HomeController {
 		List<Category> allActiveCategory = categoryService.getAllActiveCategory().stream()
 				.sorted((c1, c2) -> c2.getId().compareTo(c1.getId())).limit(6).toList();
 		// Truy vấn phân trang trực tiếp dưới DB thay vì tải toàn bộ sản phẩm lên RAM
+		List<Product> flashSaleProducts = productService.getFlashSaleProducts(4);
 		List<Product> allActiveProducts = productService.getLatestActiveProducts(8);
 		m.addAttribute("category", allActiveCategory);
+		m.addAttribute("flashSaleProducts", flashSaleProducts);
 		m.addAttribute("products", allActiveProducts);
 		return "index";
 	}

@@ -38,6 +38,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 			@org.springframework.data.repository.query.Param("maxPrice") Double maxPrice,
 			Pageable pageable);
 
+	@org.springframework.data.jpa.repository.Query("SELECT p FROM Product p WHERE p.isActive = true AND p.discount > 0 ORDER BY p.discount DESC")
+	List<Product> findFlashSaleProducts(Pageable pageable);
+
 	Long countByStockLessThan(int threshold);
 
 	Long countByStockEquals(int stock);

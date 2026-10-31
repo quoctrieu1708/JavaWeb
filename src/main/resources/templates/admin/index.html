@@ -278,53 +278,55 @@ tailwind.config = {
         <div>
           <h3 class="text-lg font-bold font-headline text-[#17181f] mb-4">Sản phẩm bán chạy</h3>
           <div class="space-y-4">
-            <!-- Item 1 -->
-            <div class="flex items-center gap-3">
-              <span class="font-bold text-sm text-[#f2542d] w-4">1</span>
-              <div class="w-10 h-10 rounded-xl bg-[#dcebff] flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-lg text-[#2f6fed]">devices</span>
+            <th:block th:if="${topProducts != null and !#lists.isEmpty(topProducts)}">
+              <div class="flex items-center gap-3" th:each="tp, stat : ${topProducts}">
+                <span class="font-bold text-sm w-4" th:classappend="${stat.index == 0} ? 'text-[#f2542d]' : 'text-[#5a5d6a]'" th:text="${stat.count}">1</span>
+                <div class="w-10 h-10 rounded-xl bg-[#f3efe8] flex items-center justify-center shrink-0 overflow-hidden border border-[#e9e3d9]">
+                  <img th:if="${tp[2] != null and tp[2] != ''}" th:src="@{'/img/product_img/' + ${tp[2]}}" class="w-full h-full object-contain">
+                  <span th:unless="${tp[2] != null and tp[2] != ''}" class="material-symbols-outlined text-lg text-[#2f6fed]">devices</span>
+                </div>
+                <div class="flex-grow min-w-0">
+                  <a th:href="@{'/product/' + ${tp[0]}}" target="_blank" class="text-sm font-semibold text-[#17181f] truncate block hover:text-[#f2542d] transition-colors" th:text="${tp[1]}">iPhone 14</a>
+                  <div class="text-xs text-[#5a5d6a]" th:text="${tp[4] + ' đã bán'}">1.200 đã bán</div>
+                </div>
               </div>
-              <div class="flex-grow min-w-0">
-                <div class="text-sm font-semibold text-[#17181f] truncate">iPhone 14 128GB</div>
-                <div class="text-xs text-[#5a5d6a]">2.314 đã bán</div>
-              </div>
-            </div>
+            </th:block>
 
-            <!-- Item 2 -->
-            <div class="flex items-center gap-3">
-              <span class="font-bold text-sm text-[#5a5d6a] w-4">2</span>
-              <div class="w-10 h-10 rounded-xl bg-[#ffede6] flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-lg text-[#f2542d]">laptop</span>
+            <th:block th:if="${topProducts == null or #lists.isEmpty(topProducts)}">
+              <!-- Default mockup display if no purchase records yet -->
+              <div class="flex items-center gap-3">
+                <span class="font-bold text-sm text-[#f2542d] w-4">1</span>
+                <div class="w-10 h-10 rounded-xl bg-[#dcebff] flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-lg text-[#2f6fed]">devices</span>
+                </div>
+                <div class="flex-grow min-w-0">
+                  <div class="text-sm font-semibold text-[#17181f] truncate">iPhone 14 128GB</div>
+                  <div class="text-xs text-[#5a5d6a]">2.314 đã bán</div>
+                </div>
               </div>
-              <div class="flex-grow min-w-0">
-                <div class="text-sm font-semibold text-[#17181f] truncate">Laptop HP 15s Ryzen 5</div>
-                <div class="text-xs text-[#5a5d6a]">1.208 đã bán</div>
-              </div>
-            </div>
 
-            <!-- Item 3 -->
-            <div class="flex items-center gap-3">
-              <span class="font-bold text-sm text-[#5a5d6a] w-4">3</span>
-              <div class="w-10 h-10 rounded-xl bg-[#e9e1fa] flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-lg text-[#7048e8]">monitor</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold text-sm text-[#5a5d6a] w-4">2</span>
+                <div class="w-10 h-10 rounded-xl bg-[#ffede6] flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-lg text-[#f2542d]">laptop</span>
+                </div>
+                <div class="flex-grow min-w-0">
+                  <div class="text-sm font-semibold text-[#17181f] truncate">Laptop HP 15s Ryzen 5</div>
+                  <div class="text-xs text-[#5a5d6a]">1.208 đã bán</div>
+                </div>
               </div>
-              <div class="flex-grow min-w-0">
-                <div class="text-sm font-semibold text-[#17181f] truncate">Màn hình Dell 27" 2K</div>
-                <div class="text-xs text-[#5a5d6a]">986 đã bán</div>
-              </div>
-            </div>
 
-            <!-- Item 4 -->
-            <div class="flex items-center gap-3">
-              <span class="font-bold text-sm text-[#5a5d6a] w-4">4</span>
-              <div class="w-10 h-10 rounded-xl bg-[#d9f2e6] flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-lg text-[#12a150]">styler</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold text-sm text-[#5a5d6a] w-4">3</span>
+                <div class="w-10 h-10 rounded-xl bg-[#e9e1fa] flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-lg text-[#7048e8]">monitor</span>
+                </div>
+                <div class="flex-grow min-w-0">
+                  <div class="text-sm font-semibold text-[#17181f] truncate">Màn hình Dell 27" 2K</div>
+                  <div class="text-xs text-[#5a5d6a]">986 đã bán</div>
+                </div>
               </div>
-              <div class="flex-grow min-w-0">
-                <div class="text-sm font-semibold text-[#17181f] truncate">Giày sneaker trắng</div>
-                <div class="text-xs text-[#5a5d6a]">874 đã bán</div>
-              </div>
-            </div>
+            </th:block>
           </div>
         </div>
 
@@ -370,7 +372,7 @@ tailwind.config = {
                     </div>
                   </div>
                 </td>
-                <td class="py-4 px-5 text-xs text-[#5a5d6a]" th:text="${#dates.format(ord.orderDate, 'dd/MM/yyyy')}">28/10/2026</td>
+                <td class="py-4 px-5 text-xs text-[#5a5d6a]" th:text="${ord.orderDate != null ? #temporals.format(ord.orderDate, 'dd/MM/yyyy') : ''}">28/10/2026</td>
                 <td class="py-4 px-5 font-bold text-xs text-[#17181f]" th:text="${#numbers.formatDecimal(ord.price * ord.quantity, 0, 'POINT', 0, 'COMMA') + '₫'}">19.280.000₫</td>
                 <td class="py-4 px-5">
                   <span th:if="${ord.status == 'Đã giao hàng'}" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#e3f6ea] text-[#12a150]">Hoàn thành</span>
@@ -438,21 +440,25 @@ tailwind.config = {
 document.addEventListener("DOMContentLoaded", function() {
   var ctx = document.getElementById('revenueBarChart');
   if (ctx) {
+    var realDates = /*[[${chartDates}]]*/ [];
+    var realRevenues = /*[[${chartRevenues}]]*/ [];
+
+    var labels = (realDates && realDates.length > 0) ? realDates : ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+    var data = (realRevenues && realRevenues.length > 0) ? realRevenues.map(function(val) { return Math.round(val / 1000000); }) : [62, 85, 70, 110, 96, 140, 120];
+
+    // Find index of maximum value for coral peak highlight
+    var maxVal = Math.max.apply(null, data);
+    var bgColors = data.map(function(val) {
+      return (val === maxVal && maxVal > 0) ? '#f2542d' : '#ffe3d6';
+    });
+
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'],
+        labels: labels,
         datasets: [{
-          data: [62, 85, 70, 110, 96, 140, 120],
-          backgroundColor: [
-            '#ffe3d6',
-            '#ffe3d6',
-            '#ffe3d6',
-            '#ffe3d6',
-            '#ffe3d6',
-            '#f2542d', // Highlight peak on Saturday
-            '#ffe3d6'
-          ],
+          data: data,
+          backgroundColor: bgColors,
           borderRadius: 8,
           borderSkipped: false,
           barPercentage: 0.55

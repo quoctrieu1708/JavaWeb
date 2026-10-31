@@ -30,9 +30,9 @@ public interface ProductOrderRepository extends JpaRepository<ProductOrder, Inte
 	       "GROUP BY po.orderDate ORDER BY po.orderDate ASC")
 	List<Object[]> getRevenueByDate();
 
-	@Query("SELECT po.product.title, SUM(po.quantity) " +
+	@Query("SELECT po.product.id, po.product.title, po.product.image, po.product.category, SUM(po.quantity) " +
 	       "FROM ProductOrder po WHERE po.status != 'Đã hủy' AND po.status != 'Cancelled' " +
-	       "GROUP BY po.product.id, po.product.title ORDER BY SUM(po.quantity) DESC")
+	       "GROUP BY po.product.id, po.product.title, po.product.image, po.product.category ORDER BY SUM(po.quantity) DESC")
 	List<Object[]> getTopSellingProducts(Pageable pageable);
 
 	@Query("SELECT po.status, COUNT(po) FROM ProductOrder po GROUP BY po.status")
